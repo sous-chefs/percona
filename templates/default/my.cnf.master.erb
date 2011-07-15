@@ -50,7 +50,7 @@ basedir           = <%= node[:percona][:server][:basedir] %>
 datadir           = <%= node[:percona][:server][:datadir] %>
 tmpdir            = <%= node[:percona][:server][:tmpdir] %>
 slave_load_tmpdir = <%= node[:percona][:server][:tmpdir] %>
-language          = <%= node[:percona][:server][:language] %>
+# language          = <%= node[:percona][:server][:language] %>
 
 <% if node[:percona][:server][:skip_external_locking] %>
 skip-external-locking

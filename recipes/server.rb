@@ -6,7 +6,7 @@ def mysql_initial_install?
 end
 
 # install packages
-package "percona-server-server-5.1" do
+package "percona-server-server" do
   options "--force-yes"
 end
 

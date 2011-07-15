@@ -57,7 +57,7 @@ old_passwords = <%= node[:percona][:server][:old_passwords] %>
 #
 # Instead of skip-networking the default is now to listen only on
 # localhost which is more compatible and is not less secure.
-<% if !node[:percona][:server][:bind_address].blank? %>
+<% if !node[:percona][:server][:bind_address].empty? %>
 bind-address = <%= node[:percona][:server][:bind_address] %>
 <% end %>
 

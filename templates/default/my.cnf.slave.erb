@@ -66,7 +66,7 @@ old_passwords = <%= node[:percona][:server][:old_passwords] %>
 #
 # Instead of skip-networking the default is now to listen only on
 # localhost which is more compatible and is not less secure.
-<% if !node[:percona][:server][:bind_address].blank? %>
+<% if !node[:percona][:server][:bind_address].empty? %>
 bind-address = <%= node[:percona][:server][:bind_address] %>
 <% end %>
 #
@@ -385,7 +385,7 @@ innodb_file_per_table
 
 # Set this option if you would like the InnoDB tablespace files to be
 # stored in another location. By default this is the MySQL datadir.
-<% if !node[:percona][:server][:innodb_data_home_dir].blank? %>
+<% if !node[:percona][:server][:innodb_data_home_dir].empty? %>
 innodb_data_home_dir = <%= node[:percona][:server][:innodb_data_home_dir] %>
 <% end %>
 

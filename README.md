@@ -24,6 +24,8 @@ This cookbook installs the Percona MySQL components if not present, and pulls up
 
 # ATTRIBUTES
 
+* `node[:percona][:server][:role]` default: "standalone"
+
 ## Basic Settings
 
 * `node[:percona][:server][:username]`                        default: "mysql"

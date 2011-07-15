@@ -19,6 +19,7 @@
 # limitations under the License.
 #
 
+default[:percona][:server][:role]                            = "standalone"
 default[:percona][:server][:username]                        = "mysql"
 default[:percona][:server][:datadir]                         = "/var/lib/mysql"
 default[:percona][:server][:includedir]                      = "/etc/mysql/conf.d/"

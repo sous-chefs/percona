@@ -19,6 +19,7 @@ end
 
 # install dependent package
 %w[libmysqlclient16-dev percona-server-common].each do |pkg|
-package pkg do
-  options "--force-yes"
+  package pkg do
+    options "--force-yes"
+  end
 end

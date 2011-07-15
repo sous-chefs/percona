@@ -18,8 +18,6 @@ execute "install percona gpg key" do
 end
 
 # install dependent package
-%w[libmysqlclient-dev percona-server-common].each do |pkg|
-  package pkg do
-    options "--force-yes"
-  end
+package "libmysqlclient-dev" do
+  options "--force-yes"
 end

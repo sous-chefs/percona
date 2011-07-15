@@ -24,7 +24,7 @@ This cookbook installs the Percona MySQL components if not present, and pulls up
 
 # ATTRIBUTES
 
-* `node[:percona][:server][:role]` default: "standalone"
+* `node[:percona][:server][:role]` default: "standalone", options: "standalone", "master", "slave"
 
 ## Basic Settings
 
@@ -32,8 +32,9 @@ This cookbook installs the Percona MySQL components if not present, and pulls up
 * `node[:percona][:server][:datadir]`                         default: "/var/lib/mysql"
 * `node[:percona][:server][:includedir]`                      default: "/etc/mysql/conf.d/"
 * `node[:percona][:server][:tmpdir]`                          default: "/tmp"
+* `node[:percona][:server][:root_password]`                   default: "123-changeme"
 * `node[:percona][:server][:debian_username]`                 default: "debian-sys-maint"
-* `node[:percona][:server][:debian_password]`                 default: "123-changeme!"
+* `node[:percona][:server][:debian_password]`                 default: "123-changeme"
 * `node[:percona][:server][:socket]`                          default: "/var/run/mysqld/mysqld.sock"
 * `node[:percona][:server][:nice]`                            default: 0
 * `node[:percona][:server][:open_files_limit]`                default: 16384
@@ -66,6 +67,7 @@ This cookbook installs the Percona MySQL components if not present, and pulls up
 * `node[:percona][:server][:max_connections]`                 default: 30
 * `node[:percona][:server][:max_connect_errors]`              default: 9999999
 * `node[:percona][:server][:table_cache]`                     default: 8192
+* `node[:percona][:server][:bulk_insert_buffer_size]`         default: "64M"
 
 ## Query Cache Configuration
 
@@ -86,22 +88,29 @@ This cookbook installs the Percona MySQL components if not present, and pulls up
 * `node[:percona][:server][:log_slave_updates]`               default: false
 * `node[:percona][:server][:log_warnings]`                    default: true
 * `node[:percona][:server][:log_long_format]`                 default: false
-* `node[:percona][:server][:bulk_insert_buffer_size]`         default: "64M"
+
+### Replication options
+
+* `node[:percona][:server][:replication][:read_only]`         default: false
+* `node[:percona][:server][:replication][:host]`              default: ""
+* `node[:percona][:server][:replication][:username]`          default: ""
+* `node[:percona][:server][:replication][:password]`          default: ""
+* `node[:percona][:server][:replication][:port]`              default: 3306
 
 ## MyISAM Specific options
 
 * `node[:percona][:server][:myisam_sort_buffer_size]`         default: "128M"
 * `node[:percona][:server][:myisam_max_sort_file_size]`       default: "10G"
 * `node[:percona][:server][:myisam_repair_threads]`           default: 1
-* `node[:percona][:server][:myisam_recover]`                  default: true
+* `node[:percona][:server][:myisam_recover]`                  default: "BACKUP"
 
 ## BDB Specific options
 
 * `node[:percona][:server][:skip_bdb]`                        default: true
-* `node[:percona][:server][:skip_innodb]`                     default: false
 
 ## InnoDB Specific options
 
+* `node[:percona][:server][:skip_innodb]`                     default: false
 * `node[:percona][:server][:innodb_additional_mem_pool_size]` default: "32M"
 * `node[:percona][:server][:innodb_buffer_pool_size]`         default: "6G"
 * `node[:percona][:server][:innodb_data_file_path]`           default: "ibdata1:1G:autoextend"
@@ -116,14 +125,6 @@ This cookbook installs the Percona MySQL components if not present, and pulls up
 * `node[:percona][:server][:innodb_max_dirty_pages_pct]`      default: 80
 * `node[:percona][:server][:innodb_flush_method]`             default: "O_DIRECT"
 * `node[:percona][:server][:innodb_lock_wait_timeout]`        default: 120
-
-## Replication options
-
-* `node[:percona][:server][:replication][:read_only]`         default: false
-* `node[:percona][:server][:replication][:host]`              default: ""
-* `node[:percona][:server][:replication][:username]`          default: ""
-* `node[:percona][:server][:replication][:password]`          default: ""
-* `node[:percona][:server][:replication][:port]`              default: 3306
 
 
 # LICENSE and AUTHOR:

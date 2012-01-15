@@ -4,17 +4,14 @@
 #
 
 # configure apt repository
-template "/etc/apt/sources.list.d/percona.list" do
-  mode 0644
-  variables :code_name => node[:lsb][:codename]
-  notifies :run, resources(:execute => "apt-get update"), :immediately
-  source "percona.list.erb"
-end
-
-# install the gpg key
-execute "install percona gpg key" do
-  command "curl http://www.percona.com/downloads/RPM-GPG-KEY-percona | apt-key add -"
-  not_if "apt-key list | grep -i percona"
+apt_repository "percona" do
+  uri "http://repo.percona.com/apt"
+  distribution node[:lsb][:codename]
+  components ["main"]
+  keyserver "keys.gnupg.net"
+  key "1C4CBDCDCD2EFD2A"
+  action :add
+  notifies :run, "execute[apt-get update]", :immediately
 end
 
 # install dependent package

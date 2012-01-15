@@ -18,6 +18,13 @@ GRANT REPLICATION SLAVE ON *.*
 <% end -%>
 
 
+<% if node[:percona][:backup][:configure] %>
+# Grant permissions for the XtraBackup user
+CREATE USER '<%= node[:percona][:backup][:username] %>'@'localhost' IDENTIFIED BY '<%= node[:percona][:backup][:password] %>';
+REVOKE ALL PRIVILEGES, GRANT OPTION FROM '<%= node[:percona][:backup][:username] %>';
+GRANT RELOAD, LOCK TABLES, REPLICATION CLIENT ON *.* TO '<%= node[:percona][:backup][:username] %>'@'localhost';
+<% end -%>
+
 # Set the server root password. This should be preseeded by the package installation.
 SET PASSWORD FOR 'root'@'localhost' = PASSWORD('<%= node[:percona][:server][:root_password] %>');
 

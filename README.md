@@ -1,6 +1,6 @@
 # DESCRIPTION
 
-Installs the [Percona MySQL](http://www.percona.com/software/percona-server) client and/or server components.
+Installs the [Percona MySQL](http://www.percona.com/software/percona-server) client and/or server components. Optionally installs the [XtraBackup](http://www.percona.com/software/percona-xtrabackup/) hot backup software.
 
 
 # REQUIREMENTS
@@ -17,6 +17,8 @@ The following platforms are supported by this cookbook, meaning that the recipes
 * `percona` - The default recipe. This sets up the apt repository and install common packages.
 * `percona::client` - Installs the Percona MySQL client libraries.
 * `percona::server` - Installs and configures the Percona MySQL server daemon.
+* `percona::backup` - Installs and configures the Percona XtraBackup hot backup software.
+* `percona::access_grants` - Used internally to grant permissions for recipes.
 
 # USAGE
 
@@ -126,12 +128,18 @@ This cookbook installs the Percona MySQL components if not present, and pulls up
 * `node[:percona][:server][:innodb_flush_method]`             default: "O_DIRECT"
 * `node[:percona][:server][:innodb_lock_wait_timeout]`        default: 120
 
+## XtraBackup Specific options
+
+* `node[:percona][:backup][:configure]`                       default: false
+* `node[:percona][:backup][:username]`                        default: "backup"
+* `node[:percona][:backup][:password]`                        default: "123-changeme"
+
 
 # LICENSE and AUTHOR:
 
 Author:: Phil Cohen (<github@phlippers.net>)
 
-Copyright:: 2011, Phil Cohen
+Copyright:: 2011-2012, Phil Cohen
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

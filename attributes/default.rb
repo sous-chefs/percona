@@ -98,3 +98,4 @@ default[:percona][:server][:replication][:port]              = 3306
 default[:percona][:backup][:configure]                       = false
 default[:percona][:backup][:username]                        = "backup"
 default[:percona][:backup][:password]                        = "123-changeme"
+default[:percona][:keyserver]                                = "keys.gnupg.net"

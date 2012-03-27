@@ -27,6 +27,7 @@ This cookbook installs the Percona MySQL components if not present, and pulls up
 # ATTRIBUTES
 
 * `node[:percona][:server][:role]` default: "standalone", options: "standalone", "master", "slave"
+* `node[:percona][:keyserver]` default: "keys.gnupg.net"
 
 ## Basic Settings
 

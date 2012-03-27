@@ -138,7 +138,7 @@ This cookbook installs the Percona MySQL components if not present, and pulls up
 
 # LICENSE and AUTHOR:
 
-Author:: Phil Cohen (<github@phlippers.net>)
+Author:: Phil Cohen (<github@phlippers.net>) [![endorse](http://api.coderwall.com/phlipper/endorsecount.png)](http://coderwall.com/phlipper)
 
 Copyright:: 2011-2012, Phil Cohen
 

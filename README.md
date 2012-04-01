@@ -175,7 +175,7 @@ Above shows the encrypted password in the data bag. Check out the `encrypted_dat
 
 Many thanks go to the following who have contributed to making this cookbook even better:
 
-* @jagcrete - configurable keyserver support and encrypted password data bag support
+* **[@jagcrete](https://github.com/jagcrete)** - configurable keyserver support and encrypted password data bag support
 
 
 # LICENSE and AUTHOR:

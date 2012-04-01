@@ -18,7 +18,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
 default[:percona][:server][:role]                            = "standalone"
 default[:percona][:server][:username]                        = "mysql"
 default[:percona][:server][:datadir]                         = "/var/lib/mysql"
@@ -99,3 +98,4 @@ default[:percona][:backup][:configure]                       = false
 default[:percona][:backup][:username]                        = "backup"
 default[:percona][:backup][:password]                        = "123-changeme"
 default[:percona][:keyserver]                                = "keys.gnupg.net"
+default[:percona][:encrypted_data_bag]                       = "passwords"

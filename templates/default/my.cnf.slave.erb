@@ -61,7 +61,7 @@ net_read_timeout = <%= node[:percona][:server][:net_read_timeout] %>
 #
 # For compatibility to other Debian packages that still use
 # libmysqlclient10 and libmysqlclient12.
-old_passwords = <%= node[:percona][:server][:old_passwords] %>
+old_passwords = <%= @old_passwords %>
 
 #
 # Instead of skip-networking the default is now to listen only on
@@ -246,7 +246,7 @@ read_only
 
 master-host      = <%= node[:percona][:server][:replication][:host] %>
 master-user      = <%= node[:percona][:server][:replication][:username] %>
-master-password  = <%= node[:percona][:server][:replication][:password] %>
+master-password  = <%= @replication_password %>
 master-port      = <%= node[:percona][:server][:replication][:port] %>
 
 log_bin          = <%= node[:percona][:server][:datadir] %>/mysql-bin.log

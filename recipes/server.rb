@@ -16,17 +16,21 @@ service "mysql" do
   action [:enable, :start]
 end
 
+# construct an encrypted passwords helper -- giving it the node and bag name
+passwords = EncryptedPasswords.new( node, node[:percona][:encrypted_data_bag] )
+
 # set initial root password
-if mysql_initial_install?
+#if mysql_initial_install?
+  # now let's set the root password
   execute "Update MySQL root password" do
-    command "mysqladmin -u root password '#{node[:percona][:server][:root_password]}'"
+    command "mysqladmin -u root password '#{passwords.root_password}'"
   end
-end
+#end
 
 # setup the data directory
 directory node[:percona][:server][:datadir] do
-  owner "mysql"
-  group "mysql"
+  owner node[:percona][:server][:username]
+  group node[:percona][:server][:username]
   action :create
 end
 
@@ -39,6 +43,7 @@ end
 # setup the main server config file
 template "/etc/mysql/my.cnf" do
   source "my.cnf.#{node[:percona][:server][:role]}.erb"
+  variables( :old_passwords => passwords.old_passwords )
   owner "root"
   group "root"
   mode 0744
@@ -48,6 +53,7 @@ end
 # setup the debian system user config
 template "/etc/mysql/debian.cnf" do
   source "debian.cnf.erb"
+  variables( :debian_password => passwords.debian_password )
   owner "root"
   group "root"
   mode 0744

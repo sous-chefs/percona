@@ -52,7 +52,7 @@ net_read_timeout = <%= node[:percona][:server][:net_read_timeout] %>
 #
 # For compatibility to other Debian packages that still use
 # libmysqlclient10 and libmysqlclient12.
-old_passwords = <%= node[:percona][:server][:old_passwords] %>
+old_passwords = <%= @old_passwords %>
 
 #
 # Instead of skip-networking the default is now to listen only on

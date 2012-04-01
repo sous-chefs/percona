@@ -2,7 +2,6 @@
 
 Installs the [Percona MySQL](http://www.percona.com/software/percona-server) client and/or server components. Optionally installs the [XtraBackup](http://www.percona.com/software/percona-xtrabackup/) hot backup software.
 
-
 # REQUIREMENTS
 
 ## Supported Platforms
@@ -24,10 +23,43 @@ The following platforms are supported by this cookbook, meaning that the recipes
 
 This cookbook installs the Percona MySQL components if not present, and pulls updates if they are installed on the system.
 
+## Encrypted Passwords
+This cookbook supports [Encrypted Data Bags](http://wiki.opscode.com/display/chef/Encrypted+Data+Bags).
+
+To use encrypted passwords, you must create an encrypted data bag. This cookbook assumes a data bag names "passwords", but you can override the name using the `node[:percona][:encrypted_data_bag]` attribute.
+This cookbook expects a "mysql" item  and a "system" item.
+
+### mysql item
+The mysql item should contain entries for root, backup, and replicaiton. If no value is found, the cookbook will fall back to the default non-encrypted password.
+
+### system item
+The "system" item should contain an entry for the debian system user as specified in the `node[:percona][:server][:debian_username]` attribute. If no such
+entry is found, the cookbook will fall back to the default non-encrypted password.
+
+Example: "passwords" data bag - this example assumes that `node[:percona][:server][:debian_username]=spud`
+`
+  { 
+    "mysql" : 
+    {
+      "root" : "trywgFA6R70NO28PNhMpGhEvKBZuxouemnbnAUQsUyo=\n"
+      "backup" : "eqoiudfj098389fjadfkadf=\n"
+      "replication" : "qwo0fj0213fm9020fm2023fjsld=\n"
+    },
+    "system" :
+    {
+      "spud" : "dwoifm2340f024jfadgfu243hf2=\n"
+    }
+  }
+`
+
+Above shows the encrypted password in the data bag. Check out the `encrypted_data_bag_secret` setting in `knife.rb` to setup your data bag
+secret during bootstrapping.
+
 # ATTRIBUTES
 
 * `node[:percona][:server][:role]` default: "standalone", options: "standalone", "master", "slave"
 * `node[:percona][:keyserver]` default: "keys.gnupg.net"
+* `node[:percona][:encrypted_data_bag]` default: "passwords"
 
 ## Basic Settings
 

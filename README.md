@@ -24,36 +24,39 @@ The following platforms are supported by this cookbook, meaning that the recipes
 This cookbook installs the Percona MySQL components if not present, and pulls updates if they are installed on the system.
 
 ## Encrypted Passwords
+
 This cookbook supports [Encrypted Data Bags](http://wiki.opscode.com/display/chef/Encrypted+Data+Bags).
 
-To use encrypted passwords, you must create an encrypted data bag. This cookbook assumes a data bag names "passwords", but you can override the name using the `node[:percona][:encrypted_data_bag]` attribute.
-This cookbook expects a "mysql" item  and a "system" item.
+To use encrypted passwords, you must create an encrypted data bag. This cookbook assumes a data bag named `passwords`, but you can override the name using the `node[:percona][:encrypted_data_bag]` attribute. 
+
+This cookbook expects a `mysql` item  and a `system` item.
 
 ### mysql item
+
 The mysql item should contain entries for root, backup, and replicaiton. If no value is found, the cookbook will fall back to the default non-encrypted password.
 
 ### system item
-The "system" item should contain an entry for the debian system user as specified in the `node[:percona][:server][:debian_username]` attribute. If no such
-entry is found, the cookbook will fall back to the default non-encrypted password.
 
-Example: "passwords" data bag - this example assumes that `node[:percona][:server][:debian_username]=spud`
-`
-  { 
-    "mysql" : 
-    {
-      "root" : "trywgFA6R70NO28PNhMpGhEvKBZuxouemnbnAUQsUyo=\n"
-      "backup" : "eqoiudfj098389fjadfkadf=\n"
-      "replication" : "qwo0fj0213fm9020fm2023fjsld=\n"
-    },
-    "system" :
-    {
-      "spud" : "dwoifm2340f024jfadgfu243hf2=\n"
-    }
+The "system" item should contain an entry for the debian system user as specified in the `node[:percona][:server][:debian_username]` attribute. If no such entry is found, the cookbook will fall back to the default non-encrypted password.
+
+Example: "passwords" data bag - this example assumes that `node[:percona][:server][:debian_username] = spud`
+
+```javascript
+{
+  "mysql" :
+  {
+    "root" : "trywgFA6R70NO28PNhMpGhEvKBZuxouemnbnAUQsUyo=\n"
+    "backup" : "eqoiudfj098389fjadfkadf=\n"
+    "replication" : "qwo0fj0213fm9020fm2023fjsld=\n"
+  },
+  "system" :
+  {
+    "spud" : "dwoifm2340f024jfadgfu243hf2=\n"
   }
-`
+}
+```
 
-Above shows the encrypted password in the data bag. Check out the `encrypted_data_bag_secret` setting in `knife.rb` to setup your data bag
-secret during bootstrapping.
+Above shows the encrypted password in the data bag. Check out the `encrypted_data_bag_secret` setting in `knife.rb` to setup your data bag secret during bootstrapping.
 
 # ATTRIBUTES
 
@@ -166,6 +169,13 @@ secret during bootstrapping.
 * `node[:percona][:backup][:configure]`                       default: false
 * `node[:percona][:backup][:username]`                        default: "backup"
 * `node[:percona][:backup][:password]`                        default: "123-changeme"
+
+
+# CONTRIBUTORS
+
+Many thanks go to the following who have contributed to making this cookbook even better:
+
+* @jagcrete - configurable keyserver support and encrypted password data bag support
 
 
 # LICENSE and AUTHOR:

@@ -17,12 +17,12 @@ class Chef::EncryptedPasswords
       # now, let's look for the user password 
       password = passwords[user]
     rescue 
-      Chef::Log.info("Failed to get encrypted password")
+      Chef::Log.info("Using non-encrypted password for #{user}, #{key}")
     end 
     # password will be nil if no encrypted data bag was loaded 
     # fall back to the attribute on this node 
     password ||= default 
-    Chef::Log.info("key='#{key}', user='#{user}', password=‘#{password}’")
+    #Chef::Log.info("key='#{key}', user='#{user}', password=‘#{password}’")
     return password 
   end
 

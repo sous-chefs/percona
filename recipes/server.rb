@@ -16,34 +16,44 @@ service "mysql" do
   action [:enable, :start]
 end
 
+percona = node[:percona]
+server = percona[:server]
+conf = percona[:conf]
+mysqld = conf[:mysqld]
+
 # construct an encrypted passwords helper -- giving it the node and bag name
-passwords = EncryptedPasswords.new( node, node[:percona][:encrypted_data_bag] )
+passwords = EncryptedPasswords.new( node, percona[:encrypted_data_bag] )
+
+datadir = mysqld[:datadir] unless mysqld.nil?
+datadir ||= server[:datadir]
+
+user = mysqld[:user] unless mysqld.nil?
+user ||= server[:user]
 
 # set initial root password
-#if mysql_initial_install?
+if mysql_initial_install?
   # now let's set the root password
   execute "Update MySQL root password" do
     command "mysqladmin -u root password '#{passwords.root_password}'"
   end
-#end
+end
 
 # setup the data directory
-directory node[:percona][:server][:datadir] do
-  owner node[:percona][:server][:username]
-  group node[:percona][:server][:username]
+directory datadir do
+  owner user 
+  group user
   action :create
 end
 
 # install db to the data directory
 execute "setup mysql datadir" do
-  command "mysql_install_db --user=mysql --datadir=#{node[:percona][:server][:datadir]}"
-  not_if { ::File.exists?("#{node[:percona][:server][:datadir]}/mysql/user.frm") }
+  command "mysql_install_db --user=#{user} --datadir=#{datadir}"
+  not_if { ::File.exists?("#{datadir}/mysql/user.frm") }
 end
 
 # setup the main server config file
 template "/etc/mysql/my.cnf" do
-  source "my.cnf.#{node[:percona][:server][:role]}.erb"
-  variables( :old_passwords => passwords.old_passwords )
+  source conf.nil? ? "my.cnf.#{server[:role]}.erb" : "my.cnf.loop.erb"
   owner "root"
   group "root"
   mode 0744

@@ -2,7 +2,11 @@
 
 ## Description
 
-Installs the [Percona MySQL](http://www.percona.com/software/percona-server) client and/or server components. Optionally installs the [XtraBackup](http://www.percona.com/software/percona-xtrabackup/) hot backup software.
+Installs the [Percona MySQL](http://www.percona.com/software/percona-server) client and/or server components. Optionally installs:
+
+* [XtraBackup](http://www.percona.com/software/percona-xtrabackup/) hot backup software
+* [Percona Toolkit](http://www.percona.com/software/percona-toolkit/) advanced command-line tools
+
 
 ## Requirements
 
@@ -19,6 +23,7 @@ The following platforms are supported by this cookbook, meaning that the recipes
 * `percona::client` - Installs the Percona MySQL client libraries.
 * `percona::server` - Installs and configures the Percona MySQL server daemon.
 * `percona::backup` - Installs and configures the Percona XtraBackup hot backup software.
+* `percona::toolkit` - Installs the Percona Toolkit software
 * `percona::access_grants` - Used internally to grant permissions for recipes.
 
 ## Usage

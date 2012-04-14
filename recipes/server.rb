@@ -17,18 +17,15 @@ service "mysql" do
 end
 
 percona = node[:percona]
-server = percona[:server]
-conf = percona[:conf]
-mysqld = conf[:mysqld]
+server  = percona[:server]
+conf    = percona[:conf]
+mysqld  = conf[:mysqld]
 
 # construct an encrypted passwords helper -- giving it the node and bag name
-passwords = EncryptedPasswords.new( node, percona[:encrypted_data_bag] )
+passwords = EncryptedPasswords.new(node, percona[:encrypted_data_bag])
 
-datadir = mysqld[:datadir] unless mysqld.nil?
-datadir ||= server[:datadir]
-
-user = mysqld[:user] unless mysqld.nil?
-user ||= server[:user]
+datadir = mysqld[:datadir] || server[:datadir]
+user    = mysqld[:user] || server[:user]
 
 # set initial root password
 if mysql_initial_install?
@@ -40,7 +37,7 @@ end
 
 # setup the data directory
 directory datadir do
-  owner user 
+  owner user
   group user
   action :create
 end
@@ -52,8 +49,13 @@ execute "setup mysql datadir" do
 end
 
 # setup the main server config file
+def config_source(conf)
+  source = conf ? "custom" : server[:role]
+  "my.cnf.#{source}.erb"
+end
+
 template "/etc/mysql/my.cnf" do
-  source conf.nil? ? "my.cnf.#{server[:role]}.erb" : "my.cnf.loop.erb"
+  source config_source(conf)
   owner "root"
   group "root"
   mode 0744
@@ -63,7 +65,7 @@ end
 # setup the debian system user config
 template "/etc/mysql/debian.cnf" do
   source "debian.cnf.erb"
-  variables( :debian_password => passwords.debian_password )
+  variables(:debian_password => passwords.debian_password)
   owner "root"
   group "root"
   mode 0744

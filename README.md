@@ -170,6 +170,18 @@ Above shows the encrypted password in the data bag. Check out the `encrypted_dat
 * `node[:percona][:backup][:username]`                        default: "backup"
 * `node[:percona][:backup][:password]`                        default: "123-changeme"
 
+## Explicit my.cnf templating
+In some situation it is preferable to explicitly define the attributes needed in a my.cnf file. This is enabled by adding categories to the `node[:percona][:conf]` attributes. All keys found in the `node[:percona][:conf]` map will represent categories in the my.cnf file. Each category contains a map of attributes that will be written to the my.cnf file for that category. See the example for more details.
+
+### Example:
+	node[:percona][:conf][:mysqld][:slow_query_log_file] = '/var/lib/mysql/data/mysql-slow.log'
+
+This configuration would write the mysqld category to the my.cnf file and have an attribute `slow_query_log_file` whose value would be `/var/lib/mysql/data/mysql-slow.log`
+
+### Example output (my.cnf):
+	[mysqld]
+	slow_query_log_file = /var/lib/mysql/data/mysql-slow.log
+ 
 
 # CONTRIBUTORS
 

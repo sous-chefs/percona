@@ -1,17 +1,19 @@
-# DESCRIPTION
+# chef-percona
+
+## Description
 
 Installs the [Percona MySQL](http://www.percona.com/software/percona-server) client and/or server components. Optionally installs the [XtraBackup](http://www.percona.com/software/percona-xtrabackup/) hot backup software.
 
-# REQUIREMENTS
+## Requirements
 
-## Supported Platforms
+### Supported Platforms
 
 The following platforms are supported by this cookbook, meaning that the recipes run on these platforms without error:
 
 * Ubuntu
 * Debian
 
-# RECIPES
+## Recipes
 
 * `percona` - The default recipe. This sets up the apt repository and install common packages.
 * `percona::client` - Installs the Percona MySQL client libraries.
@@ -19,11 +21,11 @@ The following platforms are supported by this cookbook, meaning that the recipes
 * `percona::backup` - Installs and configures the Percona XtraBackup hot backup software.
 * `percona::access_grants` - Used internally to grant permissions for recipes.
 
-# USAGE
+## Usage
 
 This cookbook installs the Percona MySQL components if not present, and pulls updates if they are installed on the system.
 
-## Encrypted Passwords
+### Encrypted Passwords
 
 This cookbook supports [Encrypted Data Bags](http://wiki.opscode.com/display/chef/Encrypted+Data+Bags).
 
@@ -31,11 +33,11 @@ To use encrypted passwords, you must create an encrypted data bag. This cookbook
 
 This cookbook expects a `mysql` item  and a `system` item.
 
-### mysql item
+#### mysql item
 
 The mysql item should contain entries for root, backup, and replicaiton. If no value is found, the cookbook will fall back to the default non-encrypted password.
 
-### system item
+#### system item
 
 The "system" item should contain an entry for the debian system user as specified in the `node[:percona][:server][:debian_username]` attribute. If no such entry is found, the cookbook will fall back to the default non-encrypted password.
 
@@ -58,13 +60,13 @@ Example: "passwords" data bag - this example assumes that `node[:percona][:serve
 
 Above shows the encrypted password in the data bag. Check out the `encrypted_data_bag_secret` setting in `knife.rb` to setup your data bag secret during bootstrapping.
 
-# ATTRIBUTES
+## Attributes
 
 * `node[:percona][:server][:role]` default: "standalone", options: "standalone", "master", "slave"
 * `node[:percona][:keyserver]` default: "keys.gnupg.net"
 * `node[:percona][:encrypted_data_bag]` default: "passwords"
 
-## Basic Settings
+### Basic Settings
 
 * `node[:percona][:server][:username]`                        default: "mysql"
 * `node[:percona][:server][:datadir]`                         default: "/var/lib/mysql"
@@ -86,7 +88,7 @@ Above shows the encrypted password in the data bag. Check out the `encrypted_dat
 * `node[:percona][:server][:old_passwords]`                   default: 1
 * `node[:percona][:server][:bind_address]`                    default: "127.0.0.1"
 
-## Fine Tuning
+### Fine Tuning
 
 * `node[:percona][:server][:key_buffer]`                      default: "16M"
 * `node[:percona][:server][:max_allowed_packet]`              default: "64M"
@@ -107,12 +109,12 @@ Above shows the encrypted password in the data bag. Check out the `encrypted_dat
 * `node[:percona][:server][:table_cache]`                     default: 8192
 * `node[:percona][:server][:bulk_insert_buffer_size]`         default: "64M"
 
-## Query Cache Configuration
+### Query Cache Configuration
 
 * `node[:percona][:server][:query_cache_size]`                default: "64M"
 * `node[:percona][:server][:query_cache_limit]`               default: "2M"
 
-## Logging and Replication
+### Logging and Replication
 
 * `node[:percona][:server][:sync_binlog]`                     default: 1
 * `node[:percona][:server][:slow_query_log]`                  default: "/var/log/mysql/mysql-slow.log"
@@ -127,7 +129,7 @@ Above shows the encrypted password in the data bag. Check out the `encrypted_dat
 * `node[:percona][:server][:log_warnings]`                    default: true
 * `node[:percona][:server][:log_long_format]`                 default: false
 
-### Replication options
+#### Replication options
 
 * `node[:percona][:server][:replication][:read_only]`         default: false
 * `node[:percona][:server][:replication][:host]`              default: ""
@@ -135,18 +137,18 @@ Above shows the encrypted password in the data bag. Check out the `encrypted_dat
 * `node[:percona][:server][:replication][:password]`          default: ""
 * `node[:percona][:server][:replication][:port]`              default: 3306
 
-## MyISAM Specific options
+### MyISAM Specific options
 
 * `node[:percona][:server][:myisam_sort_buffer_size]`         default: "128M"
 * `node[:percona][:server][:myisam_max_sort_file_size]`       default: "10G"
 * `node[:percona][:server][:myisam_repair_threads]`           default: 1
 * `node[:percona][:server][:myisam_recover]`                  default: "BACKUP"
 
-## BDB Specific options
+### BDB Specific options
 
 * `node[:percona][:server][:skip_bdb]`                        default: true
 
-## InnoDB Specific options
+### InnoDB Specific options
 
 * `node[:percona][:server][:skip_innodb]`                     default: false
 * `node[:percona][:server][:innodb_additional_mem_pool_size]` default: "32M"
@@ -164,33 +166,50 @@ Above shows the encrypted password in the data bag. Check out the `encrypted_dat
 * `node[:percona][:server][:innodb_flush_method]`             default: "O_DIRECT"
 * `node[:percona][:server][:innodb_lock_wait_timeout]`        default: 120
 
-## XtraBackup Specific options
+### XtraBackup Specific options
 
 * `node[:percona][:backup][:configure]`                       default: false
 * `node[:percona][:backup][:username]`                        default: "backup"
 * `node[:percona][:backup][:password]`                        default: "123-changeme"
 
 ## Explicit my.cnf templating
+
 In some situation it is preferable to explicitly define the attributes needed in a my.cnf file. This is enabled by adding categories to the `node[:percona][:conf]` attributes. All keys found in the `node[:percona][:conf]` map will represent categories in the my.cnf file. Each category contains a map of attributes that will be written to the my.cnf file for that category. See the example for more details.
 
 ### Example:
-	node[:percona][:conf][:mysqld][:slow_query_log_file] = '/var/lib/mysql/data/mysql-slow.log'
 
-This configuration would write the mysqld category to the my.cnf file and have an attribute `slow_query_log_file` whose value would be `/var/lib/mysql/data/mysql-slow.log`
+```ruby
+node[:percona][:conf][:mysqld][:slow_query_log_file] = "/var/lib/mysql/data/mysql-slow.log"
+```
+
+This configuration would write the mysqld category to the my.cnf file and have an attribute `slow_query_log_file` whose value would be `/var/lib/mysql/data/mysql-slow.log`.
 
 ### Example output (my.cnf):
-	[mysqld]
-	slow_query_log_file = /var/lib/mysql/data/mysql-slow.log
- 
 
-# CONTRIBUTORS
+```ini
+[mysqld]
+slow_query_log_file = /var/lib/mysql/data/mysql-slow.log
+```
+
+## Contributing
+
+1. Fork it
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Added some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create new Pull Request
+
+## Contributors
 
 Many thanks go to the following who have contributed to making this cookbook even better:
 
-* **[@jagcrete](https://github.com/jagcrete)** - configurable keyserver support and encrypted password data bag support
+* **[@jagcrete](https://github.com/jagcrete)**
+  * configurable keyserver
+  * encrypted password data bag
+  * custom my.cnf file
 
 
-# LICENSE and AUTHOR:
+## License
 
 Author:: Phil Cohen (<github@phlippers.net>) [![endorse](http://api.coderwall.com/phlipper/endorsecount.png)](http://coderwall.com/phlipper)
 

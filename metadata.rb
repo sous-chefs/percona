@@ -14,6 +14,10 @@ recipe "percona::toolkit", "Installs the Percona Toolkit software"
 recipe "percona::access_grants", "Used internally to grant permissions for recipes"
 recipe "percona::cluster", "Installs the Percona XtraDB Cluster server components"
 
+%w{ apt }.each do |cb|
+  depends cb
+end
+
 %w[debian ubuntu].each do |os|
   supports os
 end

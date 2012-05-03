@@ -39,6 +39,7 @@ end
 directory datadir do
   owner user
   group user
+  recursive true
   action :create
 end
 

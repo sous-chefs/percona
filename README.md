@@ -221,7 +221,8 @@ Many thanks go to the following who have contributed to making this cookbook eve
   * configurable keyserver
   * encrypted password data bag
   * custom my.cnf file
-
+* **[@pwelch](https://github.com/pwelch)**
+  * ensure cookbook dependencies are loaded
 
 ## License
 

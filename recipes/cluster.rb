@@ -16,16 +16,16 @@ service "mysql" do
   action [:enable, :start]
 end
 
-percona = node[:percona]
-server  = percona[:server]
-conf    = percona[:conf]
-mysqld  = conf[:mysqld]
+percona = node["percona"]
+server  = percona["server"]
+conf    = percona["conf"]
+mysqld  = (conf && conf["mysqld"]) || nil
 
 # construct an encrypted passwords helper -- giving it the node and bag name
-passwords = EncryptedPasswords.new(node, percona[:encrypted_data_bag])
+passwords = EncryptedPasswords.new(node, percona["encrypted_data_bag"])
 
-datadir = mysqld[:datadir] || server[:datadir]
-user    = mysqld[:user] || server[:user]
+datadir = mysqld["datadir"] || server["datadir"]
+user    = mysqld["user"] || server["user"]
 
 # set initial root password
 if mysql_initial_install?

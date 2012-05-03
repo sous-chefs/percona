@@ -1,10 +1,5 @@
 include_recipe "percona::default"
 
-# helper
-def mysql_initial_install?
-  ! ::File.exists?("/usr/bin/mysql")
-end
-
 # install packages
 package "percona-xtradb-cluster-server-5.5" do
   options "--force-yes"
@@ -27,12 +22,10 @@ passwords = EncryptedPasswords.new(node, percona["encrypted_data_bag"])
 datadir = mysqld["datadir"] || server["datadir"]
 user    = mysqld["user"] || server["user"]
 
-# set initial root password
-if mysql_initial_install?
-  # now let's set the root password
-  execute "Update MySQL root password" do
-    command "mysqladmin -u root password '#{passwords.root_password}'"
-  end
+# now let's set the root password only if this is the initial install
+execute "Update MySQL root password" do
+  command "mysqladmin -u root password '#{passwords.root_password}'"
+  not_if { ::File.exists?("/usr/bin/mysql") } 
 end
 
 # setup the data directory

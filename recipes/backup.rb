@@ -1,4 +1,4 @@
-node.set[:percona][:backup][:configure] = true
+node.set["percona"]["backup"]["configure"] = true
 
 include_recipe "percona::default"
 

@@ -1,4 +1,4 @@
-passwords = EncryptedPasswords.new(node, node[:percona][:encrypted_data_bag])
+passwords = EncryptedPasswords.new(node, node["percona"]["encrypted_data_bag"])
 
 # define access grants
 template "/etc/mysql/grants.sql" do

@@ -3,6 +3,9 @@
 # Recipe:: default
 #
 
+# include Opscode LWRP apt cookbook
+include_recipe 'apt'
+
 # configure apt repository
 apt_repository "percona" do
   uri "http://repo.percona.com/apt"

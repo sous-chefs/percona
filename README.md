@@ -18,6 +18,10 @@ The following platforms are supported by this cookbook, meaning that the recipes
 * Ubuntu
 * Debian
 
+### Cookbooks
+
+* [apt](http://community.opscode.com/cookbooks/apt) Opscode LWRP Cookbook
+
 ## Recipes
 
 * `percona` - The default recipe. This sets up the apt repository and install common packages.

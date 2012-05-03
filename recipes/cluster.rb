@@ -25,7 +25,7 @@ user    = mysqld["user"] || server["user"]
 # now let's set the root password only if this is the initial install
 execute "Update MySQL root password" do
   command "mysqladmin -u root password '#{passwords.root_password}'"
-  not_if { ::File.exists?("/usr/bin/mysql") } 
+  not_if { ::File.exists?("/etc/mysql/grants.sql") }
 end
 
 # setup the data directory

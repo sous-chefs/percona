@@ -223,6 +223,7 @@ Many thanks go to the following who have contributed to making this cookbook eve
   * custom my.cnf file
 * **[@pwelch](https://github.com/pwelch)**
   * ensure cookbook dependencies are loaded
+  * [Foodcritic](http://acrmp.github.com/foodcritic/) compliance updates
 
 ## License
 

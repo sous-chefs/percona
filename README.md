@@ -6,6 +6,7 @@ Installs the [Percona MySQL](http://www.percona.com/software/percona-server) cli
 
 * [XtraBackup](http://www.percona.com/software/percona-xtrabackup/) hot backup software
 * [Percona Toolkit](http://www.percona.com/software/percona-toolkit/) advanced command-line tools
+* [XtraDB Cluster](http://www.percona.com/software/percona-xtradb-cluster/) high availability and high scalability solution for MySQL
 
 
 ## Requirements
@@ -25,6 +26,8 @@ The following platforms are supported by this cookbook, meaning that the recipes
 * `percona::backup` - Installs and configures the Percona XtraBackup hot backup software.
 * `percona::toolkit` - Installs the Percona Toolkit software
 * `percona::access_grants` - Used internally to grant permissions for recipes.
+* `percona::cluster` - Installs the Percona XtraDB Cluster server components
+
 
 ## Usage
 
@@ -67,115 +70,117 @@ Above shows the encrypted password in the data bag. Check out the `encrypted_dat
 
 ## Attributes
 
-* `node[:percona][:server][:role]` default: "standalone", options: "standalone", "master", "slave"
-* `node[:percona][:keyserver]` default: "keys.gnupg.net"
-* `node[:percona][:encrypted_data_bag]` default: "passwords"
+```ruby
+# Cookbook Settings
+default["percona"]["keyserver"]                                 = "keys.gnupg.net"
+default["percona"]["encrypted_data_bag"]                        = "passwords"
 
-### Basic Settings
+# Basic Settings
+default["percona"]["server"]["role"]                            = "standalone"
+default["percona"]["server"]["username"]                        = "mysql"
+default["percona"]["server"]["datadir"]                         = "/var/lib/mysql"
+default["percona"]["server"]["includedir"]                      = "/etc/mysql/conf.d/"
+default["percona"]["server"]["tmpdir"]                          = "/tmp"
+default["percona"]["server"]["root_password"]                   = "123-changeme"
+default["percona"]["server"]["debian_username"]                 = "debian-sys-maint"
+default["percona"]["server"]["debian_password"]                 = "123-changeme"
+default["percona"]["server"]["socket"]                          = "/var/run/mysqld/mysqld.sock"
+default["percona"]["server"]["nice"]                            = 0
+default["percona"]["server"]["open_files_limit"]                = 16384
+default["percona"]["server"]["hostname"]                        = "localhost"
+default["percona"]["server"]["basedir"]                         = "/usr"
+default["percona"]["server"]["pidfile"]                         = "/var/run/mysqld/mysqld.pid"
+default["percona"]["server"]["port"]                            = 3306
+default["percona"]["server"]["language"]                        = "/usr/share/mysql/english"
+default["percona"]["server"]["skip_external_locking"]           = true
+default["percona"]["server"]["net_read_timeout"]                = 120
+default["percona"]["server"]["old_passwords"]                   = 1
+default["percona"]["server"]["bind_address"]                    = "127.0.0.1"
 
-* `node[:percona][:server][:username]`                        default: "mysql"
-* `node[:percona][:server][:datadir]`                         default: "/var/lib/mysql"
-* `node[:percona][:server][:includedir]`                      default: "/etc/mysql/conf.d/"
-* `node[:percona][:server][:tmpdir]`                          default: "/tmp"
-* `node[:percona][:server][:root_password]`                   default: "123-changeme"
-* `node[:percona][:server][:debian_username]`                 default: "debian-sys-maint"
-* `node[:percona][:server][:debian_password]`                 default: "123-changeme"
-* `node[:percona][:server][:socket]`                          default: "/var/run/mysqld/mysqld.sock"
-* `node[:percona][:server][:nice]`                            default: 0
-* `node[:percona][:server][:open_files_limit]`                default: 16384
-* `node[:percona][:server][:hostname]`                        default: "localhost"
-* `node[:percona][:server][:basedir]`                         default: "/usr"
-* `node[:percona][:server][:pidfile]`                         default: "/var/run/mysqld/mysqld.pid"
-* `node[:percona][:server][:port]`                            default: 3306
-* `node[:percona][:server][:language]`                        default: "/usr/share/mysql/english"
-* `node[:percona][:server][:skip_external_locking]`           default: true
-* `node[:percona][:server][:net_read_timeout]`                default: 120
-* `node[:percona][:server][:old_passwords]`                   default: 1
-* `node[:percona][:server][:bind_address]`                    default: "127.0.0.1"
+# Fine Tuning
+default["percona"]["server"]["key_buffer"]                      = "16M"
+default["percona"]["server"]["max_allowed_packet"]              = "64M"
+default["percona"]["server"]["thread_stack"]                    = "192K"
+default["percona"]["server"]["query_alloc_block_size"]          = "16K"
+default["percona"]["server"]["memlock"]                         = false
+default["percona"]["server"]["transaction_isolation"]           = "REPEATABLE-READ"
+default["percona"]["server"]["tmp_table_size"]                  = "64M"
+default["percona"]["server"]["default_table_type"]              = "InnoDB"
+default["percona"]["server"]["max_heap_table_size"]             = "64M"
+default["percona"]["server"]["sort_buffer_size"]                = "8M"
+default["percona"]["server"]["join_buffer_size"]                = "8M"
+default["percona"]["server"]["thread_cache_size"]               = 16
+default["percona"]["server"]["back_log"]                        = 50
+default["percona"]["server"]["max_connections"]                 = 30
+default["percona"]["server"]["max_connect_errors"]              = 9999999
+default["percona"]["server"]["table_cache"]                     = 8192
 
-### Fine Tuning
+# Query Cache Configuration
+default["percona"]["server"]["query_cache_size"]                = "64M"
+default["percona"]["server"]["query_cache_limit"]               = "2M"
 
-* `node[:percona][:server][:key_buffer]`                      default: "16M"
-* `node[:percona][:server][:max_allowed_packet]`              default: "64M"
-* `node[:percona][:server][:thread_stack]`                    default: "192K"
-* `node[:percona][:server][:query_alloc_block_size]`          default: "16K"
-* `node[:percona][:server][:memlock]`                         default: false
-* `node[:percona][:server][:transaction_isolation]`           default: "REPEATABLE-READ"
-* `node[:percona][:server][:tmp_table_size]`                  default: "64M"
-* `node[:percona][:server][:default_table_type]`              default: "InnoDB"
-* `node[:percona][:server][:max_heap_table_size]`             default: "64M"
-* `node[:percona][:server][:sort_buffer_size]`                default: "8M"
-* `node[:percona][:server][:join_buffer_size]`                default: "8M"
-* `node[:percona][:server][:thread_cache_size]`               default: 16
-* `node[:percona][:server][:myisam_recover]`                  default: "BACKUP"
-* `node[:percona][:server][:back_log]`                        default: 50
-* `node[:percona][:server][:max_connections]`                 default: 30
-* `node[:percona][:server][:max_connect_errors]`              default: 9999999
-* `node[:percona][:server][:table_cache]`                     default: 8192
-* `node[:percona][:server][:bulk_insert_buffer_size]`         default: "64M"
+# Logging and Replication
+default["percona"]["server"]["sync_binlog"]                     = 1
+default["percona"]["server"]["slow_query_log"]                  = "/var/log/mysql/mysql-slow.log"
+default["percona"]["server"]["long_query_time"]                 = 2
+default["percona"]["server"]["server_id"]                       = 1
+default["percona"]["server"]["binlog_do_db"]                    = ""
+default["percona"]["server"]["expire_logs_days"]                = 10
+default["percona"]["server"]["max_binlog_size"]                 = "100M"
+default["percona"]["server"]["binlog_cache_size"]               = "1M"
+default["percona"]["server"]["log_bin"]                         = ""
+default["percona"]["server"]["log_slave_updates"]               = false
+default["percona"]["server"]["log_warnings"]                    = true
+default["percona"]["server"]["log_long_format"]                 = false
+default["percona"]["server"]["bulk_insert_buffer_size"]         = "64M"
 
-### Query Cache Configuration
+# MyISAM Specific
+default["percona"]["server"]["myisam_recover"]                  = "BACKUP"
+default["percona"]["server"]["myisam_sort_buffer_size"]         = "128M"
+default["percona"]["server"]["myisam_max_sort_file_size"]       = "10G"
+default["percona"]["server"]["myisam_repair_threads"]           = 1
+default["percona"]["server"]["skip_bdb"]                        = true
 
-* `node[:percona][:server][:query_cache_size]`                default: "64M"
-* `node[:percona][:server][:query_cache_limit]`               default: "2M"
+# InnoDB Specific
+default["percona"]["server"]["skip_innodb"]                     = false
+default["percona"]["server"]["innodb_additional_mem_pool_size"] = "32M"
+default["percona"]["server"]["innodb_buffer_pool_size"]         = "6G"
+default["percona"]["server"]["innodb_data_file_path"]           = "ibdata1:1G:autoextend"
+default["percona"]["server"]["innodb_file_per_table"]           = true
+default["percona"]["server"]["innodb_data_home_dir"]            = ""
+default["percona"]["server"]["innodb_thread_concurrency"]       = 16
+default["percona"]["server"]["innodb_flush_log_at_trx_commit"]  = 1
+default["percona"]["server"]["innodb_fast_shutdown"]            = false
+default["percona"]["server"]["innodb_log_buffer_size"]          = "8M"
+default["percona"]["server"]["innodb_log_file_size"]            = "1G"
+default["percona"]["server"]["innodb_log_files_in_group"]       = 2
+default["percona"]["server"]["innodb_max_dirty_pages_pct"]      = 80
+default["percona"]["server"]["innodb_flush_method"]             = "O_DIRECT"
+default["percona"]["server"]["innodb_lock_wait_timeout"]        = 120
 
-### Logging and Replication
+# Replication Settings
+default["percona"]["server"]["replication"]["read_only"]        = false
+default["percona"]["server"]["replication"]["host"]             = ""
+default["percona"]["server"]["replication"]["username"]         = ""
+default["percona"]["server"]["replication"]["password"]         = ""
+default["percona"]["server"]["replication"]["port"]             = 3306
 
-* `node[:percona][:server][:sync_binlog]`                     default: 1
-* `node[:percona][:server][:slow_query_log]`                  default: "/var/log/mysql/mysql-slow.log"
-* `node[:percona][:server][:long_query_time]`                 default: 2
-* `node[:percona][:server][:server_id]`                       default: 1
-* `node[:percona][:server][:binlog_do_db]`                    default: ""
-* `node[:percona][:server][:expire_logs_days]`                default: 10
-* `node[:percona][:server][:max_binlog_size]`                 default: "100M"
-* `node[:percona][:server][:binlog_cache_size]`               default: "1M"
-* `node[:percona][:server][:log_bin]`                         default: ""
-* `node[:percona][:server][:log_slave_updates]`               default: false
-* `node[:percona][:server][:log_warnings]`                    default: true
-* `node[:percona][:server][:log_long_format]`                 default: false
+# XtraBackup Settings
+default["percona"]["backup"]["configure"]                       = false
+default["percona"]["backup"]["username"]                        = "backup"
+default["percona"]["backup"]["password"]                        = "123-changeme"
 
-#### Replication options
-
-* `node[:percona][:server][:replication][:read_only]`         default: false
-* `node[:percona][:server][:replication][:host]`              default: ""
-* `node[:percona][:server][:replication][:username]`          default: ""
-* `node[:percona][:server][:replication][:password]`          default: ""
-* `node[:percona][:server][:replication][:port]`              default: 3306
-
-### MyISAM Specific options
-
-* `node[:percona][:server][:myisam_sort_buffer_size]`         default: "128M"
-* `node[:percona][:server][:myisam_max_sort_file_size]`       default: "10G"
-* `node[:percona][:server][:myisam_repair_threads]`           default: 1
-* `node[:percona][:server][:myisam_recover]`                  default: "BACKUP"
-
-### BDB Specific options
-
-* `node[:percona][:server][:skip_bdb]`                        default: true
-
-### InnoDB Specific options
-
-* `node[:percona][:server][:skip_innodb]`                     default: false
-* `node[:percona][:server][:innodb_additional_mem_pool_size]` default: "32M"
-* `node[:percona][:server][:innodb_buffer_pool_size]`         default: "6G"
-* `node[:percona][:server][:innodb_data_file_path]`           default: "ibdata1:1G:autoextend"
-* `node[:percona][:server][:innodb_file_per_table]`           default: true
-* `node[:percona][:server][:innodb_data_home_dir]`            default: ""
-* `node[:percona][:server][:innodb_thread_concurrency]`       default: 16
-* `node[:percona][:server][:innodb_flush_log_at_trx_commit]`  default: 1
-* `node[:percona][:server][:innodb_fast_shutdown]`            default: false
-* `node[:percona][:server][:innodb_log_buffer_size]`          default: "8M"
-* `node[:percona][:server][:innodb_log_file_size]`            default: "1G"
-* `node[:percona][:server][:innodb_log_files_in_group]`       default: 2
-* `node[:percona][:server][:innodb_max_dirty_pages_pct]`      default: 80
-* `node[:percona][:server][:innodb_flush_method]`             default: "O_DIRECT"
-* `node[:percona][:server][:innodb_lock_wait_timeout]`        default: 120
-
-### XtraBackup Specific options
-
-* `node[:percona][:backup][:configure]`                       default: false
-* `node[:percona][:backup][:username]`                        default: "backup"
-* `node[:percona][:backup][:password]`                        default: "123-changeme"
+# XtraDB Cluster Settings
+default["percona"]["cluster"]["binlog_format"]                  = "ROW"
+default["percona"]["cluster"]["wsrep_provider"]                 = "/usr/lib64/libgalera_smm.so"
+default["percona"]["cluster"]["wsrep_cluster_address"]          = ""
+default["percona"]["cluster"]["wsrep_slave_threads"]            = 2
+default["percona"]["cluster"]["wsrep_cluster_name"]             = ""
+default["percona"]["cluster"]["wsrep_sst_method"]               = "rsync"
+default["percona"]["cluster"]["wsrep_node_name"]                = ""
+default["percona"]["cluster"]["innodb_locks_unsafe_for_binlog"] = 1
+default["percona"]["cluster"]["innodb_autoinc_lock_mode"]       = 2
+```
 
 ## Explicit my.cnf templating
 

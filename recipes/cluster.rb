@@ -51,7 +51,7 @@ end
 
 # setup the main server config file
 template "/etc/my.cnf" do
-  source "my.cnf.#{conf ? "custom" : node["percona"]["server"]["role"]}.erb"
+  source "my.cnf.#{conf ? "custom" : server["role"]}.erb"
   owner "root"
   group "root"
   mode 0744

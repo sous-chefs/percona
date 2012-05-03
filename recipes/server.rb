@@ -16,16 +16,16 @@ service "mysql" do
   action [:enable, :start]
 end
 
-percona = node[:percona]
-server  = percona[:server]
-conf    = percona[:conf]
-mysqld  = conf[:mysqld]
+percona = node["percona"]
+server  = percona["server"]
+conf    = percona["conf"]
+mysqld  = (conf && conf["mysqld"]) || {}
 
 # construct an encrypted passwords helper -- giving it the node and bag name
-passwords = EncryptedPasswords.new(node, percona[:encrypted_data_bag])
+passwords = EncryptedPasswords.new(node, percona["encrypted_data_bag"])
 
-datadir = mysqld[:datadir] || server[:datadir]
-user    = mysqld[:user] || server[:user]
+datadir = mysqld["datadir"] || server["datadir"]
+user    = mysqld["user"] || server["user"]
 
 # set initial root password
 if mysql_initial_install?
@@ -39,6 +39,7 @@ end
 directory datadir do
   owner user
   group user
+  recursive true
   action :create
 end
 
@@ -49,13 +50,8 @@ execute "setup mysql datadir" do
 end
 
 # setup the main server config file
-def config_source(conf)
-  source = conf ? "custom" : server[:role]
-  "my.cnf.#{source}.erb"
-end
-
-template "/etc/mysql/my.cnf" do
-  source config_source(conf)
+template "/etc/my.cnf" do
+  source "my.cnf.#{conf ? "custom" : server["role"]}.erb"
   owner "root"
   group "root"
   mode 0744

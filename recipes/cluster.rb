@@ -19,7 +19,7 @@ end
 percona = node["percona"]
 server  = percona["server"]
 conf    = percona["conf"]
-mysqld  = (conf && conf["mysqld"]) || nil
+mysqld  = (conf && conf["mysqld"]) || {}
 
 # construct an encrypted passwords helper -- giving it the node and bag name
 passwords = EncryptedPasswords.new(node, percona["encrypted_data_bag"])

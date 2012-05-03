@@ -49,13 +49,8 @@ execute "setup mysql datadir" do
 end
 
 # setup the main server config file
-def config_source(conf)
-  source = conf ? "custom" : server[:role]
-  "my.cnf.#{source}.erb"
-end
-
-template "/etc/mysql/my.cnf" do
-  source config_source(conf)
+template "/etc/my.cnf" do
+  source "my.cnf.#{conf ? "custom" : node["percona"]["server"]["role"]}.erb"
   owner "root"
   group "root"
   mode 0744

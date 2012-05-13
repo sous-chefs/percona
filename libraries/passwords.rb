@@ -46,7 +46,7 @@ class Chef::EncryptedPasswords
 
   # password for user responsbile for running xtrabackup
   def backup_password
-    find_password "mysql", node[:percona][:backup][:username], node[:percona][:backup][:password]
+    find_password "mysql", node["percona"]["backup"]["username"], node["percona"]["backup"]["password"]
   end
 
   private

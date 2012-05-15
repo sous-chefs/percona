@@ -224,6 +224,7 @@ Many thanks go to the following who have contributed to making this cookbook eve
 * **[@pwelch](https://github.com/pwelch)**
   * ensure cookbook dependencies are loaded
   * [Foodcritic](http://acrmp.github.com/foodcritic/) compliance updates
+  * various minor patches and updates
 
 ## License
 

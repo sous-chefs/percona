@@ -193,7 +193,7 @@ In some situation it is preferable to explicitly define the attributes needed in
 ### Example:
 
 ```ruby
-node[:percona][:conf][:mysqld][:slow_query_log_file] = "/var/lib/mysql/data/mysql-slow.log"
+node["percona"]["conf"]["mysqld"]["slow_query_log_file"] = "/var/lib/mysql/data/mysql-slow.log"
 ```
 
 This configuration would write the mysqld category to the my.cnf file and have an attribute `slow_query_log_file` whose value would be `/var/lib/mysql/data/mysql-slow.log`.

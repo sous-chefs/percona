@@ -2,13 +2,8 @@ include_recipe "percona::default"
 
 # install packages
 package "percona-server-server" do
+  action :install
   options "--force-yes"
-end
-
-# define the service
-service "mysql" do
-  supports :restart => true
-  action [:enable, :start]
 end
 
 percona = node["percona"]
@@ -48,7 +43,7 @@ template "/etc/my.cnf" do
   owner "root"
   group "root"
   mode 0744
-  notifies :restart, resources(:service => "mysql")
+  notifies :restart, "service[mysql]", :immediately
 end
 
 # setup the debian system user config
@@ -58,8 +53,15 @@ template "/etc/mysql/debian.cnf" do
   owner "root"
   group "root"
   mode 0744
-  notifies :restart, resources(:service => "mysql")
+  notifies :restart, "service[mysql]", :immediately
+end
+
+# define the service
+service "mysql" do
+  supports :restart => true
+  action [:enable, :start]
 end
 
 # access grants
 include_recipe "percona::access_grants"
+include_recipe "percona::replication"

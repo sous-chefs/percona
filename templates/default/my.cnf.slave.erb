@@ -244,11 +244,6 @@ server-id = <%= node["percona"]["server"]["server_id"] %>
 read_only
 <% end %>
 
-master-host      = <%= node["percona"]["server"]["replication"]["host"] %>
-master-user      = <%= node["percona"]["server"]["replication"]["username"] %>
-master-password  = <%= @replication_password %>
-master-port      = <%= node["percona"]["server"]["replication"]["port"] %>
-
 log_bin          = <%= node["percona"]["server"]["datadir"] %>/mysql-bin.log
 binlog-do-db     = <%= node["percona"]["server"]["binlog_do_db"] %>
 expire_logs_days = <%= node["percona"]["server"]["expire_logs_days"] %>
@@ -273,6 +268,11 @@ binlog_cache_size = <%= node["percona"]["server"]["binlog_cache_size"] %>
 <% if !node["percona"]["server"]["log_bin"].empty? %>
 log-bin = <%= node["percona"]["server"]["log_bin"] %>
 <% end %>
+
+<% if !node["percona"]["server"]["relay_log"].empty? %>
+relay-log = <%= node["percona"]["server"]["relay_log"] %>
+<% end %>
+
 
 # If you're using replication with chained slaves (A->B->C), you need to
 # enable this option on server B. It enables logging of updates done by

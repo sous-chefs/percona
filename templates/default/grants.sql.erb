@@ -10,14 +10,6 @@ GRANT ALL PRIVILEGES ON *.*
 <% end -%>
 
 
-<% if node["percona"]["server"]["role"] == "master" %>
-# Grant replication for a slave user.
-GRANT REPLICATION SLAVE ON *.*
-  TO '<%= node["percona"]["server"]["replication"]["username"] %>'@'%'
-  IDENTIFIED BY '<%= @replication_password %>';
-<% end -%>
-
-
 <% if node["percona"]["backup"]["configure"] %>
 # Grant permissions for the XtraBackup user
 # Ensure the user exists, then revoke all grants, then re-grant specific permissions

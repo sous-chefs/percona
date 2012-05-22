@@ -329,15 +329,6 @@ myisam_recover
 <% end %>
 
 
-# *** BDB Specific options ***
-
-# Use this option if you run a MySQL server with BDB support enabled but
-# you do not plan to use it. This will save memory and may speed up some
-# things.
-<% if node["percona"]["server"]["skip_bdb"] %>
-skip-bdb
-<% end %>
-
 #binlog_do_db   = include_database_name
 #binlog_ignore_db = include_database_name
 #

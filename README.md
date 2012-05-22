@@ -143,7 +143,6 @@ default["percona"]["server"]["myisam_recover"]                  = "BACKUP"
 default["percona"]["server"]["myisam_sort_buffer_size"]         = "128M"
 default["percona"]["server"]["myisam_max_sort_file_size"]       = "10G"
 default["percona"]["server"]["myisam_repair_threads"]           = 1
-default["percona"]["server"]["skip_bdb"]                        = true
 
 # InnoDB Specific
 default["percona"]["server"]["skip_innodb"]                     = false

@@ -116,9 +116,9 @@ transaction_isolation = <%= node["percona"]["server"]["transaction_isolation"] %
 # as the limit instead, so making it bigger than that  is not useful.
 tmp_table_size = <%= node["percona"]["server"]["tmp_table_size"] %>
 
-# Table type which is used by default when creating new tables, if not
+# Storage engine which is used by default when creating new tables, if not
 # specified differently during the CREATE TABLE statement.
-default_table_type = <%= node["percona"]["server"]["default_table_type"] %>
+default_storage_engine = <%= node["percona"]["server"]["default_storage_engine"] %>
 
 # Maximum allowed size for a single HEAP (in memory) table. This option
 # is a protection against the accidential creation of a very large HEAP

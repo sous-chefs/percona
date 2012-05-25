@@ -116,9 +116,9 @@ transaction_isolation = <%= node["percona"]["server"]["transaction_isolation"] %
 # as the limit instead, so making it bigger than that  is not useful.
 tmp_table_size = <%= node["percona"]["server"]["tmp_table_size"] %>
 
-# Table type which is used by default when creating new tables, if not
+# Storage engine which is used by default when creating new tables, if not
 # specified differently during the CREATE TABLE statement.
-default_table_type = <%= node["percona"]["server"]["default_table_type"] %>
+default_storage_engine = <%= node["percona"]["server"]["default_storage_engine"] %>
 
 # Maximum allowed size for a single HEAP (in memory) table. This option
 # is a protection against the accidential creation of a very large HEAP
@@ -243,9 +243,12 @@ server-id = <%= node["percona"]["server"]["server_id"] %>
 #read_only
 
 log_bin          = <%= node["percona"]["server"]["datadir"] %>/mysql-bin.log
-binlog-do-db     = <%= node["percona"]["server"]["binlog_do_db"] %>
 expire_logs_days = <%= node["percona"]["server"]["expire_logs_days"] %>
 max_binlog_size  = <%= node["percona"]["server"]["max_binlog_size"] %>
+
+<% node["percona"]["server"]["binlog_do_db"].each do |db_name| %>
+binlog-do-db     = <%= db_name %>
+<% end -%>
 
 # The size of the cache to hold the SQL statements for the binary log
 # during a transaction. If you often use big, multi-statement
@@ -321,15 +324,6 @@ myisam_repair_threads = <%= node["percona"]["server"]["myisam_repair_threads"] %
 myisam_recover
 <% end %>
 
-
-# *** BDB Specific options ***
-
-# Use this option if you run a MySQL server with BDB support enabled but
-# you do not plan to use it. This will save memory and may speed up some
-# things.
-<% if node["percona"]["server"]["skip_bdb"] %>
-skip-bdb
-<% end %>
 
 #binlog_do_db   = include_database_name
 #binlog_ignore_db = include_database_name

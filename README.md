@@ -29,8 +29,9 @@ The following platforms are supported by this cookbook, meaning that the recipes
 * `percona::server` - Installs and configures the Percona MySQL server daemon.
 * `percona::backup` - Installs and configures the Percona XtraBackup hot backup software.
 * `percona::toolkit` - Installs the Percona Toolkit software
-* `percona::access_grants` - Used internally to grant permissions for recipes.
 * `percona::cluster` - Installs the Percona XtraDB Cluster server components
+* `percona::replication` - Used internally to grant permissions for replication.
+* `percona::access_grants` - Used internally to grant permissions for recipes.
 
 
 ## Usage
@@ -128,11 +129,12 @@ default["percona"]["server"]["sync_binlog"]                     = 1
 default["percona"]["server"]["slow_query_log"]                  = "/var/log/mysql/mysql-slow.log"
 default["percona"]["server"]["long_query_time"]                 = 2
 default["percona"]["server"]["server_id"]                       = 1
-default["percona"]["server"]["binlog_do_db"]                    = ""
+default["percona"]["server"]["binlog_do_db"]                    = []
 default["percona"]["server"]["expire_logs_days"]                = 10
 default["percona"]["server"]["max_binlog_size"]                 = "100M"
 default["percona"]["server"]["binlog_cache_size"]               = "1M"
-default["percona"]["server"]["log_bin"]                         = ""
+default["percona"]["server"]["log_bin"]                         = "master-bin"
+default["percona"]["server"]["relay_log"]                       = "slave-relay-bin"
 default["percona"]["server"]["log_slave_updates"]               = false
 default["percona"]["server"]["log_warnings"]                    = true
 default["percona"]["server"]["log_long_format"]                 = false
@@ -147,15 +149,15 @@ default["percona"]["server"]["myisam_repair_threads"]           = 1
 # InnoDB Specific
 default["percona"]["server"]["skip_innodb"]                     = false
 default["percona"]["server"]["innodb_additional_mem_pool_size"] = "32M"
-default["percona"]["server"]["innodb_buffer_pool_size"]         = "6G"
-default["percona"]["server"]["innodb_data_file_path"]           = "ibdata1:1G:autoextend"
+default["percona"]["server"]["innodb_buffer_pool_size"]         = "128M"
+default["percona"]["server"]["innodb_data_file_path"]           = "ibdata1:10M:autoextend"
 default["percona"]["server"]["innodb_file_per_table"]           = true
 default["percona"]["server"]["innodb_data_home_dir"]            = ""
 default["percona"]["server"]["innodb_thread_concurrency"]       = 16
 default["percona"]["server"]["innodb_flush_log_at_trx_commit"]  = 1
 default["percona"]["server"]["innodb_fast_shutdown"]            = false
-default["percona"]["server"]["innodb_log_buffer_size"]          = "8M"
-default["percona"]["server"]["innodb_log_file_size"]            = "1G"
+default["percona"]["server"]["innodb_log_buffer_size"]          = "64M"
+default["percona"]["server"]["innodb_log_file_size"]            = "5M"
 default["percona"]["server"]["innodb_log_files_in_group"]       = 2
 default["percona"]["server"]["innodb_max_dirty_pages_pct"]      = 80
 default["percona"]["server"]["innodb_flush_method"]             = "O_DIRECT"
@@ -224,6 +226,8 @@ Many thanks go to the following who have contributed to making this cookbook eve
   * ensure cookbook dependencies are loaded
   * [Foodcritic](http://acrmp.github.com/foodcritic/) compliance updates
   * various minor patches and updates
+* **[@masv](https://github.com/masv)**
+  * compatibility updates for 5.5
 
 ## License
 

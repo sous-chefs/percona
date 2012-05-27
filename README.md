@@ -109,7 +109,7 @@ default["percona"]["server"]["query_alloc_block_size"]          = "16K"
 default["percona"]["server"]["memlock"]                         = false
 default["percona"]["server"]["transaction_isolation"]           = "REPEATABLE-READ"
 default["percona"]["server"]["tmp_table_size"]                  = "64M"
-default["percona"]["server"]["default_table_type"]              = "InnoDB"
+default["percona"]["server"]["default_storage_engine"]          = "InnoDB"
 default["percona"]["server"]["max_heap_table_size"]             = "64M"
 default["percona"]["server"]["sort_buffer_size"]                = "8M"
 default["percona"]["server"]["join_buffer_size"]                = "8M"
@@ -143,7 +143,6 @@ default["percona"]["server"]["myisam_recover"]                  = "BACKUP"
 default["percona"]["server"]["myisam_sort_buffer_size"]         = "128M"
 default["percona"]["server"]["myisam_max_sort_file_size"]       = "10G"
 default["percona"]["server"]["myisam_repair_threads"]           = 1
-default["percona"]["server"]["skip_bdb"]                        = true
 
 # InnoDB Specific
 default["percona"]["server"]["skip_innodb"]                     = false

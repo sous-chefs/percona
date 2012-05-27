@@ -116,9 +116,9 @@ transaction_isolation = <%= node["percona"]["server"]["transaction_isolation"] %
 # as the limit instead, so making it bigger than that  is not useful.
 tmp_table_size = <%= node["percona"]["server"]["tmp_table_size"] %>
 
-# Table type which is used by default when creating new tables, if not
+# Storage engine which is used by default when creating new tables, if not
 # specified differently during the CREATE TABLE statement.
-default_table_type = <%= node["percona"]["server"]["default_table_type"] %>
+default_storage_engine = <%= node["percona"]["server"]["default_storage_engine"] %>
 
 # Maximum allowed size for a single HEAP (in memory) table. This option
 # is a protection against the accidential creation of a very large HEAP
@@ -244,11 +244,6 @@ server-id = <%= node["percona"]["server"]["server_id"] %>
 read_only
 <% end %>
 
-master-host      = <%= node["percona"]["server"]["replication"]["host"] %>
-master-user      = <%= node["percona"]["server"]["replication"]["username"] %>
-master-password  = <%= @replication_password %>
-master-port      = <%= node["percona"]["server"]["replication"]["port"] %>
-
 log_bin          = <%= node["percona"]["server"]["datadir"] %>/mysql-bin.log
 binlog-do-db     = <%= node["percona"]["server"]["binlog_do_db"] %>
 expire_logs_days = <%= node["percona"]["server"]["expire_logs_days"] %>
@@ -273,6 +268,11 @@ binlog_cache_size = <%= node["percona"]["server"]["binlog_cache_size"] %>
 <% if !node["percona"]["server"]["log_bin"].empty? %>
 log-bin = <%= node["percona"]["server"]["log_bin"] %>
 <% end %>
+
+<% if !node["percona"]["server"]["relay_log"].empty? %>
+relay-log = <%= node["percona"]["server"]["relay_log"] %>
+<% end %>
+
 
 # If you're using replication with chained slaves (A->B->C), you need to
 # enable this option on server B. It enables logging of updates done by
@@ -328,15 +328,6 @@ myisam_repair_threads = <%= node["percona"]["server"]["myisam_repair_threads"] %
 myisam_recover
 <% end %>
 
-
-# *** BDB Specific options ***
-
-# Use this option if you run a MySQL server with BDB support enabled but
-# you do not plan to use it. This will save memory and may speed up some
-# things.
-<% if node["percona"]["server"]["skip_bdb"] %>
-skip-bdb
-<% end %>
 
 #binlog_do_db   = include_database_name
 #binlog_ignore_db = include_database_name

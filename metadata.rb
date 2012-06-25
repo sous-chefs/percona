@@ -4,7 +4,7 @@ maintainer_email  "github@phlippers.net"
 license           "Apache 2.0"
 description       "Installs Percona MySQL client and server"
 long_description  "Please refer to README.md"
-version           "0.5.0"
+version           "0.5.1"
 
 recipe "percona",          "Sets up the apt repository and installs dependent packages"
 recipe "percona::client",  "Installs client libraries"

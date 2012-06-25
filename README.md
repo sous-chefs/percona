@@ -42,7 +42,7 @@ This cookbook installs the Percona MySQL components if not present, and pulls up
 
 This cookbook supports [Encrypted Data Bags](http://wiki.opscode.com/display/chef/Encrypted+Data+Bags).
 
-To use encrypted passwords, you must create an encrypted data bag. This cookbook assumes a data bag named `passwords`, but you can override the name using the `node[:percona][:encrypted_data_bag]` attribute. 
+To use encrypted passwords, you must create an encrypted data bag. This cookbook assumes a data bag named `passwords`, but you can override the name using the `node[:percona][:encrypted_data_bag]` attribute.
 
 This cookbook expects a `mysql` item  and a `system` item.
 
@@ -228,6 +228,8 @@ Many thanks go to the following who have contributed to making this cookbook eve
   * various minor patches and updates
 * **[@masv](https://github.com/masv)**
   * compatibility updates for 5.5
+* **[@stottsan](https://github.com/stottsan)**
+  * config cleanup to prevent service restarts on chef run
 
 ## License
 

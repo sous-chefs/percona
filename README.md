@@ -21,6 +21,7 @@ The following platforms are supported by this cookbook, meaning that the recipes
 ### Cookbooks
 
 * [apt](http://community.opscode.com/cookbooks/apt) Opscode LWRP Cookbook
+* [openssl](http://community.opscode.com/cookbooks/openssl) Opscode Cookbook
 
 ## Recipes
 
@@ -86,9 +87,9 @@ default["percona"]["server"]["username"]                        = "mysql"
 default["percona"]["server"]["datadir"]                         = "/var/lib/mysql"
 default["percona"]["server"]["includedir"]                      = "/etc/mysql/conf.d/"
 default["percona"]["server"]["tmpdir"]                          = "/tmp"
-default["percona"]["server"]["root_password"]                   = "123-changeme"
+set_unless["percona"]["server"]["root_password"]                = secure_password
 default["percona"]["server"]["debian_username"]                 = "debian-sys-maint"
-default["percona"]["server"]["debian_password"]                 = "123-changeme"
+set_unless["percona"]["server"]["debian_password"]              = secure_password
 default["percona"]["server"]["socket"]                          = "/var/run/mysqld/mysqld.sock"
 default["percona"]["server"]["nice"]                            = 0
 default["percona"]["server"]["open_files_limit"]                = 16384
@@ -173,7 +174,7 @@ default["percona"]["server"]["replication"]["port"]             = 3306
 # XtraBackup Settings
 default["percona"]["backup"]["configure"]                       = false
 default["percona"]["backup"]["username"]                        = "backup"
-default["percona"]["backup"]["password"]                        = "123-changeme"
+set_unless["percona"]["backup"]["password"]                     = secure_passowrd
 
 # XtraDB Cluster Settings
 default["percona"]["cluster"]["binlog_format"]                  = "ROW"

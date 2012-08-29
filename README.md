@@ -231,6 +231,9 @@ Many thanks go to the following who have contributed to making this cookbook eve
   * compatibility updates for 5.5
 * **[@stottsan](https://github.com/stottsan)**
   * config cleanup to prevent service restarts on chef run
+* **[@abecciu](https://github.com/abecciu)**
+  * auto-generate secure passwords by default
+
 
 ## License
 

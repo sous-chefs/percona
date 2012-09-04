@@ -13,19 +13,31 @@ Installs the [Percona MySQL](http://www.percona.com/software/percona-server) cli
 
 ### Supported Platforms
 
-The following platforms are supported by this cookbook, meaning that the recipes run on these platforms without error:
+The following platforms are supported by this cookbook, meaning that the
+recipes run on these platforms without error:
 
 * Ubuntu
 * Debian
+
+Untested Yum package manager support is provided for the following
+platforms:
+
+* Amazon Linux AMI
+* CentOS
+* Red Hat
+* Scientific
+* Fedora
 
 ### Cookbooks
 
 * [apt](http://community.opscode.com/cookbooks/apt) Opscode LWRP Cookbook
 * [openssl](http://community.opscode.com/cookbooks/openssl) Opscode Cookbook
+* [yum](http://community.opscode.com/cookbooks/yum) Opscode LWRP Cookbook
 
 ## Recipes
 
-* `percona` - The default recipe. This sets up the apt repository and install common packages.
+* `percona` - The default no-op recipe.
+* `percona::package_repo` - Sets up the package repository and installs common packages.
 * `percona::client` - Installs the Percona MySQL client libraries.
 * `percona::server` - Installs and configures the Percona MySQL server daemon.
 * `percona::backup` - Installs and configures the Percona XtraBackup hot backup software.

@@ -1,4 +1,4 @@
-include_recipe "percona::default"
+include_recipe "percona::package_repo"
 
 # install packages
 package "percona-xtradb-cluster-server-5.5" do

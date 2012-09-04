@@ -61,7 +61,7 @@ This cookbook expects a `mysql` item  and a `system` item.
 
 #### mysql item
 
-The mysql item should contain entries for root, backup, and replicaiton. If no value is found, the cookbook will fall back to the default non-encrypted password.
+The mysql item should contain entries for root, backup, and replication. If no value is found, the cookbook will fall back to the default non-encrypted password.
 
 #### system item
 
@@ -202,7 +202,7 @@ default["percona"]["cluster"]["innodb_autoinc_lock_mode"]       = 2
 
 ## Explicit my.cnf templating
 
-In some situation it is preferable to explicitly define the attributes needed in a my.cnf file. This is enabled by adding categories to the `node[:percona][:conf]` attributes. All keys found in the `node[:percona][:conf]` map will represent categories in the my.cnf file. Each category contains a map of attributes that will be written to the my.cnf file for that category. See the example for more details.
+In some situation it is preferable to explicitly define the attributes needed in a `my.cnf` file. This is enabled by adding categories to the `node[:percona][:conf]` attributes. All keys found in the `node[:percona][:conf]` map will represent categories in the `my.cnf` file. Each category contains a map of attributes that will be written to the `my.cnf` file for that category. See the example for more details.
 
 ### Example:
 
@@ -210,7 +210,7 @@ In some situation it is preferable to explicitly define the attributes needed in
 node["percona"]["conf"]["mysqld"]["slow_query_log_file"] = "/var/lib/mysql/data/mysql-slow.log"
 ```
 
-This configuration would write the mysqld category to the my.cnf file and have an attribute `slow_query_log_file` whose value would be `/var/lib/mysql/data/mysql-slow.log`.
+This configuration would write the `mysqld` category to the `my.cnf` file and have an attribute `slow_query_log_file` whose value would be `/var/lib/mysql/data/mysql-slow.log`.
 
 ### Example output (my.cnf):
 
@@ -218,6 +218,28 @@ This configuration would write the mysqld category to the my.cnf file and have a
 [mysqld]
 slow_query_log_file = /var/lib/mysql/data/mysql-slow.log
 ```
+
+
+## Goals
+
+In no particular order:
+
+* Be the most flexible way to setup a MySQL distribution through Chef
+    * Support for Chef Solo
+    * Support for Chef Server
+* Support the following common database infrastructures:
+    * Single server instance
+    * Traditional Master/Slave replication
+    * Multi-master cluster replication
+* Support the most common Chef runtime environments
+* Be the easiest way to setup a MySQL distribution through Chef
+
+
+## TODO
+
+* Fully support all of the standard Chef-supported distributions
+* Add automated testing with Travis CI
+
 
 ## Contributing
 
@@ -229,22 +251,24 @@ slow_query_log_file = /var/lib/mysql/data/mysql-slow.log
 
 ## Contributors
 
-Many thanks go to the following who have contributed to making this cookbook even better:
+Many thanks go to the following [contributors](https://github.com/phlipper/chef-percona/graphs/contributors) who have helped to make this cookbook even better:
 
 * **[@jagcrete](https://github.com/jagcrete)**
-  * configurable keyserver
-  * encrypted password data bag
-  * custom my.cnf file
+    * configurable keyserver
+    * encrypted password data bag
+    * custom `my.cnf` file
 * **[@pwelch](https://github.com/pwelch)**
-  * ensure cookbook dependencies are loaded
-  * [Foodcritic](http://acrmp.github.com/foodcritic/) compliance updates
-  * various minor patches and updates
+    * ensure cookbook dependencies are loaded
+    * [Foodcritic](http://acrmp.github.com/foodcritic/) compliance updates
+    * various minor patches and updates
 * **[@masv](https://github.com/masv)**
-  * compatibility updates for 5.5
+    * compatibility updates for 5.5
 * **[@stottsan](https://github.com/stottsan)**
-  * config cleanup to prevent service restarts on chef run
+    * config cleanup to prevent service restarts on chef run
 * **[@abecciu](https://github.com/abecciu)**
-  * auto-generate secure passwords by default
+    * auto-generate secure passwords by default
+* **[@patcon](https://github.com/patcon)**
+    * add `yum` support for `centos`, `amazon`, `scientific`, `fedora`, and `redhat` distributions
 
 
 ## License

@@ -1,6 +1,6 @@
 node.set["percona"]["backup"]["configure"] = true
 
-include_recipe "percona::default"
+include_recipe "percona::package_repo"
 
 package "xtrabackup"
 

@@ -1,3 +1,3 @@
-include_recipe "percona::default"
+include_recipe "percona::package_repo"
 
 package "percona-toolkit"

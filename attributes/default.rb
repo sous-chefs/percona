@@ -130,3 +130,25 @@ default["percona"]["cluster"]["wsrep_sst_method"]               = "rsync"
 default["percona"]["cluster"]["wsrep_node_name"]                = ""
 default["percona"]["cluster"]["innodb_locks_unsafe_for_binlog"] = 1
 default["percona"]["cluster"]["innodb_autoinc_lock_mode"]       = 2
+
+# Options are: 5.0, 5.1, 5.5, latest
+default['percona']['version'] = "5.5"
+
+normal['mysql']['use_upstart'] = false
+
+case node['platform']
+when "ubuntu", "debian"
+  case node['percona']['version']
+  when "5.0"
+    normal['mysql']['client']['packages'] = %w{percona-sql-client}
+    normal['mysql']['server']['packages'] = %w{percona-sql-server}
+  when "5.1", "5.5"
+    normal['mysql']['client']['packages'] = %W{percona-server-client-#{node['percona']['version']}}
+    normal['mysql']['server']['packages'] = %W{percona-server-server-#{node['percona']['version']}}
+  when "latest"
+    normal['mysql']['client']['packages'] = %w{percona-server-client}
+    normal['mysql']['server']['packages'] = %w{percona-server-server}
+  end
+when "centos", "redhat", "amazon", "scientific", "fedora"
+  # TODO: Add yum support
+end

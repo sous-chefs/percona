@@ -21,6 +21,7 @@ The following platforms are supported by this cookbook, meaning that the recipes
 ### Cookbooks
 
 * [apt](http://community.opscode.com/cookbooks/apt) Opscode LWRP Cookbook
+* [mysql](http://community.opscode.com/cookbooks/mysql) Opscode Cookbook
 * [openssl](http://community.opscode.com/cookbooks/openssl) Opscode Cookbook
 
 ## Recipes

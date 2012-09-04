@@ -1,10 +1,5 @@
 include_recipe "percona::default"
-
-# install packages
-package "percona-server-server" do
-  action :install
-  options "--force-yes"
-end
+include_recipe "mysql::server"
 
 percona = node["percona"]
 server  = percona["server"]

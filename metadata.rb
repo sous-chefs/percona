@@ -16,7 +16,7 @@ recipe "percona::replication", "Used internally to grant permissions for replica
 recipe "percona::access_grants", "Used internally to grant permissions for recipes"
 
 depends "apt"
-depends "openssl"
+depends "mysql", ">= 1.3.0"
 
 %w[debian ubuntu].each do |os|
   supports os

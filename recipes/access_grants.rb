@@ -6,7 +6,6 @@ template "/etc/mysql/grants.sql" do
   variables(
     :root_password        => passwords.root_password,
     :debian_password      => passwords.debian_password,
-    :replication_password => passwords.replication_password,
     :backup_password      => passwords.backup_password
   )
   owner "root"

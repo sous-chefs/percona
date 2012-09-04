@@ -16,7 +16,7 @@ recipe "percona::cluster",       "Installs the Percona XtraDB Cluster server com
 recipe "percona::replication",   "Used internally to grant permissions for replication."
 recipe "percona::access_grants", "Used internally to grant permissions for recipes"
 
-depends "apt"
+depends "apt", ">= 1.4.4"
 depends "yum"
 depends "openssl"
 

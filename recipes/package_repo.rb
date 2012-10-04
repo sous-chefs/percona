@@ -3,8 +3,8 @@
 # Recipe:: percona_repo
 #
 
-case node["platform"]
-when "ubuntu", "debian"
+case node["platform_family"]
+when "debian"
   include_recipe "apt"
 
   apt_repository "percona" do
@@ -21,7 +21,7 @@ when "ubuntu", "debian"
     options "--force-yes"
   end
 
-when "centos", "redhat", "scientific", "amazon", "fedora"
+when "rhel"
   include_recipe "yum"
   yum_key "RPM-GPG-KEY-percona" do
     url "http://www.percona.com/downloads/RPM-GPG-KEY-percona"
@@ -29,8 +29,8 @@ when "centos", "redhat", "scientific", "amazon", "fedora"
   end
 
   yum_repository "percona" do
-    name "CentOS #{node["lsb"]["release"]} - Percona"
-    url "http://repo.percona.com/centos/#{node["lsb"]["release"]}/os/#{node["kernel"]["machine"]}/"
+    name "CentOS-Percona"
+    url "http://repo.percona.com/centos/#{node["platform_version"].split('.')[0]}/os/#{node["kernel"]["machine"]}/"
     key "RPM-GPG-KEY-percona"
     action :add
   end

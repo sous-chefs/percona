@@ -21,6 +21,19 @@
 
 ::Chef::Node.send(:include, Opscode::OpenSSL::Password)
 
+case node["platform_family"]
+when "debian"
+  default["percona"]["server"]["socket"]                        = "/var/run/mysqld/mysqld.sock"
+  default["percona"]["server"]["default_storage_engine"]        = "InnoDB"
+  default["percona"]["server"]["includedir"]                    = "/etc/mysql/conf.d/"
+  default["percona"]["server"]["pidfile"]                       = "/var/run/mysqld/mysqld.pid"
+when "rhel"
+  default["percona"]["server"]["socket"]                        = "/var/lib/mysql/mysql.sock"
+  default["percona"]["server"]["default_storage_engine"]        = "innodb"
+  default["percona"]["server"]["includedir"]                    = ""
+  default["percona"]["server"]["pidfile"]                       = "/var/lib/mysql/mysqld.pid"
+end
+
 # Cookbook Settings
 default["percona"]["keyserver"]                                 = "keys.gnupg.net"
 default["percona"]["encrypted_data_bag"]                        = "passwords"
@@ -29,17 +42,14 @@ default["percona"]["encrypted_data_bag"]                        = "passwords"
 default["percona"]["server"]["role"]                            = "standalone"
 default["percona"]["server"]["username"]                        = "mysql"
 default["percona"]["server"]["datadir"]                         = "/var/lib/mysql"
-default["percona"]["server"]["includedir"]                      = "/etc/mysql/conf.d/"
 default["percona"]["server"]["tmpdir"]                          = "/tmp"
 set_unless["percona"]["server"]["root_password"]                = secure_password
 default["percona"]["server"]["debian_username"]                 = "debian-sys-maint"
 set_unless["percona"]["server"]["debian_password"]              = secure_password
-default["percona"]["server"]["socket"]                          = "/var/run/mysqld/mysqld.sock"
 default["percona"]["server"]["nice"]                            = 0
 default["percona"]["server"]["open_files_limit"]                = 16384
 default["percona"]["server"]["hostname"]                        = "localhost"
 default["percona"]["server"]["basedir"]                         = "/usr"
-default["percona"]["server"]["pidfile"]                         = "/var/run/mysqld/mysqld.pid"
 default["percona"]["server"]["port"]                            = 3306
 default["percona"]["server"]["language"]                        = "/usr/share/mysql/english"
 default["percona"]["server"]["skip_external_locking"]           = true
@@ -55,7 +65,6 @@ default["percona"]["server"]["query_alloc_block_size"]          = "16K"
 default["percona"]["server"]["memlock"]                         = false
 default["percona"]["server"]["transaction_isolation"]           = "REPEATABLE-READ"
 default["percona"]["server"]["tmp_table_size"]                  = "64M"
-default["percona"]["server"]["default_storage_engine"]          = "InnoDB"
 default["percona"]["server"]["max_heap_table_size"]             = "64M"
 default["percona"]["server"]["sort_buffer_size"]                = "8M"
 default["percona"]["server"]["join_buffer_size"]                = "8M"

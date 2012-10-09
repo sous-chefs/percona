@@ -52,13 +52,13 @@ execute "setup mysql datadir" do
 end
 
 # setup the debian system user config
-if node["platform_family"] == "debian"
-  template "/etc/mysql/debian.cnf" do
-    source "debian.cnf.erb"
-    variables(:debian_password => passwords.debian_password)
-    owner "root"
-    group "root"
-    mode 0744
-    notifies :restart, "service[mysql]", :immediately
-  end
+template "/etc/mysql/debian.cnf" do
+  source "debian.cnf.erb"
+  variables(:debian_password => passwords.debian_password)
+  owner "root"
+  group "root"
+  mode 0744
+  notifies :restart, "service[mysql]", :immediately
+
+  only_if { node["platform_family"] == "debian" }
 end

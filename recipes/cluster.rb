@@ -1,65 +1,20 @@
 include_recipe "percona::package_repo"
 
 # install packages
-package "percona-xtradb-cluster-server-5.5" do
-  options "--force-yes"
+case node["platform_family"]
+when "debian"
+  package "percona-xtradb-cluster-server-5.5" do
+    options "--force-yes"
+  end
+when "rhel"
+  package "mysql-libs" do
+    action :remove
+  end
+
+  package "Percona-XtraDB-Cluster-server"
 end
 
-# define the service
-service "mysql" do
-  supports :restart => true
-  action [:enable, :start]
-end
-
-percona = node["percona"]
-server  = percona["server"]
-conf    = percona["conf"]
-mysqld  = (conf && conf["mysqld"]) || {}
-
-# construct an encrypted passwords helper -- giving it the node and bag name
-passwords = EncryptedPasswords.new(node, percona["encrypted_data_bag"])
-
-datadir = mysqld["datadir"] || server["datadir"]
-user    = mysqld["user"] || server["user"]
-
-# now let's set the root password only if this is the initial install
-execute "Update MySQL root password" do
-  command "mysqladmin -u root password '#{passwords.root_password}'"
-  not_if "test -f /etc/mysql/grants.sql"
-end
-
-# setup the data directory
-directory datadir do
-  owner user
-  group user
-  recursive true
-  action :create
-end
-
-# install db to the data directory
-execute "setup mysql datadir" do
-  command "mysql_install_db --user=#{user} --datadir=#{datadir}"
-  not_if "test -f #{datadir}/mysql/user.frm"
-end
-
-# setup the main server config file
-template "/etc/my.cnf" do
-  source "my.cnf.#{conf ? "custom" : server["role"]}.erb"
-  owner "root"
-  group "root"
-  mode 0744
-  notifies :restart, resources(:service => "mysql")
-end
-
-# setup the debian system user config
-template "/etc/mysql/debian.cnf" do
-  source "debian.cnf.erb"
-  variables(:debian_password => passwords.debian_password)
-  owner "root"
-  group "root"
-  mode 0744
-  notifies :restart, resources(:service => "mysql")
-end
+include_recipe "percona::configure_server"
 
 # access grants
 include_recipe "percona::access_grants"

@@ -13,6 +13,7 @@ recipe "percona::server",        "Installs the server daemon"
 recipe "percona::backup",        "Installs the XtraBackup hot backup software"
 recipe "percona::toolkit",       "Installs the Percona Toolkit software"
 recipe "percona::cluster",       "Installs the Percona XtraDB Cluster server components"
+recipe "percona::configure_server", "Used internally to manage the server configuration."
 recipe "percona::replication",   "Used internally to grant permissions for replication."
 recipe "percona::access_grants", "Used internally to grant permissions for recipes"
 

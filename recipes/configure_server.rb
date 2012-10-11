@@ -6,6 +6,19 @@ mysqld  = (conf && conf["mysqld"]) || {}
 # construct an encrypted passwords helper -- giving it the node and bag name
 passwords = EncryptedPasswords.new(node, percona["encrypted_data_bag"])
 
+if server['bind_to']
+  ipaddr = Percona::ConfigHelper.bind_to(node, server['bind_to'])
+  if ipaddr && server['bind_address'] != ipaddr
+    node.override['percona']['server']['bind_address'] = ipaddr
+    node.save
+  end
+
+  log "Can't find ip address for #{server['bind_to']}" do
+    level :warn
+    only_if { ipaddr.nil? }
+  end
+end
+
 datadir = mysqld["datadir"] || server["datadir"]
 user    = mysqld["user"] || server["user"]
 

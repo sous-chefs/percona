@@ -28,20 +28,20 @@ service "mysql" do
   action :enable
 end
 
-# setup the main server config file
-template "/etc/my.cnf" do
-  source "my.cnf.#{conf ? "custom" : server["role"]}.erb"
-  owner "root"
-  group "root"
-  mode 0744
-  notifies :restart, "service[mysql]", :immediately
-end
-
 # this is where we dump sql templates for replication, etc.
 directory "/etc/mysql" do
   owner "root"
   group "root"
   mode 0755
+end
+
+# setup the main server config file
+template percona["main_config_file"] do
+  source "my.cnf.#{conf ? "custom" : server["role"]}.erb"
+  owner "root"
+  group "root"
+  mode 0744
+  notifies :restart, "service[mysql]", :immediately
 end
 
 # setup the data directory

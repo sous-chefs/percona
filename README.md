@@ -225,6 +225,9 @@ This configuration would write the `mysqld` category to the `my.cnf` file and ha
 slow_query_log_file = /var/lib/mysql/data/mysql-slow.log
 ```
 
+## Dynamically setting the bind address
+
+There's a special attribute `node['percona']['server']['bind_to']` that allows you to dynamically set the bind address. This attribute accepts the values `'public_ip'`, `'private_ip'`, `'loopback'`, or and interface name like `'eth0'`. Based on this, the recipe will find a corresponding ipv4 address, and override the `node['percona']['server']['bind_address']` attribute.
 
 ## Goals
 

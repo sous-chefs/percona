@@ -275,6 +275,7 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * config cleanup to prevent service restarts on chef run
 * **[@abecciu](https://github.com/abecciu)**
     * auto-generate secure passwords by default
+    * add ability to dynamically set the bind address
 * **[@patcon](https://github.com/patcon)**
     * add `yum` support for `centos`, `amazon`, `scientific`, `fedora`, and `redhat` distributions
 * **[@psi](https://github.com/psi)**

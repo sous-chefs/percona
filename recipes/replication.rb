@@ -9,6 +9,8 @@ template "/etc/mysql/replication.sql" do
   owner "root"
   group "root"
   mode "0600"
+
+  only_if node["percona"]["server"]["replication"]["host"] != ""
 end
 
 # execute access grants

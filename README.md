@@ -14,14 +14,10 @@ Installs the [Percona MySQL](http://www.percona.com/software/percona-server) cli
 ### Supported Platforms
 
 The following platforms are supported by this cookbook, meaning that the
-recipes run on these platforms without error:
+recipes should run on these platforms without error:
 
 * Ubuntu
 * Debian
-
-Untested Yum package manager support is provided for the following
-platforms:
-
 * Amazon Linux AMI
 * CentOS
 * Red Hat

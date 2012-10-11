@@ -278,6 +278,8 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * auto-generate secure passwords by default
 * **[@patcon](https://github.com/patcon)**
     * add `yum` support for `centos`, `amazon`, `scientific`, `fedora`, and `redhat` distributions
+* **[@psi](https://github.com/psi)**
+    * fixes required for RedHat platforms
 
 
 ## License

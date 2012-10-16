@@ -10,7 +10,7 @@ template "/etc/mysql/replication.sql" do
   group "root"
   mode "0600"
 
-  only_if node["percona"]["server"]["replication"]["host"] != ""
+  only_if { node["percona"]["server"]["replication"]["host"] != "" }
 end
 
 # execute access grants

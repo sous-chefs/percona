@@ -282,6 +282,8 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * add `yum` support for `centos`, `amazon`, `scientific`, `fedora`, and `redhat` distributions
 * **[@psi](https://github.com/psi)**
     * fixes required for RedHat platforms
+* **[@TheSerapher](https://github.com/TheSerapher)**
+    * improvements for master/slave replication setup
 
 
 ## License

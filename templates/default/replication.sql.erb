@@ -8,11 +8,10 @@ GRANT REPLICATION SLAVE ON *.*
   IDENTIFIED BY '<%= @replication_password %>';
 
 FLUSH PRIVILEGES;
-i
+
 # Ensure this is not running as a slave, usefule for master promotion
 STOP SLAVE;
 RESET SLAVE;
-CHANGE MASTER TO MASTER_HOST='';
 <% end -%>
 
 <% if node["percona"]["server"]["role"] == "slave" %>

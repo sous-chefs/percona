@@ -286,6 +286,7 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * improvements for master/slave replication setup
 * **[@bensomers](https://github.com/bensomers)**
     * minor fixes to `replication.sql`
+    * fix a very dangerous bug around binlog-do-db setting for slave servers
 
 
 ## License

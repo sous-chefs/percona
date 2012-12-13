@@ -245,9 +245,12 @@ read_only
 <% end %>
 
 log_bin          = <%= node["percona"]["server"]["datadir"] %>/mysql-bin.log
-binlog-do-db     = <%= node["percona"]["server"]["binlog_do_db"] %>
 expire_logs_days = <%= node["percona"]["server"]["expire_logs_days"] %>
 max_binlog_size  = <%= node["percona"]["server"]["max_binlog_size"] %>
+
+<% node["percona"]["server"]["binlog_do_db"].each do |db_name| %>
+binlog-do-db     = <%= db_name %>
+<% end -%>
 
 # The size of the cache to hold the SQL statements for the binary log
 # during a transaction. If you often use big, multi-statement

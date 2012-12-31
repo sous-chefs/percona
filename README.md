@@ -114,9 +114,7 @@ default["percona"]["server"]["role"]                            = "standalone"
 default["percona"]["server"]["username"]                        = "mysql"
 default["percona"]["server"]["datadir"]                         = "/var/lib/mysql"
 default["percona"]["server"]["tmpdir"]                          = "/tmp"
-set_unless["percona"]["server"]["root_password"]                = secure_password
 default["percona"]["server"]["debian_username"]                 = "debian-sys-maint"
-set_unless["percona"]["server"]["debian_password"]              = secure_password
 default["percona"]["server"]["nice"]                            = 0
 default["percona"]["server"]["open_files_limit"]                = 16384
 default["percona"]["server"]["hostname"]                        = "localhost"
@@ -127,6 +125,10 @@ default["percona"]["server"]["skip_external_locking"]           = true
 default["percona"]["server"]["net_read_timeout"]                = 120
 default["percona"]["server"]["old_passwords"]                   = 1
 default["percona"]["server"]["bind_address"]                    = "127.0.0.1"
+%w[debian_password root_password].each do |attribute|
+  next if defined?(node["percona"]["server"][attribute])
+  default["percona"]["server"][attribute]                       = secure_password
+end
 
 # Fine Tuning
 default["percona"]["server"]["key_buffer"]                      = "16M"
@@ -198,7 +200,9 @@ default["percona"]["server"]["replication"]["port"]             = 3306
 # XtraBackup Settings
 default["percona"]["backup"]["configure"]                       = false
 default["percona"]["backup"]["username"]                        = "backup"
-set_unless["percona"]["backup"]["password"]                     = secure_password
+unless defined?(node["percona"]["backup"]["password"])
+  default["percona"]["backup"]["password"]                      = secure_password
+end
 
 # XtraDB Cluster Settings
 default["percona"]["cluster"]["binlog_format"]                  = "ROW"

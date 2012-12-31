@@ -30,6 +30,11 @@ recipes should run on these platforms without error:
 * [openssl](http://community.opscode.com/cookbooks/openssl) Opscode Cookbook
 * [yum](http://community.opscode.com/cookbooks/yum) Opscode LWRP Cookbook
 
+### Chef
+
+It is recommended to use a version of Chef `>= 10.16.4` as that is the target of my usage and testing, though this should work with any version `>= 10.0.0`.
+
+
 ## Recipes
 
 * `percona` - The default no-op recipe.

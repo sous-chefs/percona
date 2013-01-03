@@ -297,6 +297,7 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
 * **[@bensomers](https://github.com/bensomers)**
     * minor fixes to `replication.sql`
     * fix a very dangerous bug around binlog-do-db setting for slave servers
+    * fix slow query log setting for 5.5
 * **[@tdg5](https://github.com/tdg5)**
     * avoid use of `set_unless` for chef-solo, workaround for CHEF-2945
 

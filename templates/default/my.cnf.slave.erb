@@ -216,7 +216,7 @@ sync_binlog = <%= node["percona"]["server"]["sync_binlog"] %>
 # indexes well, if log_long_format is enabled. It is normally good idea
 # to have this turned on if you frequently add new queries to the
 # system.
-slow_query_log = <%= node["percona"]["server"]["slow_query_log" %>
+slow_query_log = <%= node["percona"]["server"]["slow_query_log"] %>
 slow_query_log_file  = <%= node["percona"]["server"]["slow_query_log_file"] %>
 
 # All queries taking more than this amount of time (in seconds) will be

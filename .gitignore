@@ -5,3 +5,4 @@ vendor/bundle
 .DS_Store
 build/*
 tmp/
+Gemfile.lock

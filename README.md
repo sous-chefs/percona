@@ -294,6 +294,7 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * fixes required for RedHat platforms
 * **[@TheSerapher](https://github.com/TheSerapher)**
     * improvements for master/slave replication setup
+    * updates and clarifications to the README
 * **[@bensomers](https://github.com/bensomers)**
     * minor fixes to `replication.sql`
     * fix a very dangerous bug around binlog-do-db setting for slave servers

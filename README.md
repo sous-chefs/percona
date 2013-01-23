@@ -301,6 +301,8 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * fix slow query log setting for 5.5
 * **[@tdg5](https://github.com/tdg5)**
     * avoid use of `set_unless` for chef-solo, workaround for CHEF-2945
+* **[@gpendler](https://github.com/gpendler)**
+    * avoid re-installation of packages RedHat platforms
 
 
 ## License

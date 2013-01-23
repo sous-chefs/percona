@@ -16,6 +16,14 @@ when "debian"
     action :add
     notifies :run, "execute[apt-get update]", :immediately
   end
+  
+  # Pin this repo as to avoid conflicts with others
+  apt_preference "00percona" do
+    package_name "*"
+    pin " release o=Percona Development Team"
+    pin_priority "1001"
+  end
+  
 
   # install dependent package
   package "libmysqlclient-dev" do

@@ -303,6 +303,8 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * avoid use of `set_unless` for chef-solo, workaround for CHEF-2945
 * **[@gpendler](https://github.com/gpendler)**
     * avoid re-installation of packages RedHat platforms
+* **[@vinu](https://github.com/vinu)**
+    * pin the percona apt repo with high priority
 
 
 ## License

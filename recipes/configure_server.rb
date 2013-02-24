@@ -70,7 +70,7 @@ template "/etc/mysql/debian.cnf" do
   variables(:debian_password => passwords.debian_password)
   owner "root"
   group "root"
-  mode 0744
+  mode 0640
   notifies :restart, "service[mysql]", :immediately
 
   only_if { node["platform_family"] == "debian" }

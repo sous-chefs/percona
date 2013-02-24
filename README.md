@@ -311,7 +311,7 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
 
 Author:: Phil Cohen (<github@phlippers.net>) [![endorse](http://api.coderwall.com/phlipper/endorsecount.png)](http://coderwall.com/phlipper)
 
-Copyright:: 2011-2012, Phil Cohen
+Copyright:: 2011-2013, Phil Cohen
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

@@ -305,6 +305,8 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * avoid re-installation of packages RedHat platforms
 * **[@vinu](https://github.com/vinu)**
     * pin the percona apt repo with high priority
+* **[@ckuttruff](https://github.com/ckuttruff)**
+    * improve security on debian-based systems by changing config file permissions
 
 
 ## License

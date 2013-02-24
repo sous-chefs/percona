@@ -3,10 +3,9 @@
 
 <% if node["platform_family"] == "debian" -%>
 # debian-sys-maint user for administration
-GRANT ALL PRIVILEGES ON *.*
-  TO '<%= node["percona"]["server"]["debian_username"] %>'@'localhost'
-  IDENTIFIED BY '<%= @debian_password %>'
-  WITH GRANT OPTION;
+  <% [['SELECT', 'mysql.user'], ['SHUTDOWN', '*.*']].each do |priv, loc| %>
+<%= "GRANT #{priv} ON #{loc} TO '#{@debian_user}'@localhost IDENTIFIED BY '#{@debian_password}';" %>
+  <% end -%>
 <% end -%>
 
 

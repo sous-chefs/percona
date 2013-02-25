@@ -7,7 +7,7 @@ Installs the [Percona MySQL](http://www.percona.com/software/percona-server) cli
 * [XtraBackup](http://www.percona.com/software/percona-xtrabackup/) hot backup software
 * [Percona Toolkit](http://www.percona.com/software/percona-toolkit/) advanced command-line tools
 * [XtraDB Cluster](http://www.percona.com/software/percona-xtradb-cluster/) high availability and high scalability solution for MySQL
-
+* [Percona Monitoring Plugins](http://www.percona.com/software/percona-monitoring-plugins) various Nagios plugins for monitoring MySQL
 
 ## Requirements
 
@@ -47,7 +47,7 @@ It is recommended to use a version of Chef `>= 10.16.4` as that is the target of
 * `percona::configure_server` - Used internally to manage the server configuration.
 * `percona::replication` - Used internally to grant permissions for replication.
 * `percona::access_grants` - Used internally to grant permissions for recipes.
-
+* `percona::monitoring` - Installs Percona monitoring plugins for Nagios
 
 ## Usage
 

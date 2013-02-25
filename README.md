@@ -7,7 +7,7 @@ Installs the [Percona MySQL](http://www.percona.com/software/percona-server) cli
 * [XtraBackup](http://www.percona.com/software/percona-xtrabackup/) hot backup software
 * [Percona Toolkit](http://www.percona.com/software/percona-toolkit/) advanced command-line tools
 * [XtraDB Cluster](http://www.percona.com/software/percona-xtradb-cluster/) high availability and high scalability solution for MySQL
-
+* [Percona Monitoring Plugins](http://www.percona.com/software/percona-monitoring-plugins) various Nagios plugins for monitoring MySQL
 
 ## Requirements
 
@@ -47,7 +47,7 @@ It is recommended to use a version of Chef `>= 10.16.4` as that is the target of
 * `percona::configure_server` - Used internally to manage the server configuration.
 * `percona::replication` - Used internally to grant permissions for replication.
 * `percona::access_grants` - Used internally to grant permissions for recipes.
-
+* `percona::monitoring` - Installs Percona monitoring plugins for Nagios
 
 ## Usage
 
@@ -215,6 +215,15 @@ default["percona"]["cluster"]["wsrep_sst_method"]               = "rsync"
 default["percona"]["cluster"]["wsrep_node_name"]                = ""
 default["percona"]["cluster"]["innodb_locks_unsafe_for_binlog"] = 1
 default["percona"]["cluster"]["innodb_autoinc_lock_mode"]       = 2
+```
+
+### Monitoring.rb
+
+```ruby
+default['percona']['plugins_url'] = "http://www.percona.com/downloads/percona-monitoring-plugins/"
+default['percona']['plugins_version'] = "1.0.2"
+default['percona']['plugins_sha'] = "da84cfe89637292da15ddb1e66f67ad9703fa21392d8d49e664ad08f7aa45585"
+default['percona']['plugins_path'] = "/opt/pmp"
 ```
 
 ## Explicit my.cnf templating

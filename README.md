@@ -217,6 +217,15 @@ default["percona"]["cluster"]["innodb_locks_unsafe_for_binlog"] = 1
 default["percona"]["cluster"]["innodb_autoinc_lock_mode"]       = 2
 ```
 
+### Monitoring.rb
+
+```ruby
+default['percona']['plugins_url'] = "http://www.percona.com/downloads/percona-monitoring-plugins/"
+default['percona']['plugins_version'] = "1.0.2"
+default['percona']['plugins_sha'] = "da84cfe89637292da15ddb1e66f67ad9703fa21392d8d49e664ad08f7aa45585"
+default['percona']['plugins_path'] = "/opt/pmp"
+```
+
 ## Explicit my.cnf templating
 
 In some situation it is preferable to explicitly define the attributes needed in a `my.cnf` file. This is enabled by adding categories to the `node[:percona][:conf]` attributes. All keys found in the `node[:percona][:conf]` map will represent categories in the `my.cnf` file. Each category contains a map of attributes that will be written to the `my.cnf` file for that category. See the example for more details.

@@ -6,6 +6,14 @@ mysqld  = (conf && conf["mysqld"]) || {}
 # construct an encrypted passwords helper -- giving it the node and bag name
 passwords = EncryptedPasswords.new(node, percona["encrypted_data_bag"])
 
+template "/root/.my.cnf" do
+  variables( :root_password => passwords['root'] )
+  owner 'root'
+  group 'root'
+  mode '600'
+  source 'my.cnf.root.erb'
+end
+
 if server['bind_to']
   ipaddr = Percona::ConfigHelper.bind_to(node, server['bind_to'])
   if ipaddr && server['bind_address'] != ipaddr

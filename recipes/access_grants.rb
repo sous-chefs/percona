@@ -16,7 +16,7 @@ end
 
 # execute access grants
 execute "mysql-install-privileges" do
-  command "/usr/bin/mysql -u root -p'#{passwords.root_password}' < /etc/mysql/grants.sql"
+  command "/usr/bin/mysql < /etc/mysql/grants.sql"
   action :nothing
   subscribes :run, "template[/etc/mysql/grants.sql]", :immediately
 end

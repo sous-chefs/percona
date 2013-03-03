@@ -43,6 +43,20 @@ directory "/etc/mysql" do
   mode 0755
 end
 
+# setup the data directory
+directory datadir do
+  owner user
+  group user
+  recursive true
+  action :create
+end
+
+# install db to the data directory
+execute "setup mysql datadir" do
+  command "mysql_install_db --user=#{user} --datadir=#{datadir}"
+  not_if "test -f #{datadir}/mysql/user.frm"
+end
+
 # setup the main server config file
 template percona["main_config_file"] do
   source "my.cnf.#{conf ? "custom" : server["role"]}.erb"
@@ -52,24 +66,10 @@ template percona["main_config_file"] do
   notifies :restart, "service[mysql]", :immediately
 end
 
-# setup the data directory
-directory datadir do
-  owner user
-  group user
-  recursive true
-  action :create
-end
-
 # now let's set the root password only if this is the initial install
 execute "Update MySQL root password" do
   command "mysqladmin -u root -p'' password '#{passwords.root_password}'"
   not_if "test -f /etc/mysql/grants.sql"
-end
-
-# install db to the data directory
-execute "setup mysql datadir" do
-  command "mysql_install_db --user=#{user} --datadir=#{datadir}"
-  not_if "test -f #{datadir}/mysql/user.frm"
 end
 
 # setup the debian system user config

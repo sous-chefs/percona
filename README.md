@@ -316,6 +316,7 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * pin the percona apt repo with high priority
 * **[@ckuttruff](https://github.com/ckuttruff)**
     * improve security on debian-based systems by changing config file permissions
+    * don't pass mysql root password in plaintext commands
 * **[@srodrig0209](https://github.com/srodrig0209)**
     * add the `monitoring` recipe
 

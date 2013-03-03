@@ -319,6 +319,8 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * don't pass mysql root password in plaintext commands
 * **[@srodrig0209](https://github.com/srodrig0209)**
     * add the `monitoring` recipe
+* **[@jesseadams](https://github.com/jesseadams)**
+    * fixes for custom datadir setting use case
 
 
 ## License

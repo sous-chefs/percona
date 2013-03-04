@@ -321,6 +321,10 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * add the `monitoring` recipe
 * **[@jesseadams](https://github.com/jesseadams)**
     * fixes for custom datadir setting use case
+* **[@see0](https://github.com/see0)**
+    * fix incorrect root password reference
+* **[@baldur](https://github.com/baldur)**
+    * _(honorable mention)_ fix incorrect root password reference
 
 
 ## License

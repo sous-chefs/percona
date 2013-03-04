@@ -7,7 +7,7 @@ mysqld  = (conf && conf["mysqld"]) || {}
 passwords = EncryptedPasswords.new(node, percona["encrypted_data_bag"])
 
 template "/root/.my.cnf" do
-  variables( :root_password => passwords['root'] )
+  variables( :root_password => passwords.root_password )
   owner 'root'
   group 'root'
   mode '600'

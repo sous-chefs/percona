@@ -307,6 +307,7 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
 * **[@TheSerapher](https://github.com/TheSerapher)**
     * improvements for master/slave replication setup
     * updates and clarifications to the README
+    * add attribute to control server restart on config changes
 * **[@bensomers](https://github.com/bensomers)**
     * minor fixes to `replication.sql`
     * fix a very dangerous bug around binlog-do-db setting for slave servers

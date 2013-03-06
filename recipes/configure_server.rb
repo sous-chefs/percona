@@ -63,7 +63,7 @@ template percona["main_config_file"] do
   owner "root"
   group "root"
   mode 0744
-  notifies :restart, "service[mysql]", :immediately
+  notifies :restart, "service[mysql]", :immediately if node["percona"]["auto_restart"]
 end
 
 # now let's set the root password only if this is the initial install
@@ -79,7 +79,7 @@ template "/etc/mysql/debian.cnf" do
   owner "root"
   group "root"
   mode 0640
-  notifies :restart, "service[mysql]", :immediately
+  notifies :restart, "service[mysql]", :immediately if node["percona"]["auto_restart"]
 
   only_if { node["platform_family"] == "debian" }
 end

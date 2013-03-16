@@ -145,6 +145,7 @@ unless node.has_key?("percona") && node["percona"].has_key?("server") && node["p
   default["percona"]["server"]["replication"]["password"]       = encrypted_mysql_passwords['replication'] || secure_password
 end
 default["percona"]["server"]["replication"]["port"]             = 3306
+default["percona"]["server"]["replication"]["ignore_db"]        = ""
 
 # XtraBackup Settings
 default["percona"]["backup"]["configure"]                       = false

@@ -247,6 +247,9 @@ long_query_time = <%= node["percona"]["server"]["long_query_time"] %>
 # if it is omitted.
 server-id = <%= node["percona"]["server"]["server_id"] %>
 
+# Tells the slave SQL thread not to replicate any statement where the default database is.
+replicate-ignore-db = <%= node["percona"]["server"]["replication"]["ignore_db"] %>
+
 # Make the slave read-only. Only users with the SUPER privilege and the
 # replication slave thread will be able to modify data on it. You can
 # use this to ensure that no applications will accidently modify data on

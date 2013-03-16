@@ -120,6 +120,7 @@ default["percona"]["server"]["innodb_additional_mem_pool_size"] = "32M"
 default["percona"]["server"]["innodb_buffer_pool_size"]         = "128M"
 default["percona"]["server"]["innodb_data_file_path"]           = "ibdata1:10M:autoextend"
 default["percona"]["server"]["innodb_file_per_table"]           = true
+default["percona"]["server"]["innodb_file_format"]              = "Antelope"
 default["percona"]["server"]["innodb_data_home_dir"]            = ""
 default["percona"]["server"]["innodb_thread_concurrency"]       = 16
 default["percona"]["server"]["innodb_flush_log_at_trx_commit"]  = 1

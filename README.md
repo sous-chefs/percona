@@ -321,6 +321,7 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
 * **[@ckuttruff](https://github.com/ckuttruff)**
     * improve security on debian-based systems by changing config file permissions
     * don't pass mysql root password in plaintext commands
+    * fix issue with -p flag when setting initial password
 * **[@srodrig0209](https://github.com/srodrig0209)**
     * add the `monitoring` recipe
 * **[@jesseadams](https://github.com/jesseadams)**

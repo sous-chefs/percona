@@ -33,7 +33,7 @@ user    = mysqld["user"] || server["user"]
 # define the service
 service "mysql" do
   supports :restart => true
-  action :enable
+  action server["enable"] ? :enable : :disable
 end
 
 # this is where we dump sql templates for replication, etc.

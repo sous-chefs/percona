@@ -335,6 +335,8 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * _(honorable mention)_ fix incorrect root password reference
 * **[@chrisroberts](https://github.com/chrisroberts)**
     * _(honorable mention)_ fix issue with -p flag when setting initial password
+* **[@aaronjensen](https://github.com/aaronjensen)**
+    * allow server to not be started on startup
 
 
 ## License

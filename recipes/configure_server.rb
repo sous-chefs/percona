@@ -7,21 +7,21 @@ mysqld  = (conf && conf["mysqld"]) || {}
 passwords = EncryptedPasswords.new(node, percona["encrypted_data_bag"])
 
 template "/root/.my.cnf" do
-  variables( :root_password => passwords.root_password )
-  owner 'root'
-  group 'root'
-  mode '600'
-  source 'my.cnf.root.erb'
+  variables(:root_password => passwords.root_password)
+  owner "root"
+  group "root"
+  mode 0600
+  source "my.cnf.root.erb"
 end
 
-if server['bind_to']
-  ipaddr = Percona::ConfigHelper.bind_to(node, server['bind_to'])
-  if ipaddr && server['bind_address'] != ipaddr
-    node.override['percona']['server']['bind_address'] = ipaddr
+if server["bind_to"]
+  ipaddr = Percona::ConfigHelper.bind_to(node, server["bind_to"])
+  if ipaddr && server["bind_address"] != ipaddr
+    node.override["percona"]["server"]["bind_address"] = ipaddr
     node.save
   end
 
-  log "Can't find ip address for #{server['bind_to']}" do
+  log "Can't find ip address for #{server["bind_to"]}" do
     level :warn
     only_if { ipaddr.nil? }
   end

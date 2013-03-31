@@ -337,6 +337,8 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * _(honorable mention)_ fix issue with -p flag when setting initial password
 * **[@aaronjensen](https://github.com/aaronjensen)**
     * allow server to not be started on startup
+* **[@pioneerit](https://github.com/pioneerit)**
+    * add sections to `.my.cnf` for `mysqladmin` and `mysqldump`
 
 
 ## License

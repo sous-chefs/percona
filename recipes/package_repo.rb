@@ -15,6 +15,7 @@ when "debian"
     key "1C4CBDCDCD2EFD2A"
     action :add
     notifies :run, "execute[apt-get update]", :immediately
+    not_if "apt-key list | grep CD2EFD2A"
   end
 
   # Pin this repo as to avoid conflicts with others

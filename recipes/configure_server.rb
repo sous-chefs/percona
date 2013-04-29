@@ -28,7 +28,7 @@ if server['bind_to']
 end
 
 datadir = mysqld["datadir"] || server["datadir"]
-user    = mysqld["user"] || server["user"]
+user    = mysqld["username"] || server["username"]
 
 # define the service
 service "mysql" do

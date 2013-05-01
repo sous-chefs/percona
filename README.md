@@ -340,6 +340,8 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * allow server to not be started on startup
 * **[@pioneerit](https://github.com/pioneerit)**
     * add sections to `.my.cnf` for `mysqladmin` and `mysqldump`
+* **[@AndreyChernyh](https://github.com/AndreyChernyh)**
+    * use resources helper to support newer chef versions
 
 
 ## License

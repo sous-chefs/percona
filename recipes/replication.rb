@@ -17,5 +17,5 @@ end
 execute "mysql-set-replication" do
   command "/usr/bin/mysql < /etc/mysql/replication.sql"
   action :nothing
-  subscribes :run, "template[/etc/mysql/replication.sql]", :immediately
+  subscribes :run, resources("template[/etc/mysql/replication.sql]"), :immediately
 end

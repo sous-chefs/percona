@@ -333,6 +333,7 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * fix incorrect root password reference
 * **[@baldur](https://github.com/baldur)**
     * _(honorable mention)_ fix incorrect root password reference
+    * fix typo in attribute for server username
 * **[@chrisroberts](https://github.com/chrisroberts)**
     * _(honorable mention)_ fix issue with -p flag when setting initial password
 * **[@aaronjensen](https://github.com/aaronjensen)**

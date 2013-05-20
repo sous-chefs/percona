@@ -69,19 +69,19 @@ The mysql item should contain entries for root, backup, and replication. If no v
 
 The "system" item should contain an entry for the debian system user as specified in the `node[:percona][:server][:debian_username]` attribute. If no such entry is found, the cookbook will fall back to the default non-encrypted password.
 
-Example: "passwords" data bag - this example assumes that `node[:percona][:server][:debian_username] = spud`
+Example: "passwords" data bag - this example assumes that `node[:percona][:server][:debian_username] = debian-sys-maint`
 
 ```javascript
 {
   "mysql" :
   {
-    "root" : "trywgFA6R70NO28PNhMpGhEvKBZuxouemnbnAUQsUyo=\n"
-    "backup" : "eqoiudfj098389fjadfkadf=\n"
-    "replication" : "qwo0fj0213fm9020fm2023fjsld=\n"
+    "root" : "trywgFA6R70NO28PNhMpGhEvKBZuxouemnbnAUQsUyo"
+    "backup" : "eqoiudfj098389fjadfkadf"
+    "replication" : "qwo0fj0213fm9020fm2023fjsld"
   },
   "system" :
   {
-    "spud" : "dwoifm2340f024jfadgfu243hf2=\n"
+    "debian-sys-maint" : "dwoifm2340f024jfadgfu243hf2"
   }
 }
 ```
@@ -89,6 +89,37 @@ Example: "passwords" data bag - this example assumes that `node[:percona][:serve
 Above shows the encrypted password in the data bag. Check out the `encrypted_data_bag_secret` setting in `knife.rb` to setup your data bag secret during bootstrapping.
 
 ## Attributes
+
+You can now create users, databases, and grants using attributes. For example:
+
+```javascript
+"percona": {
+  "server": {
+    "databases": {
+      "mydb1": { "charset": "utf8", "collate": "utf8_unicode_ci" },
+      "mydb2": { "charset": "utf8", "collate": "utf8_unicode_ci" }
+    },
+    "users": {
+      "myuser1": {
+        "host": "localhost",
+        "password": "plaintextisfinesometimes",
+        "grants": [
+          "all on *.*"
+        ]
+      },
+      "myuser2": {
+        "grants": [
+          "select, insert, update, delete, create temporary tables ON mydb2.*"
+        ]
+      }
+    }
+  }
+}
+```
+
+The passwords for your users can only be set via encrypted data bags, in the same way as in the example for mysql root above.
+
+Of course you can also control the server configuration:
 
 ```ruby
 # Always restart percona on configuration changes

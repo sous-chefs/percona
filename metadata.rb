@@ -19,7 +19,7 @@ recipe "percona::access_grants", "Used internally to grant permissions for recip
 
 depends "apt", ">= 1.4.4"
 depends "yum"
-depends "openssl"
+depends "openssl" # for secure_password() helper
 
 %w[debian ubuntu centos amazon scientific fedora redhat].each do |os|
   supports os

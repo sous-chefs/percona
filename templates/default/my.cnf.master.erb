@@ -51,6 +51,8 @@ datadir           = <%= node["percona"]["server"]["datadir"] %>
 tmpdir            = <%= node["percona"]["server"]["tmpdir"] %>
 slave_load_tmpdir = <%= node["percona"]["server"]["tmpdir"] %>
 # language          = <%= node["percona"]["server"]["language"] %>
+character_set_server = <%= node["percona"]["server"]["character_set"] %>
+collation_server  = <%= node["percona"]["server"]["collation"] %>
 
 <% if node["percona"]["server"]["skip_external_locking"] %>
 skip-external-locking
@@ -79,6 +81,9 @@ key_buffer = <%= node["percona"]["server"]["key_buffer"] %>
 # maximum query size server can process (Important when working with
 # large BLOBs).  enlarged dynamically, for each connection.
 max_allowed_packet  = <%= node["percona"]["server"]["max_allowed_packet"] %>
+
+# Maximum String length size of a group concat result
+group_concat_max_len = <%= node["percona"]["server"]["group_concat_max_len"] %>
 
 # Thread stack size to use. This amount of memory is always reserved at
 # connection time. MySQL itself usually needs no more than 64K of
@@ -370,6 +375,12 @@ innodb_data_file_path = <%= node["percona"]["server"]["innodb_data_file_path"] %
 <% if node["percona"]["server"]["innodb_file_per_table"] %>
 innodb_file_per_table
 <% end %>
+
+# The file format to use for new InnoDB tables.
+# Currently Antelope and Barracuda are supported.
+# This applies only for tables that have their own tablespace,
+# so for it to have an effect innodb_file_per_table must be enabled.
+innodb_file_format = <%= node["percona"]["server"]["innodb_file_format"] %>
 
 # Set this option if you would like the InnoDB tablespace files to be
 # stored in another location. By default this is the MySQL datadir.

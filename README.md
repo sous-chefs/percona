@@ -90,6 +90,37 @@ Above shows the encrypted password in the data bag. Check out the `encrypted_dat
 
 ## Attributes
 
+You can now create users, databases, and grants using attributes. For example:
+
+```javascript
+"percona": {
+  "server": {
+    "databases": {
+      "mydb1": { "charset": "utf8", "collate": "utf8_unicode_ci" },
+      "mydb2": { "charset": "utf8", "collate": "utf8_unicode_ci" }
+    },
+    "users": {
+      "myuser1": {
+        "host": "localhost",
+        "password": "plaintextisfinesometimes",
+        "grants": [
+          "all on *.*"
+        ]
+      },
+      "myuser2": {
+        "grants": [
+          "select, insert, update, delete, create temporary tables ON mydb2.*"
+        ]
+      }
+    }
+  }
+}
+```
+
+The passwords for your users can only be set via encrypted data bags, in the same way as in the example for mysql root above.
+
+Of course you can also control the server configuration:
+
 ```ruby
 # Always restart percona on configuration changes
 default["percona"]["auto_restart"] = true

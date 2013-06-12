@@ -23,12 +23,6 @@ when "debian"
     pin " release o=Percona Development Team"
     pin_priority "1001"
   end
-  
-
-  # install dependent package
-  package "libmysqlclient-dev" do
-    options "--force-yes"
-  end
 
 when "rhel"
   include_recipe "yum"

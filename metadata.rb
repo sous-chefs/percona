@@ -6,7 +6,7 @@ description       "Installs Percona MySQL client and server"
 long_description  "Please refer to README.md"
 version           "0.14.5"
 
-recipe "percona",                "Default no-op recipe"
+recipe "percona",                "Includes the client recipe to configure a client"
 recipe "percona::package_repo",  "Sets up the package repository and installs dependent packages"
 recipe "percona::client",        "Installs client libraries"
 recipe "percona::server",        "Installs the server daemon"

@@ -1,4 +1,6 @@
-# chef-percona  [![Build Status](https://secure.travis-ci.org/phlipper/chef-percona.png)](http://travis-ci.org/phlipper/chef-percona) [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/phlipper/chef-percona)
+# chef-percona
+[![Build Status](https://secure.travis-ci.org/patcon/chef-percona.png)](http://travis-ci.org/patcon/chef-percona)
+[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/phlipper/chef-percona)
 
 ## Description
 

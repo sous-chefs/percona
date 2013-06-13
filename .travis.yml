@@ -1,9 +1,38 @@
+---
 language: ruby
-gemfile:
-   - test/support/Gemfile
+
 rvm:
-  - 1.9.2
   - 1.9.3
+
+gemfile:
+  - test/support/Gemfile
+
+env:
+  matrix:
+    - CHEF_VERSION=10.26.0
+    - CHEF_VERSION=11.4.4
+  global:
+    #  Override RVM's default to DISABLE verifying 1.9.3-p429 checksum,
+    #  since Travis' RVM is out-of-date.
+    - rvm_verify_downloads_flag=1
+
+    # AWS_ACCESS_KEY_ID
+    - secure: "FI7nEQHyd0YG0NJTQ1ENLEnFAOZRPetmd5FbOOp9WYNdTbbTkWzYXHWHdTxg\nlLdnCeqtArDb+UJvnnS+jWamBULZqNktz0qYdSGs4JVgFa8VsU7j/k172EF9\ngaBOWZ8H/Pin1pFccDHjy5dFXBLcB5k0awM+LDlhbZdlQgD9+qo="
+
+    # AWS_SECRET_ACCESS_KEY
+    - secure: "hKI4e2WqXmNpiabTCN1bBB00w3HEaR3khOnp5YKuSJCO0zsyhJMdTI9X9ynB\ncvQvddI8lWbkfTvsEGed+QBummzGHJ34Gao/cYCxWnoMpGmFtBhk60/du/ep\nLYWGnCbbFq9L6i6Or1Q2649q/OjYUgJd3C8/WjI0S6K5Qzyv/XQ="
+
 script:
   - bundle exec rake knife
   - bundle exec rake foodcritic
+  - bundle exec kitchen test all --parallel --destroy=always
+
+after_failure:
+  - cat .kitchen/logs/*.log
+
+branches:
+  only:
+    - develop
+
+notifications:
+  email: false

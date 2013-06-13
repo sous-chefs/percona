@@ -1,40 +1,45 @@
 #
 # Cookbook Name:: percona
-# Recipe:: percona_repo
+# Recipe:: package_repo
 #
 
-case node["platform_family"]
+case node['platform_family']
+
 when "debian"
   include_recipe "apt"
 
-  apt_repository "percona" do
-    uri "http://repo.percona.com/apt"
-    distribution node["lsb"]["codename"]
-    components ["main"]
-    keyserver node["percona"]["keyserver"]
-    key "1C4CBDCDCD2EFD2A"
-    action :add
-    notifies :run, "execute[apt-get update]", :immediately
-  end
-  
-  # Pin this repo as to avoid conflicts with others
+  # Pin this repo as to avoid upgrade conflicts with distribution repos.
   apt_preference "00percona" do
     package_name "*"
-    pin " release o=Percona Development Team"
+    pin "release o=Percona Development Team"
     pin_priority "1001"
+  end
+
+  apt_repository "percona" do
+    uri node['percona']['apt_uri']
+    distribution node['lsb']['codename']
+    components [ "main" ]
+    keyserver node['percona']['apt_keyserver']
+    key node['percona']['apt_key_id']
+    action :add
   end
 
 when "rhel"
   include_recipe "yum"
+
   yum_key "RPM-GPG-KEY-percona" do
     url "http://www.percona.com/downloads/RPM-GPG-KEY-percona"
     action :add
   end
 
+  arch = node['kernel']['machine'] == "x86_64" ? "x86_64" : "i386"
+  pversion = node['platform_version'].to_i
   yum_repository "percona" do
-    name "CentOS-Percona"
-    url "http://repo.percona.com/centos/#{node["platform_version"].split('.')[0]}/os/#{node["kernel"]["machine"]}/"
+    repo_name "Percona"
+    description "Percona Repo"
+    url "http://repo.percona.com/centos/#{pversion}/os/#{arch}/"
     key "RPM-GPG-KEY-percona"
     action :add
   end
+
 end

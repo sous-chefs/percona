@@ -1,0 +1,61 @@
+---
+driver_plugin: ec2
+driver_config:
+  aws_access_key_id: <%= ENV['AWS_ACCESS_KEY_ID'] %>
+  aws_secret_access_key: <%= ENV['AWS_SECRET_ACCESS_KEY'] %>
+  # instance_type: ebs
+  flavor_id: t1.micro
+  aws_ssh_key_id: vagrant
+  ssh_key: <%= File.expand_path('./test/support/keys/vagrant') %>
+  availability_zone: us-east-1d
+  require_chef_omnibus: 11.4.4
+
+platforms:
+# Source: http://cloud-images.ubuntu.com/locator/ec2/
+- name: lucid64
+  driver_config:
+    image_id: ami-b70374de
+    username: ubuntu
+  run_list:
+  - recipe[apt]
+
+- name: precise64
+  driver_config:
+    image_id: ami-e7582d8e
+    username: ubuntu
+  run_list:
+  - recipe[apt]
+
+# Source: http://www.bashton.com/blog/2012/centos-6-2-ec2-ami/
+- name: centos62-64
+  driver_config:
+    image_id: ami-eece1d87
+    username: ec2-user
+  run_list:
+  - recipe[yum::epel]
+
+# Source: http://www.bashton.com/blog/2013/updated-centos-6-3-ec2-ami/
+- name: centos63-64
+  driver_config:
+    image_id: ami-c53fb7ac
+    username: ec2-user
+  run_list:
+  - recipe[yum::epel]
+
+# Source: http://www.bashton.com/blog/2013/centos-6-4-ami-available/
+- name: centos64-64
+  driver_config:
+    image_id: ami-52009e3b
+    username: ec2-user
+  run_list:
+  - recipe[yum::epel]
+
+suites:
+- name: client
+  run_list:
+  - recipe[percona::client]
+  attributes: {}
+- name: server
+  run_list:
+  - recipe[percona::server]
+  attributes: {}

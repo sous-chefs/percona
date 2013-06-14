@@ -25,7 +25,7 @@ env:
 script:
   - bundle exec rake knife
   - bundle exec rake foodcritic
-  - [ "true" == "$TRAVIS_SECURE_ENV_VARS" ] && bundle exec kitchen test all --parallel --destroy=always
+  - bundle exec rake kitchen
 
 after_failure:
   - cat .kitchen/logs/*.log

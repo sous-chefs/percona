@@ -20,6 +20,21 @@ task :knife do
   sh "knife cookbook test cookbook -c test/.chef/knife.rb -o #{sandbox_path}/../"
 end
 
+task :kitchen, :regex do |t, args|
+  # Skip if on Travis an no secure vars avail.
+  next if ENV['TRAVIS_SECURE_ENV_VARS'] == "false"
+
+  cmd = "bundle exec kitchen test #{args.regex} --parallel"
+
+  if ENV['CI']
+    cmd = "#{cmd} --destroy=always"
+  else
+    cmd = "BUNDLE_GEMFILE=test/support/Gemfile #{cmd}"
+  end
+
+  sh cmd
+end
+
 task :prepare_sandbox do
   files = %w{*.md *.rb attributes definitions libraries files providers recipes resources templates}
 

@@ -24,8 +24,23 @@ platforms:
     username: ec2-user
 
 suites:
-- name: default-<%= ENV['TRAVIS_JOB_NUMBER'] ? ENV['TRAVIS_JOB_NUMBER'] : '' %>
+- name: client-server-<%= ENV['TRAVIS_JOB_NUMBER'] %>
   run_list:
   - recipe[percona::client]
   - recipe[percona::server]
-  attributes: {}
+
+- name: xtrabackup-<%= ENV['TRAVIS_JOB_NUMBER'] %>
+  run_list:
+  - recipe[percona::backup]
+
+- name: toolkit-<%= ENV['TRAVIS_JOB_NUMBER'] %>
+  run_list:
+  - recipe[percona::toolkit]
+
+- name: xtradb-cluster-<%= ENV['TRAVIS_JOB_NUMBER'] %>
+  run_list:
+  - recipe[percona::cluster]
+
+- name: monitoring-<%= ENV['TRAVIS_JOB_NUMBER'] %>
+  run_list:
+  - recipe[percona::monitoring]

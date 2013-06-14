@@ -17,10 +17,10 @@ env:
     - rvm_verify_downloads_flag=1
 
     # AWS_ACCESS_KEY_ID
-    - secure: "FI7nEQHyd0YG0NJTQ1ENLEnFAOZRPetmd5FbOOp9WYNdTbbTkWzYXHWHdTxg\nlLdnCeqtArDb+UJvnnS+jWamBULZqNktz0qYdSGs4JVgFa8VsU7j/k172EF9\ngaBOWZ8H/Pin1pFccDHjy5dFXBLcB5k0awM+LDlhbZdlQgD9+qo="
+    - secure: "L/AghMfiF3+OcRCgidAXn/vk/qn31jFU9toxObCbIOfIZZrnzgkC/vbvx4pp\n8M8JcSFiLfN5Bz01tQtXB73IA1cxtaY9e/bF7zZazMy5zjgZrbGB3WhvGMnZ\nqz+X5tw0geBCeIgVW9ULrl/LYVKrz4rY9BtSvcV94+MaZA4bn24="
 
     # AWS_SECRET_ACCESS_KEY
-    - secure: "hKI4e2WqXmNpiabTCN1bBB00w3HEaR3khOnp5YKuSJCO0zsyhJMdTI9X9ynB\ncvQvddI8lWbkfTvsEGed+QBummzGHJ34Gao/cYCxWnoMpGmFtBhk60/du/ep\nLYWGnCbbFq9L6i6Or1Q2649q/OjYUgJd3C8/WjI0S6K5Qzyv/XQ="
+    - secure: "Vw6Ti5LIMHboSFFlx29lpTWxBdX3HUFOtFb2hRfS1zIJLMOcE9bH9XyNPEk5\nY/YV+jhPpLQ5EYd+3d8fZOw397/U9nGfP3sFybYh9z3yiwU8E3yzzb8uQSB3\nKYNRGgbno3MednHSJwP9UBnx6A7JfCoGuuojDSDd8vZ1ZudvuHo="
 
 script:
   - bundle exec rake knife

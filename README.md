@@ -1,5 +1,5 @@
 # chef-percona
-[![Build Status](https://secure.travis-ci.org/patcon/chef-percona.png)](http://travis-ci.org/patcon/chef-percona)
+[![Build Status](https://secure.travis-ci.org/phlipper/chef-percona.png)](http://travis-ci.org/phlipper/chef-percona)
 [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/phlipper/chef-percona)
 
 ## Description
@@ -15,8 +15,14 @@ Installs the [Percona MySQL](http://www.percona.com/software/percona-server) cli
 
 ### Supported Platforms
 
-The following platforms are supported by this cookbook, meaning that the
-recipes should run on these platforms without error:
+We provide an expanding set of tests against the following 64-bit platforms:
+
+* Ubuntu Precise 12.04 LTS
+* Centos 6.4
+
+Although we don't test against all possible platform verions, we expect
+the following to be supported. Please submit an issue if this is not the
+cause, and we'll make reasonable efforts to improve support:
 
 * Ubuntu
 * Debian

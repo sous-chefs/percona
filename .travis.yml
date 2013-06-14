@@ -32,7 +32,10 @@ after_failure:
 
 branches:
   only:
-    - develop
+    - master
+    # Also run on feature branches with linkable issue format
+    # (for fetching and testing PRs)
+    - /^(GH-|#)?(\d+)-(.+)/i
 
 notifications:
   email: false

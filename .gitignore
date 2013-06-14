@@ -1,8 +1,5 @@
-*.tgz
-*.tar.gz
-vendor/bundle
-.bundle
-.DS_Store
-build/*
-tmp/
-Gemfile.lock
+cookbooks
+tmp
+.librarian/
+.kitchen/
+.kitchen.local.yml

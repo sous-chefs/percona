@@ -31,6 +31,7 @@ suites:
 
 - name: xtrabackup-<%= ENV['TRAVIS_JOB_NUMBER'] %>
   run_list:
+  - recipe[percona::server]
   - recipe[percona::backup]
 
 - name: toolkit-<%= ENV['TRAVIS_JOB_NUMBER'] %>

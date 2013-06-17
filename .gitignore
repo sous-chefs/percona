@@ -1,4 +1,4 @@
-cookbooks
+cookbooks/*
 tmp
 .librarian/
 .kitchen/

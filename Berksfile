@@ -8,6 +8,5 @@ cookbook "yum",
   :ref => 'COOK-3145-better-epel-key-url'
 
 group :integration do
-  #cookbook "mysql_test", :path => "./test/cookbooks/mysql_test"
-  cookbook "minitest-handler"
+  # cookbook "mysql"
 end

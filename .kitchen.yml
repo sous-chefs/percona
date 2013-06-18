@@ -38,10 +38,6 @@ suites:
   run_list:
   - recipe[percona::toolkit]
 
-- name: xtradb-cluster-<%= ENV['TRAVIS_JOB_NUMBER'] %>
-  run_list:
-  - recipe[percona::cluster]
-
 - name: monitoring-<%= ENV['TRAVIS_JOB_NUMBER'] %>
   run_list:
   - recipe[percona::monitoring]

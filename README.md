@@ -8,7 +8,9 @@ Installs the [Percona MySQL](http://www.percona.com/software/percona-server) cli
 
 * [XtraBackup](http://www.percona.com/software/percona-xtrabackup/) hot backup software
 * [Percona Toolkit](http://www.percona.com/software/percona-toolkit/) advanced command-line tools
-* [XtraDB Cluster](http://www.percona.com/software/percona-xtradb-cluster/) high availability and high scalability solution for MySQL
+* [XtraDB
+Cluster](http://www.percona.com/software/percona-xtradb-cluster/) high
+availability and high scalability solution for MySQL. {DEPRECATED}
 * [Percona Monitoring Plugins](http://www.percona.com/software/percona-monitoring-plugins) various Nagios plugins for monitoring MySQL
 
 ## Requirements
@@ -51,7 +53,7 @@ It is recommended to use a version of Chef `>= 10.16.4` as that is the target of
 * `percona::server` - Installs and configures the Percona MySQL server daemon.
 * `percona::backup` - Installs and configures the Percona XtraBackup hot backup software.
 * `percona::toolkit` - Installs the Percona Toolkit software
-* `percona::cluster` - Installs the Percona XtraDB Cluster server components
+* `percona::cluster` - *{DEPRECATED}* Installs the Percona XtraDB Cluster server components
 * `percona::configure_server` - Used internally to manage the server configuration.
 * `percona::replication` - Used internally to grant permissions for replication.
 * `percona::access_grants` - Used internally to grant permissions for recipes.
@@ -273,7 +275,7 @@ In no particular order:
 * Support the following common database infrastructures:
     * Single server instance
     * Traditional Master/Slave replication
-    * Multi-master cluster replication
+    * Multi-master cluster replication {DEPRECATED}
 * Support the most common Chef runtime environments
 * Be the easiest way to setup a MySQL distribution through Chef
 

@@ -4,7 +4,12 @@
 
 ## Description
 
-Installs the [Percona MySQL](http://www.percona.com/software/percona-server) client and/or server components. Optionally installs:
+Installs the [Percona
+MySQL](http://www.percona.com/software/percona-server) client and/or
+server components. (We are attempting to leverage the official Opscode
+MySQL cookbook as much as possible.)
+
+Optionally installs:
 
 * [XtraBackup](http://www.percona.com/software/percona-xtrabackup/) hot backup software
 * [Percona Toolkit](http://www.percona.com/software/percona-toolkit/) advanced command-line tools
@@ -39,10 +44,13 @@ cause, and we'll make reasonable efforts to improve support:
 * [apt](http://community.opscode.com/cookbooks/apt) Opscode LWRP Cookbook
 * [openssl](http://community.opscode.com/cookbooks/openssl) Opscode Cookbook
 * [yum](http://community.opscode.com/cookbooks/yum) Opscode LWRP Cookbook
+* [mysql](http://community.opscode.com/cookbooks/mysql) Opscode Cookbook
 
 ### Chef
 
-It is recommended to use a version of Chef `>= 10.16.4` as that is the target of my usage and testing, though this should work with any version `>= 10.0.0`.
+We aim to test the most recent releases of Chef 10 and 11. You can view
+the [currently tested versions](https://github.com/phlipper/chef-percona/blob/master/.travis.yml#L12-L13).
+(Feel free to submit a pull request if they're out of date!)
 
 
 ## Recipes
@@ -272,11 +280,12 @@ In no particular order:
 * Be the most flexible way to setup a MySQL distribution through Chef
     * Support for Chef Solo
     * Support for Chef Server
+* Leverage to official Opscode MySQL cookbook as much as possible.
 * Support the following common database infrastructures:
     * Single server instance
     * Traditional Master/Slave replication
     * Multi-master cluster replication {DEPRECATED}
-* Support the most common Chef runtime environments
+* Support the most recent Chef 10 & 11 runtime environments
 * Be the easiest way to setup a MySQL distribution through Chef
 
 

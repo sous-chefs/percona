@@ -1,4 +1,6 @@
-# chef-percona  [![Build Status](https://secure.travis-ci.org/phlipper/chef-percona.png)](http://travis-ci.org/phlipper/chef-percona) [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/phlipper/chef-percona)
+# chef-percona
+[![Build Status](https://secure.travis-ci.org/phlipper/chef-percona.png)](http://travis-ci.org/phlipper/chef-percona)
+[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/phlipper/chef-percona)
 
 ## Description
 
@@ -6,15 +8,23 @@ Installs the [Percona MySQL](http://www.percona.com/software/percona-server) cli
 
 * [XtraBackup](http://www.percona.com/software/percona-xtrabackup/) hot backup software
 * [Percona Toolkit](http://www.percona.com/software/percona-toolkit/) advanced command-line tools
-* [XtraDB Cluster](http://www.percona.com/software/percona-xtradb-cluster/) high availability and high scalability solution for MySQL
+* [XtraDB
+Cluster](http://www.percona.com/software/percona-xtradb-cluster/) high
+availability and high scalability solution for MySQL. {DEPRECATED}
 * [Percona Monitoring Plugins](http://www.percona.com/software/percona-monitoring-plugins) various Nagios plugins for monitoring MySQL
 
 ## Requirements
 
 ### Supported Platforms
 
-The following platforms are supported by this cookbook, meaning that the
-recipes should run on these platforms without error:
+We provide an expanding set of tests against the following 64-bit platforms:
+
+* Ubuntu Precise 12.04 LTS
+* Centos 6.4
+
+Although we don't test against all possible platform verions, we expect
+the following to be supported. Please submit an issue if this is not the
+cause, and we'll make reasonable efforts to improve support:
 
 * Ubuntu
 * Debian
@@ -43,7 +53,7 @@ It is recommended to use a version of Chef `>= 10.16.4` as that is the target of
 * `percona::server` - Installs and configures the Percona MySQL server daemon.
 * `percona::backup` - Installs and configures the Percona XtraBackup hot backup software.
 * `percona::toolkit` - Installs the Percona Toolkit software
-* `percona::cluster` - Installs the Percona XtraDB Cluster server components
+* `percona::cluster` - *{DEPRECATED}* Installs the Percona XtraDB Cluster server components
 * `percona::configure_server` - Used internally to manage the server configuration.
 * `percona::replication` - Used internally to grant permissions for replication.
 * `percona::access_grants` - Used internally to grant permissions for recipes.
@@ -265,7 +275,7 @@ In no particular order:
 * Support the following common database infrastructures:
     * Single server instance
     * Traditional Master/Slave replication
-    * Multi-master cluster replication
+    * Multi-master cluster replication {DEPRECATED}
 * Support the most common Chef runtime environments
 * Be the easiest way to setup a MySQL distribution through Chef
 

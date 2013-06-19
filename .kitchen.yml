@@ -26,9 +26,12 @@ platforms:
     username: ec2-user
 
 suites:
-- name: client-server-<%= ENV['TRAVIS_JOB_NUMBER'] %>
+- name: client-<%= ENV['TRAVIS_JOB_NUMBER'] %>
   run_list:
   - recipe[percona::client]
+
+- name: server-<%= ENV['TRAVIS_JOB_NUMBER'] %>
+  run_list:
   - recipe[percona::server]
 
 - name: xtrabackup-<%= ENV['TRAVIS_JOB_NUMBER'] %>

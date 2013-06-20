@@ -5,6 +5,7 @@ when "debian"
   normal['mysql']['server']['packages'] = %w{percona-server-server}
 when "rhel"
   normal['mysql']['server']['packages'] = %w{Percona-Server-server-55}
+  normal['mysql']['service_name'] = "mysql"
 end
 
 case node["platform_family"]

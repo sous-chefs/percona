@@ -7,4 +7,6 @@ if node["platform_family"] == "rhel"
   package "Percona-Server-shared-compat"
 end
 
-package "percona-toolkit"
+package "percona-toolkit" do
+  options "--force-yes" if platform_family?('debian')
+end

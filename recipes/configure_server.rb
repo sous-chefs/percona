@@ -17,6 +17,7 @@ if server["bind_to"]
 end
 
 datadir = mysqld["datadir"] || server["datadir"]
+tmpdir  = mysqld["tmpdir"] || server["tmpdir"]
 user    = mysqld["username"] || server["username"]
 
 # define the service
@@ -36,6 +37,13 @@ end
 directory datadir do
   owner user
   group user
+  recursive true
+  action :create
+end
+
+# setup the tmp directory
+directory tmpdir do
+  mode 0777
   recursive true
   action :create
 end

@@ -8,5 +8,6 @@ cookbook "yum",
   :ref => 'COOK-3145-better-epel-key-url'
 
 group :integration do
-  # cookbook "mysql"
+  #cookbook "percona_test", :path => "./test/cookbooks/percona_test"
+  #cookbook "minitest-handler"
 end

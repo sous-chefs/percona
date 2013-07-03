@@ -42,8 +42,9 @@ if node['percona']['server'].has_key? 'users'
   passwords = Chef::EncryptedDataBagItem.load('passwords', 'mysql')
 
   node['percona']['server']['users'].each do |user, h|
+    user, host = user.split('@').map{|s| s.gsub("'",'')} if user =~ /@/
+    host ||= h['host'] || '%'
     password = h['password'] || passwords[user]
-    host = h['host'] || '%'
     if password
       # mysql GRANT will create the user if it doesn't exist
       # usage is actually a no-op

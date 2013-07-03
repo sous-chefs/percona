@@ -25,11 +25,13 @@ task :kitchen, :regex do |t, args|
   # Skip if on Travis an no secure vars avail.
   next if ENV['TRAVIS_SECURE_ENV_VARS'] == "false"
 
-  cmd = "bundle exec kitchen test #{args.regex} --parallel"
+  sh "bundle exec kitchen test #{args.regex} --parallel --destroy=passing"
+  sh "bundle exec kitchen list"
 
-  cmd = "#{cmd} --destroy=always" if ENV['CI']
+  if ENV['CI']
+    sh "bundle exec kitchen destroy"
+  end
 
-  sh cmd
 end
 
 task :prepare_sandbox do

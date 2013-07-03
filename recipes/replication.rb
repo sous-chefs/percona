@@ -19,6 +19,9 @@ if node["percona"]["server"]["replication"]["host"] != "" || node["percona"]["se
   end
 
   if node["percona"]["server"]["role"] == "slave"
+    # Stop slave in case its currently running
+    execute %Q(#{mysql} "STOP SLAVE;")
+
     # Set replication parameters
     execute <<-SQL
     #{mysql} "

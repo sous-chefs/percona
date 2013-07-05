@@ -11,10 +11,6 @@ env:
   matrix:
     - CHEF_VERSION=10.26.0
     - CHEF_VERSION=11.4.4
-  global:
-    #  Override RVM's default to DISABLE verifying 1.9.3-p429 checksum,
-    #  since Travis' RVM is out-of-date.
-    - rvm_verify_downloads_flag=1
 
     # AWS_ACCESS_KEY_ID
     - secure: "L/AghMfiF3+OcRCgidAXn/vk/qn31jFU9toxObCbIOfIZZrnzgkC/vbvx4pp\n8M8JcSFiLfN5Bz01tQtXB73IA1cxtaY9e/bF7zZazMy5zjgZrbGB3WhvGMnZ\nqz+X5tw0geBCeIgVW9ULrl/LYVKrz4rY9BtSvcV94+MaZA4bn24="
@@ -27,6 +23,12 @@ script:
   - bundle exec rake foodcritic
   - bundle exec rake kitchen
 
+# Make sure that EC2 servers never stick around,
+# even if previous test-kitchen run has a fatal error.
+after_script:
+  - bundle exec kitchen destroy
+
+# Individual logs much simpler to read.
 after_failure:
   - cat .kitchen/logs/*.log
 

@@ -4,7 +4,7 @@
 <% if node["platform_family"] == "debian" -%>
 # debian-sys-maint user for administration
   <% [['SELECT', 'mysql.user'], ['SHUTDOWN', '*.*']].each do |priv, loc| %>
-<%= "GRANT #{priv} ON #{loc} TO '#{@debian_user}'@localhost IDENTIFIED BY '#{@debian_password}';" %>
+<%= "GRANT #{priv} ON #{loc} TO '#{node["percona"]["server"]["debian_username"]}'@localhost IDENTIFIED BY '#{node["mysql"]["server_debian_password"]}';" %>
   <% end -%>
 <% end -%>
 
@@ -18,7 +18,7 @@ GRANT RELOAD, LOCK TABLES, REPLICATION CLIENT ON *.* TO '<%= node["percona"]["ba
 <% end -%>
 
 # Set the server root password. This should be preseeded by the package installation.
-SET PASSWORD FOR 'root'@'localhost' = PASSWORD('<%= @root_password %>');
+SET PASSWORD FOR 'root'@'localhost' = PASSWORD('<%= node["mysql"]["server_root_password"] %>');
 
 
 FLUSH PRIVILEGES;

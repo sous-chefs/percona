@@ -62,9 +62,7 @@ the [currently tested versions](https://github.com/phlipper/chef-percona/blob/ma
 * `percona::backup` - Installs and configures the Percona XtraBackup hot backup software.
 * `percona::toolkit` - Installs the Percona Toolkit software
 * `percona::cluster` - *{DEPRECATED}* Installs the Percona XtraDB Cluster server components
-* `percona::configure_server` - Used internally to manage the server configuration.
 * `percona::replication` - Used internally to grant permissions for replication.
-* `percona::access_grants` - Used internally to grant permissions for recipes.
 * `percona::monitoring` - Installs Percona monitoring plugins for Nagios
 
 ## Usage

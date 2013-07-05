@@ -1,30 +1,14 @@
-include_recipe "percona::package_repo"
+include_recipe "percona::client"
+include_recipe "mysql::server"
 
-# install packages
-case node["platform_family"]
-when "debian"
-  package "percona-server-server" do
-    action :install
-    options "--force-yes"
-  end
-when "rhel"
-  # Need to remove this to avoid conflicts
-  package "mysql-libs" do
-    action :remove
-    not_if "rpm -qa | grep Percona-Server-shared-55"
-  end
+# Yum doesn't have a simple way to pin like apt does.
+if platform_family?('rhel')
+  chef_gem "chef-rewind"
+  require 'chef/rewind'
 
-  # we need mysqladmin
-  include_recipe "percona::client"
-
-  package "Percona-Server-server-55" do
-    action :install
+  node['mysql']['server']['packages'].each do |pkg|
+    rewind :package => pkg do
+      options "--disablerepo=base,extras,updates"
+    end
   end
 end
-
-include_recipe "percona::configure_server"
-
-# access grants
-include_recipe "percona::access_grants"
-
-include_recipe "percona::replication"

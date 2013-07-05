@@ -18,12 +18,22 @@ platforms:
     username: ubuntu
   run_list:
   - recipe[apt]
+  attributes:
+    mysql:
+      server_debian_password: root
+      server_root_password:   root
+      server_repl_password:   root
 
 # Source: http://www.bashton.com/blog/2013/centos-6-4-ami-available/
 - name: centos64-64
   driver_config:
     image_id: ami-52009e3b
     username: ec2-user
+  attributes:
+    mysql:
+      server_debian_password: root
+      server_root_password:   root
+      server_repl_password:   root
 
 suites:
 - name: client-<%= ENV['TRAVIS_JOB_NUMBER'] %>

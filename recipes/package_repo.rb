@@ -11,34 +11,38 @@ when "debian"
   include_recipe "apt"
   
   # Pin this repo as to avoid upgrade conflicts with distribution repos.
-  apt_preference "00percona" do
+  p = apt_preference "00percona" do
     glob "*"
     pin "release o=Percona Development Team"
     pin_priority "1001"
-  end.run_action(:add)
+  end
+  p.run_action(:add)
 
-  apt_repository "percona" do
+  r = apt_repository "percona" do
     uri node['percona']['apt_uri']
     distribution node['lsb']['codename']
     components [ "main" ]
     keyserver node['percona']['apt_keyserver']
     key node['percona']['apt_key_id']
-  end.run_action(:add)
+  end
+  r.run_action(:add)
 
 when "rhel"
   include_recipe "yum"
 
-  yum_key "RPM-GPG-KEY-percona" do
+  k = yum_key "RPM-GPG-KEY-percona" do
     url "http://www.percona.com/downloads/RPM-GPG-KEY-percona"
-  end.run_action(:add)
+  end
+  k.run_action(:add)
 
   arch = node['kernel']['machine'] == "x86_64" ? "x86_64" : "i386"
   pversion = node['platform_version'].to_i
-  yum_repository "percona" do
+  r = yum_repository "percona" do
     repo_name "Percona"
     description "Percona Repo"
     url "http://repo.percona.com/centos/#{pversion}/os/#{arch}/"
     key "RPM-GPG-KEY-percona"
-  end.run_action(:add)
+  end
+  r.run_action(:add)
 
 end

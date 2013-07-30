@@ -20,6 +20,13 @@ datadir = mysqld["datadir"] || server["datadir"]
 tmpdir  = mysqld["tmpdir"] || server["tmpdir"]
 user    = mysqld["username"] || server["username"]
 
+# init.d sometimes needs modification to
+# a long time for high-mem percona start/stop
+template "/etc/init.d/mysql" do
+  source "mysql.initd.erb"
+  mode 0755
+end
+
 # define the service
 service "mysql" do
   supports :restart => true

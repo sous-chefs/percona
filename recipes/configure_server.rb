@@ -27,12 +27,6 @@ template "/etc/init.d/mysql" do
   mode 0755
 end
 
-# define the service
-service "mysql" do
-  supports :restart => true
-  action server["enable"] ? :enable : :disable
-end
-
 # this is where we dump sql templates for replication, etc.
 directory "/etc/mysql" do
   owner "root"
@@ -50,9 +44,16 @@ end
 
 # setup the tmp directory
 directory tmpdir do
-  mode 0777
+  owner user
+  group user
   recursive true
   action :create
+end
+
+# define the service
+service "mysql" do
+  supports :restart => true
+  action server["enable"] ? :enable : :disable
 end
 
 # install db to the data directory

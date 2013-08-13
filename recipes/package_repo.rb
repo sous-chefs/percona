@@ -20,7 +20,7 @@ when "debian"
     distribution node['lsb']['codename']
     components [ "main" ]
     keyserver node['percona']['apt_keyserver']
-    key node['percona']['apt_key_id']
+    key node['percona']['apt_key']
     action :add
   end
 

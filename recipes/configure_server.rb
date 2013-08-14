@@ -18,7 +18,7 @@ if server["bind_to"]
   ipaddr = Percona::ConfigHelper.bind_to(node, server["bind_to"])
   if ipaddr && server["bind_address"] != ipaddr
     node.override["percona"]["server"]["bind_address"] = ipaddr
-    node.save
+    node.save unless Chef::Config[:solo]
   end
 
   log "Can't find ip address for #{server["bind_to"]}" do

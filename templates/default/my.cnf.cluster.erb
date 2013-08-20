@@ -44,6 +44,10 @@ tmpdir            = <%= node["percona"]["server"]["tmpdir"] %>
 slave_load_tmpdir = <%= node["percona"]["server"]["tmpdir"] %>
 # language          = <%= node["percona"]["server"]["language"] %>
 
+<% if node["percona"]["server"]["skip_name_resolve"] %>
+skip-name-resolve
+<% end %>
+
 <% if node["percona"]["server"]["skip_external_locking"] %>
 skip-external-locking
 <% end %>

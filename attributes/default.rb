@@ -57,6 +57,7 @@ default["percona"]["server"]["hostname"]                        = "localhost"
 default["percona"]["server"]["basedir"]                         = "/usr"
 default["percona"]["server"]["port"]                            = 3306
 default["percona"]["server"]["language"]                        = "/usr/share/mysql/english"
+default["percona"]["server"]["skip_name_resolve"]               = false
 default["percona"]["server"]["skip_external_locking"]           = true
 default["percona"]["server"]["net_read_timeout"]                = 120
 default["percona"]["server"]["old_passwords"]                   = 1

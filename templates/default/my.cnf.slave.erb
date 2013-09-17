@@ -51,6 +51,8 @@ datadir           = <%= node["percona"]["server"]["datadir"] %>
 tmpdir            = <%= node["percona"]["server"]["tmpdir"] %>
 slave_load_tmpdir = <%= node["percona"]["server"]["tmpdir"] %>
 # language          = <%= node["percona"]["server"]["language"] %>
+character_set_server = <%= node["percona"]["server"]["character_set"] %>
+collation_server  = <%= node["percona"]["server"]["collation"] %>
 
 <% if node["percona"]["server"]["skip_external_locking"] %>
 skip-external-locking

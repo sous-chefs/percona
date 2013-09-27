@@ -363,6 +363,8 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * add sections to `.my.cnf` for `mysqladmin` and `mysqldump`
 * **[@AndreyChernyh](https://github.com/AndreyChernyh)**
     * use resources helper to support newer chef versions
+* **[@avit](https://github.com/avit)**
+    * add default utf8 character set option
 
 
 ## License

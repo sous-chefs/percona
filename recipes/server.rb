@@ -3,7 +3,7 @@ include_recipe "percona::package_repo"
 # install packages
 case node["platform_family"]
 when "debian"
-  package "percona-server-server" do
+  package "percona-server-server-5.5" do
     action :install
     options "--force-yes"
   end

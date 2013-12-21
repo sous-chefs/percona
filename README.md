@@ -366,6 +366,8 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * use resources helper to support newer chef versions
 * **[@avit](https://github.com/avit)**
     * add default utf8 character set option
+* **[@alexzorin](https://github.com/alexzorin)**
+    * add support for `skip-name-resolve` option
 
 
 ## License

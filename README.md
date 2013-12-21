@@ -369,6 +369,8 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * add default utf8 character set option
 * **[@alexzorin](https://github.com/alexzorin)**
     * add support for `skip-name-resolve` option
+* **[@jyotty](https://github.com/jyotty)**
+    * specify `binlog_format` in master and slave roles
 
 
 ## License

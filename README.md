@@ -371,6 +371,8 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * add support for `skip-name-resolve` option
 * **[@jyotty](https://github.com/jyotty)**
     * specify `binlog_format` in master and slave roles
+* **[@adamdunkley](https://github.com/adamdunkley)**
+    * fix `table_cache` variable for mysql versions 5.6 and above
 
 
 ## License

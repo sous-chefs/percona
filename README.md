@@ -385,6 +385,9 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * add attribute `ignore_db` for slave template
 * **[@joegaudet](https://github.com/joegaudet)**
     * add attribute `group_concat_max_len`
+* **[@mikesmullin](https://github.com/mikesmullin)**
+    * accumulating patches from multiple sources
+    * tempdir fixes
 
 
 ## License

@@ -28,13 +28,8 @@ if server["bind_to"]
 end
 
 datadir = mysqld["datadir"] || server["datadir"]
+tmpdir  = mysqld["tmpdir"] || server["tmpdir"]
 user    = mysqld["username"] || server["username"]
-
-# define the service
-service "mysql" do
-  supports :restart => true
-  action server["enable"] ? :enable : :disable
-end
 
 # this is where we dump sql templates for replication, etc.
 directory "/etc/mysql" do
@@ -49,6 +44,20 @@ directory datadir do
   group user
   recursive true
   action :create
+end
+
+# setup the tmp directory
+directory tmpdir do
+  owner user
+  group user
+  recursive true
+  action :create
+end
+
+# define the service
+service "mysql" do
+  supports :restart => true
+  action server["enable"] ? :enable : :disable
 end
 
 # install db to the data directory

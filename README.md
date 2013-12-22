@@ -379,6 +379,9 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
 * **[@spovich](https://github.com/spovich)**
     * disable `old_passwords` support by default
     * force version 5.5 on Debian family to maintain consistency with RHEL family
+* **[@v1nc3ntlaw](https://github.com/v1nc3ntlaw)**
+    * add attribute `innodb_file_format`
+    * add attribute `ignore_db` for slave template
 
 
 ## License

@@ -1,6 +1,7 @@
 # chef-percona
-[![Build Status](https://secure.travis-ci.org/phlipper/chef-percona.png)](http://travis-ci.org/phlipper/chef-percona)
-[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/phlipper/chef-percona)
+
+[![Build Status](http://img.shields.io/travis-ci/phlipper/chef-percona.png)](https://travis-ci.org/phlipper/chef-percona)
+[![Code Climate](https://codeclimate.com/github/phlipper/chef-percona.png)](https://codeclimate.com/github/phlipper/chef-percona)
 
 ## Description
 
@@ -379,7 +380,7 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
 
 ## License
 
-Author:: Phil Cohen (<github@phlippers.net>) [![endorse](http://api.coderwall.com/phlipper/endorsecount.png)](http://coderwall.com/phlipper)
+Author:: Phil Cohen (<github@phlippers.net>) [![endorse](http://api.coderwall.com/phlipper/endorsecount.png)](http://coderwall.com/phlipper) [![Gittip](http://img.shields.io/gittip/phlipper.png)](https://www.gittip.com/phlipper/)
 
 Copyright:: 2011-2013, Phil Cohen
 

@@ -151,7 +151,7 @@ default["percona"]["server"]["language"]                        = "/usr/share/my
 default["percona"]["server"]["skip_name_resolve"]               = false
 default["percona"]["server"]["skip_external_locking"]           = true
 default["percona"]["server"]["net_read_timeout"]                = 120
-default["percona"]["server"]["old_passwords"]                   = 1
+default["percona"]["server"]["old_passwords"]                   = 0
 default["percona"]["server"]["bind_address"]                    = "127.0.0.1"
 %w[debian_password root_password].each do |attribute|
   next if defined?(node["percona"]["server"][attribute])
@@ -376,6 +376,8 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * fix `table_cache` variable for mysql versions 5.6 and above
 * **[@freerobby](https://github.com/freerobby)**
     * add requirements to `Berksfile`
+* **[@spovich](https://github.com/spovich)**
+    * disable `old_passwords` support by default
 
 
 ## License

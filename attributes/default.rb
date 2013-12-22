@@ -62,7 +62,7 @@ default["percona"]["server"]["collation"]                       = "utf8_unicode_
 default["percona"]["server"]["skip_name_resolve"]               = false
 default["percona"]["server"]["skip_external_locking"]           = true
 default["percona"]["server"]["net_read_timeout"]                = 120
-default["percona"]["server"]["old_passwords"]                   = 1
+default["percona"]["server"]["old_passwords"]                   = 0
 default["percona"]["server"]["bind_address"]                    = "127.0.0.1"
 %w[debian_password root_password].each do |attribute|
   next if defined?(node["percona"]["server"][attribute])

@@ -174,6 +174,7 @@ default["percona"]["server"]["back_log"]                        = 50
 default["percona"]["server"]["max_connections"]                 = 30
 default["percona"]["server"]["max_connect_errors"]              = 9999999
 default["percona"]["server"]["table_cache"]                     = 8192
+default["percona"]["server"]["group_concat_max_len"]            = 4096
 
 # Query Cache Configuration
 default["percona"]["server"]["query_cache_size"]                = "64M"
@@ -382,6 +383,8 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
 * **[@v1nc3ntlaw](https://github.com/v1nc3ntlaw)**
     * add attribute `innodb_file_format`
     * add attribute `ignore_db` for slave template
+* **[@joegaudet](https://github.com/joegaudet)**
+    * add attribute `group_concat_max_len`
 
 
 ## License

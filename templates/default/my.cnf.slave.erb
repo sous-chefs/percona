@@ -86,6 +86,9 @@ key_buffer = <%= node["percona"]["server"]["key_buffer"] %>
 # large BLOBs).  enlarged dynamically, for each connection.
 max_allowed_packet  = <%= node["percona"]["server"]["max_allowed_packet"] %>
 
+# Maximum String length size of a group concat result
+group_concat_max_len = <%= node["percona"]["server"]["group_concat_max_len"] %>
+
 # Thread stack size to use. This amount of memory is always reserved at
 # connection time. MySQL itself usually needs no more than 64K of
 # memory, while if you use your own stack hungry UDF functions or your

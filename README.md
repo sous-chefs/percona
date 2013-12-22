@@ -373,6 +373,8 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * specify `binlog_format` in master and slave roles
 * **[@adamdunkley](https://github.com/adamdunkley)**
     * fix `table_cache` variable for mysql versions 5.6 and above
+* **[@freerobby](https://github.com/freerobby)**
+    * add requirements to `Berksfile`
 
 
 ## License

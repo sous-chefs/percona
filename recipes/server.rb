@@ -11,7 +11,7 @@ when "rhel"
   # Need to remove this to avoid conflicts
   package "mysql-libs" do
     action :remove
-    not_if "rpm -qa | grep Percona-Server-shared-55"
+    not_if "rpm -qa | grep Percona-Server-shared"
   end
 
   # we need mysqladmin

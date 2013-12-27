@@ -256,6 +256,35 @@ default['percona']['plugins_sha'] = "da84cfe89637292da15ddb1e66f67ad9703fa21392d
 default['percona']['plugins_path'] = "/opt/pmp"
 ```
 
+### client.rb
+
+```ruby
+case node["platform_family"]
+when "debian"
+  normal['mysql']['client']['packages'] = %w{libmysqlclient-dev percona-server-client-5.5}
+when "rhel"
+  normal['mysql']['client']['packages'] = %w{Percona-Server-client-55}
+end
+```
+
+### server.rb
+
+```ruby
+case node["platform_family"]
+when "debian"
+  normal['percona']['server']['packages'] = %w{percona-server-server-5.5}
+when "rhel"
+  normal['percona']['server']['packages'] = %w{Percona-Server-server-55}
+end
+```
+
+#### For example, set percona version on ubuntu:
+
+```ruby
+node['percona']['server']['packages'] = %w{percona-server-server-5.6}
+node['mysql']['client']['packages'] = %w{libmysqlclient-dev percona-server-client-5.6}
+```
+
 ## Explicit my.cnf templating
 
 In some situation it is preferable to explicitly define the attributes needed in a `my.cnf` file. This is enabled by adding categories to the `node[:percona][:conf]` attributes. All keys found in the `node[:percona][:conf]` map will represent categories in the `my.cnf` file. Each category contains a map of attributes that will be written to the `my.cnf` file for that category. See the example for more details.

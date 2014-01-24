@@ -17,7 +17,7 @@ recipe "percona::configure_server", "Used internally to manage the server config
 recipe "percona::replication",   "Used internally to grant permissions for replication."
 recipe "percona::access_grants", "Used internally to grant permissions for recipes"
 
-depends "apt", "~> 1.9"
+depends "apt", "> 1.9"
 depends "yum"
 depends "openssl"
 depends "mysql", "~> 3.0"

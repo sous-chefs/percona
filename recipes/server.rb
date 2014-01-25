@@ -25,6 +25,10 @@ end
 include_recipe "percona::configure_server"
 
 # access grants
-include_recipe "percona::access_grants"
+include_recipe "percona::access_grants" do
+  not_if node["percona"]["skip_passwords"]
+end
 
-include_recipe "percona::replication"
+include_recipe "percona::replication" do
+  not_if node["percona"]["skip_passwords"]
+end

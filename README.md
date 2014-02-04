@@ -394,6 +394,7 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * tempdir fixes
 * **[@totally](https://github.com/totally)**
     * support `yum` cookbook v3.0
+    * use attributes for package names
 
 
 ## License

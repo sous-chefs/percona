@@ -16,15 +16,7 @@ end
 
 # execute access grants
 execute "mysql-install-privileges" do
-  command "/usr/bin/mysql < /etc/mysql/grants.sql"
+  command "/mysql -p'" + passwords.root_password + "' -e '' &> /dev/null > /dev/null &> /dev/null ; if [ $? -eq 0 ] ; then /usr/bin/mysql -p'" + passwords.root_password + "' < /etc/mysql/grants.sql ; else /usr/bin/mysql < /etc/mysql/grants.sql ; fi ;"
   action :nothing
   subscribes :run, resources("template[/etc/mysql/grants.sql]"), :immediately
-end
-
-# This rewind can come out after https://github.com/phlipper/chef-percona/issues/91
-# and/or https://github.com/phlipper/chef-percona/issues/67 is/are fixed.
-chef_gem "chef-rewind"
-require 'chef/rewind'
-rewind "execute[mysql-install-privileges]" do
-  command "mysql -p'" + passwords.root_password + "' -e '' &> /dev/null > /dev/null &> /dev/null ; if [ $? -eq 0 ] ; then /usr/bin/mysql -p'" + passwords.root_password + "' < /etc/mysql/grants.sql ; else /usr/bin/mysql < /etc/mysql/grants.sql ; fi ;"
 end

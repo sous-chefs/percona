@@ -119,11 +119,14 @@ when "debian"
   default["percona"]["server"]["default_storage_engine"]        = "InnoDB"
   default["percona"]["server"]["includedir"]                    = "/etc/mysql/conf.d/"
   default["percona"]["server"]["pidfile"]                       = "/var/run/mysqld/mysqld.pid"
+  default["percona"]["server"]["package"]                       = "percona-server-server-5.5"
 when "rhel"
   default["percona"]["server"]["socket"]                        = "/var/lib/mysql/mysql.sock"
   default["percona"]["server"]["default_storage_engine"]        = "innodb"
   default["percona"]["server"]["includedir"]                    = ""
   default["percona"]["server"]["pidfile"]                       = "/var/lib/mysql/mysqld.pid"
+  default["percona"]["server"]["package"]                       = "Percona-Server-server-55"
+  default["percona"]["server"]["shared_pkg"]                    = "Percona-Server-shared-55"
 end
 
 # Cookbook Settings
@@ -391,6 +394,7 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * tempdir fixes
 * **[@totally](https://github.com/totally)**
     * support `yum` cookbook v3.0
+    * use attributes for package names
 
 
 ## License

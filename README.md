@@ -377,6 +377,7 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * fix `table_cache` variable for mysql versions 5.6 and above
 * **[@freerobby](https://github.com/freerobby)**
     * add requirements to `Berksfile`
+    * more flexible apt dependency version to minimize conflicts
 * **[@spovich](https://github.com/spovich)**
     * disable `old_passwords` support by default
     * force version 5.5 on Debian family to maintain consistency with RHEL family

@@ -389,6 +389,8 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
 * **[@mikesmullin](https://github.com/mikesmullin)**
     * accumulating patches from multiple sources
     * tempdir fixes
+* **[@totally](https://github.com/totally)**
+    * support `yum` cookbook v3.0
 
 
 ## License

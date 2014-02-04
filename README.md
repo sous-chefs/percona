@@ -395,6 +395,8 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
 * **[@totally](https://github.com/totally)**
     * support `yum` cookbook v3.0
     * use attributes for package names
+* **[@sapunoff](https://github.com/sapunoff)**
+    * initial implementation of using attributes for package names
 
 
 ## License

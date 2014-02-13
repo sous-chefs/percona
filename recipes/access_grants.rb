@@ -20,7 +20,7 @@ if passwords.root_password && !passwords.root_password.empty?
   # load the grants if so.  If not, try loading without a password 
   # and see if we get lucky
   execute "mysql-install-privileges" do
-    command "/usr/bin/mysql -p '" + passwords.root_password + "' -e '' &> /dev/null > /dev/null &> /dev/null ; if [ $? -eq 0 ] ; then /usr/bin/mysql -p'" + passwords.root_password + "' < /etc/mysql/grants.sql ; else /usr/bin/mysql < /etc/mysql/grants.sql ; fi ;"
+    command "/usr/bin/mysql -p'" + passwords.root_password + "' -e '' &> /dev/null > /dev/null &> /dev/null ; if [ $? -eq 0 ] ; then /usr/bin/mysql -p'" + passwords.root_password + "' < /etc/mysql/grants.sql ; else /usr/bin/mysql < /etc/mysql/grants.sql ; fi ;"
     action :nothing
     subscribes :run, resources("template[/etc/mysql/grants.sql]"), :immediately
   end

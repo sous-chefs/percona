@@ -38,6 +38,13 @@ directory "/etc/mysql" do
   mode 0755
 end
 
+# not all versions of percona create this
+directory "/etc/mysql/conf.d" do
+  owner "root"
+  group "root"
+  mode 0755
+end
+
 # setup the data directory
 directory datadir do
   owner user

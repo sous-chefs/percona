@@ -5,7 +5,11 @@
 
 <%= "[#{category}]" %>
 <% node["percona"]["conf"][category].keys.each do |key| %>
-  <%= "#{key} = #{node["percona"]["conf"][category][key]}" %>
+  <% if node["percona"]["conf"][category][key].nil? %>
+<%= "#{key}" %>
+  <% else %>
+<%= "#{key} = #{node["percona"]["conf"][category][key]}" %>
+  <% end %>
 <% end %>
 
 <% end %>

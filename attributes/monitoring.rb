@@ -17,4 +17,4 @@
 #
 
 default['percona']['plugins_version'] = "1.1.1"
-default['percona']['plugins_packages'] = ['percona-nagios-plugins,percona-zabbix-templates,percona-cacti-templates']
+default['percona']['plugins_packages'] = ['percona-nagios-plugins', 'percona-zabbix-templates', 'percona-cacti-templates']AA

@@ -261,7 +261,7 @@ default["percona"]["cluster"]["innodb_autoinc_lock_mode"]       = 2
 ### Monitoring.rb
 
 ```ruby
-default['percona']['plugins_packages'] = ['percona-monitoring-plugins']
+default['percona']['plugins_packages'] = ['percona-nagios-plugins','percona-zabbix-templates','percona-cacti-templates']
 default['percona']['plugins_version'] = "1.1.1"
 ```
 

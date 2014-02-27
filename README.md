@@ -257,7 +257,7 @@ default["percona"]["cluster"]["innodb_autoinc_lock_mode"]       = 2
 
 ```ruby
 default['percona']['plugins_packages'] = ['percona-monitoring-plugins']
-default['percona']['plugins_version'] = "1.0.2"
+default['percona']['plugins_version'] = "1.1.1"
 ```
 
 ## Explicit my.cnf templating

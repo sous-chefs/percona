@@ -16,5 +16,5 @@
 # limitations under the License.
 #
 
-default['percona']['plugins_version'] = "1.0.2"
+default['percona']['plugins_version'] = "1.1.1"
 default['percona']['plugins_packages'] = ['percona-monitoring-plugins']

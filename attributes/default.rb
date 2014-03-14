@@ -149,7 +149,7 @@ default["percona"]["server"]["replication"]["ignore_db"]        = ""
 # XtraBackup Settings
 default["percona"]["backup"]["configure"]                       = false
 default["percona"]["backup"]["username"]                        = "backup"
-unless defined?(node["percona"]["backup"]["password"])
+unless attribute?(node["percona"]["backup"]["password"])
   default["percona"]["backup"]["password"]                      = secure_password
 end
 

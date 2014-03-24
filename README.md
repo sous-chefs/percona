@@ -80,6 +80,9 @@ To use encrypted passwords, you must create an encrypted data bag. This cookbook
 
 This cookbook expects a `mysql` item  and a `system` item. Please refer to the official documentation on how to get this setup. It actually uses a MySQL example so it can be mostly copied. Ensure you cover the data bag items as described below.
 
+### Skip passwords
+Set the `["percona"]["skip_passwords"]` attribute to skip setting up passwords. Removes the need for the encrypted data bag if using chef-solo. Is useful for setting up development and ci environments where you just want to use the root user with no password. If you are doing this you may want to set `[:percona][:server][:debian_username]` to be `"root"` also.
+
 #### mysql item
 
 The mysql item should contain entries for root, backup, and replication. If no value is found, the cookbook will fall back to the default non-encrypted password.
@@ -400,6 +403,8 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * use attributes for package names
 * **[@sapunoff](https://github.com/sapunoff)**
     * initial implementation of using attributes for package names
+* **[@errm](https://github.com/errm)**
+    * add attribute `skip_passwords`
 
 
 ## License

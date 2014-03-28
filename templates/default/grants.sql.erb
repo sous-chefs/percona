@@ -3,8 +3,9 @@
 
 <% if node["platform_family"] == "debian" -%>
 # debian-sys-maint user for administration
+SET PASSWORD FOR '<%= @debian_user %>'@'localhost' = PASSWORD('<%= @debian_password %>');
   <% [['SELECT', 'mysql.user'], ['SHUTDOWN', '*.*']].each do |priv, loc| %>
-<%= "GRANT #{priv} ON #{loc} TO '#{@debian_user}'@localhost IDENTIFIED BY '#{@debian_password}';" %>
+<%= "GRANT #{priv} ON #{loc} TO '#{@debian_user}'@'localhost';" %>
   <% end -%>
 <% end -%>
 

@@ -406,6 +406,8 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * add attribute `skip_passwords`
 * **[@ewr](https://github.com/ewr)**
     * fix mysql calls when there is no root password
+* **[@jharley](https://github.com/jharley)**
+    * make `connect_timeout` configurable
 
 
 ## License

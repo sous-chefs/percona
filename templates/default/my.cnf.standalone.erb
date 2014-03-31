@@ -55,6 +55,7 @@ skip-external-locking
 <% end %>
 
 net_read_timeout = <%= node["percona"]["server"]["net_read_timeout"] %>
+connect_timeout  = <%= node["percona"]["server"]["connect_timeout"] %>
 
 #
 # For compatibility to other Debian packages that still use

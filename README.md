@@ -403,6 +403,8 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * initial implementation of using attributes for package names
 * **[@errm](https://github.com/errm)**
     * add attribute `skip_passwords`
+* **[@ewr](https://github.com/ewr)**
+    * fix mysql calls when there is no root password
 
 
 ## License

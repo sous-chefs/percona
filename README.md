@@ -410,6 +410,8 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * make `connect_timeout` configurable
 * **[@achied](https://github.com/achied)**
     * fix setting passwords if attribute not defined
+* **[@akshah123](https://github.com/akshah123)**
+    * force client packages to install version 5.5
 
 
 ## License

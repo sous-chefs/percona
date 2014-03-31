@@ -408,6 +408,8 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * fix mysql calls when there is no root password
 * **[@jharley](https://github.com/jharley)**
     * make `connect_timeout` configurable
+* **[@achied](https://github.com/achied)**
+    * fix setting passwords if attribute not defined
 
 
 ## License

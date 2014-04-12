@@ -1,18 +1,15 @@
 passwords = EncryptedPasswords.new(node, node["percona"]["encrypted_data_bag"])
 
-# define access grants
 server = node.percona.server
 
 template "/etc/mysql/replication.sql" do
   source "replication_#{server.role}.sql.erb"
-  variables(
-    :replication_password => passwords.replication_password
-  )
+  variables replication_password: passwords.replication_password
   owner "root"
   group "root"
-  mode "0600"
+  mode 0600
 
-  only_if { node["percona"]["server"]["replication"]["host"] != "" || node["percona"]["server"]["role"] == "master" }
+  only_if { server.replication.host != "" or server.role == "master" }
 end
 
 # execute access grants

@@ -1,9 +1,10 @@
 passwords = EncryptedPasswords.new(node, node["percona"]["encrypted_data_bag"])
 replication_sql = "/etc/mysql/replication.sql"
+server = node.percona.server
 
 # define access grants
 template replication_sql do
-  source "replication.sql.erb"
+  source "replication_#{server.role}.sql.erb"
   variables(replication_password: passwords.replication_password)
   owner "root"
   group "root"

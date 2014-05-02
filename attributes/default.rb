@@ -21,6 +21,8 @@
 
 ::Chef::Node.send(:include, Opscode::OpenSSL::Password)
 
+version = default["percona"]["version"] = "5.6"
+
 # Always restart percona on configuration changes
 default["percona"]["auto_restart"] = true
 
@@ -30,14 +32,14 @@ when "debian"
   default["percona"]["server"]["default_storage_engine"]        = "InnoDB"
   default["percona"]["server"]["includedir"]                    = "/etc/mysql/conf.d/"
   default["percona"]["server"]["pidfile"]                       = "/var/run/mysqld/mysqld.pid"
-  default["percona"]["server"]["package"]                       = "percona-server-server-5.5"
+  default["percona"]["server"]["package"]                       = "percona-server-server-#{version}"
 when "rhel"
   default["percona"]["server"]["socket"]                        = "/var/lib/mysql/mysql.sock"
   default["percona"]["server"]["default_storage_engine"]        = "innodb"
   default["percona"]["server"]["includedir"]                    = ""
   default["percona"]["server"]["pidfile"]                       = "/var/lib/mysql/mysqld.pid"
-  default["percona"]["server"]["package"]                       = "Percona-Server-server-55"
-  default["percona"]["server"]["shared_pkg"]                    = "Percona-Server-shared-55"
+  default["percona"]["server"]["package"]                       = "Percona-Server-server-#{version.tr('.', '')}"
+  default["percona"]["server"]["shared_pkg"]                    = "Percona-Server-shared-#{version.tr('.', '')}"
 end
 
 # Cookbook Settings

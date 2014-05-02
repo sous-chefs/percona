@@ -1,10 +1,11 @@
 client = default["percona"]["client"]
+version = node["percona"]["version"]
 
 case node["platform_family"]
 when "debian"
-  client["packages"] = ["libperconaserverclient-dev-5.5",
-                        "percona-server-client-5.5"]
+  client["packages"] = ["libperconaserverclient-dev-#{version}",
+                        "percona-server-client-#{version}"]
 when "rhel"
-  client["packages"] = ["Percona-Server-devel-55",
-                        "Percona-Server-client-55"]
+  client["packages"] = ["Percona-Server-devel-#{version.tr(',', '')}",
+                        "Percona-Server-client-#{version.tr(',', '')}"]
 end

@@ -16,7 +16,7 @@ Optionally installs:
 * [Percona Toolkit](http://www.percona.com/software/percona-toolkit/) advanced command-line tools
 * [XtraDB
 Cluster](http://www.percona.com/software/percona-xtradb-cluster/) high
-availability and high scalability solution for MySQL. {DEPRECATED}
+availability and high scalability solution for MySQL.
 * [Percona Monitoring Plugins](http://www.percona.com/software/percona-monitoring-plugins) various Nagios plugins for monitoring MySQL
 
 ## Requirements
@@ -62,7 +62,7 @@ the [currently tested versions](https://github.com/phlipper/chef-percona/blob/ma
 * `percona::server` - Installs and configures the Percona MySQL server daemon.
 * `percona::backup` - Installs and configures the Percona XtraBackup hot backup software.
 * `percona::toolkit` - Installs the Percona Toolkit software
-* `percona::cluster` - *{DEPRECATED}* Installs the Percona XtraDB Cluster server components
+* `percona::cluster` - Installs the Percona XtraDB Cluster server components
 * `percona::configure_server` - Used internally to manage the server configuration.
 * `percona::replication` - Used internally to grant permissions for replication.
 * `percona::access_grants` - Used internally to grant permissions for recipes.
@@ -136,6 +136,7 @@ end
 default["percona"]["main_config_file"]                          = "/etc/my.cnf"
 default["percona"]["keyserver"]                                 = "keys.gnupg.net"
 default["percona"]["encrypted_data_bag"]                        = "passwords"
+default['percona']['use_percona_repos']                         = true
 
 # Start percona server on boot
 default["percona"]["server"]["enable"]                          = true
@@ -243,6 +244,7 @@ unless defined?(node["percona"]["backup"]["password"])
 end
 
 # XtraDB Cluster Settings
+default["percona"]["cluster"]["package"]                        = "percona-xtradb-cluster-56"
 default["percona"]["cluster"]["binlog_format"]                  = "ROW"
 default["percona"]["cluster"]["wsrep_provider"]                 = "/usr/lib64/libgalera_smm.so"
 default["percona"]["cluster"]["wsrep_cluster_address"]          = ""
@@ -297,7 +299,7 @@ In no particular order:
 * Support the following common database infrastructures:
     * Single server instance
     * Traditional Master/Slave replication
-    * Multi-master cluster replication {DEPRECATED}
+    * Multi-master cluster replication
 * Support the most recent Chef 10 & 11 runtime environments
 * Be the easiest way to setup a MySQL distribution through Chef
 

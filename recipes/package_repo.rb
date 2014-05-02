@@ -3,7 +3,7 @@
 # Recipe:: package_repo
 #
 
-if node['percona']['use_percona_apt']
+if node['percona']['use_percona_repos']
   case node['platform_family']
 
   when "debian"

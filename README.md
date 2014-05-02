@@ -136,7 +136,7 @@ end
 default["percona"]["main_config_file"]                          = "/etc/my.cnf"
 default["percona"]["keyserver"]                                 = "keys.gnupg.net"
 default["percona"]["encrypted_data_bag"]                        = "passwords"
-default['percona']['use_percona_apt']                           = true
+default['percona']['use_percona_repos']                           = true
 
 # Start percona server on boot
 default["percona"]["server"]["enable"]                          = true
@@ -244,7 +244,7 @@ unless defined?(node["percona"]["backup"]["password"])
 end
 
 # XtraDB Cluster Settings
-default["percona"]["cluster"]["package"]                        = "percona-xtradb-cluster-56"
+default["percona"]["cluster"]["package"]                        = "percona-xtradb-cluster-55"
 default["percona"]["cluster"]["binlog_format"]                  = "ROW"
 default["percona"]["cluster"]["wsrep_provider"]                 = "/usr/lib64/libgalera_smm.so"
 default["percona"]["cluster"]["wsrep_cluster_address"]          = ""

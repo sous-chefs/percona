@@ -1,9 +1,11 @@
 include_recipe "percona::package_repo"
 
+version = node["percona"]["version"]
+
 # install packages
 case node["platform_family"]
 when "debian"
-  package "percona-xtradb-cluster-server-5.5" do
+  package "percona-xtradb-cluster-server-#{version}" do
     options "--force-yes"
   end
 when "rhel"

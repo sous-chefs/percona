@@ -10,6 +10,7 @@ StringLiterals:
 PercentLiteralDelimiters:
   PreferredDelimiters:
     "%w": "[]"  # Arrays use brackets
+    "%W": "[]"  # Arrays use brackets
 
 SingleSpaceBeforeFirstArg:
   Enabled: false  # too strict about metadata and certain formatting

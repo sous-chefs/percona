@@ -261,10 +261,8 @@ default["percona"]["cluster"]["innodb_autoinc_lock_mode"]       = 2
 ### Monitoring.rb
 
 ```ruby
-default["percona"]["plugins_url"] = "http://www.percona.com/downloads/percona-monitoring-plugins/"
-default["percona"]["plugins_version"] = "1.0.2"
-default["percona"]["plugins_sha"] = "da84cfe89637292da15ddb1e66f67ad9703fa21392d8d49e664ad08f7aa45585"
-default["percona"]["plugins_path"] = "/opt/pmp"
+default["percona"]["plugins_version"] = "1.1.3"
+default["percona"]["plugins_packages"] = %w[percona-nagios-plugins percona-zabbix-templates percona-cacti-templates]
 ```
 
 ## Explicit my.cnf templating
@@ -420,6 +418,8 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * force client packages to install version 5.5
 * **[@tkuhlman](https://github.com/tkuhlman)**
     * re-add cluster support
+* **[@mancdaz](https://github.com/mancdaz)**
+    * install monitoring plugins from package instead of tarball
 
 
 ## License

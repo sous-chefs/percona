@@ -1,39 +1,56 @@
 #!/usr/bin/env rake
 
-task :default => "foodcritic"
+begin
+  require "kitchen/rake_tasks"
+  Kitchen::RakeTasks.new
+rescue LoadError
+  puts "Unable to require `kitchen/rake_tasks`"
+end
+
+task default: "test"
+
+desc "Runs all tests"
+task test: [:knife, :rubocop, :foodcritic, :chefspec, :kitchen]
 
 desc "Runs foodcritic linter"
-task :foodcritic do
-  Rake::Task[:prepare_sandbox].execute
-
-  if Gem::Version.new("1.9.2") <= Gem::Version.new(RUBY_VERSION.dup)
-    sh "foodcritic -f any #{sandbox_path}"
-  else
-    puts "WARN: foodcritic run is skipped as Ruby #{RUBY_VERSION} is < 1.9.2."
-  end
+task foodcritic: :prepare_sandbox do
+  sh "bundle exec foodcritic #{sandbox_path} -f any"
 end
 
 desc "Runs knife cookbook test"
-task :knife do
-  Rake::Task[:prepare_sandbox].execute
-
-  sh "knife cookbook test cookbook -c test/.chef/knife.rb -o #{sandbox_path}/../"
+task knife: :prepare_sandbox do
+  sh "bundle exec knife cookbook test cookbook -c test/.chef/knife.rb -o #{sandbox_path}/../"
 end
 
-desc "Runs test-kitchen tests"
-task :kitchen, :regex do |t, args|
-  # Skip if on Travis an no secure vars avail.
-  next if ENV['TRAVIS_SECURE_ENV_VARS'] == "false"
+desc "Runs specs with chefspec"
+task chefspec: :prepare_sandbox do
+  if Bundler.rubygems.find_name("chef").first.version < Gem::Version.new(11)
+    puts "Skipping `chefspec` due to older Chef version"
+  else
+    sh "bundle exec rspec --color"
+  end
+end
 
-  cmd = "bundle exec kitchen test #{args.regex} --parallel"
+desc "Runs integration tests with test kitchen"
+task :kitchen do
+  if ENV["CI"]
+    puts "Skipping Kitchen tests for now due to CI environment..."
+    exit
+  end
+  args = ENV["CI"] ? "test --destroy=always" : "verify"
+  sh "bundle exec kitchen #{args}"
+end
 
-  cmd = "#{cmd} --destroy=always" if ENV['CI']
-
-  sh cmd
+desc "Runs RuboCop style checks"
+task rubocop: :prepare_sandbox do
+  sh "bundle exec rubocop #{sandbox_path}"
 end
 
 task :prepare_sandbox do
-  files = %w{*.md *.rb attributes definitions libraries files providers recipes resources templates}
+  files = %w[
+    *.md *.rb attributes definitions libraries files providers recipes
+    resources templates
+  ]
 
   rm_rf sandbox_path
   mkdir_p sandbox_path

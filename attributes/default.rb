@@ -56,7 +56,7 @@ default["percona"]["server"]["datadir"]                         = "/var/lib/mysq
 default["percona"]["server"]["tmpdir"]                          = "/tmp"
 default["percona"]["server"]["debian_username"]                 = "debian-sys-maint"
 default["percona"]["server"]["nice"]                            = 0
-default["percona"]["server"]["open_files_limit"]                = 16384
+default["percona"]["server"]["open_files_limit"]                = 16_384
 default["percona"]["server"]["hostname"]                        = "localhost"
 default["percona"]["server"]["basedir"]                         = "/usr"
 default["percona"]["server"]["port"]                            = 3306
@@ -88,7 +88,7 @@ default["percona"]["server"]["join_buffer_size"]                = "8M"
 default["percona"]["server"]["thread_cache_size"]               = 16
 default["percona"]["server"]["back_log"]                        = 50
 default["percona"]["server"]["max_connections"]                 = 30
-default["percona"]["server"]["max_connect_errors"]              = 9999999
+default["percona"]["server"]["max_connect_errors"]              = 9_999_999
 default["percona"]["server"]["table_cache"]                     = 8192
 default["percona"]["server"]["group_concat_max_len"]            = 4096
 

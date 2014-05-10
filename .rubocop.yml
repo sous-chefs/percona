@@ -1,0 +1,18 @@
+LineLength:
+  Max: 80
+  Exclude:
+    - "**/attributes/*.rb"
+    - "**/metadata.rb"
+
+StringLiterals:
+  EnforcedStyle: double_quotes
+
+PercentLiteralDelimiters:
+  PreferredDelimiters:
+    "%w": "[]"  # Arrays use brackets
+
+SingleSpaceBeforeFirstArg:
+  Enabled: false  # too strict about metadata and certain formatting
+
+inherit_from: test/support/rubocop/enabled.yml
+inherit_from: test/support/rubocop/disabled.yml

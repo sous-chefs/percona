@@ -15,7 +15,7 @@ when "debian"
     libperconaserverclient#{abi_version}-dev percona-server-client-#{version}
   ]
 when "rhel"
-  default["percona"]["client"] = %W[
+  default["percona"]["client"]["packages"] = %W[
     Percona-Server-devel-#{version} Percona-Server-client-#{version}
   ]
 end

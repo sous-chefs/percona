@@ -415,6 +415,8 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * fix setting passwords if attribute not defined
 * **[@akshah123](https://github.com/akshah123)**
     * force client packages to install version 5.5
+* **[@tkuhlman](https://github.com/tkuhlman)**
+    * re-add cluster support
 
 
 ## License

@@ -38,8 +38,8 @@ when "rhel"
   default["percona"]["server"]["default_storage_engine"]        = "innodb"
   default["percona"]["server"]["includedir"]                    = ""
   default["percona"]["server"]["pidfile"]                       = "/var/lib/mysql/mysqld.pid"
-  default["percona"]["server"]["package"]                       = "Percona-Server-server-#{version.tr('.', '')}"
-  default["percona"]["server"]["shared_pkg"]                    = "Percona-Server-shared-#{version.tr('.', '')}"
+  default["percona"]["server"]["package"]                       = "Percona-Server-server-#{version.tr(".", "")}"
+  default["percona"]["server"]["shared_pkg"]                    = "Percona-Server-shared-#{version.tr(".", "")}"
 end
 
 # Cookbook Settings

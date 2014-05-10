@@ -424,22 +424,8 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
 
 ## License
 
-Author:: Phil Cohen (<github@phlippers.net>) [![endorse](http://api.coderwall.com/phlipper/endorsecount.png)](http://coderwall.com/phlipper) [![Gittip](http://img.shields.io/gittip/phlipper.png)](https://www.gittip.com/phlipper/)
+**chef-percona**
 
-Copyright:: 2011-2013, Phil Cohen
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/phlipper/chef-percona/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
+* Freely distributable and licensed under the [MIT license](http://phlipper.mit-license.org/2012-2014/license.html).
+* Copyright (c) 2012-2014 Phil Cohen (github@phlippers.net) [![endorse](http://api.coderwall.com/phlipper/endorsecount.png)](http://coderwall.com/phlipper)  [![Gittip](http://img.shields.io/gittip/phlipper.png)](https://www.gittip.com/phlipper/)
+* http://phlippers.net/

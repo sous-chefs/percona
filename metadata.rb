@@ -1,7 +1,7 @@
 name              "percona"
 maintainer        "Phil Cohen"
 maintainer_email  "github@phlippers.net"
-license           "Apache 2.0"
+license           "MIT"
 description       "Installs Percona MySQL client and server"
 long_description  "Please refer to README.md"
 version           "0.14.5"

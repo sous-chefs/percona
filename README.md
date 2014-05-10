@@ -381,6 +381,7 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
 * **[@avit](https://github.com/avit)**
     * add default utf8 character set option
     * cleanup replication support
+    * remove dependency on opscode/mysql cookbook
 * **[@alexzorin](https://github.com/alexzorin)**
     * add support for `skip-name-resolve` option
 * **[@jyotty](https://github.com/jyotty)**

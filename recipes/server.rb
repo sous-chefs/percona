@@ -11,7 +11,7 @@ when "rhel"
   # Need to remove this to avoid conflicts
   package "mysql-libs" do
     action :remove
-    not_if "rpm -qa | grep #{node['percona']['server']['shared_pkg']}"
+    not_if "rpm -qa | grep #{node["percona"]["server"]["shared_pkg"]}"
   end
 
   # we need mysqladmin
@@ -27,8 +27,5 @@ include_recipe "percona::configure_server"
 # access grants
 unless node["percona"]["skip_passwords"]
   include_recipe "percona::access_grants"
-end
-
-unless node["percona"]["skip_passwords"]
   include_recipe "percona::replication"
 end

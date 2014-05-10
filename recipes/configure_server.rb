@@ -7,7 +7,7 @@ mysqld  = (conf && conf["mysqld"]) || {}
 passwords = EncryptedPasswords.new(node, percona["encrypted_data_bag"])
 
 template "/root/.my.cnf" do
-  variables(:root_password => passwords.root_password)
+  variables(root_password: passwords.root_password)
   owner "root"
   group "root"
   mode 0600
@@ -56,7 +56,7 @@ end
 
 # define the service
 service "mysql" do
-  supports :restart => true
+  supports restart: true
   action server["enable"] ? :enable : :disable
 end
 
@@ -72,23 +72,28 @@ template percona["main_config_file"] do
   owner "root"
   group "root"
   mode 0744
-  notifies :restart, "service[mysql]", :immediately if node["percona"]["auto_restart"]
+
+  if node["percona"]["auto_restart"]
+    notifies :restart, "service[mysql]", :immediately
+  end
 end
 
 # now let's set the root password only if this is the initial install
 execute "Update MySQL root password" do
-  command "mysqladmin --user=root --password='' password '#{passwords.root_password}'"
+  root_pw = passwords.root_password
+  command "mysqladmin --user=root --password='' password '#{root_pw}'"
   not_if "test -f /etc/mysql/grants.sql"
 end
 
 # setup the debian system user config
 template "/etc/mysql/debian.cnf" do
   source "debian.cnf.erb"
-  variables(:debian_password => passwords.debian_password)
+  variables(debian_password: passwords.debian_password)
   owner "root"
   group "root"
   mode 0640
-  notifies :restart, "service[mysql]", :immediately if node["percona"]["auto_restart"]
-
-  only_if { node["platform_family"] == "debian" }
+  if node["percona"]["auto_restart"]
+    notifies :restart, "service[mysql]", :immediately
+  end
+  only_if { platform_family?("debian") }
 end

@@ -3,8 +3,9 @@
 # Recipe:: package_repo
 #
 
-case node["platform_family"]
+return unless node["percona"]["use_percona_repos"]
 
+case node["platform_family"]
 when "debian"
   include_recipe "apt"
 
@@ -29,6 +30,7 @@ when "rhel"
 
   arch = node["kernel"]["machine"] == "x86_64" ? "x86_64" : "i386"
   pversion = node["platform_version"].to_i
+
   yum_repository "percona" do
     description "Percona Packages"
     baseurl "http://repo.percona.com/centos/#{pversion}/os/#{arch}/"

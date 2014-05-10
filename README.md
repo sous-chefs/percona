@@ -16,7 +16,7 @@ Optionally installs:
 * [Percona Toolkit](http://www.percona.com/software/percona-toolkit/) advanced command-line tools
 * [XtraDB
 Cluster](http://www.percona.com/software/percona-xtradb-cluster/) high
-availability and high scalability solution for MySQL. {DEPRECATED}
+availability and high scalability solution for MySQL.
 * [Percona Monitoring Plugins](http://www.percona.com/software/percona-monitoring-plugins) various Nagios plugins for monitoring MySQL
 
 ## Requirements
@@ -62,7 +62,7 @@ the [currently tested versions](https://github.com/phlipper/chef-percona/blob/ma
 * `percona::server` - Installs and configures the Percona MySQL server daemon.
 * `percona::backup` - Installs and configures the Percona XtraBackup hot backup software.
 * `percona::toolkit` - Installs the Percona Toolkit software
-* `percona::cluster` - *{DEPRECATED}* Installs the Percona XtraDB Cluster server components
+* `percona::cluster` - Installs the Percona XtraDB Cluster server components
 * `percona::configure_server` - Used internally to manage the server configuration.
 * `percona::replication` - Used internally to grant permissions for replication.
 * `percona::access_grants` - Used internally to grant permissions for recipes.
@@ -136,6 +136,7 @@ end
 default["percona"]["main_config_file"]                          = "/etc/my.cnf"
 default["percona"]["keyserver"]                                 = "keys.gnupg.net"
 default["percona"]["encrypted_data_bag"]                        = "passwords"
+default["percona"]["use_percona_repos"]                         = true
 
 # Start percona server on boot
 default["percona"]["server"]["enable"]                          = true
@@ -243,6 +244,7 @@ unless defined?(node["percona"]["backup"]["password"])
 end
 
 # XtraDB Cluster Settings
+default["percona"]["cluster"]["package"]                        = "percona-xtradb-cluster-55"
 default["percona"]["cluster"]["binlog_format"]                  = "ROW"
 default["percona"]["cluster"]["wsrep_provider"]                 = "/usr/lib64/libgalera_smm.so"
 default["percona"]["cluster"]["wsrep_cluster_address"]          = ""
@@ -257,10 +259,10 @@ default["percona"]["cluster"]["innodb_autoinc_lock_mode"]       = 2
 ### Monitoring.rb
 
 ```ruby
-default['percona']['plugins_url'] = "http://www.percona.com/downloads/percona-monitoring-plugins/"
-default['percona']['plugins_version'] = "1.0.2"
-default['percona']['plugins_sha'] = "da84cfe89637292da15ddb1e66f67ad9703fa21392d8d49e664ad08f7aa45585"
-default['percona']['plugins_path'] = "/opt/pmp"
+default["percona"]["plugins_url"] = "http://www.percona.com/downloads/percona-monitoring-plugins/"
+default["percona"]["plugins_version"] = "1.0.2"
+default["percona"]["plugins_sha"] = "da84cfe89637292da15ddb1e66f67ad9703fa21392d8d49e664ad08f7aa45585"
+default["percona"]["plugins_path"] = "/opt/pmp"
 ```
 
 ## Explicit my.cnf templating
@@ -284,7 +286,7 @@ slow_query_log_file = /var/lib/mysql/data/mysql-slow.log
 
 ## Dynamically setting the bind address
 
-There's a special attribute `node['percona']['server']['bind_to']` that allows you to dynamically set the bind address. This attribute accepts the values `'public_ip'`, `'private_ip'`, `'loopback'`, or and interface name like `'eth0'`. Based on this, the recipe will find a corresponding ipv4 address, and override the `node['percona']['server']['bind_address']` attribute.
+There's a special attribute `node["percona"]["server"]["bind_to"]` that allows you to dynamically set the bind address. This attribute accepts the values `"public_ip"`, `"private_ip"`, `"loopback"`, or and interface name like `"eth0"`. Based on this, the recipe will find a corresponding ipv4 address, and override the `node["percona"]["server"]["bind_address"]` attribute.
 
 ## Goals
 
@@ -297,7 +299,7 @@ In no particular order:
 * Support the following common database infrastructures:
     * Single server instance
     * Traditional Master/Slave replication
-    * Multi-master cluster replication {DEPRECATED}
+    * Multi-master cluster replication
 * Support the most recent Chef 10 & 11 runtime environments
 * Be the easiest way to setup a MySQL distribution through Chef
 
@@ -413,6 +415,8 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * fix setting passwords if attribute not defined
 * **[@akshah123](https://github.com/akshah123)**
     * force client packages to install version 5.5
+* **[@tkuhlman](https://github.com/tkuhlman)**
+    * re-add cluster support
 
 
 ## License

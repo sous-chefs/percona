@@ -26,7 +26,8 @@ availability and high scalability solution for MySQL.
 We provide an expanding set of tests against the following 64-bit platforms:
 
 * Ubuntu Precise 12.04 LTS
-* Centos 6.4
+* Ubuntu Trusty 14.04 LTS
+* CentOS 6.5
 
 Although we don't test against all possible platform verions, we expect
 the following to be supported. Please submit an issue if this is not the
@@ -45,12 +46,11 @@ cause, and we'll make reasonable efforts to improve support:
 * [apt](http://community.opscode.com/cookbooks/apt) Opscode LWRP Cookbook
 * [openssl](http://community.opscode.com/cookbooks/openssl) Opscode Cookbook
 * [yum](http://community.opscode.com/cookbooks/yum) Opscode LWRP Cookbook
-* [mysql](http://community.opscode.com/cookbooks/mysql) Opscode Cookbook
 
 ### Chef
 
 We aim to test the most recent releases of Chef 10 and 11. You can view
-the [currently tested versions](https://github.com/phlipper/chef-percona/blob/master/.travis.yml#L12-L13).
+the [currently tested versions](https://github.com/phlipper/chef-percona/blob/master/.travis.yml).
 (Feel free to submit a pull request if they're out of date!)
 
 

@@ -261,8 +261,8 @@ default["percona"]["cluster"]["innodb_autoinc_lock_mode"]       = 2
 ### Monitoring.rb
 
 ```ruby
-default['percona']['plugins_packages'] = ['percona-nagios-plugins','percona-zabbix-templates','percona-cacti-templates']
-default['percona']['plugins_version'] = "1.1.1"
+default["percona"]["plugins_version"] = "1.1.3"
+default["percona"]["plugins_packages"] = %w[percona-nagios-plugins percona-zabbix-templates percona-cacti-templates]
 ```
 
 ## Explicit my.cnf templating

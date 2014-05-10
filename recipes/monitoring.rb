@@ -16,9 +16,9 @@
 # limitations under the License.
 #
 
-node['percona']['plugins_packages'].each do |pkg|
+node["percona"]["plugins_packages"].each do |pkg|
   package pkg do
     action :install
-    version node['percona']['plugins_version']
+    version node["percona"]["plugins_version"]
   end
 end

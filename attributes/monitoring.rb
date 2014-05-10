@@ -16,5 +16,5 @@
 # limitations under the License.
 #
 
-default['percona']['plugins_version'] = '1.1.1'
-default['percona']['plugins_packages'] = ['percona-nagios-plugins', 'percona-zabbix-templates', 'percona-cacti-templates']AA
+default["percona"]["plugins_version"] = "1.1.3"
+default["percona"]["plugins_packages"] = %w[percona-nagios-plugins percona-zabbix-templates percona-cacti-templates]

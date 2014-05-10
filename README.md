@@ -136,7 +136,7 @@ end
 default["percona"]["main_config_file"]                          = "/etc/my.cnf"
 default["percona"]["keyserver"]                                 = "keys.gnupg.net"
 default["percona"]["encrypted_data_bag"]                        = "passwords"
-default['percona']['use_percona_repos']                         = true
+default["percona"]["use_percona_repos"]                         = true
 
 # Start percona server on boot
 default["percona"]["server"]["enable"]                          = true
@@ -259,10 +259,10 @@ default["percona"]["cluster"]["innodb_autoinc_lock_mode"]       = 2
 ### Monitoring.rb
 
 ```ruby
-default['percona']['plugins_url'] = "http://www.percona.com/downloads/percona-monitoring-plugins/"
-default['percona']['plugins_version'] = "1.0.2"
-default['percona']['plugins_sha'] = "da84cfe89637292da15ddb1e66f67ad9703fa21392d8d49e664ad08f7aa45585"
-default['percona']['plugins_path'] = "/opt/pmp"
+default["percona"]["plugins_url"] = "http://www.percona.com/downloads/percona-monitoring-plugins/"
+default["percona"]["plugins_version"] = "1.0.2"
+default["percona"]["plugins_sha"] = "da84cfe89637292da15ddb1e66f67ad9703fa21392d8d49e664ad08f7aa45585"
+default["percona"]["plugins_path"] = "/opt/pmp"
 ```
 
 ## Explicit my.cnf templating
@@ -286,7 +286,7 @@ slow_query_log_file = /var/lib/mysql/data/mysql-slow.log
 
 ## Dynamically setting the bind address
 
-There's a special attribute `node['percona']['server']['bind_to']` that allows you to dynamically set the bind address. This attribute accepts the values `'public_ip'`, `'private_ip'`, `'loopback'`, or and interface name like `'eth0'`. Based on this, the recipe will find a corresponding ipv4 address, and override the `node['percona']['server']['bind_address']` attribute.
+There's a special attribute `node["percona"]["server"]["bind_to"]` that allows you to dynamically set the bind address. This attribute accepts the values `"public_ip"`, `"private_ip"`, `"loopback"`, or and interface name like `"eth0"`. Based on this, the recipe will find a corresponding ipv4 address, and override the `node["percona"]["server"]["bind_address"]` attribute.
 
 ## Goals
 

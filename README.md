@@ -418,6 +418,8 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * force client packages to install version 5.5
 * **[@tkuhlman](https://github.com/tkuhlman)**
     * re-add cluster support
+* **[@mancdaz](https://github.com/mancdaz)**
+    * install monitoring plugins from package instead of tarball
 
 
 ## License

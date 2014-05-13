@@ -46,6 +46,7 @@ end
 default["percona"]["main_config_file"]                          = "/etc/my.cnf"
 default["percona"]["keyserver"]                                 = "keys.gnupg.net"
 default["percona"]["encrypted_data_bag"]                        = "passwords"
+default["percona"]["encrypted_data_bag_secret"]                 = nil
 default["percona"]["skip_passwords"]                            = false
 
 # Start percona server on boot

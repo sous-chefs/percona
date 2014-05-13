@@ -10,13 +10,14 @@ class Chef
     def initialize(node, bag = DEFAULT_BAG_NAME)
       @node = node
       @bag = bag
+      @bag_key = node_server[:encrypted_data_bag_secret]
     end
 
     # helper for passwords
     def find_password(key, user, default = nil)
       begin
         # first, let's check for an encrypted data bag and the given key
-        passwords = Chef::EncryptedDataBagItem.load(@bag, key)
+        passwords = Chef::EncryptedDataBagItem.load(@bag, key, @bag_key)
         # now, let's look for the user password
         password = passwords[user]
       rescue

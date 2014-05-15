@@ -2,6 +2,8 @@ driver:
   require_chef_omnibus: <%= ENV.fetch("CHEF_VERSION", "latest") %>
   ssh_key: <%= File.expand_path("./test/support/keys/vagrant") %>
   name: vagrant
+  customize:
+    memory: 768
 
 provisioner:
   name: chef_zero
@@ -25,3 +27,10 @@ suites:
   - name: toolkit
     run_list:
       - recipe[percona::toolkit]
+  - name: new_datadir
+    run_list:
+      - recipe[percona::server]
+    attributes:
+      percona:
+        server:
+          datadir: "/tmp/mysql"

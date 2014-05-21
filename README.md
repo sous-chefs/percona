@@ -420,6 +420,8 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * re-add cluster support
 * **[@mancdaz](https://github.com/mancdaz)**
     * install monitoring plugins from package instead of tarball
+* **[@iancoffey](https://github.com/iancoffey)**
+    * set debian-sys-maint password after grant
 
 
 ## License

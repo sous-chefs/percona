@@ -12,4 +12,4 @@ when "rhel"
 end
 
 # access grants
-include_recipe "percona::access_grants"
+include_recipe "percona::access_grants" unless node["percona"]["skip_passwords"]

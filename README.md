@@ -422,6 +422,8 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * install monitoring plugins from package instead of tarball
 * **[@iancoffey](https://github.com/iancoffey)**
     * set debian-sys-maint password after grant
+* **[@notnmeyer](https://github.com/notnmeyer)**
+    * fix `access_grants` guards for `cluster` and `backup` recipes
 
 
 ## License

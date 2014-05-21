@@ -424,6 +424,8 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * set debian-sys-maint password after grant
 * **[@notnmeyer](https://github.com/notnmeyer)**
     * fix `access_grants` guards for `cluster` and `backup` recipes
+* **[@odacrem](https://github.com/odacrem)**
+    * use correct replication username in `replication.sql`
 
 
 ## License

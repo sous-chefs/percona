@@ -1,3 +1,8 @@
+#
+# Cookbook Name:: percona
+# Recipe:: configure_server
+#
+
 percona = node["percona"]
 server  = percona["server"]
 conf    = percona["conf"]

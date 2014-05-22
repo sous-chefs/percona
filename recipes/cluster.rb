@@ -1,3 +1,8 @@
+#
+# Cookbook Name:: percona
+# Recipe:: cluster
+#
+
 include_recipe "percona::package_repo"
 
 # install packages

@@ -151,6 +151,7 @@ default["percona"]["server"]["enable"]                          = true
 default["percona"]["server"]["role"]                            = "standalone"
 default["percona"]["server"]["username"]                        = "mysql"
 default["percona"]["server"]["datadir"]                         = "/var/lib/mysql"
+default["percona"]["server"]["logdir"]                         = "/var/log/mysql"
 default["percona"]["server"]["tmpdir"]                          = "/tmp"
 default["percona"]["server"]["debian_username"]                 = "debian-sys-maint"
 default["percona"]["server"]["nice"]                            = 0

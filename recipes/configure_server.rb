@@ -33,6 +33,7 @@ if server["bind_to"]
 end
 
 datadir = mysqld["datadir"] || server["datadir"]
+logdir  = mysqld["logdir"] || server["logdir"]
 tmpdir  = mysqld["tmpdir"] || server["tmpdir"]
 user    = mysqld["username"] || server["username"]
 
@@ -45,6 +46,13 @@ end
 
 # setup the data directory
 directory datadir do
+  owner user
+  group user
+  recursive true
+end
+
+# setup the log directory
+directory logdir do
   owner user
   group user
   recursive true

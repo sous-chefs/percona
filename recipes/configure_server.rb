@@ -15,7 +15,7 @@ template "/root/.my.cnf" do
   variables(root_password: passwords.root_password)
   owner "root"
   group "root"
-  mode 0600
+  mode "0600"
   source "my.cnf.root.erb"
 end
 
@@ -40,7 +40,7 @@ user    = mysqld["username"] || server["username"]
 directory "/etc/mysql" do
   owner "root"
   group "root"
-  mode 0755
+  mode "0755"
 end
 
 # setup the data directory
@@ -48,7 +48,6 @@ directory datadir do
   owner user
   group user
   recursive true
-  action :create
 end
 
 # setup the tmp directory
@@ -56,7 +55,6 @@ directory tmpdir do
   owner user
   group user
   recursive true
-  action :create
 end
 
 # define the service
@@ -76,7 +74,7 @@ template percona["main_config_file"] do
   source "my.cnf.#{conf ? "custom" : server["role"]}.erb"
   owner "root"
   group "root"
-  mode 0744
+  mode "0744"
 
   if node["percona"]["auto_restart"]
     notifies :restart, "service[mysql]", :immediately
@@ -96,7 +94,7 @@ template "/etc/mysql/debian.cnf" do
   variables(debian_password: passwords.debian_password)
   owner "root"
   group "root"
-  mode 0640
+  mode "0640"
   if node["percona"]["auto_restart"]
     notifies :restart, "service[mysql]", :immediately
   end

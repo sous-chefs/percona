@@ -2,12 +2,9 @@ class Chef
   # Public: This class provides helpers for retrieving passwords from encrypted
   # data bags
   class EncryptedPasswords
-    # the name of the encrypted data bag
-    DEFAULT_BAG_NAME = "passwords"
-
     attr_accessor :node, :bag
 
-    def initialize(node, bag = DEFAULT_BAG_NAME)
+    def initialize(node, bag = "passwords")
       @node = node
       @bag = bag
     end

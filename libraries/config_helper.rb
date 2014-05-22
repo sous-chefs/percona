@@ -4,15 +4,15 @@ module Percona
   # Public: This module provides a helper method for returning a "scope" for a
   # given IP address
   module IPScope
-    PRIVATE_RANGES = [IPAddr.new("10.0.0.0/8"), IPAddr.new("192.168.0.0/16")]
-    LOOPBACK_RANGE = IPAddr.new("0.0.0.0/8")
-
     def for(ipaddress)
+      private_ranges = [IPAddr.new("10.0.0.0/8"), IPAddr.new("192.168.0.0/16")]
+      loopback_range = IPAddr.new("0.0.0.0/8")
+
       addr = IPAddr.new(ipaddress)
 
-      if PRIVATE_RANGES.any? { |range| range.include? addr }
+      if private_ranges.any? { |range| range.include? addr }
         :private
-      elsif LOOPBACK_RANGE.include?(addr)
+      elsif loopback_range.include?(addr)
         :loopback
       else
         :public

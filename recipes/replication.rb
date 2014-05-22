@@ -1,3 +1,8 @@
+#
+# Cookbook Name:: percona
+# Recipe:: replication
+#
+
 require "shellwords"
 
 passwords = EncryptedPasswords.new(node, node["percona"]["encrypted_data_bag"])

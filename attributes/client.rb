@@ -1,3 +1,8 @@
+#
+# Cookbook Name:: percona
+# Attributes:: client
+#
+
 version = value_for_platform_family(
   "debian" => node["percona"]["version"],
   "rhel" => node["percona"]["version"].tr(".", "")

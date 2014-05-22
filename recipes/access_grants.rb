@@ -1,3 +1,8 @@
+#
+# Cookbook Name:: percona
+# Recipe:: access_grants
+#
+
 passwords = EncryptedPasswords.new(node, node["percona"]["encrypted_data_bag"])
 
 # define access grants

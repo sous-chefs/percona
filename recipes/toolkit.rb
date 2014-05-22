@@ -1,3 +1,8 @@
+#
+# Cookbook Name:: percona
+# Recipe:: toolkit
+#
+
 include_recipe "percona::package_repo"
 
 # Workaround a bug in the RPM packaging of percona-toolkit. Otherwise, it'll

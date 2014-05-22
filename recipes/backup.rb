@@ -1,3 +1,8 @@
+#
+# Cookbook Name:: percona
+# Recipe:: backup
+#
+
 node.set["percona"]["backup"]["configure"] = true
 
 include_recipe "percona::package_repo"

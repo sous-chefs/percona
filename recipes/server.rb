@@ -22,7 +22,9 @@ when "rhel"
   end
 end
 
-include_recipe "percona::configure_server"
+unless node["percona"]["skip_configure"]
+  include_recipe "percona::configure_server"
+end
 
 # access grants
 unless node["percona"]["skip_passwords"]

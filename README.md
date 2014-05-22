@@ -83,6 +83,10 @@ This cookbook expects a `mysql` item  and a `system` item. Please refer to the o
 ### Skip passwords
 Set the `["percona"]["skip_passwords"]` attribute to skip setting up passwords. Removes the need for the encrypted data bag if using chef-solo. Is useful for setting up development and ci environments where you just want to use the root user with no password. If you are doing this you may want to set `[:percona][:server][:debian_username]` to be `"root"` also.
 
+### Skip Configure
+
+Set the `['percona']['skip_configure']` attribute to skip having the server recipe include the configure\_server recipe directly after install. This is mostly useful in a wrapper cookbook sort of context. Once skipped, you can then perform any pre-config actions your wrapper needs to, such as dropping a custom configuration file or init script or cleaning up incorrectly sized innodb logfiles. You can then include configure\_server where necessary.
+
 #### mysql item
 
 The mysql item should contain entries for root, backup, and replication. If no value is found, the cookbook will fall back to the default non-encrypted password.
@@ -422,6 +426,7 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * install monitoring plugins from package instead of tarball
 * **[@iancoffey](https://github.com/iancoffey)**
     * set debian-sys-maint password after grant
+    * add attribute `skip_configure`
 * **[@notnmeyer](https://github.com/notnmeyer)**
     * fix `access_grants` guards for `cluster` and `backup` recipes
 * **[@odacrem](https://github.com/odacrem)**

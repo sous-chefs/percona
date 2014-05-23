@@ -164,5 +164,11 @@ default["percona"]["cluster"]["wsrep_slave_threads"]            = 2
 default["percona"]["cluster"]["wsrep_cluster_name"]             = ""
 default["percona"]["cluster"]["wsrep_sst_method"]               = "rsync"
 default["percona"]["cluster"]["wsrep_node_name"]                = ""
+default["percona"]["cluster"]["wsrep_notify_cmd"]               = ""
+
+# These both are used to build wsrep_sst_receive_address
+default["percona"]["cluster"]["wsrep_sst_receive_interface"]    = nil # Works like node["percona"]["server"]["bind_to"]
+default["percona"]["cluster"]["wsrep_sst_receive_port"]         = "4444"
+
 default["percona"]["cluster"]["innodb_locks_unsafe_for_binlog"] = 1
 default["percona"]["cluster"]["innodb_autoinc_lock_mode"]       = 2

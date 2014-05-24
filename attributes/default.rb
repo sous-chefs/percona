@@ -55,6 +55,7 @@ default["percona"]["server"]["skip_name_resolve"]               = false
 default["percona"]["server"]["skip_external_locking"]           = true
 default["percona"]["server"]["net_read_timeout"]                = 120
 default["percona"]["server"]["connect_timeout"]                 = 10
+default["percona"]["server"]["wait_timeout"]                    = 28_800
 default["percona"]["server"]["old_passwords"]                   = 0
 default["percona"]["server"]["bind_address"]                    = "127.0.0.1"
 %w[debian_password root_password].each do |attribute|

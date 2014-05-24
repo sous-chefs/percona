@@ -114,6 +114,78 @@ Example: "passwords" data bag - this example assumes that `node[:percona][:serve
 
 Above shows the encrypted password in the data bag. Check out the `encrypted_data_bag_secret` setting in `knife.rb` to setup your data bag secret during bootstrapping.
 
+### Percona XtraDB Cluster
+
+Below is a minimal example setup to bootstrap a Percona XtraDB Cluster. Please see the [official documentation](http://www.percona.com/doc/percona-xtradb-cluster/5.6/index.html) for more information. This is not a perfect example. It is just a sample to get you started.
+
+Wrapper recipe recipes/percona.rb:
+
+```ruby
+# Setup the Percona XtraDB Cluster
+cluster_ips = []
+unless Chef::Config[:solo]
+  search(:node, 'role:percona').each do |other_node|
+    next if other_node['private_ipaddress'] == node['private_ipaddress']
+    Chef::Log.info "Found Percona XtraDB cluster peer: #{other_node['private_ipaddress']}"
+    cluster_ips << other_node['private_ipaddress']
+  end
+end
+
+cluster_ips.each do |ip|
+  firewall_rule "allow Percona group communication to peer #{ip}" do
+    source ip
+    port 4567
+    action :allow
+  end
+
+  firewall_rule "allow Percona state transfer to peer #{ip}" do
+    source ip
+    port 4444
+    action :allow
+  end
+
+  firewall_rule "allow Percona incremental state transfer to peer #{ip}" do
+    source ip
+    port 4568
+    action :allow
+  end
+end
+
+cluster_address = "gcomm://#{cluster_ips.join(',')}"
+Chef::Log.info "Using Percona XtraDB cluster address of: #{cluster_address}"
+node.override["percona"]["cluster"]["wsrep_cluster_address"] = cluster_address
+node.override["percona"]["cluster"]["wsrep_node_name"] = node['hostname']
+
+include_recipe 'percona::cluster'
+include_recipe 'percona::backup'
+include_recipe 'percona::toolkit'
+```
+
+Example percona role roles/percona.rb:
+
+```ruby
+name "percona"
+description "Percona XtraDB Cluster"
+
+run_list 'recipe[paydici::percona]'
+
+default_attributes(
+  "percona" => {
+    "server" => {
+      "role" => "cluster"
+    },
+
+    "cluster" => {
+      "package"                     => "percona-xtradb-cluster-56",
+      "wsrep_cluster_name"          => "percona_cluster_1",
+      "wsrep_sst_receive_interface" => "eth1" # can be eth0, public, private, etc.
+    }
+  }
+)
+```
+
+Now you need to bring three servers up one at a time with the percona role applied to them. By default the servers will sync up via rsync server state transfer (SST)
+
 ## Attributes
 
 ```ruby
@@ -258,6 +330,12 @@ default["percona"]["cluster"]["wsrep_slave_threads"]            = 2
 default["percona"]["cluster"]["wsrep_cluster_name"]             = ""
 default["percona"]["cluster"]["wsrep_sst_method"]               = "rsync"
 default["percona"]["cluster"]["wsrep_node_name"]                = ""
+default["percona"]["cluster"]["wsrep_notify_cmd"]               = ""
+
+# These both are used to build wsrep_sst_receive_address
+default["percona"]["cluster"]["wsrep_sst_receive_interface"]    = nil # Works like node["percona"]["server"]["bind_to"]
+default["percona"]["cluster"]["wsrep_sst_receive_port"]         = "4444"
+
 default["percona"]["cluster"]["innodb_locks_unsafe_for_binlog"] = 1
 default["percona"]["cluster"]["innodb_autoinc_lock_mode"]       = 2
 ```

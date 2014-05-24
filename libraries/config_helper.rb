@@ -82,5 +82,6 @@ module Percona
       end
       addr && addr[0]
     end
+    module_function :find_interface_ip
   end
 end

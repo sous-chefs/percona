@@ -5,6 +5,15 @@
 
 include_recipe "percona::package_repo"
 
+# Determine and set wsrep_sst_receive_address
+if node["percona"]["cluster"]["wsrep_sst_receive_interface"]
+  sst_interface = node["percona"]["cluster"]["wsrep_sst_receive_interface"]
+  sst_port = node["percona"]["cluster"]["wsrep_sst_receive_port"]
+  ip = Percona::ConfigHelper.bind_to(node, sst_interface)
+  address = "#{ip}:#{sst_port}"
+  node.set["percona"]["cluster"]["wsrep_sst_receive_address"] = address
+end
+
 # install packages
 case node["platform_family"]
 when "debian"

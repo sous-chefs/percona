@@ -34,6 +34,14 @@ describe "percona::configure_server" do
       expect(chef_run).to run_execute("setup mysql datadir")
     end
 
+    it "creates the log directory" do
+      expect(chef_run).to create_directory("/var/log/mysql").with(
+        owner: "mysql",
+        group: "mysql",
+        recursive: true
+      )
+    end
+
     it "creates the temporary directory" do
       expect(chef_run).to create_directory("/tmp").with(
         owner: "mysql",

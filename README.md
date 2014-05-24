@@ -223,6 +223,7 @@ default["percona"]["server"]["enable"]                          = true
 default["percona"]["server"]["role"]                            = "standalone"
 default["percona"]["server"]["username"]                        = "mysql"
 default["percona"]["server"]["datadir"]                         = "/var/lib/mysql"
+default["percona"]["server"]["logdir"]                         = "/var/log/mysql"
 default["percona"]["server"]["tmpdir"]                          = "/tmp"
 default["percona"]["server"]["debian_username"]                 = "debian-sys-maint"
 default["percona"]["server"]["nice"]                            = 0
@@ -510,6 +511,8 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * fix `access_grants` guards for `cluster` and `backup` recipes
 * **[@odacrem](https://github.com/odacrem)**
     * use correct replication username in `replication.sql`
+* **[@g3kk0](https://github.com/g3kk0)**
+    * fix missing mysql log directory
 
 
 ## License

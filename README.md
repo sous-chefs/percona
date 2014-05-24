@@ -511,6 +511,8 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * fix `access_grants` guards for `cluster` and `backup` recipes
 * **[@odacrem](https://github.com/odacrem)**
     * use correct replication username in `replication.sql`
+* **[@g3kk0](https://github.com/g3kk0)**
+    * fix missing mysql log directory
 
 
 ## License

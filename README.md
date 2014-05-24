@@ -514,6 +514,7 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * use correct replication username in `replication.sql`
 * **[@g3kk0](https://github.com/g3kk0)**
     * fix missing mysql log directory
+    * add attribute `wait_timeout`
 
 
 ## License

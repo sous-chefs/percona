@@ -28,13 +28,12 @@ when "debian"
 when "rhel"
   include_recipe "yum"
 
-  arch = node["kernel"]["machine"] == "x86_64" ? "x86_64" : "i386"
-  pversion = node["platform_version"].to_i
-
   yum_repository "percona" do
-    description "Percona Packages"
-    baseurl "http://repo.percona.com/centos/#{pversion}/os/#{arch}/"
-    gpgkey "http://www.percona.com/downloads/RPM-GPG-KEY-percona"
+    description node["percona"]["yum"]["description"]
+    baseurl node["percona"]["yum"]["baseurl"]
+    gpgkey node["percona"]["yum"]["gpgkey"]
+    gpgcheck node["percona"]["yum"]["gpgcheck"]
+    sslverify node["percona"]["yum"]["sslverify"]
     action :create
   end
 end

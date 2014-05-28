@@ -25,6 +25,11 @@ when "rhel"
   package node["percona"]["server"]["package"] do
     action :install
   end
+
+  if node["percona"]["server"]["jemalloc"]
+    package "jemalloc"
+  end
+
 end
 
 unless node["percona"]["skip_configure"]

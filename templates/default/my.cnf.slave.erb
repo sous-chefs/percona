@@ -31,6 +31,9 @@ interactive-timeout
 socket           = <%= node["percona"]["server"]["socket"] %>
 nice             = <%= node["percona"]["server"]["nice"] %>
 open-files-limit = <%= node["percona"]["server"]["open_files_limit"] %>
+<% if node["percona"]["server"]["jemalloc"] %>
+malloc-lib       = /usr/lib64/libjemalloc.so.1
+<% end %>
 
 # *** Application-specific options follow here ***
 

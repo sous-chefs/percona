@@ -11,12 +11,14 @@ mysqld  = (conf && conf["mysqld"]) || {}
 # construct an encrypted passwords helper -- giving it the node and bag name
 passwords = EncryptedPasswords.new(node, percona["encrypted_data_bag"])
 
-template "/root/.my.cnf" do
-  variables(root_password: passwords.root_password)
-  owner "root"
-  group "root"
-  mode "0600"
-  source "my.cnf.root.erb"
+unless node["percona"]["skip_passwords"]
+  template "/root/.my.cnf" do
+    variables(root_password: passwords.root_password)
+    owner "root"
+    group "root"
+    mode "0600"
+    source "my.cnf.root.erb"
+  end
 end
 
 if server["bind_to"]
@@ -90,10 +92,12 @@ template percona["main_config_file"] do
 end
 
 # now let's set the root password only if this is the initial install
-execute "Update MySQL root password" do
-  root_pw = passwords.root_password
-  command "mysqladmin --user=root --password='' password '#{root_pw}'"
-  not_if "test -f /etc/mysql/grants.sql"
+unless node["percona"]["skip_passwords"]
+  execute "Update MySQL root password" do
+    root_pw = passwords.root_password
+    command "mysqladmin --user=root --password='' password '#{root_pw}'"
+    not_if "test -f /etc/mysql/grants.sql"
+  end
 end
 
 # setup the debian system user config

@@ -526,6 +526,7 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
 * **[@g3kk0](https://github.com/g3kk0)**
     * fix missing mysql log directory
     * add attribute `wait_timeout`
+    * data-drive percona yum repository
 
 
 ## License

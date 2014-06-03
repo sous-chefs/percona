@@ -465,6 +465,7 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * add default utf8 character set option
     * cleanup replication support
     * remove dependency on opscode/mysql cookbook
+    * fix permissions for configuration files
 * **[@alexzorin](https://github.com/alexzorin)**
     * add support for `skip-name-resolve` option
 * **[@jyotty](https://github.com/jyotty)**

@@ -27,6 +27,15 @@ when "rhel"
   end
 end
 
+if node["percona"]["server"]["jemalloc"]
+  package_name = value_for_platform_family(
+    "debian" => "libjemalloc1",
+    "rhel" => "jemalloc"
+  )
+
+  package package_name
+end
+
 unless node["percona"]["skip_configure"]
   include_recipe "percona::configure_server"
 end

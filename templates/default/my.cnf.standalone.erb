@@ -29,6 +29,9 @@ socket = <%= node["percona"]["server"]["socket"] %>
 socket           = <%= node["percona"]["server"]["socket"] %>
 nice             = <%= node["percona"]["server"]["nice"] %>
 open-files-limit = <%= node["percona"]["server"]["open_files_limit"] %>
+<% if node["percona"]["server"]["jemalloc"] %>
+malloc-lib       = <%= node["percona"]["server"]["jemalloc_lib"] %>
+<% end %>
 
 [mysqld]
 #

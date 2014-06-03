@@ -528,6 +528,7 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * fix missing mysql log directory
     * add attribute `wait_timeout`
     * data-drive percona yum repository
+    * add support for `jemalloc`
 
 
 ## License

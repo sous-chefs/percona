@@ -349,6 +349,16 @@ default["percona"]["plugins_version"] = "1.1.3"
 default["percona"]["plugins_packages"] = %w[percona-nagios-plugins percona-zabbix-templates percona-cacti-templates]
 ```
 
+### Package_repo.rb
+
+```ruby
+default["percona"]["yum"]["description"] = "Percona Packages"
+default["percona"]["yum"]["baseurl"]     = "http://repo.percona.com/centos/#{pversion}/os/#{arch}/"
+default["percona"]["yum"]["gpgkey"]      = "http://www.percona.com/downloads/RPM-GPG-KEY-percona"
+default["percona"]["yum"]["gpgcheck"]    = true
+default["percona"]["yum"]["sslverify"]   = true
+```
+
 ## Explicit my.cnf templating
 
 In some situation it is preferable to explicitly define the attributes needed in a `my.cnf` file. This is enabled by adding categories to the `node[:percona][:conf]` attributes. All keys found in the `node[:percona][:conf]` map will represent categories in the `my.cnf` file. Each category contains a map of attributes that will be written to the `my.cnf` file for that category. See the example for more details.

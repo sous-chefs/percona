@@ -20,6 +20,12 @@ suites:
   - name: server
     run_list:
       - recipe[percona::server]
+    attributes:
+      percona:
+        server:
+          jemalloc: true
+          debian_password: d3b1an
+          root_password: r00t
   - name: xtrabackup
     run_list:
       - recipe[percona::server]

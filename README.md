@@ -227,6 +227,15 @@ default["percona"]["server"]["logdir"]                         = "/var/log/mysql
 default["percona"]["server"]["tmpdir"]                          = "/tmp"
 default["percona"]["server"]["debian_username"]                 = "debian-sys-maint"
 default["percona"]["server"]["jemalloc"]                        = false
+default["percona"]["server"]["jemalloc_lib"]                    = value_for_platform_family(
+                                                                    "debian" => value_for_platform(
+                                                                      "ubuntu" => {
+                                                                        "trusty" => "/usr/lib/x86_64-linux-gnu/libjemalloc.so.1",
+                                                                        "precise" => "/usr/lib/libjemalloc.so.1"
+                                                                      }
+                                                                    ),
+                                                                    "rhel" => "/usr/lib64/libjemalloc.so.1"
+                                                                  )
 default["percona"]["server"]["nice"]                            = 0
 default["percona"]["server"]["open_files_limit"]                = 16384
 default["percona"]["server"]["hostname"]                        = "localhost"

@@ -8,7 +8,8 @@ gem "chefspec", "~> 3.4" if chef_version =~ /^11/
 gem "berkshelf", "~> 3.1.0"
 gem "foodcritic", "~> 3.0.0"
 gem "rake"
-gem "rubocop", "~> 0.22.0"
+gem "rspec-core", "~> 2.14.8"
+gem "rubocop", "~> 0.23.0"
 gem "serverspec", "~> 1.7.0"
 
 group :integration do

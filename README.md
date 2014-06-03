@@ -538,6 +538,7 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * add attribute `wait_timeout`
     * data-drive percona yum repository
     * add support for `jemalloc`
+    * fix idempotency with chef-solo and `skip_password` attribute
 
 
 ## License

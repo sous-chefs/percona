@@ -11,14 +11,13 @@ mysqld  = (conf && conf["mysqld"]) || {}
 # construct an encrypted passwords helper -- giving it the node and bag name
 passwords = EncryptedPasswords.new(node, percona["encrypted_data_bag"])
 
-unless node["percona"]["skip_passwords"]
-  template "/root/.my.cnf" do
-    variables(root_password: passwords.root_password)
-    owner "root"
-    group "root"
-    mode "0600"
-    source "my.cnf.root.erb"
-  end
+template "/root/.my.cnf" do
+  variables(root_password: passwords.root_password)
+  owner "root"
+  group "root"
+  mode "0600"
+  source "my.cnf.root.erb"
+  not_if { node["percona"]["skip_passwords"] }
 end
 
 if server["bind_to"]

@@ -43,6 +43,7 @@ default["percona"]["server"]["datadir"]                         = "/var/lib/mysq
 default["percona"]["server"]["logdir"]                          = "/var/log/mysql"
 default["percona"]["server"]["tmpdir"]                          = "/tmp"
 default["percona"]["server"]["debian_username"]                 = "debian-sys-maint"
+default["percona"]["server"]["jemalloc"]              		= false
 default["percona"]["server"]["nice"]                            = 0
 default["percona"]["server"]["open_files_limit"]                = 16_384
 default["percona"]["server"]["hostname"]                        = "localhost"

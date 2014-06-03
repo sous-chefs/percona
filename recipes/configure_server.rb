@@ -82,7 +82,7 @@ template percona["main_config_file"] do
   source "my.cnf.#{conf ? "custom" : server["role"]}.erb"
   owner "root"
   group "root"
-  mode "0744"
+  mode "0644"
 
   if node["percona"]["auto_restart"]
     notifies :restart, "service[mysql]", :immediately

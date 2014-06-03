@@ -15,7 +15,7 @@ describe "percona::configure_server" do
       expect(chef_run).to create_template("/etc/my.cnf").with(
         owner: "root",
         group: "root",
-        mode: "0744"
+        mode: "0644"
       )
 
       resource = chef_run.template("/etc/my.cnf")
@@ -117,7 +117,7 @@ describe "percona::configure_server" do
       expect(chef_run).to create_template("/mysql/my.cnf").with(
         owner: "root",
         group: "root",
-        mode: "0744"
+        mode: "0644"
       )
 
       resource = chef_run.template("/mysql/my.cnf")

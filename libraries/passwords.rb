@@ -7,17 +7,20 @@ class Chef
     def initialize(node, bag = "passwords")
       @node = node
       @bag = bag
+      @bag_secret_file = node[:percona][:encrypted_data_bag_secret]
     end
 
     # helper for passwords
-    def find_password(key, user, default = nil)
+    def find_password(item, user, default = nil)
       begin
-        # first, let's check for an encrypted data bag and the given key
-        passwords = Chef::EncryptedDataBagItem.load(@bag, key)
+        # first, let's load the secret if a secret key file was given
+        bag_secret = @bag_secret_file ? Chef::EncryptedDataBagItem.load_secret(@bag_secret_file) : nil
+        # then, let's check for an encrypted data bag and the given data bag item
+        passwords = Chef::EncryptedDataBagItem.load(@bag, item, bag_secret)
         # now, let's look for the user password
         password = passwords[user]
       rescue
-        Chef::Log.info("Using non-encrypted password for #{user}, #{key}")
+        Chef::Log.info("Using non-encrypted password for #{user}, #{item}")
       end
       # password will be nil if no encrypted data bag was loaded
       # fall back to the attribute on this node

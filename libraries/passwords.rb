@@ -16,10 +16,14 @@ class Chef
     # helper for passwords
     def find_password(item, user, default = nil)
       begin
-        # first, let's load the secret if a secret key file was given
-        bag_secret = @bag_secret_file ? Chef::EncryptedDataBagItem.load_secret(@bag_secret_file) : nil
-        # then, let's check for an encrypted data bag and the given data bag item
-        passwords = Chef::EncryptedDataBagItem.load(@bag, item, bag_secret)
+        # load the encrypted data bag item, using a secret if specified
+        if @bag_secret_file
+          bag_secret = Chef::EncryptedDataBagItem.load_secret(@bag_secret_file)
+          passwords  = Chef::EncryptedDataBagItem.load(@bag, item, bag_secret)
+        else
+          passwords  = Chef::EncryptedDataBagItem.load(@bag, item)
+        end
+        
         # now, let's look for the user password
         password = passwords[user]
       rescue

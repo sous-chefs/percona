@@ -162,6 +162,7 @@ default["percona"]["cluster"]["wsrep_cluster_name"]             = ""
 default["percona"]["cluster"]["wsrep_sst_method"]               = "rsync"
 default["percona"]["cluster"]["wsrep_node_name"]                = ""
 default["percona"]["cluster"]["wsrep_notify_cmd"]               = ""
+default["percona"]["cluster"]["wsrep_sst_auth"]                 = ""
 
 # These both are used to build wsrep_sst_receive_address
 default["percona"]["cluster"]["wsrep_sst_receive_interface"]    = nil # Works like node["percona"]["server"]["bind_to"]

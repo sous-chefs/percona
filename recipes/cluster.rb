@@ -31,7 +31,7 @@ when "rhel"
   package node["percona"]["cluster"]["package"]
 end
 
-include_recipe "percona::configure_server"
+include_recipe "percona::configure_server" unless node["percona"]["skip_configure"]
 
 # access grants
 include_recipe "percona::access_grants" unless node["percona"]["skip_passwords"]

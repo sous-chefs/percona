@@ -547,6 +547,7 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * data-drive percona yum repository
     * add support for `jemalloc`
     * fix idempotency with chef-solo and `skip_password` attribute
+    * add attribute `expand_fast_index_creation`
 
 
 ## License

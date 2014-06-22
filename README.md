@@ -76,7 +76,7 @@ This cookbook installs the Percona MySQL components if not present, and pulls up
 
 This cookbook requires [Encrypted Data Bags](http://wiki.opscode.com/display/chef/Encrypted+Data+Bags). If you forget to use them or do not use a node attribute to overwrite them empty passwords will be used.
 
-To use encrypted passwords, you must create an encrypted data bag. This cookbook assumes a data bag named `passwords`, but you can override the name using the `node[:percona][:encrypted_data_bag]` attribute.
+To use encrypted passwords, you must create an encrypted data bag. This cookbook assumes a data bag named `passwords`, but you can override the name using the `node[:percona][:encrypted_data_bag]` attribute.  You can also optionally specify a data bag secret file to be loaded for the secret key using the `node[:percona][:encrypted_data_bag_secret_file]` attribute.
 
 This cookbook expects a `mysql` item  and a `system` item. Please refer to the official documentation on how to get this setup. It actually uses a MySQL example so it can be mostly copied. Ensure you cover the data bag items as described below.
 
@@ -214,6 +214,7 @@ end
 default["percona"]["main_config_file"]                          = "/etc/my.cnf"
 default["percona"]["keyserver"]                                 = "keys.gnupg.net"
 default["percona"]["encrypted_data_bag"]                        = "passwords"
+default["percona"]["encrypted_data_bag_secret_file"]            = ""
 default["percona"]["use_percona_repos"]                         = true
 
 # Start percona server on boot
@@ -550,6 +551,8 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * add attribute `expand_fast_index_creation`
 * **[@gfloyd](https://github.com/gfloyd)**
     * honor `skip_configure` attribute in cluster recipe
+* **[@paustin01](https://github.com/paustin01)**
+    * add `encrypted_data_bag_secret_file` attribute
 
 
 ## License

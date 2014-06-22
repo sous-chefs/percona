@@ -551,6 +551,8 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * add attribute `expand_fast_index_creation`
 * **[@gfloyd](https://github.com/gfloyd)**
     * honor `skip_configure` attribute in cluster recipe
+* **[@paustin01](https://github.com/paustin01)**
+    * add `encrypted_data_bag_secret_file` attribute
 
 
 ## License

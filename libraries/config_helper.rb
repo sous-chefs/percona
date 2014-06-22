@@ -5,35 +5,38 @@ module Percona
   # given IP address
   module IPScope
     def for(ipaddress)
-      private_ranges = [IPAddr.new("10.0.0.0/8"), IPAddr.new("192.168.0.0/16")]
-      loopback_range = IPAddr.new("0.0.0.0/8")
+      address = IPAddr.new(ipaddress)
 
-      addr = IPAddr.new(ipaddress)
-
-      if private_ranges.any? { |range| range.include? addr }
-        :private
-      elsif loopback_range.include?(addr)
-        :loopback
-      else
-        :public
+      case
+      when private?(address)  then :private
+      when loopback?(address) then :loopback
+      else :public
       end
     end
     module_function :for
+
+    def loopback?(address)
+      IPAddr.new("0.0.0.0/8").include?(address)
+    end
+    module_function :loopback?
+
+    def private?(address)
+      [IPAddr.new("10.0.0.0/8"), IPAddr.new("192.168.0.0/16")].any? do |range|
+        range.include?(address)
+      end
+    end
+    module_function :private?
   end
 
   # Public: This module provides a helper method for binding to a given IP
   # address
   module ConfigHelper
     def bind_to(node, interface)
-      case interface.to_sym
-      when :public_ip
-        find_public_ip(node)
-      when :private_ip
-        find_private_ip(node)
-      when :loopback
-        find_loopback_ip(node)
-      else
-        find_interface_ip(node, interface)
+      case interface
+      when "public_ip"  then find_public_ip(node)
+      when "private_ip" then find_private_ip(node)
+      when "loopback"   then find_loopback_ip(node)
+      else find_interface_ip(node, interface)
       end
     end
     module_function :bind_to

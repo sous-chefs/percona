@@ -548,6 +548,8 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * add support for `jemalloc`
     * fix idempotency with chef-solo and `skip_password` attribute
     * add attribute `expand_fast_index_creation`
+* **[@gfloyd](https://github.com/gfloyd)**
+    * honor `skip_configure` attribute in cluster recipe
 
 
 ## License

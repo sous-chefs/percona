@@ -336,7 +336,10 @@ end
 # XtraDB Cluster Settings
 default["percona"]["cluster"]["package"]                        = "percona-xtradb-cluster-55"
 default["percona"]["cluster"]["binlog_format"]                  = "ROW"
-default["percona"]["cluster"]["wsrep_provider"]                 = "/usr/lib64/libgalera_smm.so"
+default["percona"]["cluster"]["wsrep_provider"]                 = value_for_platform_family(
+                                                                    "debian" => "/usr/lib/libgalera_smm.so",
+                                                                    "rhel" => "/usr/lib64/libgalera_smm.so"
+                                                                  )
 default["percona"]["cluster"]["wsrep_cluster_address"]          = ""
 default["percona"]["cluster"]["wsrep_slave_threads"]            = 2
 default["percona"]["cluster"]["wsrep_cluster_name"]             = ""
@@ -520,6 +523,7 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
 * **[@jharley](https://github.com/jharley)**
     * make `connect_timeout` configurable
     * add cluster support for `wsrep_sst_auth` configuration
+    * update default for `wsrep_provider` on Debian
 * **[@achied](https://github.com/achied)**
     * fix setting passwords if attribute not defined
 * **[@akshah123](https://github.com/akshah123)**

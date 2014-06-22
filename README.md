@@ -343,6 +343,7 @@ default["percona"]["cluster"]["wsrep_cluster_name"]             = ""
 default["percona"]["cluster"]["wsrep_sst_method"]               = "rsync"
 default["percona"]["cluster"]["wsrep_node_name"]                = ""
 default["percona"]["cluster"]["wsrep_notify_cmd"]               = ""
+default["percona"]["cluster"]["wsrep_sst_auth"]                 = ""
 
 # These both are used to build wsrep_sst_receive_address
 default["percona"]["cluster"]["wsrep_sst_receive_interface"]    = nil # Works like node["percona"]["server"]["bind_to"]
@@ -518,6 +519,7 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * fix mysql calls when there is no root password
 * **[@jharley](https://github.com/jharley)**
     * make `connect_timeout` configurable
+    * add cluster support for `wsrep_sst_auth` configuration
 * **[@achied](https://github.com/achied)**
     * fix setting passwords if attribute not defined
 * **[@akshah123](https://github.com/akshah123)**

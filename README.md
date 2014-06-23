@@ -337,6 +337,7 @@ end
 default["percona"]["cluster"]["package"]                        = "percona-xtradb-cluster-55"
 default["percona"]["cluster"]["binlog_format"]                  = "ROW"
 default["percona"]["cluster"]["wsrep_provider"]                 = "/usr/lib64/libgalera_smm.so"
+default["percona"]["cluster"]["wsrep_provider_options"]         = ""
 default["percona"]["cluster"]["wsrep_cluster_address"]          = ""
 default["percona"]["cluster"]["wsrep_slave_threads"]            = 2
 default["percona"]["cluster"]["wsrep_cluster_name"]             = ""

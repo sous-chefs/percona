@@ -4,5 +4,3 @@
 GRANT REPLICATION SLAVE ON *.* TO '<%=node["percona"]["server"]["replication"]["username"]%>'@'%'
       IDENTIFIED BY '<%= @replication_password %>';
 FLUSH PRIVILEGES;
-STOP SLAVE;
-RESET SLAVE;

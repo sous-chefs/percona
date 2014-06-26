@@ -509,9 +509,11 @@ innodb_open_files=2000
 #
 # For generating SSL certificates I recommend the OpenSSL GUI "tinyca".
 #
-# ssl-ca=/etc/mysql/cacert.pem
-# ssl-cert=/etc/mysql/server-cert.pem
-# ssl-key=/etc/mysql/server-key.pem
+<% if node["percona"]["server"]["replication"]["ssl_enabled"] %>
+    ssl-ca=/etc/mysql/ssl/cacert.pem
+    ssl-cert=/etc/mysql/ssl/server-cert.pem
+    ssl-key=/etc/mysql/ssl/server-key.pem
+<% end %>
 
 
 [mysqldump]

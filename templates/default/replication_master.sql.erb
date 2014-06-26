@@ -2,5 +2,5 @@
 -- Local modifications will be overwritten.
 
 GRANT REPLICATION SLAVE ON *.* TO '<%=node["percona"]["server"]["replication"]["username"]%>'@'%'
-      IDENTIFIED BY '<%= @replication_password %>';
+      IDENTIFIED BY '<%= @replication_password %>' <% if node["percona"]["server"]["replication"]["ssl_enabled"] %>REQUIRE SSL<% end %>;
 FLUSH PRIVILEGES;

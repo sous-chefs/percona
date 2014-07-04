@@ -475,6 +475,7 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
 * **[@jesseadams](https://github.com/jesseadams)**
     * fixes for custom datadir setting use case
     * add more Percona XtraDB cluster options
+    * XtraDB cluster support for replication over ssl
 * **[@see0](https://github.com/see0)**
     * fix incorrect root password reference
 * **[@baldur](https://github.com/baldur)**

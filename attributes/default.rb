@@ -161,6 +161,7 @@ default["percona"]["cluster"]["wsrep_provider"]                 = value_for_plat
                                                                     "debian" => "/usr/lib/libgalera_smm.so",
                                                                     "rhel" => "/usr/lib64/libgalera_smm.so"
                                                                   )
+default["percona"]["cluster"]["wsrep_provider_options"]         = ""
 default["percona"]["cluster"]["wsrep_cluster_address"]          = ""
 default["percona"]["cluster"]["wsrep_slave_threads"]            = 2
 default["percona"]["cluster"]["wsrep_cluster_name"]             = ""

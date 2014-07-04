@@ -66,6 +66,7 @@ wait_timeout     = <%= node["percona"]["server"]["wait_timeout"] %>
 #
 binlog_format                  = <%= node["percona"]["cluster"]["binlog_format"] %>
 wsrep_provider                 = <%= node["percona"]["cluster"]["wsrep_provider"] %>
+wsrep_provider_options         = <%= node["percona"]["cluster"]["wsrep_provider_options"] %>
 wsrep_cluster_address          = <%= node["percona"]["cluster"]["wsrep_cluster_address"] %>
 wsrep_slave_threads            = <%= node["percona"]["cluster"]["wsrep_slave_threads"] %>
 wsrep_cluster_name             = <%= node["percona"]["cluster"]["wsrep_cluster_name"] %>

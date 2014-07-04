@@ -342,6 +342,7 @@ default["percona"]["cluster"]["wsrep_provider"]                 = value_for_plat
                                                                     "debian" => "/usr/lib/libgalera_smm.so",
                                                                     "rhel" => "/usr/lib64/libgalera_smm.so"
                                                                   )
+default["percona"]["cluster"]["wsrep_provider_options"]         = ""
 default["percona"]["cluster"]["wsrep_cluster_address"]          = ""
 default["percona"]["cluster"]["wsrep_slave_threads"]            = 2
 default["percona"]["cluster"]["wsrep_cluster_name"]             = ""
@@ -474,6 +475,7 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
 * **[@jesseadams](https://github.com/jesseadams)**
     * fixes for custom datadir setting use case
     * add more Percona XtraDB cluster options
+    * XtraDB cluster support for replication over ssl
 * **[@see0](https://github.com/see0)**
     * fix incorrect root password reference
 * **[@baldur](https://github.com/baldur)**

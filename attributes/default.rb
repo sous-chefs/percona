@@ -29,7 +29,7 @@ end
 # Cookbook Settings
 default["percona"]["main_config_file"]                          = value_for_platform_family(
                                                                     "debian" => "/etc/mysql/my.cnf",
-                                                                    "rhel" => "/etc/my/cnf"
+                                                                    "rhel" => "/etc/my.cnf"
                                                                   )
 default["percona"]["keyserver"]                                 = "keys.gnupg.net"
 default["percona"]["encrypted_data_bag"]                        = "passwords"

@@ -12,13 +12,13 @@ describe "percona::configure_server" do
     end
 
     it "creates the main server config file" do
-      expect(chef_run).to create_template("/etc/my.cnf").with(
+      expect(chef_run).to create_template("/etc/mysql/my.cnf").with(
         owner: "root",
         group: "root",
         mode: "0644"
       )
 
-      resource = chef_run.template("/etc/my.cnf")
+      resource = chef_run.template("/etc/mysql/my.cnf")
       expect(resource).to notify("service[mysql]").to(:restart).immediately
     end
 

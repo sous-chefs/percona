@@ -78,6 +78,9 @@ execute "setup mysql datadir" do
   not_if "test -f #{datadir}/mysql/user.frm"
 end
 
+# install SSL certificates before config phase
+include_recipe "percona::ssl" if node["percona"]["server"]["replication"]["ssl_enable"]
+
 # setup the main server config file
 template percona["main_config_file"] do
   source "my.cnf.#{conf ? "custom" : server["role"]}.erb"

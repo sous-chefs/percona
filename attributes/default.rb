@@ -41,7 +41,7 @@ default["percona"]["skip_configure"]                            = false
 default["percona"]["server"]["enable"]                          = true
 
 # Basic Settings
-default["percona"]["server"]["role"]                            = [ "standalone" ]
+default["percona"]["server"]["role"]                            = ["standalone"]
 default["percona"]["server"]["username"]                        = "mysql"
 default["percona"]["server"]["datadir"]                         = "/var/lib/mysql"
 default["percona"]["server"]["logdir"]                          = "/var/log/mysql"

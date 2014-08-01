@@ -83,7 +83,7 @@ include_recipe "percona::ssl" if node["percona"]["server"]["replication"]["ssl_e
 
 # setup the main server config file
 template percona["main_config_file"] do
-  source "my.cnf.#{conf ? "custom" : server["role"]}.erb"
+  source "my.cnf.main.erb"
   owner "root"
   group "root"
   mode "0644"

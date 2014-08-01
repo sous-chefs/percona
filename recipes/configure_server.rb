@@ -79,7 +79,9 @@ execute "setup mysql datadir" do
 end
 
 # install SSL certificates before config phase
-include_recipe "percona::ssl" if node["percona"]["server"]["replication"]["ssl_enabled"]
+if node["percona"]["server"]["replication"]["ssl_enabled"]
+  include_recipe "percona::ssl"
+end
 
 # setup the main server config file
 template percona["main_config_file"] do

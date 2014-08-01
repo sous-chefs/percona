@@ -3,34 +3,33 @@
 # Recipe:: ssl
 #
 
-certs_path = '/etc/mysql/ssl'
+certs_path = "/etc/mysql/ssl"
 server = node["percona"]["server"]
+data_bag = node["percona"]["encrypted_data_bag"]
 
 directory certs_path do
   action :create
-  owner node.percona.server.username
+  owner node["percona"]["server"]["username"]
   mode 0700
 end
 
-certs = Chef::EncryptedDataBagItem.load(node["percona"]["encrypted_data_bag"], 'ssl_replication')
+certs = Chef::EncryptedDataBagItem.load(data_bag, "ssl_replication")
 
 # place the CA certificate, it should be present on both master and slave
 file "#{certs_path}/cacert.pem" do
-  content certs['ca-cert']
+  content certs["ca-cert"]
 end
 
-%w(cert key).each do |file|
+%w[cert key].each do |file|
   # place certificate and key for master
-  if server["role"].include?('master')
-    file "#{certs_path}/server-#{file}.pem" do
-      content certs['server']["server-#{file}"]
-    end
+  file "#{certs_path}/server-#{file}.pem" do
+    content certs["server"]["server-#{file}"]
+    only_if { server["role"].include?("master") }
   end
-  # because in a master-master setup a slave could also be a master, we don't use else here
+  # because in a master-master setup a master could also be a slave
   # place slave certificate and key
-  if server["role"].include?('slave')
-    file "#{certs_path}/client-#{file}.pem" do
-      content certs['client']["client-#{file}"]
-    end
+  file "#{certs_path}/client-#{file}.pem" do
+    content certs["client"]["client-#{file}"]
+    only_if { server["role"].include?("slave") }
   end
 end

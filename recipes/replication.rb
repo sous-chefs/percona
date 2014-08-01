@@ -16,7 +16,7 @@ template replication_sql do
   owner "root"
   group "root"
   mode "0600"
-  only_if { server["replication"]["host"] != "" || server["role"] == "master" }
+  only_if { server["replication"]["host"] != "" || server["role"].include?('master') }
 end
 
 root_pass = passwords.root_password.to_s

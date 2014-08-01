@@ -531,6 +531,7 @@ max_allowed_packet = <%= node["percona"]["server"]["max_allowed_packet"] %>
 key_buffer = <%= node["percona"]["server"]["key_buffer"] %>
 
 ##### custom configurations go here
+<% unless node["percona"]["conf"].nil? or node["percona"]["conf"].empty? %>
 <% node["percona"]["conf"].keys.each do |category| %>
 
     <%= "[#{category}]" %>
@@ -539,7 +540,7 @@ key_buffer = <%= node["percona"]["server"]["key_buffer"] %>
     <% end %>
 
 <% end %>
-
+<% end %>
 
 #
 # * IMPORTANT: Additional settings that can override those from this file!

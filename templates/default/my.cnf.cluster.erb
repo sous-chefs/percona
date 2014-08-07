@@ -262,6 +262,9 @@ innodb_log_files_in_group = <%= node["percona"]["server"]["innodb_log_files_in_g
 # files in order for this to work.
 
 #innodb_log_group_home_dir
+<% if !node["percona"]["server"]["innodb_log_group_home_dir"].empty? %>
+innodb_log_group_home_dir = <%= node["percona"]["server"]["innodb_log_group_home_dir"] %>
+<% end %>
 
 # Maximum allowed percentage of dirty pages in the InnoDB buffer pool.
 # If it is reached, InnoDB will start flushing them out agressively to

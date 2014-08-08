@@ -16,6 +16,9 @@ SET PASSWORD FOR '<%= @debian_user %>'@'localhost' = PASSWORD('<%= @debian_passw
 GRANT RELOAD, LOCK TABLES, REPLICATION CLIENT ON *.* TO '<%= node["percona"]["backup"]["username"] %>'@'localhost' IDENTIFIED BY '<%= @backup_password %>';
 REVOKE ALL PRIVILEGES, GRANT OPTION FROM '<%= node["percona"]["backup"]["username"] %>'@'localhost';
 GRANT RELOAD, LOCK TABLES, REPLICATION CLIENT ON *.* TO '<%= node["percona"]["backup"]["username"] %>'@'localhost' IDENTIFIED BY '<%= @backup_password %>';
+GRANT RELOAD, LOCK TABLES, REPLICATION CLIENT ON *.* TO '<%= node["percona"]["backup"]["username"] %>'@'%' IDENTIFIED BY '<%= @backup_password %>';
+REVOKE ALL PRIVILEGES, GRANT OPTION FROM '<%= node["percona"]["backup"]["username"] %>'@'%';
+GRANT RELOAD, LOCK TABLES, REPLICATION CLIENT ON *.* TO '<%= node["percona"]["backup"]["username"] %>'@'%' IDENTIFIED BY '<%= @backup_password %>';
 <% end -%>
 
 # Set the server root password. This should be preseeded by the package installation.

@@ -5,7 +5,7 @@
 
 ::Chef::Node.send(:include, Opscode::OpenSSL::Password)
 
-version = default["percona"]["version"] = "5.6"
+version = default["percona"]["version"] || "5.6"
 
 # Always restart percona on configuration changes
 default["percona"]["auto_restart"] = true

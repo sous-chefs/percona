@@ -8,6 +8,10 @@ include_recipe "percona::package_repo"
 # install packages
 case node["platform_family"]
 when "debian"
+  package 'apt-utils' do
+    action :install
+    options '--force-yes'
+  end
   package node["percona"]["server"]["package"] do
     action :install
     options "--force-yes"

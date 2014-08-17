@@ -81,13 +81,14 @@ end
 # Load the mysql_ssl/files data bag item
 # This will populate the SSL fields for [mysqld]
 begin
-  certificates = Chef::EncryptedDataBagItem.load('mysql_ssl', 'files').to_hash
+  certificates = Chef::EncryptedDataBagItem.load("mysql_ssl", "files").to_hash
 rescue Net::HTTPServerException => error
-  if error.response.code == "404" then
+  if error.response.code == "404"
     puts("INFO: Creating a new data bag item")
-    Chef::Log.info('mysql_ssl/certificates data bag item does not exist.')
+    Chef::Log.info("mysql_ssl/certificates data bag item does not exist.")
   else
-    Chef::Log.error("ERROR: Received an HTTPException of type " + e.response.code)
+    Chef::Log.error("ERROR: Received an HTTPException of type " + \
+                    e.response.code)
     raise error
   end
 end
@@ -109,7 +110,7 @@ end
 certificates.each_pair do |name, certificate|
   file "/etc/mysql/#{name}.pem" do
     owner node["percona"]["server"]["username"]
-    mode '0700'
+    mode "0700"
     content certificate
   end
 end

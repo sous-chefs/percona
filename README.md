@@ -114,6 +114,25 @@ Example: "passwords" data bag - this example assumes that `node[:percona][:serve
 
 Above shows the encrypted password in the data bag. Check out the `encrypted_data_bag_secret` setting in `knife.rb` to setup your data bag secret during bootstrapping.
 
+### SSL Support
+
+To enable SSL support you just need a `mysql_ssl` data bag with a `files` data bag item. This should contain the following three things.
+
+1. CA Certificate
+2. Certificate
+3. Key
+
+Example, in data_bags/mysql_ssl/files.json:
+
+```json
+{
+    "id": "files",
+    "ssl-ca": "-----BEGIN CERTIFICATE-----\n...\n-----END CERTIFICATE-----",
+    "ssl-cert": "-----BEGIN CERTIFICATE-----\n...\n-----END CERTIFICATE-----",
+    "ssl-key": "-----BEGIN RSA PRIVATE KEY-----\n...\n-----END RSA PRIVATE KEY-----"
+}
+```
+
 ### Percona XtraDB Cluster
 
 Below is a minimal example setup to bootstrap a Percona XtraDB Cluster. Please see the [official documentation](http://www.percona.com/doc/percona-xtradb-cluster/5.6/index.html) for more information. This is not a perfect example. It is just a sample to get you started.

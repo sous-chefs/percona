@@ -502,7 +502,11 @@ innodb_open_files=2000
 # ssl-ca=/etc/mysql/cacert.pem
 # ssl-cert=/etc/mysql/server-cert.pem
 # ssl-key=/etc/mysql/server-key.pem
-
+<% unless @ssl_files.empty? %>
+ssl-ca=/etc/mysql/ssl-ca.pem
+ssl-cert=/etc/mysql/ssl-cert.pem
+ssl-key=/etc/mysql/ssl-key.pem
+<% end %>
 
 [mysqldump]
 quick

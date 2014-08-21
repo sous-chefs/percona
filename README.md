@@ -583,6 +583,7 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * add `encrypted_data_bag_secret_file` attribute
 * **[@ajardan](https://github.com/ajardan)**
     * support master-master replication in the `replication_master.sql` template
+    * extend master-master capabilities and add ssl support
 
 
 ## License

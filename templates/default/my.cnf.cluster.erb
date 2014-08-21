@@ -122,9 +122,34 @@ thread_cache_size = <%= node["percona"]["server"]["thread_cache_size"] %>
 # This replaces the startup script and checks MyISAM tables if needed
 # the first time they are touched
 myisam-recover = <%= node["percona"]["server"]["myisam_recover"] %>
-#max_connections        = 100
-#table_cache            = 64
+
+# back_log is the number of connections the operating system can keep in
+# the listen queue, before the MySQL connection manager thread has
+# processed them. If you have a very high connection rate and experience
+# "connection refused" errors, you might need to increase this value.
+# Check your OS documentation for the maximum value of this parameter.
+# Attempting to set back_log higher than your operating system limit
+# will have no effect.
+back_log = <%= node["percona"]["server"]["back_log"] %>
+max_connections = <%= node["percona"]["server"]["max_connections"] %>
+
+# I don't know why 0 doesn't disable max_connect_errors checking
+# but it doesn't, so set it to a high value to prevent MySQL from
+# refusing to accept connections from a flaky host, especially if you
+# are using a load balancer!
+max_connect_errors = <%= node["percona"]["server"]["max_connect_errors"] %>
+
+# The number of open tables for all threads.
+# make sure that the open file limit is at least twice this in the
+# mysqld_safe section
+<%- if node["percona"]["version"] >= "5.6" %>
+table_open_cache        = <%= node["percona"]["server"]["table_cache"] %>
+<%- else %>
+table_cache             = <%= node["percona"]["server"]["table_cache"] %>
+<%- end %>
+
 #thread_concurrency     = 10
+#
 #
 # * Query Cache Configuration
 #

@@ -12,13 +12,13 @@ describe "percona::configure_server" do
     end
 
     it "creates the main server config file" do
-      expect(chef_run).to create_template("/etc/my.cnf").with(
+      expect(chef_run).to create_template("/etc/mysql/my.cnf").with(
         owner: "root",
         group: "root",
         mode: "0644"
       )
 
-      resource = chef_run.template("/etc/my.cnf")
+      resource = chef_run.template("/etc/mysql/my.cnf")
       expect(resource).to notify("service[mysql]").to(:restart).immediately
     end
 
@@ -140,6 +140,29 @@ describe "percona::configure_server" do
       expect(chef_run).to render_file(debian_cnf).with_content("d3b1an")
 
       resource = chef_run.template(debian_cnf)
+      expect(resource).to notify("service[mysql]").to(:restart).immediately
+    end
+  end
+
+  describe "`rhel` platform family" do
+    let(:chef_run) do
+      env_options = { platform: "centos", version: "6.5" }
+      ChefSpec::Runner.new(env_options).converge(described_recipe)
+    end
+
+    before do
+      stub_command("test -f /var/lib/mysql/mysql/user.frm").and_return(false)
+      stub_command("test -f /etc/mysql/grants.sql").and_return(false)
+    end
+
+    it "creates the main server config file" do
+      expect(chef_run).to create_template("/etc/my.cnf").with(
+        owner: "root",
+        group: "root",
+        mode: "0644"
+      )
+
+      resource = chef_run.template("/etc/my.cnf")
       expect(resource).to notify("service[mysql]").to(:restart).immediately
     end
   end

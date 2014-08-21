@@ -211,7 +211,10 @@ when "rhel"
 end
 
 # Cookbook Settings
-default["percona"]["main_config_file"]                          = "/etc/my.cnf"
+default["percona"]["main_config_file"]                          = value_for_platform_family(
+                                                                    "debian" => "/etc/mysql/my.cnf",
+                                                                    "rhel" => "/etc/my.cnf"
+                                                                  )
 default["percona"]["keyserver"]                                 = "keys.gnupg.net"
 default["percona"]["encrypted_data_bag"]                        = "passwords"
 default["percona"]["encrypted_data_bag_secret_file"]            = ""
@@ -529,6 +532,7 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * add cluster support for `wsrep_sst_auth` configuration
     * update default for `wsrep_provider` on Debian
     * enable InnoDB tuning for standalone and cluster
+    * set proper `my.cnf` location based on platform family
 * **[@achied](https://github.com/achied)**
     * fix setting passwords if attribute not defined
 * **[@akshah123](https://github.com/akshah123)**

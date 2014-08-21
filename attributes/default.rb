@@ -41,7 +41,7 @@ default["percona"]["skip_configure"]                            = false
 default["percona"]["server"]["enable"]                          = true
 
 # Basic Settings
-default["percona"]["server"]["role"]                            = "standalone"
+default["percona"]["server"]["role"]                            = ["standalone"]
 default["percona"]["server"]["username"]                        = "mysql"
 default["percona"]["server"]["datadir"]                         = "/var/lib/mysql"
 default["percona"]["server"]["logdir"]                          = "/var/log/mysql"
@@ -149,6 +149,7 @@ default["percona"]["server"]["replication"]["username"]         = ""
 default["percona"]["server"]["replication"]["password"]         = ""
 default["percona"]["server"]["replication"]["port"]             = 3306
 default["percona"]["server"]["replication"]["ignore_db"]        = ""
+default["percona"]["server"]["replication"]["ssl_enabled"]      = false
 
 # XtraBackup Settings
 default["percona"]["backup"]["configure"]                       = false

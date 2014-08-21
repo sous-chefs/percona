@@ -11,13 +11,14 @@ server = node["percona"]["server"]
 
 # define access grants
 template replication_sql do
-  source "replication_#{server["role"]}.sql.erb"
+  source "replication.sql.erb"
   variables(replication_password: passwords.replication_password)
   owner "root"
   group "root"
   mode "0600"
-
-  only_if { server["replication"]["host"] != "" || server["role"] == "master" }
+  only_if do
+    server["replication"]["host"] != "" || server["role"].include?("master")
+  end
 end
 
 root_pass = passwords.root_password.to_s

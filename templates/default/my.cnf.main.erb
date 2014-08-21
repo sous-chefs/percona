@@ -77,7 +77,7 @@ old_passwords = <%= @old_passwords %>
 #
 # Instead of skip-networking the default is now to listen only on
 # localhost which is more compatible and is not less secure.
-<% if !node["percona"]["server"]["bind_address"].empty? %>
+<% unless node["percona"]["server"]["bind_address"].empty? %>
 bind-address = <%= node["percona"]["server"]["bind_address"] %>
 <% end %>
 #
@@ -96,8 +96,8 @@ group_concat_max_len = <%= node["percona"]["server"]["group_concat_max_len"] %>
 
 <% if node["percona"]["server"]["expand_fast_index_creation"] %>
 expand_fast_index_creation
-
 <% end %>
+
 # Thread stack size to use. This amount of memory is always reserved at
 # connection time. MySQL itself usually needs no more than 64K of
 # memory, while if you use your own stack hungry UDF functions or your
@@ -259,8 +259,10 @@ long_query_time = <%= node["percona"]["server"]["long_query_time"] %>
 # if it is omitted.
 server-id = <%= node["percona"]["server"]["server_id"] %>
 
+<% unless node["percona"]["server"]["replication"]["ignore_db"].empty? %>
 # Tells the slave SQL thread not to replicate any statement where the default database is.
 replicate-ignore-db = <%= node["percona"]["server"]["replication"]["ignore_db"] %>
+<% end %>
 
 # Make the slave read-only. Only users with the SUPER privilege and the
 # replication slave thread will be able to modify data on it. You can
@@ -269,6 +271,7 @@ replicate-ignore-db = <%= node["percona"]["server"]["replication"]["ignore_db"] 
 <% if node["percona"]["server"]["replication"]["read_only"] %>
 read_only
 <% end %>
+
 
 log_bin          = <%= node["percona"]["server"]["datadir"] %>/mysql-bin.log
 expire_logs_days = <%= node["percona"]["server"]["expire_logs_days"] %>
@@ -295,11 +298,11 @@ binlog_cache_size = <%= node["percona"]["server"]["binlog_cache_size"] %>
 
 # it is recommened to specify a filename for the binary log, hopefully
 # something that is not host specific.  I've chosen master-bin.
-<% if !node["percona"]["server"]["log_bin"].empty? %>
+<% unless node["percona"]["server"]["log_bin"].empty? %>
 log-bin = <%= node["percona"]["server"]["log_bin"] %>
 <% end %>
 
-<% if !node["percona"]["server"]["relay_log"].empty? %>
+<% unless node["percona"]["server"]["relay_log"].empty? %>
 relay-log = <%= node["percona"]["server"]["relay_log"] %>
 <% end %>
 
@@ -412,7 +415,7 @@ innodb_file_format = <%= node["percona"]["server"]["innodb_file_format"] %>
 
 # Set this option if you would like the InnoDB tablespace files to be
 # stored in another location. By default this is the MySQL datadir.
-<% if !node["percona"]["server"]["innodb_data_home_dir"].empty? %>
+<% unless node["percona"]["server"]["innodb_data_home_dir"].empty? %>
 innodb_data_home_dir = <%= node["percona"]["server"]["innodb_data_home_dir"] %>
 <% end %>
 
@@ -509,9 +512,11 @@ innodb_open_files=2000
 #
 # For generating SSL certificates I recommend the OpenSSL GUI "tinyca".
 #
-# ssl-ca=/etc/mysql/cacert.pem
-# ssl-cert=/etc/mysql/server-cert.pem
-# ssl-key=/etc/mysql/server-key.pem
+<% if node["percona"]["server"]["replication"]["ssl_enabled"] %>
+    ssl-ca=/etc/mysql/ssl/cacert.pem
+    ssl-cert=/etc/mysql/ssl/server-cert.pem
+    ssl-key=/etc/mysql/ssl/server-key.pem
+<% end %>
 
 
 [mysqldump]
@@ -524,6 +529,18 @@ max_allowed_packet = <%= node["percona"]["server"]["max_allowed_packet"] %>
 
 [isamchk]
 key_buffer = <%= node["percona"]["server"]["key_buffer"] %>
+
+##### custom configurations go here
+<% unless node["percona"]["conf"].nil? or node["percona"]["conf"].empty? %>
+<% node["percona"]["conf"].keys.each do |category| %>
+
+    <%= "[#{category}]" %>
+    <% node["percona"]["conf"][category].keys.each do |key| %>
+        <%= "#{key} = #{node["percona"]["conf"][category][key]}" %>
+    <% end %>
+
+<% end %>
+<% end %>
 
 #
 # * IMPORTANT: Additional settings that can override those from this file!

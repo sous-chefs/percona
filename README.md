@@ -114,6 +114,27 @@ Example: "passwords" data bag - this example assumes that `node[:percona][:serve
 
 Above shows the encrypted password in the data bag. Check out the `encrypted_data_bag_secret` setting in `knife.rb` to setup your data bag secret during bootstrapping.
 
+### Replication over SSL
+To enable SSL based replication, you will need to flip the attribute `node[:percona][:server][:replication][:ssl_enabled]` to `true` and add a new data_bag item
+to the percona encrypted data_bag (see `node[:percona][:encrypted_data_bag]` attribute) with the id `ssl_replication` that contains this data:
+
+```javascript
+{
+  "id": "ssl_replication",
+  "ca-cert": "CA_CERTIFICATE_STRING",
+  "server": {
+    "server-cert": "SERVER_CERTIFICATE_STRING",
+    "server-key": "SERVER_KEY_STRING"
+  },
+  "client": {
+    "client-cert": "CLIENT_CERTIFICATE_STRING",
+    "client-key": "CLIENT_KEY_STRING"
+  }
+}
+```
+All certificates and keys have to be converted to a string (easiest way is to use ruby: */usr/bin/env ruby -e 'p ARGF.read'* **filename**) and placed
+instead of CA_CERTIFICATE_STRING, SERVER_CERTIFICATE_STRING, SERVER_KEY_STRING, CLIENT_CERTIFICATE_STRING, CLIENT_KEY_STRING.
+
 ### Percona XtraDB Cluster
 
 Below is a minimal example setup to bootstrap a Percona XtraDB Cluster. Please see the [official documentation](http://www.percona.com/doc/percona-xtradb-cluster/5.6/index.html) for more information. This is not a perfect example. It is just a sample to get you started.
@@ -562,6 +583,7 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * add `encrypted_data_bag_secret_file` attribute
 * **[@ajardan](https://github.com/ajardan)**
     * support master-master replication in the `replication_master.sql` template
+    * extend master-master capabilities and add ssl support
 
 
 ## License

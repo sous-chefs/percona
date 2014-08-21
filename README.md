@@ -532,6 +532,7 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * add cluster support for `wsrep_sst_auth` configuration
     * update default for `wsrep_provider` on Debian
     * enable InnoDB tuning for standalone and cluster
+    * set proper `my.cnf` location based on platform family
 * **[@achied](https://github.com/achied)**
     * fix setting passwords if attribute not defined
 * **[@akshah123](https://github.com/akshah123)**

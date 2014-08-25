@@ -2,6 +2,7 @@ begin
   require "rspec/expectations"
   require "chefspec"
   require "chefspec/berkshelf"
+  require "chefspec/server"
 rescue LoadError
   puts "Unable to run `chefspec`"
   exit

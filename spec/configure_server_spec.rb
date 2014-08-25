@@ -1,6 +1,14 @@
 require "spec_helper"
 
 describe "percona::configure_server" do
+  before do
+    Chef::EncryptedDataBagItem.stub(:load).with('mysql_ssl', 'files').and_return({
+      'ssl-ca' => 'ca',
+      'ssl-cert' => 'cert',
+      'ssl-key' => 'key'
+    })
+  end
+
   describe "first run" do
     let(:chef_run) do
       ChefSpec::Runner.new.converge(described_recipe)

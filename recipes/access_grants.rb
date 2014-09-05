@@ -12,7 +12,8 @@ template "/etc/mysql/grants.sql" do
     root_password: passwords.root_password,
     debian_user: node["percona"]["server"]["debian_username"],
     debian_password: passwords.debian_password,
-    backup_password: passwords.backup_password
+    backup_password: passwords.backup_password,
+    clustercheck_password: passwords.clustercheck_password
   )
   owner "root"
   group "root"

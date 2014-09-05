@@ -55,6 +55,12 @@ class Chef
       find_password "mysql", backup["username"], backup["password"]
     end
 
+    # password for user responsbile for running clustercheck
+    def clustercheck_password
+      clustercheck = node["percona"]["clustercheck"]
+      find_password "mysql", clustercheck["username"], clustercheck["password"]
+    end
+
     private
 
     # helper

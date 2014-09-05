@@ -138,6 +138,7 @@ default["percona"]["server"]["innodb_fast_shutdown"]            = false
 default["percona"]["server"]["innodb_log_buffer_size"]          = "64M"
 default["percona"]["server"]["innodb_log_file_size"]            = "5M"
 default["percona"]["server"]["innodb_log_files_in_group"]       = 2
+default["percona"]["server"]["innodb_log_group_home_dir"]       = ""
 default["percona"]["server"]["innodb_max_dirty_pages_pct"]      = 80
 default["percona"]["server"]["innodb_flush_method"]             = "O_DIRECT"
 default["percona"]["server"]["innodb_lock_wait_timeout"]        = 120
@@ -156,6 +157,13 @@ default["percona"]["backup"]["configure"]                       = false
 default["percona"]["backup"]["username"]                        = "backup"
 unless attribute?(node["percona"]["backup"]["password"])
   default["percona"]["backup"]["password"]                      = secure_password
+end
+
+# clustercheck Settings
+default["percona"]["clustercheck"]["configure"]                       = false
+default["percona"]["clustercheck"]["username"]                        = "clustercheck"
+unless attribute?(node["percona"]["clustercheck"]["password"])
+  default["percona"]["clustercheck"]["password"]                      = secure_password
 end
 
 # XtraDB Cluster Settings

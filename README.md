@@ -341,6 +341,7 @@ default["percona"]["server"]["innodb_fast_shutdown"]            = false
 default["percona"]["server"]["innodb_log_buffer_size"]          = "64M"
 default["percona"]["server"]["innodb_log_file_size"]            = "5M"
 default["percona"]["server"]["innodb_log_files_in_group"]       = 2
+default["percona"]["server"]["innodb_log_group_home_dir"]       = ""
 default["percona"]["server"]["innodb_max_dirty_pages_pct"]      = 80
 default["percona"]["server"]["innodb_flush_method"]             = "O_DIRECT"
 default["percona"]["server"]["innodb_lock_wait_timeout"]        = 120

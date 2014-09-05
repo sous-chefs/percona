@@ -21,6 +21,13 @@ REVOKE ALL PRIVILEGES, GRANT OPTION FROM '<%= node["percona"]["backup"]["usernam
 GRANT RELOAD, LOCK TABLES, REPLICATION CLIENT ON *.* TO '<%= node["percona"]["backup"]["username"] %>'@'%' IDENTIFIED BY '<%= @backup_password %>';
 <% end -%>
 
+# Grant permissions for the healthcheck user
+# Ensure the user exists, then revoke all grants, then re-grant specific permissions
+GRANT PROCESS ON *.* TO `clustercheck`@`localhost` IDENTIFIED BY '' IDENTIFIED BY '<%= @clustercheck_password %>';
+REVOKE ALL PRIVILEGES, GRANT OPTION FROM `clustercheck`@`localhost`;
+GRANT PROCESS ON *.* TO `clustercheck`@`localhost` IDENTIFIED BY '' IDENTIFIED BY '<%= @clustercheck_password %>';
+
+
 # Set the server root password. This should be preseeded by the package installation.
 SET PASSWORD FOR 'root'@'localhost' = PASSWORD('<%= @root_password %>');
 

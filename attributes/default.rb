@@ -155,6 +155,13 @@ unless attribute?(node["percona"]["backup"]["password"])
   default["percona"]["backup"]["password"]                      = secure_password
 end
 
+# clustercheck Settings
+default["percona"]["clustercheck"]["configure"]                       = false
+default["percona"]["clustercheck"]["username"]                        = "clustercheck"
+unless attribute?(node["percona"]["clustercheck"]["password"])
+  default["percona"]["clustercheck"]["password"]                      = secure_password
+end
+
 # XtraDB Cluster Settings
 default["percona"]["cluster"]["package"]                        = "percona-xtradb-cluster-55"
 default["percona"]["cluster"]["binlog_format"]                  = "ROW"

@@ -269,7 +269,7 @@ replicate-ignore-db = <%= ignore_db %>
 <% unless node["percona"]["server"]["replication"]["ignore_table"].empty? %>
 # Creates a replication filter by telling the slave SQL thread not to replicate any statement that updates the specified table, even if any other tables might be updated by the same statement.
 <% node["percona"]["server"]["replication"]["ignore_table"].each do |ignore_table| -%>
-replicate-ignore-db = <%= ignore_table %>
+replicate-ignore-table = <%= ignore_table %>
 <% end -%>
 <% end -%>
 

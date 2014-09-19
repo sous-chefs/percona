@@ -184,6 +184,10 @@ max_connections = <%= node["percona"]["server"]["max_connections"] %>
 # are using a load balancer!
 max_connect_errors = <%= node["percona"]["server"]["max_connect_errors"] %>
 
+<% unless node["percona"]["server"]["sql_modes"].empty? %>
+sql-mode = <%= node["percona"]["server"]["sql_modes"].join(",") %>
+<% end %>
+
 # The number of open tables for all threads.
 # make sure that the open file limit is at least twice this in the
 # mysqld_safe section

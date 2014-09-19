@@ -354,6 +354,7 @@ default["percona"]["server"]["replication"]["port"]             = 3306
 default["percona"]["server"]["replication"]["ignore_db"]        = []
 default["percona"]["server"]["replication"]["ignore_table"]     = []
 default["percona"]["server"]["replication"]["ssl_enabled"]      = false
+default["percona"]["server"]["replication"]["suppress_1592"]    = false
 
 # XtraBackup Settings
 default["percona"]["backup"]["configure"]                       = false

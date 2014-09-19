@@ -261,8 +261,18 @@ server-id = <%= node["percona"]["server"]["server_id"] %>
 
 <% unless node["percona"]["server"]["replication"]["ignore_db"].empty? %>
 # Tells the slave SQL thread not to replicate any statement where the default database is.
-replicate-ignore-db = <%= node["percona"]["server"]["replication"]["ignore_db"] %>
-<% end %>
+<% node["percona"]["server"]["replication"]["ignore_db"].each do |ignore_db| -%>
+replicate-ignore-db = <%= ignore_db %>
+<% end -%>
+<% end -%>
+
+<% unless node["percona"]["server"]["replication"]["ignore_table"].empty? %>
+# Creates a replication filter by telling the slave SQL thread not to replicate any statement that updates the specified table, even if any other tables might be updated by the same statement.
+<% node["percona"]["server"]["replication"]["ignore_table"].each do |ignore_table| -%>
+replicate-ignore-db = <%= ignore_table %>
+<% end -%>
+<% end -%>
+
 
 # Make the slave read-only. Only users with the SUPER privilege and the
 # replication slave thread will be able to modify data on it. You can

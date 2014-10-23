@@ -33,10 +33,11 @@ if server["bind_to"]
   end
 end
 
-datadir = mysqld["datadir"] || server["datadir"]
-logdir  = mysqld["logdir"] || server["logdir"]
-tmpdir  = mysqld["tmpdir"] || server["tmpdir"]
-user    = mysqld["username"] || server["username"]
+datadir           = mysqld["datadir"] || server["datadir"]
+logdir            = mysqld["logdir"] || server["logdir"]
+tmpdir            = mysqld["tmpdir"] || server["tmpdir"]
+user              = mysqld["username"] || server["username"]
+slow_query_logdir = mysqld["slow_query_logdir"] || server["slow_query_logdir"]
 
 # this is where we dump sql templates for replication, etc.
 directory "/etc/mysql" do
@@ -61,6 +62,13 @@ end
 
 # setup the tmp directory
 directory tmpdir do
+  owner user
+  group user
+  recursive true
+end
+
+# setup slow_query_logdir directory
+directory slow_query_logdir do
   owner user
   group user
   recursive true

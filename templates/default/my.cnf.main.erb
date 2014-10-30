@@ -51,6 +51,7 @@ socket            = <%= node["percona"]["server"]["socket"] %>
 port              = <%= node["percona"]["server"]["port"] %>
 basedir           = <%= node["percona"]["server"]["basedir"] %>
 datadir           = <%= node["percona"]["server"]["datadir"] %>
+log-error         = <%= node["percona"]["server"]["log-error"] %>
 tmpdir            = <%= node["percona"]["server"]["tmpdir"] %>
 slave_load_tmpdir = <%= node["percona"]["server"]["tmpdir"] %>
 # language          = <%= node["percona"]["server"]["language"] %>
@@ -273,7 +274,7 @@ read_only
 <% end %>
 
 
-log_bin          = <%= node["percona"]["server"]["datadir"] %>/mysql-bin.log
+log_bin          = <%= node["percona"]["server"]["logbindir"] %>/mysql-bin.log
 expire_logs_days = <%= node["percona"]["server"]["expire_logs_days"] %>
 max_binlog_size  = <%= node["percona"]["server"]["max_binlog_size"] %>
 binlog_format    = <%= node["percona"]["server"]["binlog_format"] %>
@@ -299,11 +300,11 @@ binlog_cache_size = <%= node["percona"]["server"]["binlog_cache_size"] %>
 # it is recommened to specify a filename for the binary log, hopefully
 # something that is not host specific.  I've chosen master-bin.
 <% unless node["percona"]["server"]["log_bin"].empty? %>
-log-bin = <%= node["percona"]["server"]["log_bin"] %>
+log-bin = <%= node["percona"]["server"]["logbindir"] %>/<%= node["percona"]["server"]["log_bin"] %>
 <% end %>
 
 <% unless node["percona"]["server"]["relay_log"].empty? %>
-relay-log = <%= node["percona"]["server"]["relay_log"] %>
+relay-log = <%= node["percona"]["server"]["logbindir"] %>/<%= node["percona"]["server"]["relay_log"] %>
 <% end %>
 
 

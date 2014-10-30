@@ -300,11 +300,11 @@ binlog_cache_size = <%= node["percona"]["server"]["binlog_cache_size"] %>
 # it is recommened to specify a filename for the binary log, hopefully
 # something that is not host specific.  I've chosen master-bin.
 <% unless node["percona"]["server"]["log_bin"].empty? %>
-log-bin = <%= node["percona"]["server"]["log_bin"] %>
+log-bin = <%= node["percona"]["server"]["logbindir"] %>/<%= node["percona"]["server"]["log_bin"] %>
 <% end %>
 
 <% unless node["percona"]["server"]["relay_log"].empty? %>
-relay-log = <%= node["percona"]["server"]["relay_log"] %>
+relay-log = <%= node["percona"]["server"]["logbindir"] %>/<%= node["percona"]["server"]["relay_log"] %>
 <% end %>
 
 

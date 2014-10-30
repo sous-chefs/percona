@@ -51,6 +51,7 @@ socket            = <%= node["percona"]["server"]["socket"] %>
 port              = <%= node["percona"]["server"]["port"] %>
 basedir           = <%= node["percona"]["server"]["basedir"] %>
 datadir           = <%= node["percona"]["server"]["datadir"] %>
+log-error         = <%= node["percona"]["server"]["logerrordir"] %>
 tmpdir            = <%= node["percona"]["server"]["tmpdir"] %>
 slave_load_tmpdir = <%= node["percona"]["server"]["tmpdir"] %>
 # language          = <%= node["percona"]["server"]["language"] %>
@@ -273,7 +274,7 @@ read_only
 <% end %>
 
 
-log_bin          = <%= node["percona"]["server"]["datadir"] %>/mysql-bin.log
+log_bin          = <%= node["percona"]["server"]["logbindir"] %>/mysql-bin.log
 expire_logs_days = <%= node["percona"]["server"]["expire_logs_days"] %>
 max_binlog_size  = <%= node["percona"]["server"]["max_binlog_size"] %>
 binlog_format    = <%= node["percona"]["server"]["binlog_format"] %>

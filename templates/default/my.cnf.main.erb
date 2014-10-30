@@ -51,7 +51,7 @@ socket            = <%= node["percona"]["server"]["socket"] %>
 port              = <%= node["percona"]["server"]["port"] %>
 basedir           = <%= node["percona"]["server"]["basedir"] %>
 datadir           = <%= node["percona"]["server"]["datadir"] %>
-log-error         = <%= node["percona"]["server"]["logerrordir"] %>
+log-error         = <%= node["percona"]["server"]["log-error"] %>
 tmpdir            = <%= node["percona"]["server"]["tmpdir"] %>
 slave_load_tmpdir = <%= node["percona"]["server"]["tmpdir"] %>
 # language          = <%= node["percona"]["server"]["language"] %>

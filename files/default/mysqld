@@ -1,0 +1,12 @@
+#
+# This file was created by Chef and will be overwritten on the next chef-client run
+# DO NOT MODIFY BY HAND!!
+#
+auth       required     pam_warn.so
+auth       include      system-auth audit
+account    required     pam_nologin.so
+account    include      system-auth
+password   include      system-auth audit
+session    optional     pam_keyinit.so force revoke
+session    include      system-auth
+session    required     pam_loginuid.so

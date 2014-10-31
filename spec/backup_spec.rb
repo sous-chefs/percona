@@ -9,6 +9,7 @@ describe "percona::backup" do
     it { expect(chef_run).to include_recipe("percona::package_repo") }
     it { expect(chef_run).to install_package("xtrabackup") }
     it { expect(chef_run).to include_recipe("percona::access_grants") }
+    it { expect(chef_run).to_not include_recipe("percona::pam_auth") }
   end
 
   describe "CentOS" do
@@ -20,5 +21,6 @@ describe "percona::backup" do
     it { expect(chef_run).to include_recipe("percona::package_repo") }
     it { expect(chef_run).to install_package("percona-xtrabackup") }
     it { expect(chef_run).to include_recipe("percona::access_grants") }
+    it { expect(chef_run).to_not include_recipe("percona::pam_auth") }
   end
 end

@@ -600,6 +600,7 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * fix cluster package name on RHEL systems
 * **[@Sauraus](https://github.com/Sauraus)**
     * fix cluster dependency package installation on RHEL systems
+    * fix `slow_query_logdir` path creation
 
 
 ## License

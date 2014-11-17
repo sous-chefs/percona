@@ -92,6 +92,7 @@ default["percona"]["server"]["thread_cache_size"]               = 16
 default["percona"]["server"]["back_log"]                        = 50
 default["percona"]["server"]["max_connections"]                 = 30
 default["percona"]["server"]["max_connect_errors"]              = 9_999_999
+default["percona"]["server"]["sql_modes"]                       = []
 default["percona"]["server"]["table_cache"]                     = 8192
 default["percona"]["server"]["group_concat_max_len"]            = 4096
 default["percona"]["server"]["expand_fast_index_creation"]      = false
@@ -148,8 +149,10 @@ default["percona"]["server"]["replication"]["host"]             = ""
 default["percona"]["server"]["replication"]["username"]         = ""
 default["percona"]["server"]["replication"]["password"]         = ""
 default["percona"]["server"]["replication"]["port"]             = 3306
-default["percona"]["server"]["replication"]["ignore_db"]        = ""
+default["percona"]["server"]["replication"]["ignore_db"]        = []
+default["percona"]["server"]["replication"]["ignore_table"]     = []
 default["percona"]["server"]["replication"]["ssl_enabled"]      = false
+default["percona"]["server"]["replication"]["suppress_1592"]    = false
 
 # XtraBackup Settings
 default["percona"]["backup"]["configure"]                       = false

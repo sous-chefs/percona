@@ -8,7 +8,10 @@ env:
   matrix:
     - CHEF_VERSION=10.30
     - CHEF_VERSION=11.16
+before_script:
+  - "gem install bundler-audit --no-rdoc --no-ri && bundle-audit update"
 script:
+  - bundle-audit
   - bundle exec rake license_finder
   - bundle exec rake rubocop
   - bundle exec rake foodcritic

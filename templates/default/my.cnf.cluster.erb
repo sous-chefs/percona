@@ -33,7 +33,13 @@ open-files-limit = <%= node["percona"]["server"]["open_files_limit"] %>
 malloc-lib       = <%= node["percona"]["server"]["jemalloc_lib"] %>
 <% end %>
 
+# *** Application-specific options follow here ***
+
+#
+# The MySQL server
+#
 [mysqld]
+
 #
 # * Basic Settings
 #
@@ -89,7 +95,7 @@ old_passwords = <%= @old_passwords %>
 #
 # Instead of skip-networking the default is now to listen only on
 # localhost which is more compatible and is not less secure.
-<% if !node["percona"]["server"]["bind_address"].empty? %>
+<% unless node["percona"]["server"]["bind_address"].empty? %>
 bind-address = <%= node["percona"]["server"]["bind_address"] %>
 <% end %>
 
@@ -139,6 +145,10 @@ max_connections = <%= node["percona"]["server"]["max_connections"] %>
 # are using a load balancer!
 max_connect_errors = <%= node["percona"]["server"]["max_connect_errors"] %>
 
+<% unless node["percona"]["server"]["sql_modes"].empty? %>
+sql-mode = <%= node["percona"]["server"]["sql_modes"].join(",") %>
+<% end %>
+
 # The number of open tables for all threads.
 # make sure that the open file limit is at least twice this in the
 # mysqld_safe section
@@ -175,7 +185,46 @@ query_cache_size  = <%= node["percona"]["server"]["query_cache_size"] %>
 # The following can be used as easy to replay backup logs or for replication.
 # note: if you are setting up a replication slave, see README.Debian about
 #       other settings you may need to change.
+
+# Unique server identification number between 1 and 2^32-1. This value
+# is required for both master and slave hosts. It defaults to 1 if
+# "master-host" is not set, but will MySQL will not function as a master
+# if it is omitted.
 #server-id    = 1
+
+<% unless node["percona"]["server"]["replication"]["ignore_db"].empty? %>
+# Tells the slave SQL thread not to replicate any statement where the default database is.
+<% Array(node["percona"]["server"]["replication"]["ignore_db"]).each do |ignore_db| -%>
+replicate-ignore-db = <%= ignore_db %>
+<% end -%>
+<% end -%>
+
+<% unless node["percona"]["server"]["replication"]["ignore_table"].empty? %>
+# Creates a replication filter by telling the slave SQL thread not to replicate any statement that updates the specified table, even if any other tables might be updated by the same statement.
+<% node["percona"]["server"]["replication"]["ignore_table"].each do |ignore_table| -%>
+replicate-ignore-table = <%= ignore_table %>
+<% end -%>
+<% end -%>
+
+
+<% if node["percona"]["server"]["replication"]["suppress_1592"] %>
+#turns off this statement is unsafe in statement-based replication
+<% if node["percona"]["version"] < "5.5" -%>
+suppress_log_warning_1592
+<% else %>
+log_warnings_suppress=1592
+<% end %>
+<% end %>
+
+# Make the slave read-only. Only users with the SUPER privilege and the
+# replication slave thread will be able to modify data on it. You can
+# use this to ensure that no applications will accidently modify data on
+# the slave instead of the master
+<% if node["percona"]["server"]["replication"]["read_only"] %>
+read_only
+<% end %>
+
+
 #log_bin      = /var/log/mysql/mysql-bin.log
 expire_logs_days = <%= node["percona"]["server"]["expire_logs_days"] %>
 max_binlog_size  = <%= node["percona"]["server"]["max_binlog_size"] %>

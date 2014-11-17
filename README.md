@@ -591,6 +591,10 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * extend master-master capabilities and add ssl support
 * **[@realloc](https://github.com/realloc)**
     * add `mysql2` gem provider
+* **[@tbunnyman](https://github.com/tbunnyman)**
+    * make `ignore_db` attribute into an array & add matching `ignore_table` attribute
+    * add `suppress_1592` replication attribute
+    * add `sql_modes` attribute
 
 
 ## License

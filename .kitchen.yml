@@ -12,9 +12,15 @@ platforms:
   - name: centos-6.5
 
 suites:
-  - name: client
+  <% %w[5.5 5.6].each do |version| %>
+  - name: client_<%= version.tr(".", "") %>
+    attributes:
+      percona:
+        version: "<%= version %>"
     run_list:
       - recipe[percona::client]
+  <% end %>
+
   - name: server
     run_list:
       - recipe[percona::server]
@@ -24,13 +30,16 @@ suites:
           jemalloc: true
           debian_password: d3b1an
           root_password: r00t
+
   - name: xtrabackup
     run_list:
       - recipe[percona::server]
       - recipe[percona::backup]
+
   - name: toolkit
     run_list:
       - recipe[percona::toolkit]
+
   - name: new_datadir
     run_list:
       - recipe[percona::server]

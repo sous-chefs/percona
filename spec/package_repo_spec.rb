@@ -11,7 +11,7 @@ describe "percona::package_repo" do
     end
 
     it "sets up an apt preference" do
-      expect(chef_run).to add_apt_preference("00percona")
+      expect(chef_run).to add_apt_preference("00percona.pref")
     end
   end
 

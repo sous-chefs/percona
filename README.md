@@ -598,6 +598,8 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * add `sql_modes` attribute
 * **[@mzdrale](https://github.com/mzdrale)**
     * fix cluster package name on RHEL systems
+* **[@Sauraus](https://github.com/Sauraus)**
+    * fix cluster dependency package installation on RHEL systems
 
 
 ## License

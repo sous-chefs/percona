@@ -28,6 +28,17 @@ when "rhel"
     action :remove
   end
 
+  # This is required for `socat` per:
+  # www.percona.com/doc/percona-xtradb-cluster/5.6/installation/yum_repo.html
+  include_recipe "yum-epel"
+
+  # This follows the originals posters workaround found here:
+  #    https://bugs.launchpad.net/percona-toolkit/+bug/1031427
+  # The package dependency PITA is actually a bug in the XtraDB Cluster package
+  # and not toolkit hence it's inclusion here before the actual XtraDB Cluster
+  # package install.
+  package "Percona-Server-shared-compat"
+
   package node["percona"]["cluster"]["package"]
 end
 

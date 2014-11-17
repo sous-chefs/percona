@@ -5,7 +5,8 @@
 
 ::Chef::Node.send(:include, Opscode::OpenSSL::Password)
 
-version = default["percona"]["version"] = "5.6"
+default["percona"]["version"] = "5.6"
+version = node["percona"]["version"]
 
 # Always restart percona on configuration changes
 default["percona"]["auto_restart"] = true
@@ -162,7 +163,10 @@ unless attribute?(node["percona"]["backup"]["password"])
 end
 
 # XtraDB Cluster Settings
-default["percona"]["cluster"]["package"]                        = "percona-xtradb-cluster-55"
+default["percona"]["cluster"]["package"]                        = value_for_platform_family(
+                                                                    "debian" => "percona-xtradb-cluster-#{version.tr(".", "")}",
+                                                                    "rhel" => "Percona-XtraDB-Cluster-#{version.tr(".", "")}"
+                                                                  )
 default["percona"]["cluster"]["binlog_format"]                  = "ROW"
 default["percona"]["cluster"]["wsrep_provider"]                 = value_for_platform_family(
                                                                     "debian" => "/usr/lib/libgalera_smm.so",

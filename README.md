@@ -43,9 +43,10 @@ cause, and we'll make reasonable efforts to improve support:
 
 ### Cookbooks
 
-* [apt](http://community.opscode.com/cookbooks/apt) Opscode LWRP Cookbook
-* [openssl](http://community.opscode.com/cookbooks/openssl) Opscode Cookbook
-* [yum](http://community.opscode.com/cookbooks/yum) Opscode LWRP Cookbook
+* [apt](https://supermarket.getchef.com/cookbooks/apt) Chef LWRP Cookbook
+* [openssl](https://supermarket.getchef.com/cookbooks/openssl) Chef Cookbook
+* [yum](https://supermarket.getchef.com/cookbooks/yum) Chef LWRP Cookbook
+* [yum-epel](https://supermarket.getchef.com/cookbooks/yum-epel) Chef LWRP Cookbook
 
 ### Chef
 
@@ -595,6 +596,10 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * make `ignore_db` attribute into an array & add matching `ignore_table` attribute
     * add `suppress_1592` replication attribute
     * add `sql_modes` attribute
+* **[@mzdrale](https://github.com/mzdrale)**
+    * fix cluster package name on RHEL systems
+* **[@Sauraus](https://github.com/Sauraus)**
+    * fix cluster dependency package installation on RHEL systems
 
 
 ## License

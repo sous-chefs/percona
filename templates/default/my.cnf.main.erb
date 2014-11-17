@@ -264,6 +264,15 @@ server-id = <%= node["percona"]["server"]["server_id"] %>
 replicate-ignore-db = <%= node["percona"]["server"]["replication"]["ignore_db"] %>
 <% end %>
 
+<% if node["percona"]["server"]["replication"]["suppress_1592"] %>
+#turns off this statement is unsafe in statement-based replication
+<% if node["percona"]["version"].to_f < 5.5 -%>
+suppress_log_warning_1592
+<% else %>
+log_warnings_suppress=1592
+<% end %>
+<% end %>
+
 # Make the slave read-only. Only users with the SUPER privilege and the
 # replication slave thread will be able to modify data on it. You can
 # use this to ensure that no applications will accidently modify data on

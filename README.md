@@ -351,6 +351,7 @@ default["percona"]["server"]["replication"]["host"]             = ""
 default["percona"]["server"]["replication"]["username"]         = ""
 default["percona"]["server"]["replication"]["password"]         = ""
 default["percona"]["server"]["replication"]["port"]             = 3306
+default["percona"]["server"]["replication"]["suppress_1592"]    = false
 
 # XtraBackup Settings
 default["percona"]["backup"]["configure"]                       = false

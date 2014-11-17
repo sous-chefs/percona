@@ -1,5 +1,6 @@
 class Chef
   class Provider
+    # Public: Provider to install `mysql2` gem for Chef
     class Mysql2ChefGem < Chef::Provider::LWRPBase
       use_inline_resources if defined?(use_inline_resources)
 
@@ -10,7 +11,7 @@ class Chef
       def action_install
         converge_by "install mysql2 chef_gem and dependencies" do
           recipe_eval do
-            run_context.include_recipe "build-essential::default"
+            run_context.include_recipe "build-essential"
             run_context.include_recipe "percona::client"
           end
 
@@ -21,7 +22,7 @@ class Chef
       end
 
       def action_remove
-        chef_gem 'mysql2' do
+        chef_gem "mysql2" do
           action :remove
         end
       end

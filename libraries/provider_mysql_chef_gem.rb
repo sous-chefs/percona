@@ -17,7 +17,7 @@ class Chef
       def action_install
         converge_by "install mysql chef_gem and dependencies" do
           recipe_eval do
-            run_context.include_recipe "build-essential::default"
+            run_context.include_recipe "build-essential"
             run_context.include_recipe "percona::client"
           end
 
@@ -28,7 +28,7 @@ class Chef
       end
 
       def action_remove
-        chef_gem 'mysql' do
+        chef_gem "mysql" do
           action :remove
         end
       end

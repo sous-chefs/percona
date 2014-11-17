@@ -584,6 +584,8 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
 * **[@ajardan](https://github.com/ajardan)**
     * support master-master replication in the `replication_master.sql` template
     * extend master-master capabilities and add ssl support
+* **[@realloc](https://github.com/realloc)**
+    * add `mysql2` gem provider
 
 
 ## License

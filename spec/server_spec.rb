@@ -2,7 +2,7 @@ require "spec_helper"
 
 describe "percona::server" do
   let(:chef_run) do
-    ChefSpec::Runner.new.converge(described_recipe)
+    ChefSpec::SoloRunner.new.converge(described_recipe)
   end
 
   before do
@@ -26,7 +26,7 @@ describe "percona::server" do
 
     let(:chef_run) do
       env_options = { platform: "centos", version: "6.5" }
-      ChefSpec::Runner.new(env_options).converge(described_recipe)
+      ChefSpec::SoloRunner.new(env_options).converge(described_recipe)
     end
 
     before do
@@ -51,7 +51,7 @@ describe "percona::server" do
 
   describe "when `skip_configure` is true" do
     let(:chef_run) do
-      ChefSpec::Runner.new do |node|
+      ChefSpec::SoloRunner.new do |node|
         node.set["percona"]["skip_configure"] = true
       end.converge(described_recipe)
     end
@@ -61,7 +61,7 @@ describe "percona::server" do
 
   describe "when `skip_passwords` is true" do
     let(:chef_run) do
-      ChefSpec::Runner.new do |node|
+      ChefSpec::SoloRunner.new do |node|
         node.set["percona"]["skip_passwords"] = true
       end.converge(described_recipe)
     end

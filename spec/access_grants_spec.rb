@@ -6,7 +6,7 @@ describe "percona::access_grants" do
   end
 
   let(:chef_run) do
-    ChefSpec::Runner.new do |node|
+    ChefSpec::SoloRunner.new do |node|
       node.set["percona"]["server"]["root_password"] = "s3kr1t"
     end.converge(described_recipe)
   end

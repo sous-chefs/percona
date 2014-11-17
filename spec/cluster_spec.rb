@@ -11,9 +11,11 @@ describe "percona::cluster" do
   end
 
   specify do
-    expect(chef_run).to include_recipe("percona::package_repo")
-    expect(chef_run).to include_recipe("percona::configure_server")
-    expect(chef_run).to include_recipe("percona::access_grants")
+    expect(chef_run).to include_recipe "percona::package_repo"
+    expect(chef_run).to include_recipe "percona::configure_server"
+    expect(chef_run).to include_recipe "percona::access_grants"
+
+    expect(chef_run).to_not include_recipe "yum-epel"
   end
 
   describe "version 5.5" do
@@ -50,8 +52,12 @@ describe "percona::cluster" do
       end
 
       specify do
-        expect(chef_run).to remove_package("mysql-libs")
-        expect(chef_run).to install_package(centos_cluster_package)
+        expect(chef_run).to remove_package "mysql-libs"
+
+        expect(chef_run).to include_recipe "yum-epel"
+
+        expect(chef_run).to install_package "Percona-Server-shared-compat"
+        expect(chef_run).to install_package centos_cluster_package
       end
     end
   end
@@ -90,8 +96,12 @@ describe "percona::cluster" do
       end
 
       specify do
-        expect(chef_run).to remove_package("mysql-libs")
-        expect(chef_run).to install_package(centos_cluster_package)
+        expect(chef_run).to remove_package "mysql-libs"
+
+        expect(chef_run).to include_recipe "yum-epel"
+
+        expect(chef_run).to install_package "Percona-Server-shared-compat"
+        expect(chef_run).to install_package centos_cluster_package
       end
     end
   end

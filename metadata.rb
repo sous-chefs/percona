@@ -22,6 +22,7 @@ depends "apt", ">= 1.9"
 depends "build-essential"
 depends "openssl"
 depends "yum", "~> 3.0"
+depends "yum-epel"
 
 supports "debian"
 supports "ubuntu"

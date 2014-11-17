@@ -265,7 +265,7 @@ server-id = <%= node["percona"]["server"]["server_id"] %>
 
 <% unless node["percona"]["server"]["replication"]["ignore_db"].empty? %>
 # Tells the slave SQL thread not to replicate any statement where the default database is.
-<% node["percona"]["server"]["replication"]["ignore_db"].each do |ignore_db| -%>
+<% Array(node["percona"]["server"]["replication"]["ignore_db"]).each do |ignore_db| -%>
 replicate-ignore-db = <%= ignore_db %>
 <% end -%>
 <% end -%>

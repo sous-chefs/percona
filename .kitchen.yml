@@ -2,8 +2,6 @@ driver:
   require_chef_omnibus: <%= ENV.fetch("CHEF_VERSION", "latest") %>
   ssh_key: <%= File.expand_path("./test/support/keys/vagrant") %>
   name: vagrant
-  customize:
-    memory: 768
 
 provisioner:
   name: chef_zero

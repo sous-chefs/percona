@@ -10,17 +10,31 @@ def redhat?
   os[:family] == "redhat"
 end
 
-describe "Package installation" do
-  specify do
-    if ubuntu?
-      expect(package "percona-server-server-5.6").to be_installed
-      expect(package "libjemalloc1").to be_installed
-    elsif redhat?
-      expect(package "Percona-Server-devel-56").to be_installed
-      expect(package "Percona-Server-client-56").to be_installed
-      expect(package "Percona-Server-server-56").to be_installed
-      expect(package "jemalloc").to be_installed
-    end
+describe "Ubuntu package installation", if: ubuntu? do
+  describe package("percona-server-server-5.5") do
+    it { should be_installed }
+  end
+
+  describe package("libjemalloc1") do
+    it { should be_installed }
+  end
+end
+
+describe "Red Hat package installation", if: redhat? do
+  describe package("Percona-Server-devel-55") do
+    it { should be_installed }
+  end
+
+  describe package("Percona-Server-client-55") do
+    it { should be_installed }
+  end
+
+  describe package("Percona-Server-server-55") do
+    it { should be_installed }
+  end
+
+  describe package("jemalloc") do
+    it { should be_installed }
   end
 end
 

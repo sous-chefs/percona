@@ -19,17 +19,18 @@ suites:
         version: "<%= version %>"
     run_list:
       - recipe[percona::client]
-  <% end %>
 
-  - name: server
+  - name: server_<%= version.tr(".", "") %>
     run_list:
       - recipe[percona::server]
     attributes:
       percona:
+        version: "<%= version %>"
         server:
           jemalloc: true
           debian_password: d3b1an
           root_password: r00t
+  <% end %>
 
   - name: xtrabackup
     run_list:

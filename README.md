@@ -595,6 +595,8 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * make `ignore_db` attribute into an array & add matching `ignore_table` attribute
     * add `suppress_1592` replication attribute
     * add `sql_modes` attribute
+* **[@mzdrale](https://github.com/mzdrale)**
+    * fix cluster package name on RHEL systems
 
 
 ## License

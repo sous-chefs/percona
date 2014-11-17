@@ -20,6 +20,7 @@ recipe "percona::monitoring", "Installs Percona monitoring plugins for Nagios"
 
 depends "apt", ">= 1.9"
 depends "yum", "~> 3.0"
+depends "yum-epel"
 depends "openssl"
 
 supports "debian"

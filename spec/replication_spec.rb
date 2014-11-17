@@ -7,7 +7,7 @@ describe "percona::replication" do
 
   describe "without replication configured" do
     let(:chef_run) do
-      ChefSpec::Runner.new do |node|
+      ChefSpec::SoloRunner.new do |node|
         node.set["percona"]["server"]["role"] = []
         node.set["percona"]["server"]["replication"]["host"] = ""
       end.converge(described_recipe)
@@ -27,7 +27,7 @@ describe "percona::replication" do
 
   describe "with replication configured" do
     let(:chef_run) do
-      ChefSpec::Runner.new do |node|
+      ChefSpec::SoloRunner.new do |node|
         node.set["percona"]["server"]["role"] = ["master"]
         node.set["percona"]["server"]["replication"]["password"] = "s3kr1t"
       end.converge(described_recipe)

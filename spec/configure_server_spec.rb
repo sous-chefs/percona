@@ -3,7 +3,7 @@ require "spec_helper"
 describe "percona::configure_server" do
   describe "first run" do
     let(:chef_run) do
-      ChefSpec::Runner.new.converge(described_recipe)
+      ChefSpec::SoloRunner.new.converge(described_recipe)
     end
 
     before do
@@ -57,7 +57,7 @@ describe "percona::configure_server" do
 
   describe "subsequent runs" do
     let(:chef_run) do
-      ChefSpec::Runner.new do |node|
+      ChefSpec::SoloRunner.new do |node|
         node.set["percona"]["main_config_file"] = "/mysql/my.cnf"
         node.set["percona"]["server"]["root_password"] = "s3kr1t"
         node.set["percona"]["server"]["debian_password"] = "d3b1an"
@@ -147,7 +147,7 @@ describe "percona::configure_server" do
   describe "`rhel` platform family" do
     let(:chef_run) do
       env_options = { platform: "centos", version: "6.5" }
-      ChefSpec::Runner.new(env_options).converge(described_recipe)
+      ChefSpec::SoloRunner.new(env_options).converge(described_recipe)
     end
 
     before do

@@ -1,14 +1,6 @@
 require "spec_helper"
 
 describe "percona::cluster" do
-  let(:centos_cluster_package) do
-    "Percona-XtraDB-Cluster-55"
-  end
-
-  let(:ubuntu_cluster_package) do
-    "percona-xtradb-cluster-55"
-  end
-
   let(:chef_run) do
     ChefSpec::SoloRunner.new.converge(described_recipe)
   end
@@ -24,25 +16,83 @@ describe "percona::cluster" do
     expect(chef_run).to include_recipe("percona::access_grants")
   end
 
-  describe "Ubuntu" do
-    specify do
-      expect(chef_run).to install_package(ubuntu_cluster_package)
+  describe "version 5.5" do
+    let(:chef_run) do
+      ChefSpec::SoloRunner.new do |node|
+        node.set["percona"]["version"] = "5.5"
+      end.converge(described_recipe)
+    end
 
-      expect(chef_run.package(ubuntu_cluster_package)).to(
-        notify("service[mysql]").to(:stop).immediately
-      )
+    let(:centos_cluster_package) do
+      "Percona-XtraDB-Cluster-55"
+    end
+
+    let(:ubuntu_cluster_package) do
+      "percona-xtradb-cluster-55"
+    end
+
+    describe "Ubuntu" do
+      specify do
+        expect(chef_run).to install_package(ubuntu_cluster_package)
+
+        expect(chef_run.package(ubuntu_cluster_package)).to(
+          notify("service[mysql]").to(:stop).immediately
+        )
+      end
+    end
+
+    describe "CentOS" do
+      let(:chef_run) do
+        env_options = { platform: "centos", version: "6.5" }
+        ChefSpec::SoloRunner.new(env_options) do |node|
+          node.set["percona"]["version"] = "5.5"
+        end.converge(described_recipe)
+      end
+
+      specify do
+        expect(chef_run).to remove_package("mysql-libs")
+        expect(chef_run).to install_package(centos_cluster_package)
+      end
     end
   end
 
-  describe "CentOS" do
+  describe "version 5.6" do
     let(:chef_run) do
-      env_options = { platform: "centos", version: "6.5" }
-      ChefSpec::SoloRunner.new(env_options).converge(described_recipe)
+      ChefSpec::SoloRunner.new do |node|
+        node.set["percona"]["version"] = "5.6"
+      end.converge(described_recipe)
     end
 
-    specify do
-      expect(chef_run).to remove_package("mysql-libs")
-      expect(chef_run).to install_package(centos_cluster_package)
+    let(:centos_cluster_package) do
+      "Percona-XtraDB-Cluster-56"
+    end
+
+    let(:ubuntu_cluster_package) do
+      "percona-xtradb-cluster-56"
+    end
+
+    describe "Ubuntu" do
+      specify do
+        expect(chef_run).to install_package(ubuntu_cluster_package)
+
+        expect(chef_run.package(ubuntu_cluster_package)).to(
+          notify("service[mysql]").to(:stop).immediately
+        )
+      end
+    end
+
+    describe "CentOS" do
+      let(:chef_run) do
+        env_options = { platform: "centos", version: "6.5" }
+        ChefSpec::SoloRunner.new(env_options) do |node|
+          node.set["percona"]["version"] = "5.6"
+        end.converge(described_recipe)
+      end
+
+      specify do
+        expect(chef_run).to remove_package("mysql-libs")
+        expect(chef_run).to install_package(centos_cluster_package)
+      end
     end
   end
 end

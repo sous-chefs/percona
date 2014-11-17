@@ -105,6 +105,14 @@ describe "percona::configure_server" do
       )
     end
 
+    it "creates the slow query log directory" do
+      expect(chef_run).to create_directory("/var/log/mysql").with(
+        owner: "mysql",
+        group: "mysql",
+        recursive: true
+      )
+    end
+
     it "manages the `mysql` service" do
       expect(chef_run).to enable_service("mysql")
     end

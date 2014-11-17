@@ -43,9 +43,9 @@ cause, and we'll make reasonable efforts to improve support:
 
 ### Cookbooks
 
-* [apt](http://community.opscode.com/cookbooks/apt) Opscode LWRP Cookbook
-* [openssl](http://community.opscode.com/cookbooks/openssl) Opscode Cookbook
-* [yum](http://community.opscode.com/cookbooks/yum) Opscode LWRP Cookbook
+* [apt](https://supermarket.getchef.com/cookbooks/apt) Chef LWRP Cookbook
+* [openssl](https://supermarket.getchef.com/cookbooks/openssl) Chef Cookbook
+* [yum](https://supermarket.getchef.com/cookbooks/yum) Chef LWRP Cookbook
 * [yum-epel](https://supermarket.getchef.com/cookbooks/yum-epel) Chef LWRP Cookbook
 
 ### Chef

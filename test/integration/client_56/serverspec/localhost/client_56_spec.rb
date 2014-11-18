@@ -28,6 +28,10 @@ describe "Ubuntu package installation" do
   describe package("percona-server-client-5.6"), if: ubuntu? do
     it { should be_installed }
   end
+
+  describe package("percona-toolkit") do
+    it { should be_installed }
+  end
 end
 
 describe "Red Hat package installation" do
@@ -41,6 +45,10 @@ describe "Red Hat package installation" do
   end
 
   describe package("Percona-Server-client-56"), if: redhat? do
+    it { should be_installed }
+  end
+
+  describe package("percona-toolkit") do
     it { should be_installed }
   end
 end

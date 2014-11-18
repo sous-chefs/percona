@@ -16,15 +16,18 @@ suites:
   - name: client_<%= version.tr(".", "") %>
     attributes:
       percona:
+        apt_keyserver: hkp://pgp.mit.edu:80
         version: "<%= version %>"
     run_list:
       - recipe[percona::client]
+      - recipe[percona::toolkit]
 
   - name: server_<%= version.tr(".", "") %>
     run_list:
       - recipe[percona::server]
     attributes:
       percona:
+        apt_keyserver: hkp://pgp.mit.edu:80
         version: "<%= version %>"
         server:
           jemalloc: true
@@ -36,10 +39,6 @@ suites:
     run_list:
       - recipe[percona::server]
       - recipe[percona::backup]
-
-  - name: toolkit
-    run_list:
-      - recipe[percona::toolkit]
 
   - name: new_datadir
     run_list:

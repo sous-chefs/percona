@@ -105,7 +105,8 @@ default["percona"]["server"]["query_cache_limit"]               = "2M"
 # Logging and Replication
 default["percona"]["server"]["sync_binlog"]                     = 1
 default["percona"]["server"]["slow_query_log"]                  = 1
-default["percona"]["server"]["slow_query_log_file"]             = "/var/log/mysql/mysql-slow.log"
+default["percona"]["server"]["slow_query_logdir"]               = "/var/log/mysql"
+default["percona"]["server"]["slow_query_log_file"]             = "#{node["percona"]["server"]["slow_query_logdir"]}/mysql-slow.log"
 default["percona"]["server"]["long_query_time"]                 = 2
 default["percona"]["server"]["server_id"]                       = 1
 default["percona"]["server"]["binlog_do_db"]                    = []

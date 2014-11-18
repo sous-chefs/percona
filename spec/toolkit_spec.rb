@@ -5,7 +5,7 @@ describe "percona::toolkit" do
     "Percona-Server-shared-compat"
   end
 
-  let(:ubuntu_package) do
+  let(:toolkit_package) do
     "percona-toolkit"
   end
 
@@ -14,17 +14,41 @@ describe "percona::toolkit" do
       ChefSpec::SoloRunner.new.converge(described_recipe)
     end
 
-    it { expect(chef_run).to_not install_package(centos_package) }
-    it { expect(chef_run).to install_package(ubuntu_package) }
+    specify do
+      expect(chef_run).to_not install_package(centos_package)
+
+      expect(chef_run).to install_package(toolkit_package)
+    end
   end
 
   describe "CentOS" do
-    let(:chef_run) do
-      env_options = { platform: "centos", version: "6.5" }
-      ChefSpec::SoloRunner.new(env_options).converge(described_recipe)
+    describe "when `version` is 5.5" do
+      let(:chef_run) do
+        env_options = { platform: "centos", version: "6.5" }
+        ChefSpec::SoloRunner.new(env_options) do |node|
+          node.set["percona"]["version"] = "5.5"
+        end.converge(described_recipe)
+      end
+
+      specify do
+        expect(chef_run).to install_package(centos_package)
+        expect(chef_run).to install_package(toolkit_package)
+      end
     end
 
-    it { expect(chef_run).to install_package(centos_package) }
-    it { expect(chef_run).to install_package(ubuntu_package) }
+    describe "when `version` is 5.6" do
+      let(:chef_run) do
+        env_options = { platform: "centos", version: "6.5" }
+        ChefSpec::SoloRunner.new(env_options) do |node|
+          node.set["percona"]["version"] = "5.6"
+        end.converge(described_recipe)
+      end
+
+      specify do
+        expect(chef_run).to_not install_package(centos_package)
+
+        expect(chef_run).to install_package(toolkit_package)
+      end
+    end
   end
 end

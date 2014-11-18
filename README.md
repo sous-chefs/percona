@@ -601,6 +601,8 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
 * **[@Sauraus](https://github.com/Sauraus)**
     * fix cluster dependency package installation on RHEL systems
     * fix `slow_query_logdir` path creation
+* **[@jim80net](https://github.com/jim80net)**
+    * fix toolkit installation for version 5.6 on RHEL systems
 
 
 ## License

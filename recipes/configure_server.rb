@@ -82,7 +82,7 @@ end
 
 # install db to the data directory
 execute "setup mysql datadir" do
-  command "mysql_install_db --defaults-file=#{percona["main_config_file"]} --user=#{user}"
+  command "mysql_install_db --defaults-file=#{percona["main_config_file"]} --user=#{user}" # rubocop:disable LineLength
   not_if "test -f #{datadir}/mysql/user.frm"
   action :nothing
 end

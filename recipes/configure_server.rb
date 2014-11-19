@@ -36,6 +36,7 @@ end
 datadir           = mysqld["datadir"] || server["datadir"]
 logdir            = mysqld["logdir"] || server["logdir"]
 tmpdir            = mysqld["tmpdir"] || server["tmpdir"]
+includedir        = mysqld["includedir"] || server["includedir"]
 user              = mysqld["username"] || server["username"]
 slow_query_logdir = mysqld["slow_query_logdir"] || server["slow_query_logdir"]
 
@@ -65,6 +66,14 @@ directory tmpdir do
   owner user
   group user
   recursive true
+end
+
+# setup the configuration include directory
+directory includedir do
+  owner user
+  group user
+  recursive true
+  not_if includedir.nil?
 end
 
 # setup slow_query_logdir directory

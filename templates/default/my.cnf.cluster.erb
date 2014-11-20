@@ -99,6 +99,12 @@ old_passwords = <%= @old_passwords %>
 bind-address = <%= node["percona"]["server"]["bind_address"] %>
 <% end %>
 
+# As of 5.6.6 performance_schema is enabled by default. This allows it to be explicitly turned on
+# or off as needed across all mysql versions
+<% if node["percona"]["server"]["performance_schema"] %>
+performance_schema=node["percona"]["server"]["performance_schema"]
+<% end %>
+
 #
 # * Fine Tuning
 #

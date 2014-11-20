@@ -145,6 +145,9 @@ default["percona"]["server"]["innodb_max_dirty_pages_pct"]      = 80
 default["percona"]["server"]["innodb_flush_method"]             = "O_DIRECT"
 default["percona"]["server"]["innodb_lock_wait_timeout"]        = 120
 
+# Performance Schema
+default["percona"]["server"]["performance_schema"] = false
+
 # Replication Settings
 default["percona"]["server"]["replication"]["read_only"]        = false
 default["percona"]["server"]["replication"]["host"]             = ""

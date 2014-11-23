@@ -130,4 +130,39 @@ describe "Service configuration" do
   describe file("/etc/mysql/replication.sql") do
     it { should_not be_a_file }
   end
+
+  describe "Custom data directory" do
+    describe file("/tmp/mysql") do
+      it { should be_a_directory }
+      it { should be_owned_by "mysql" }
+      it { should be_grouped_into "mysql" }
+    end
+
+    describe file("/tmp/mysql/ibdata1") do
+      it { should be_a_file }
+      it { should be_owned_by "mysql" }
+      it { should be_grouped_into "mysql" }
+      it { should be_mode 660 }
+    end
+
+    describe file("/tmp/mysql/ibdata1") do
+      it { should be_a_file }
+      it { should be_owned_by "mysql" }
+      it { should be_grouped_into "mysql" }
+      it { should be_mode 660 }
+    end
+
+    describe file("/tmp/mysql/mysql/user.frm") do
+      it { should be_a_file }
+      it { should be_owned_by "mysql" }
+      it { should be_grouped_into "mysql" }
+      it { should be_mode 660 }
+    end
+
+    describe command("mysqladmin --user='root' --password='r00t' variables") do
+      its(:stdout) { should match %r(datadir\s+| /tmp/mysql/) }
+      its(:stdout) { should match %r(general_log_file\s+| /tmp/mysql/) }
+      its(:exit_status) { should eq 0 }
+    end
+  end
 end

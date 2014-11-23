@@ -28,6 +28,7 @@ suites:
         apt_keyserver: hkp://pgp.mit.edu:80
         version: "<%= version %>"
         server:
+          datadir: /tmp/mysql
           debian_password: d3b1an
           jemalloc: true
           root_password: r00t
@@ -35,11 +36,3 @@ suites:
       - recipe[percona::server]
       - recipe[percona::backup]
   <% end %>
-
-  - name: new_datadir
-    run_list:
-      - recipe[percona::server]
-    attributes:
-      percona:
-        server:
-          datadir: "/tmp/mysql"

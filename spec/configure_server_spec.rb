@@ -200,8 +200,7 @@ describe "percona::configure_server" do
     end
 
     it "does not create the configuration include directory" do
-      # Directory is not created but ChefSpec insists on this for coverage
-      expect(chef_run).to create_directory("")
+      expect(chef_run).to_not create_directory("/mysql/conf.d")
     end
   end
 end

@@ -69,11 +69,12 @@ directory tmpdir do
 end
 
 # setup the configuration include directory
-directory includedir do
-  owner user
-  group user
-  recursive true
-  not_if includedir.nil?
+unless includedir.empty?  # ~FC023
+  directory includedir do # don't evaluate an empty `directory` resource
+    owner user
+    group user
+    recursive true
+  end
 end
 
 # setup slow_query_logdir directory

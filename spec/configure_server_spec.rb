@@ -20,6 +20,7 @@ describe "percona::configure_server" do
       )
 
       resource = chef_run.template("/etc/mysql/my.cnf")
+      expect(resource).to notify("execute[setup mysql datadir]").to(:run).immediately  # rubocop:disable LineLength
       expect(resource).to notify("service[mysql]").to(:restart).immediately
     end
 
@@ -31,8 +32,9 @@ describe "percona::configure_server" do
       )
     end
 
-    it "sets up the data directory" do
-      expect(chef_run).to run_execute("setup mysql datadir")
+    it "defines the setup for the data directory" do
+      resource = chef_run.execute("setup mysql datadir")
+      expect(resource).to do_nothing
     end
 
     it "creates the log directory" do
@@ -119,8 +121,9 @@ describe "percona::configure_server" do
       expect(chef_run).to enable_service("mysql")
     end
 
-    it "does not setup the data directory" do
-      expect(chef_run).to_not run_execute("setup mysql datadir")
+    it "defines the setup for the data directory" do
+      resource = chef_run.execute("setup mysql datadir")
+      expect(resource).to do_nothing
     end
 
     it "creates the main server config file" do
@@ -131,6 +134,7 @@ describe "percona::configure_server" do
       )
 
       resource = chef_run.template("/mysql/my.cnf")
+      expect(resource).to notify("execute[setup mysql datadir]").to(:run).immediately # rubocop:disable LineLength
       expect(resource).to notify("service[mysql]").to(:restart).immediately
     end
 
@@ -174,6 +178,7 @@ describe "percona::configure_server" do
       )
 
       resource = chef_run.template("/etc/my.cnf")
+      expect(resource).to notify("execute[setup mysql datadir]").to(:run).immediately # rubocop:disable LineLength
       expect(resource).to notify("service[mysql]").to(:restart).immediately
     end
   end

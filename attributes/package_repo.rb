@@ -5,8 +5,8 @@
 
 default["percona"]["use_percona_repos"] = true
 default["percona"]["apt_uri"] = "http://repo.percona.com/apt"
-default["percona"]["apt_keyserver"] = "keys.gnupg.net"
-default["percona"]["apt_key"] = "CD2EFD2A"
+default["percona"]["apt_keyserver"] = "hkp://keys.gnupg.net:80"
+default["percona"]["apt_key"] = "1C4CBDCDCD2EFD2A"
 
 arch = node["kernel"]["machine"] == "x86_64" ? "x86_64" : "i386"
 pversion = node["platform_version"].to_i

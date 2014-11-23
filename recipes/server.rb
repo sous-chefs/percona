@@ -9,7 +9,6 @@ include_recipe "percona::package_repo"
 case node["platform_family"]
 when "debian"
   package node["percona"]["server"]["package"] do
-    action :install
     options "--force-yes"
   end
 when "rhel"
@@ -22,9 +21,7 @@ when "rhel"
   # we need mysqladmin
   include_recipe "percona::client"
 
-  package node["percona"]["server"]["package"] do
-    action :install
-  end
+  package node["percona"]["server"]["package"]
 end
 
 if node["percona"]["server"]["jemalloc"]

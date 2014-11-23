@@ -12,6 +12,7 @@ StringLiteralsInInterpolation:
 
 PercentLiteralDelimiters:
   PreferredDelimiters:
+    "%r": "()"
     "%w": "[]"  # Arrays use brackets
     "%W": "[]"  # Arrays use brackets
 

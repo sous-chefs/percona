@@ -2,8 +2,6 @@ driver:
   require_chef_omnibus: <%= ENV.fetch("CHEF_VERSION", "latest") %>
   ssh_key: <%= File.expand_path("./test/support/keys/vagrant") %>
   name: vagrant
-  customize:
-    memory: 768
 
 provisioner:
   name: chef_zero
@@ -14,29 +12,27 @@ platforms:
   - name: centos-6.5
 
 suites:
-  - name: client
-    run_list:
-      - recipe[percona::client]
-  - name: server
-    run_list:
-      - recipe[percona::server]
+  <% %w[5.5 5.6].each do |version| %>
+  - name: client_<%= version.tr(".", "") %>
     attributes:
       percona:
+        apt_keyserver: hkp://pgp.mit.edu:80
+        version: "<%= version %>"
+    run_list:
+      - recipe[percona::client]
+      - recipe[percona::toolkit]
+
+  - name: server_<%= version.tr(".", "") %>
+    attributes:
+      percona:
+        apt_keyserver: hkp://pgp.mit.edu:80
+        version: "<%= version %>"
         server:
-          jemalloc: true
+          datadir: /tmp/mysql
           debian_password: d3b1an
+          jemalloc: true
           root_password: r00t
-  - name: xtrabackup
     run_list:
       - recipe[percona::server]
       - recipe[percona::backup]
-  - name: toolkit
-    run_list:
-      - recipe[percona::toolkit]
-  - name: new_datadir
-    run_list:
-      - recipe[percona::server]
-    attributes:
-      percona:
-        server:
-          datadir: "/tmp/mysql"
+  <% end %>

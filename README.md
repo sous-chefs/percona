@@ -603,6 +603,8 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * fix `slow_query_logdir` path creation
 * **[@jim80net](https://github.com/jim80net)**
     * fix toolkit installation for version 5.6 on RHEL systems
+* **[@helgi](https://github.com/helgi)**
+    * use `mysql` command vs. a file to check the root password
 
 
 ## License

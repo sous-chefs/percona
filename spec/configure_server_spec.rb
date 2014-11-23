@@ -8,7 +8,8 @@ describe "percona::configure_server" do
 
     before do
       stub_command("test -f /var/lib/mysql/mysql/user.frm").and_return(false)
-      stub_command("test -f /etc/mysql/grants.sql").and_return(false)
+      stub_command("mysqladmin --user=root --password='' ping")
+        .and_return(true)
     end
 
     it "creates the main server config file" do
@@ -68,7 +69,8 @@ describe "percona::configure_server" do
 
     before do
       stub_command("test -f /mysql/data/mysql/user.frm").and_return(true)
-      stub_command("test -f /etc/mysql/grants.sql").and_return(true)
+      stub_command("mysqladmin --user=root --password='' ping")
+        .and_return(false)
     end
 
     it "creates a `.my.cnf` file for root" do
@@ -160,7 +162,8 @@ describe "percona::configure_server" do
 
     before do
       stub_command("test -f /var/lib/mysql/mysql/user.frm").and_return(false)
-      stub_command("test -f /etc/mysql/grants.sql").and_return(false)
+      stub_command("mysqladmin --user=root --password='' ping")
+        .and_return(true)
     end
 
     it "creates the main server config file" do

@@ -23,22 +23,18 @@ suites:
       - recipe[percona::toolkit]
 
   - name: server_<%= version.tr(".", "") %>
-    run_list:
-      - recipe[percona::server]
     attributes:
       percona:
         apt_keyserver: hkp://pgp.mit.edu:80
         version: "<%= version %>"
         server:
-          jemalloc: true
           debian_password: d3b1an
+          jemalloc: true
           root_password: r00t
-  <% end %>
-
-  - name: xtrabackup
     run_list:
       - recipe[percona::server]
       - recipe[percona::backup]
+  <% end %>
 
   - name: new_datadir
     run_list:

@@ -606,6 +606,7 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
 * **[@helgi](https://github.com/helgi)**
     * use `mysql` command vs. a file to check the root password
     * generate configuration file before setting up data directory
+    * ensure `includedir` is created if provided
 
 
 ## License

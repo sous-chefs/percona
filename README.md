@@ -605,6 +605,7 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * fix toolkit installation for version 5.6 on RHEL systems
 * **[@helgi](https://github.com/helgi)**
     * use `mysql` command vs. a file to check the root password
+    * generate configuration file before setting up data directory
 
 
 ## License

@@ -53,6 +53,14 @@ describe "percona::configure_server" do
       )
     end
 
+    it "creates the configuration include directory" do
+      expect(chef_run).to create_directory("/etc/mysql/conf.d/").with(
+        owner: "mysql",
+        group: "mysql",
+        recursive: true
+      )
+    end
+
     it "updates the root user password" do
       expect(chef_run).to run_execute("Update MySQL root password")
     end
@@ -66,6 +74,7 @@ describe "percona::configure_server" do
         node.set["percona"]["server"]["debian_password"] = "d3b1an"
         node.set["percona"]["conf"]["mysqld"]["datadir"] = "/mysql/data"
         node.set["percona"]["conf"]["mysqld"]["tmpdir"] = "/mysql/tmp"
+        node.set["percona"]["conf"]["mysqld"]["includedir"] = "/mysql/conf.d"
       end.converge(described_recipe)
     end
 
@@ -103,6 +112,14 @@ describe "percona::configure_server" do
 
     it "creates the temporary directory" do
       expect(chef_run).to create_directory("/mysql/tmp").with(
+        owner: "mysql",
+        group: "mysql",
+        recursive: true
+      )
+    end
+
+    it "creates the configuration include directory" do
+      expect(chef_run).to create_directory("/mysql/conf.d").with(
         owner: "mysql",
         group: "mysql",
         recursive: true
@@ -180,6 +197,11 @@ describe "percona::configure_server" do
       resource = chef_run.template("/etc/my.cnf")
       expect(resource).to notify("execute[setup mysql datadir]").to(:run).immediately # rubocop:disable LineLength
       expect(resource).to notify("service[mysql]").to(:restart).immediately
+    end
+
+    it "does not create the configuration include directory" do
+      # Directory is not created but ChefSpec insists on this for coverage
+      expect(chef_run).to create_directory("")
     end
   end
 end

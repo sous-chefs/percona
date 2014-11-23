@@ -1,5 +1,5 @@
 language: ruby
-bundler_args: --without integration
+bundler_args: --jobs 4 --without integration
 rvm:
   - 1.9.3
   - 2.0.0

@@ -32,6 +32,11 @@ describe "percona::configure_server" do
       )
     end
 
+    it "defines the setup for the data directory" do
+      resource = chef_run.execute("setup mysql datadir")
+      expect(resource).to do_nothing
+    end
+
     it "creates the log directory" do
       expect(chef_run).to create_directory("/var/log/mysql").with(
         owner: "mysql",
@@ -114,6 +119,11 @@ describe "percona::configure_server" do
 
     it "manages the `mysql` service" do
       expect(chef_run).to enable_service("mysql")
+    end
+
+    it "defines the setup for the data directory" do
+      resource = chef_run.execute("setup mysql datadir")
+      expect(resource).to do_nothing
     end
 
     it "creates the main server config file" do

@@ -347,6 +347,9 @@ default["percona"]["server"]["innodb_max_dirty_pages_pct"]      = 80
 default["percona"]["server"]["innodb_flush_method"]             = "O_DIRECT"
 default["percona"]["server"]["innodb_lock_wait_timeout"]        = 120
 
+# Performance Schema
+default["percona"]["server"]["performance_schema"]              = false
+
 # Replication Settings
 default["percona"]["server"]["replication"]["read_only"]        = false
 default["percona"]["server"]["replication"]["host"]             = ""
@@ -607,6 +610,7 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * use `mysql` command vs. a file to check the root password
     * generate configuration file before setting up data directory
     * ensure `includedir` is created if provided
+    * add attribute `performance_schema`
 
 
 ## License

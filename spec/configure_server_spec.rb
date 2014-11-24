@@ -19,6 +19,10 @@ describe "percona::configure_server" do
         mode: "0644"
       )
 
+      expect(chef_run).to render_file("/etc/mysql/my.cnf").with_content(
+        "performance_schema=OFF"
+      )
+
       resource = chef_run.template("/etc/mysql/my.cnf")
       expect(resource).to notify("execute[setup mysql datadir]").to(:run).immediately  # rubocop:disable LineLength
       expect(resource).to notify("service[mysql]").to(:restart).immediately
@@ -72,6 +76,7 @@ describe "percona::configure_server" do
         node.set["percona"]["main_config_file"] = "/mysql/my.cnf"
         node.set["percona"]["server"]["root_password"] = "s3kr1t"
         node.set["percona"]["server"]["debian_password"] = "d3b1an"
+        node.set["percona"]["server"]["performance_schema"] = true
         node.set["percona"]["conf"]["mysqld"]["datadir"] = "/mysql/data"
         node.set["percona"]["conf"]["mysqld"]["tmpdir"] = "/mysql/tmp"
         node.set["percona"]["conf"]["mysqld"]["includedir"] = "/mysql/conf.d"
@@ -148,6 +153,10 @@ describe "percona::configure_server" do
         owner: "root",
         group: "root",
         mode: "0644"
+      )
+
+      expect(chef_run).to render_file("/mysql/my.cnf").with_content(
+        "performance_schema=ON"
       )
 
       resource = chef_run.template("/mysql/my.cnf")

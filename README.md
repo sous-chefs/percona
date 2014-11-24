@@ -610,6 +610,7 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * use `mysql` command vs. a file to check the root password
     * generate configuration file before setting up data directory
     * ensure `includedir` is created if provided
+    * add attribute `performance_schema`
 
 
 ## License

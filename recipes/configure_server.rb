@@ -120,7 +120,7 @@ unless node["percona"]["skip_passwords"]
   execute "Update MySQL root password" do
     root_pw = passwords.root_password
     command "mysqladmin --user=root --password='' password '#{root_pw}'"
-    only_if "mysqladmin --user=root --password='' ping"
+    only_if "mysqladmin --user=root --password='' version"
   end
 end
 

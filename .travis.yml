@@ -4,12 +4,19 @@ rvm:
   - 1.9.3
   - 2.0.0
   - 2.1.5
+cache: bundler
+
+# travis docker container
+sudo: false
+
 env:
   matrix:
     - CHEF_VERSION=10.30
     - CHEF_VERSION=11.16
+
 before_script:
   - "gem install bundler-audit --no-rdoc --no-ri && bundle-audit update"
+
 script:
   - bundle-audit
   - bundle exec rake license_finder

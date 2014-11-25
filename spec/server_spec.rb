@@ -7,7 +7,7 @@ describe "percona::server" do
 
   before do
     stub_command("test -f /var/lib/mysql/mysql/user.frm").and_return(true)
-    stub_command("mysqladmin --user=root --password='' ping").and_return(true)
+    stub_command("mysqladmin --user=root --password='' version").and_return(true)
   end
 
   it { expect(chef_run).to include_recipe("percona::package_repo") }

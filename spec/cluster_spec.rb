@@ -7,7 +7,8 @@ describe "percona::cluster" do
 
   before do
     stub_command("test -f /var/lib/mysql/mysql/user.frm").and_return(true)
-    stub_command("mysqladmin --user=root --password='' version").and_return(true)
+    stub_command("mysqladmin --user=root --password='' version")
+      .and_return(true)
   end
 
   specify do

@@ -115,12 +115,12 @@ template percona["main_config_file"] do
   end
 end
 
-# now let's set the root password only if this is the initial install
+# now let's set the root password but only if it has not been set before
 unless node["percona"]["skip_passwords"]
   execute "Update MySQL root password" do
     root_pw = passwords.root_password
     command "mysqladmin --user=root --password='' password '#{root_pw}'"
-    only_if "mysqladmin --user=root --password='' ping"
+    only_if "mysqladmin --user=root --password='' -e 'show databases;'"
   end
 end
 

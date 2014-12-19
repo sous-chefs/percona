@@ -29,21 +29,22 @@
       <div class="span5">
         <h2>Dependencies</h2>
 
-        <p>As of November 16, 2014  8:09pm</p>
+        <p>As of December 18, 2014  5:44pm</p>
 
-        <h4>98 total</h4>
+        <h4>97 total</h4>
 
         <ul>
-                      <li>58 MIT</li>
-                      <li>28 Apache 2.0</li>
+                      <li>55 MIT</li>
+                      <li>29 Apache 2.0</li>
                       <li>5 ruby</li>
                       <li>1 Apache 2.0, MIT</li>
                       <li>1 BSD</li>
                       <li>1 Apache v2</li>
+                      <li>1 GNU GPL v2, MIT, Perl Artistic v2</li>
                       <li>1 ISC</li>
                       <li>1 Artistic 2.0, GPL-2, MIT</li>
-                      <li>1 GNU GPL v2, MIT, Perl Artistic v2</li>
                       <li>1 New BSD</li>
+                      <li>1 GPLv3</li>
                   </ul>
       </div>
           </div>
@@ -131,7 +132,7 @@ adds support for IRIs and URI templates.
                   </blockquote>
         <h2>
           <a href="http://berkshelf.com">berkshelf</a>
-          <small>v3.2.1 (default)</small>
+          <small>v3.2.2 (default)</small>
         </h2>
         <h4>Manages a Cookbook's, or an Application's, Cookbook dependencies</h4>
         <p>Manages a Cookbook's, or an Application's, Cookbook dependencies</p>
@@ -294,7 +295,7 @@ adds support for IRIs and URI templates.
         <p></p>
                   <dl>
             <dt>bundler is required by:</dt>
-            <dd>parser, astrolabe, faraday, berkshelf-api-client, buff-extensions, varia_model, buff-config, buff-ruby_engine, buff-shell_out, cleanroom, octokit, retryable, buff-ignore, semverse, dep-selector-libgecode, thor, busser, busser-serverspec, libyajl2, wmi-lite, pry, rspec-support, multi_json, gherkin, multi_xml, test-kitchen, license_finder, powerpack, rainbow, rspec-its, rubocop, specinfra, serverspec</dd>
+            <dd>parser, astrolabe, faraday, berkshelf-api-client, buff-extensions, varia_model, buff-config, buff-ruby_engine, buff-shell_out, cleanroom, octokit, retryable, buff-ignore, semverse, dep-selector-libgecode, thor, busser, busser-serverspec, libyajl2, wmi-lite, pry, rspec-support, multi_json, gherkin, multi_xml, test-kitchen, license_finder, powerpack, rainbow, rspec-its, rubocop, specinfra, serverspec, net-dhcp</dd>
           </dl>
                       </div>
           <div id="busser" class="clearfix approved">
@@ -394,18 +395,18 @@ adds support for IRIs and URI templates.
             </p>
                   </blockquote>
         <h2>
-          <a href="http://wiki.opscode.com/display/chef">chef</a>
-          <small>v11.16.4 (default)</small>
+          <a href="http://www.getchef.com">chef</a>
+          <small>v12.0.3 (default)</small>
         </h2>
         <h4>A systems integration framework, built to bring the benefits of configuration management to your entire infrastructure.</h4>
         <p>A systems integration framework, built to bring the benefits of configuration management to your entire infrastructure.</p>
                   <dl>
             <dt>chef is required by:</dt>
-            <dd>busser, ohai, chefspec</dd>
+            <dd>busser, ohai</dd>
           </dl>
                           <dl>
             <dt>chef relies on:</dt>
-            <dd>mixlib-config, mixlib-cli, mixlib-log, mixlib-authentication, mixlib-shellout, ohai, rest-client, mime-types, ffi-yajl, net-ssh, net-ssh-multi, highline, erubis, diff-lcs, chef-zero, pry, plist, rack, rake, rspec-core, rspec-expectations, rspec-mocks</dd>
+            <dd>mixlib-config, mixlib-cli, mixlib-log, mixlib-authentication, mixlib-shellout, ohai, ffi-yajl, net-ssh, net-ssh-multi, highline, erubis, diff-lcs, chef-zero, pry, plist, rack, rake, rspec-core, rspec-expectations, rspec-mocks</dd>
           </dl>
               </div>
           <div id="chef-zero" class="clearfix approved">
@@ -418,7 +419,7 @@ adds support for IRIs and URI templates.
                   </blockquote>
         <h2>
           <a href="http://www.opscode.com">chef-zero</a>
-          <small>v2.2.1</small>
+          <small>v3.2.1</small>
         </h2>
         <h4>Self-contained, easy-setup, fast-start in-memory Chef server for testing and solo setup purposes</h4>
         <p>Self-contained, easy-setup, fast-start in-memory Chef server for testing and solo setup purposes</p>
@@ -428,26 +429,7 @@ adds support for IRIs and URI templates.
           </dl>
                           <dl>
             <dt>chef-zero relies on:</dt>
-            <dd>mixlib-log, hashie, ffi-yajl, rack, rake, rspec</dd>
-          </dl>
-              </div>
-          <div id="chefspec" class="clearfix approved">
-        <blockquote class="pull-right">
-                      <p>
-              <a href="http://opensource.org/licenses/mit-license">MIT</a>
-              whitelisted
-              <span class="badge badge-success">&#x2713;</span>
-            </p>
-                  </blockquote>
-        <h2>
-          <a href="http://code.sethvargo.com/chefspec">chefspec</a>
-          <small>v4.1.1 (default)</small>
-        </h2>
-        <h4>Write RSpec examples and generate coverage reports for Chef recipes!</h4>
-        <p>ChefSpec is a unit testing and resource coverage (code coverage) framework for testing Chef cookbooks ChefSpec makes it easy to write examples and get fast feedback on cookbook changes without the need for virtual machines or cloud servers.</p>
-                          <dl>
-            <dt>chefspec relies on:</dt>
-            <dd>chef, fauxhai, rspec, rake</dd>
+            <dd>mixlib-log, hashie, ffi-yajl, rack, rake, rspec, uuidtools</dd>
           </dl>
               </div>
           <div id="cleanroom" class="clearfix approved">
@@ -626,29 +608,6 @@ We are happy to report that this issue has been resolved.</p>
             <dd>multipart-post, bundler</dd>
           </dl>
               </div>
-          <div id="fauxhai" class="clearfix approved">
-        <blockquote class="pull-right">
-                      <p>
-              <a href="http://opensource.org/licenses/mit-license">MIT</a>
-              whitelisted
-              <span class="badge badge-success">&#x2713;</span>
-            </p>
-                  </blockquote>
-        <h2>
-          <a href="https://github.com/customink/fauxhai">fauxhai</a>
-          <small>v2.2.0</small>
-        </h2>
-        <h4>Fauxhai provides an easy way to mock out your ohai data for testing with chefspec!</h4>
-        <p>Easily mock out ohai data</p>
-                  <dl>
-            <dt>fauxhai is required by:</dt>
-            <dd>chefspec</dd>
-          </dl>
-                          <dl>
-            <dt>fauxhai relies on:</dt>
-            <dd>net-ssh, ohai, rake</dd>
-          </dl>
-              </div>
           <div id="ffi" class="clearfix approved">
         <blockquote class="pull-right">
                       <p>
@@ -682,7 +641,7 @@ We are happy to report that this issue has been resolved.</p>
                   </blockquote>
         <h2>
           <a href="http://github.com/opscode/ffi-yajl">ffi-yajl</a>
-          <small>v1.2.0</small>
+          <small>v1.3.1</small>
         </h2>
         <h4>Ruby FFI wrapper around YAJL 2.x</h4>
         <p>Ruby FFI wrapper around YAJL 2.x</p>
@@ -900,7 +859,7 @@ minutes of work.
                   </blockquote>
         <h2>
           <a href="https://github.com/opscode/libyajl2-gem">libyajl2</a>
-          <small>v1.1.0</small>
+          <small>v1.2.0</small>
         </h2>
         <h4>Installs a vendored copy of libyajl2 for distributions which lack it</h4>
         <p>Installs a vendored copy of libyajl2 for distributions which lack it</p>
@@ -1022,7 +981,7 @@ added from the {LTSW collection}[http://www.ltsw.se/knbase/internet/mime.htp]
 and added by the users of MIME::Types.</p>
                   <dl>
             <dt>mime-types is required by:</dt>
-            <dd>ast, parser, libyajl2, ffi-yajl, ohai, rest-client, chef</dd>
+            <dd>ast, parser, libyajl2, ffi-yajl, ohai</dd>
           </dl>
                           <dl>
             <dt>mime-types relies on:</dt>
@@ -1169,7 +1128,7 @@ and added by the users of MIME::Types.</p>
                   </blockquote>
         <h2>
           <a href="http://wiki.opscode.com/">mixlib-shellout</a>
-          <small>v1.6.0</small>
+          <small>v2.0.0</small>
         </h2>
         <h4>Run external commands on Unix or Windows</h4>
         <p>Run external commands on Unix or Windows</p>
@@ -1247,6 +1206,29 @@ and added by the users of MIME::Types.</p>
             <dd>faraday</dd>
           </dl>
                       </div>
+          <div id="net-dhcp" class="clearfix approved">
+        <blockquote class="pull-right">
+                      <p>
+              GPLv3
+              whitelisted
+              <span class="badge badge-success">&#x2713;</span>
+            </p>
+                  </blockquote>
+        <h2>
+          <a href="http://github.com/mjtko/net-dhcp-ruby">net-dhcp</a>
+          <small>v1.3.2</small>
+        </h2>
+        <h4>set of classes to low level handle the DHCP protocol</h4>
+        <p>The aim of Net::DHCP is to provide a set of classes to low level handle the DHCP protocol (rfc2131, rfc2132, etc.). With Net::DHCP you will be able to craft custom DHCP packages and have access to all the fields defined for the protocol.</p>
+                  <dl>
+            <dt>net-dhcp is required by:</dt>
+            <dd>ohai</dd>
+          </dl>
+                          <dl>
+            <dt>net-dhcp relies on:</dt>
+            <dd>rspec, bundler, rake</dd>
+          </dl>
+              </div>
           <div id="net-http-persistent" class="clearfix approved">
         <blockquote class="pull-right">
                       <p>
@@ -1314,7 +1296,7 @@ and retry according to RFC 2616.</p>
         <p>Net::SSH: a pure-Ruby implementation of the SSH2 client protocol. It allows you to write programs that invoke and interact with processes on remote servers, via SSH2.</p>
                   <dl>
             <dt>net-ssh is required by:</dt>
-            <dd>net-ssh-gateway, net-ssh-multi, chef, fauxhai, net-scp, test-kitchen, specinfra</dd>
+            <dd>net-ssh-gateway, net-ssh-multi, chef, net-scp, test-kitchen, specinfra</dd>
           </dl>
                       </div>
           <div id="net-ssh-gateway" class="clearfix approved">
@@ -1396,7 +1378,7 @@ and retry according to RFC 2616.</p>
                   </blockquote>
         <h2>
           <a href="http://nokogiri.org">nokogiri</a>
-          <small>v1.6.4.1</small>
+          <small>v1.6.5</small>
         </h2>
         <h4>Nokogiri (鋸) is an HTML, XML, SAX, and Reader parser</h4>
         <p>Nokogiri (鋸) is an HTML, XML, SAX, and Reader parser.  Among Nokogiri's
@@ -1423,7 +1405,7 @@ enough of it.</p>
                   </blockquote>
         <h2>
           <a href="https://github.com/octokit/octokit.rb">octokit</a>
-          <small>v3.5.2</small>
+          <small>v3.7.0</small>
         </h2>
         <h4>Ruby toolkit for working with the GitHub API</h4>
         <p>Simple wrapper for the GitHub API</p>
@@ -1445,18 +1427,18 @@ enough of it.</p>
             </p>
                   </blockquote>
         <h2>
-          <a href="http://wiki.opscode.com/display/chef/Ohai">ohai</a>
-          <small>v7.4.0</small>
+          <a href="https://docs.getchef.com/ohai.html">ohai</a>
+          <small>v8.0.1</small>
         </h2>
         <h4>Ohai profiles your system and emits JSON</h4>
         <p>Ohai profiles your system and emits JSON</p>
                   <dl>
             <dt>ohai is required by:</dt>
-            <dd>chef, fauxhai</dd>
+            <dd>chef</dd>
           </dl>
                           <dl>
             <dt>ohai relies on:</dt>
-            <dd>mime-types, systemu, ffi-yajl, mixlib-cli, mixlib-config, mixlib-log, mixlib-shellout, ipaddress, wmi-lite, ffi, rake, rspec-core, rspec-expectations, rspec-mocks, chef</dd>
+            <dd>mime-types, systemu, ffi-yajl, mixlib-cli, mixlib-config, mixlib-log, mixlib-shellout, ipaddress, wmi-lite, ffi, rake, rspec-core, rspec-expectations, rspec-mocks, chef, net-dhcp</dd>
           </dl>
               </div>
           <div id="parser" class="clearfix approved">
@@ -1469,7 +1451,7 @@ enough of it.</p>
                   </blockquote>
         <h2>
           <a href="http://github.com/whitequark/parser">parser</a>
-          <small>v2.2.0.pre.7</small>
+          <small>v2.2.0.pre.8</small>
         </h2>
         <h4>A Ruby parser written in pure Ruby.</h4>
         <p>A Ruby parser written in pure Ruby.</p>
@@ -1479,7 +1461,7 @@ enough of it.</p>
           </dl>
                           <dl>
             <dt>parser relies on:</dt>
-            <dd>ast, slop, bundler, rake, mime-types, rest-client</dd>
+            <dd>ast, slop, bundler, rake, mime-types</dd>
           </dl>
               </div>
           <div id="plist" class="clearfix approved">
@@ -1563,7 +1545,7 @@ augments 'require' to find and load matching files.</p>
         <p>An IRB alternative and runtime developer console</p>
                   <dl>
             <dt>pry is required by:</dt>
-            <dd>ffi-yajl, wmi-lite, chef, license_finder</dd>
+            <dd>ffi-yajl, wmi-lite, chef, license_finder, test-kitchen</dd>
           </dl>
                           <dl>
             <dt>pry relies on:</dt>
@@ -1579,8 +1561,8 @@ augments 'require' to find and load matching files.</p>
             </p>
                   </blockquote>
         <h2>
-          <a href="http://rack.github.com/">rack</a>
-          <small>v1.5.2</small>
+          <a href="http://rack.github.io/">rack</a>
+          <small>v1.6.0</small>
         </h2>
         <h4>a modular Ruby webserver interface</h4>
         <p>Rack provides a minimal, modular and adaptable interface for developing
@@ -1589,7 +1571,7 @@ the simplest way possible, it unifies and distills the API for web
 servers, web frameworks, and software in between (the so-called
 middleware) into a single method call.
 
-Also see http://rack.github.com/.
+Also see http://rack.github.io/.
 </p>
                   <dl>
             <dt>rack is required by:</dt>
@@ -1632,8 +1614,8 @@ Also see http://rack.github.com/.
             </p>
                   </blockquote>
         <h2>
-          <a href="https://github.com/jimweirich/rake">rake</a>
-          <small>v10.3.2 (default)</small>
+          <a href="https://github.com/ruby/rake">rake</a>
+          <small>v10.4.2 (default)</small>
         </h2>
         <h4>Rake is a Make-like program implemented in Ruby</h4>
         <p>Rake is a Make-like program implemented in Ruby. Tasks and dependencies are
@@ -1660,32 +1642,9 @@ Rake has the following features:
 * Supports parallel execution of tasks.</p>
                   <dl>
             <dt>rake is required by:</dt>
-            <dd>addressable, ast, slop, parser, astrolabe, berkshelf-api-client, buff-extensions, hashie, varia_model, buff-config, buff-ruby_engine, buff-shell_out, hitimes, timers, celluloid, nio4r, celluloid-io, cleanroom, buff-ignore, mixlib-log, semverse, dep-selector-libgecode, ffi, dep_selector, berkshelf, busser, busser-serverspec, libyajl2, ffi-yajl, rack, chef-zero, diff-lcs, mime-types, mixlib-cli, mixlib-config, wmi-lite, ohai, method_source, chef, fauxhai, rspec-support, rspec-core, rspec-expectations, rspec-mocks, chefspec, gherkin, nokogiri, rufus-lru, treetop, foodcritic, test-kitchen, license_finder, powerpack, rainbow, rspec-its, rubocop, specinfra, serverspec</dd>
+            <dd>addressable, ast, slop, parser, astrolabe, berkshelf-api-client, buff-extensions, hashie, varia_model, buff-config, buff-ruby_engine, buff-shell_out, hitimes, timers, celluloid, nio4r, celluloid-io, cleanroom, buff-ignore, mixlib-log, semverse, dep-selector-libgecode, ffi, dep_selector, berkshelf, busser, busser-serverspec, libyajl2, ffi-yajl, rack, chef-zero, diff-lcs, mime-types, mixlib-cli, mixlib-config, wmi-lite, ohai, method_source, chef, rspec-support, rspec-core, rspec-expectations, rspec-mocks, gherkin, nokogiri, rufus-lru, treetop, foodcritic, test-kitchen, license_finder, powerpack, rainbow, rspec-its, rubocop, specinfra, serverspec, uuidtools, net-dhcp</dd>
           </dl>
                       </div>
-          <div id="rest-client" class="clearfix approved">
-        <blockquote class="pull-right">
-                      <p>
-              <a href="http://opensource.org/licenses/mit-license">MIT</a>
-              whitelisted
-              <span class="badge badge-success">&#x2713;</span>
-            </p>
-                  </blockquote>
-        <h2>
-          <a href="http://github.com/archiloque/rest-client">rest-client</a>
-          <small>v1.6.7</small>
-        </h2>
-        <h4>Simple HTTP and REST client for Ruby, inspired by microframework syntax for specifying actions.</h4>
-        <p>A simple HTTP and REST client for Ruby, inspired by the Sinatra microframework style of specifying actions: get, put, post, delete.</p>
-                  <dl>
-            <dt>rest-client is required by:</dt>
-            <dd>parser, chef</dd>
-          </dl>
-                          <dl>
-            <dt>rest-client relies on:</dt>
-            <dd>mime-types, rspec</dd>
-          </dl>
-              </div>
           <div id="retryable" class="clearfix approved">
         <blockquote class="pull-right">
                       <p>
@@ -1719,7 +1678,7 @@ Rake has the following features:
                   </blockquote>
         <h2>
           <a href="https://github.com/RiotGames/ridley">ridley</a>
-          <small>v4.1.0</small>
+          <small>v4.1.1</small>
         </h2>
         <h4>A reliable Chef API client with a clean syntax</h4>
         <p>A reliable Chef API client with a clean syntax</p>
@@ -1748,7 +1707,7 @@ Rake has the following features:
         <p>BDD for Ruby</p>
                   <dl>
             <dt>rspec is required by:</dt>
-            <dd>addressable, astrolabe, berkshelf-api-client, buff-extensions, hashie, varia_model, buff-config, buff-ruby_engine, buff-shell_out, timers, celluloid, nio4r, celluloid-io, cleanroom, buff-ignore, mixlib-log, ffi, dep_selector, berkshelf, libyajl2, ffi-yajl, chef-zero, diff-lcs, mixlib-cli, mixlib-config, mixlib-shellout, wmi-lite, rest-client, chefspec, gherkin, rufus-lru, treetop, yajl-ruby, license_finder, powerpack, rainbow, ruby-progressbar, rubocop, specinfra, serverspec</dd>
+            <dd>addressable, astrolabe, berkshelf-api-client, buff-extensions, hashie, varia_model, buff-config, buff-ruby_engine, buff-shell_out, timers, celluloid, nio4r, celluloid-io, cleanroom, buff-ignore, mixlib-log, ffi, dep_selector, berkshelf, libyajl2, ffi-yajl, chef-zero, diff-lcs, mixlib-cli, mixlib-config, mixlib-shellout, wmi-lite, gherkin, rufus-lru, treetop, yajl-ruby, license_finder, powerpack, rainbow, ruby-progressbar, rubocop, specinfra, serverspec, uuidtools, net-dhcp</dd>
           </dl>
                           <dl>
             <dt>rspec relies on:</dt>
@@ -1880,7 +1839,7 @@ Rake has the following features:
                   </blockquote>
         <h2>
           <a href="http://github.com/bbatsov/rubocop">rubocop</a>
-          <small>v0.27.1 (default)</small>
+          <small>v0.28.0 (default)</small>
         </h2>
         <h4>Automatic Ruby code style checking tool.</h4>
         <p>    Automatic Ruby code style checking tool.
@@ -1973,7 +1932,7 @@ percentage, bars of various formats, elapsed time and estimated time remaining.
                   </blockquote>
         <h2>
           <a href="https://github.com/lostisland/sawyer">sawyer</a>
-          <small>v0.5.5</small>
+          <small>v0.6.0</small>
         </h2>
         <h4>Secret User Agent of HTTP</h4>
         <p></p>
@@ -2019,7 +1978,7 @@ percentage, bars of various formats, elapsed time and estimated time remaining.
                   </blockquote>
         <h2>
           <a href="http://sequel.jeremyevans.net">sequel</a>
-          <small>v4.16.0</small>
+          <small>v4.17.0</small>
         </h2>
         <h4>The Database Toolkit for Ruby</h4>
         <p>The Database Toolkit for Ruby</p>
@@ -2038,7 +1997,7 @@ percentage, bars of various formats, elapsed time and estimated time remaining.
                   </blockquote>
         <h2>
           <a href="http://serverspec.org/">serverspec</a>
-          <small>v2.3.1 (default)</small>
+          <small>v2.7.1 (default)</small>
         </h2>
         <h4>RSpec tests for your servers configured by Puppet, Chef or anything else</h4>
         <p>RSpec tests for your servers configured by Puppet, Chef or anything else</p>
@@ -2107,7 +2066,7 @@ percentage, bars of various formats, elapsed time and estimated time remaining.
                   </blockquote>
         <h2>
           specinfra
-          <small>v2.4.3</small>
+          <small>v2.10.3</small>
         </h2>
         <h4>Common layer for serverspec and itamae</h4>
         <p>Common layer for serverspec and itamae</p>
@@ -2176,7 +2135,7 @@ Note that this module is only compatible with SQLite 3.6.16 or newer.</p>
                   </blockquote>
         <h2>
           <a href="http://kitchen.ci">test-kitchen</a>
-          <small>v1.2.1 (integration)</small>
+          <small>v1.2.2.dev (integration)</small>
         </h2>
         <h4>Test Kitchen is an integration tool for developing and testing infrastructure code and software on isolated target platforms.</h4>
         <p>Test Kitchen is an integration tool for developing and testing infrastructure code and software on isolated target platforms.</p>
@@ -2186,7 +2145,7 @@ Note that this module is only compatible with SQLite 3.6.16 or newer.</p>
           </dl>
                           <dl>
             <dt>test-kitchen relies on:</dt>
-            <dd>mixlib-shellout, net-scp, net-ssh, safe_yaml, thor, bundler, rake</dd>
+            <dd>mixlib-shellout, net-scp, net-ssh, safe_yaml, thor, bundler, rake, pry</dd>
           </dl>
               </div>
           <div id="thor" class="clearfix approved">
@@ -2256,6 +2215,30 @@ Note that this module is only compatible with SQLite 3.6.16 or newer.</p>
                           <dl>
             <dt>treetop relies on:</dt>
             <dd>polyglot, rspec, rake</dd>
+          </dl>
+              </div>
+          <div id="uuidtools" class="clearfix approved">
+        <blockquote class="pull-right">
+                      <p>
+              <a href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache 2.0</a>
+              whitelisted
+              <span class="badge badge-success">&#x2713;</span>
+            </p>
+                  </blockquote>
+        <h2>
+          <a href="https://github.com/sporkmonger/uuidtools">uuidtools</a>
+          <small>v2.1.5</small>
+        </h2>
+        <h4>UUID generator</h4>
+        <p>A simple universally unique ID generation library.
+</p>
+                  <dl>
+            <dt>uuidtools is required by:</dt>
+            <dd>chef-zero</dd>
+          </dl>
+                          <dl>
+            <dt>uuidtools relies on:</dt>
+            <dd>rake, rspec</dd>
           </dl>
               </div>
           <div id="varia_model" class="clearfix approved">

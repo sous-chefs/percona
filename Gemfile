@@ -9,11 +9,13 @@ gem "berkshelf", "~> 3.2.1"
 gem "foodcritic", "~> 4.0.0"
 gem "license_finder", "~> 1.2.0"
 gem "rake"
-gem "rubocop", "~> 0.27.1"
-gem "serverspec", "~> 2.3.1"
+gem "rubocop", "~> 0.28.0"
+gem "serverspec", "~> 2.7.1"
 
 group :integration do
   gem "busser-serverspec", "~> 0.5.3"
   gem "kitchen-vagrant", "~> 0.15.0"
-  gem "test-kitchen", "~> 1.2.1"
+  gem "test-kitchen",
+      git: "https://github.com/test-kitchen/test-kitchen.git",
+      ref: "237efd1"
 end

@@ -8,9 +8,8 @@ server = node["percona"]["server"]
 data_bag = node["percona"]["encrypted_data_bag"]
 
 directory certs_path do
-  action :create
   owner node["percona"]["server"]["username"]
-  mode 0700
+  mode "0700"
 end
 
 certs = Chef::EncryptedDataBagItem.load(data_bag, "ssl_replication")

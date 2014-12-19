@@ -1,18 +1,19 @@
 # chef-percona
 
-As of November 16, 2014  8:09pm. 98 total
+As of December 18, 2014  5:44pm. 97 total
 
 ## Summary
-* 58 MIT
-* 28 Apache 2.0
+* 55 MIT
+* 29 Apache 2.0
 * 5 ruby
 * 1 Apache 2.0, MIT
 * 1 BSD
 * 1 Apache v2
+* 1 GNU GPL v2, MIT, Perl Artistic v2
 * 1 ISC
 * 1 Artistic 2.0, GPL-2, MIT
-* 1 GNU GPL v2, MIT, Perl Artistic v2
 * 1 New BSD
+* 1 GPLv3
 
 
 
@@ -47,7 +48,7 @@ A library for working with Abstract Syntax Trees.
 An object-oriented AST extension for Parser
 
 <a name="berkshelf"></a>
-### <a href="http://berkshelf.com">berkshelf</a> v3.2.1 (default)
+### <a href="http://berkshelf.com">berkshelf</a> v3.2.2 (default)
 #### Manages a Cookbook's, or an Application's, Cookbook dependencies
 
 <a href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache 2.0</a> whitelisted
@@ -142,7 +143,7 @@ Celluloid enables people to build concurrent programs out of concurrent objects 
 Evented IO for Celluloid actors
 
 <a name="chef"></a>
-### <a href="http://wiki.opscode.com/display/chef">chef</a> v11.16.4 (default)
+### <a href="http://www.getchef.com">chef</a> v12.0.3 (default)
 #### A systems integration framework, built to bring the benefits of configuration management to your entire infrastructure.
 
 <a href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache 2.0</a> whitelisted
@@ -150,20 +151,12 @@ Evented IO for Celluloid actors
 A systems integration framework, built to bring the benefits of configuration management to your entire infrastructure.
 
 <a name="chef-zero"></a>
-### <a href="http://www.opscode.com">chef-zero</a> v2.2.1
+### <a href="http://www.opscode.com">chef-zero</a> v3.2.1
 #### Self-contained, easy-setup, fast-start in-memory Chef server for testing and solo setup purposes
 
 <a href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache 2.0</a> whitelisted
 
 Self-contained, easy-setup, fast-start in-memory Chef server for testing and solo setup purposes
-
-<a name="chefspec"></a>
-### <a href="http://code.sethvargo.com/chefspec">chefspec</a> v4.1.1 (default)
-#### Write RSpec examples and generate coverage reports for Chef recipes!
-
-<a href="http://opensource.org/licenses/mit-license">MIT</a> whitelisted
-
-ChefSpec is a unit testing and resource coverage (code coverage) framework for testing Chef cookbooks ChefSpec makes it easy to write examples and get fast feedback on cookbook changes without the need for virtual machines or cloud servers.
 
 <a name="cleanroom"></a>
 ### <a href="https://github.com/sethvargo/cleanroom">cleanroom</a> v1.0.0
@@ -243,14 +236,6 @@ We are happy to report that this issue has been resolved.
 <a href="http://opensource.org/licenses/mit-license">MIT</a> whitelisted
 
 
-<a name="fauxhai"></a>
-### <a href="https://github.com/customink/fauxhai">fauxhai</a> v2.2.0
-#### Fauxhai provides an easy way to mock out your ohai data for testing with chefspec!
-
-<a href="http://opensource.org/licenses/mit-license">MIT</a> whitelisted
-
-Easily mock out ohai data
-
 <a name="ffi"></a>
 ### <a href="http://wiki.github.com/ffi/ffi">ffi</a> v1.9.6
 #### Ruby FFI
@@ -260,7 +245,7 @@ Easily mock out ohai data
 Ruby FFI library
 
 <a name="ffi-yajl"></a>
-### <a href="http://github.com/opscode/ffi-yajl">ffi-yajl</a> v1.2.0
+### <a href="http://github.com/opscode/ffi-yajl">ffi-yajl</a> v1.3.1
 #### Ruby FFI wrapper around YAJL 2.x
 
 <a href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache 2.0</a> whitelisted
@@ -347,7 +332,7 @@ Makes http fun! Also, makes consuming restful web services dead easy.
 Kitchen::Driver::Vagrant - A Vagrant Driver for Test Kitchen.
 
 <a name="libyajl2"></a>
-### <a href="https://github.com/opscode/libyajl2-gem">libyajl2</a> v1.1.0
+### <a href="https://github.com/opscode/libyajl2-gem">libyajl2</a> v1.2.0
 #### Installs a vendored copy of libyajl2 for distributions which lack it
 
 <a href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache 2.0</a> whitelisted
@@ -477,7 +462,7 @@ A class based configuration library
 
 
 <a name="mixlib-shellout"></a>
-### <a href="http://wiki.opscode.com/">mixlib-shellout</a> v1.6.0
+### <a href="http://wiki.opscode.com/">mixlib-shellout</a> v2.0.0
 #### Run external commands on Unix or Windows
 
 <a href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache 2.0</a> whitelisted
@@ -507,6 +492,14 @@ Provides swappable XML backends utilizing LibXML, Nokogiri, Ox, or REXML.
 <a href="http://opensource.org/licenses/mit-license">MIT</a> whitelisted
 
 Use with Net::HTTP to do multipart form posts.  IO values that have #content_type, #original_filename, and #local_path will be posted as a binary file.
+
+<a name="net-dhcp"></a>
+### <a href="http://github.com/mjtko/net-dhcp-ruby">net-dhcp</a> v1.3.2
+#### set of classes to low level handle the DHCP protocol
+
+GPLv3 whitelisted
+
+The aim of Net::DHCP is to provide a set of classes to low level handle the DHCP protocol (rfc2131, rfc2132, etc.). With Net::DHCP you will be able to craft custom DHCP packages and have access to all the fields defined for the protocol.
 
 <a name="net-http-persistent"></a>
 ### <a href="http://docs.seattlerb.org/net-http-persistent">net-http-persistent</a> v2.9.4
@@ -566,7 +559,7 @@ Control multiple Net::SSH connections via a single interface.
 New IO for Ruby
 
 <a name="nokogiri"></a>
-### <a href="http://nokogiri.org">nokogiri</a> v1.6.4.1
+### <a href="http://nokogiri.org">nokogiri</a> v1.6.5
 #### Nokogiri (鋸) is an HTML, XML, SAX, and Reader parser
 
 <a href="http://opensource.org/licenses/mit-license">MIT</a> whitelisted
@@ -578,7 +571,7 @@ XML is like violence - if it doesn’t solve your problems, you are not using
 enough of it.
 
 <a name="octokit"></a>
-### <a href="https://github.com/octokit/octokit.rb">octokit</a> v3.5.2
+### <a href="https://github.com/octokit/octokit.rb">octokit</a> v3.7.0
 #### Ruby toolkit for working with the GitHub API
 
 <a href="http://opensource.org/licenses/mit-license">MIT</a> whitelisted
@@ -586,7 +579,7 @@ enough of it.
 Simple wrapper for the GitHub API
 
 <a name="ohai"></a>
-### <a href="http://wiki.opscode.com/display/chef/Ohai">ohai</a> v7.4.0
+### <a href="https://docs.getchef.com/ohai.html">ohai</a> v8.0.1
 #### Ohai profiles your system and emits JSON
 
 <a href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache 2.0</a> whitelisted
@@ -594,7 +587,7 @@ Simple wrapper for the GitHub API
 Ohai profiles your system and emits JSON
 
 <a name="parser"></a>
-### <a href="http://github.com/whitequark/parser">parser</a> v2.2.0.pre.7
+### <a href="http://github.com/whitequark/parser">parser</a> v2.2.0.pre.8
 #### A Ruby parser written in pure Ruby.
 
 <a href="http://opensource.org/licenses/mit-license">MIT</a> whitelisted
@@ -638,7 +631,7 @@ A few useful extensions to core Ruby classes.
 An IRB alternative and runtime developer console
 
 <a name="rack"></a>
-### <a href="http://rack.github.com/">rack</a> v1.5.2
+### <a href="http://rack.github.io/">rack</a> v1.6.0
 #### a modular Ruby webserver interface
 
 <a href="http://opensource.org/licenses/mit-license">MIT</a> whitelisted
@@ -649,7 +642,7 @@ the simplest way possible, it unifies and distills the API for web
 servers, web frameworks, and software in between (the so-called
 middleware) into a single method call.
 
-Also see http://rack.github.com/.
+Also see http://rack.github.io/.
 
 
 <a name="rainbow"></a>
@@ -661,7 +654,7 @@ Also see http://rack.github.com/.
 Colorize printed text on ANSI terminals
 
 <a name="rake"></a>
-### <a href="https://github.com/jimweirich/rake">rake</a> v10.3.2 (default)
+### <a href="https://github.com/ruby/rake">rake</a> v10.4.2 (default)
 #### Rake is a Make-like program implemented in Ruby
 
 <a href="http://opensource.org/licenses/mit-license">MIT</a> whitelisted
@@ -689,14 +682,6 @@ Rake has the following features:
 
 * Supports parallel execution of tasks.
 
-<a name="rest-client"></a>
-### <a href="http://github.com/archiloque/rest-client">rest-client</a> v1.6.7
-#### Simple HTTP and REST client for Ruby, inspired by microframework syntax for specifying actions.
-
-<a href="http://opensource.org/licenses/mit-license">MIT</a> whitelisted
-
-A simple HTTP and REST client for Ruby, inspired by the Sinatra microframework style of specifying actions: get, put, post, delete.
-
 <a name="retryable"></a>
 ### <a href="http://github.com/nfedyashev/retryable">retryable</a> v1.3.6
 #### Kernel#retryable, allow for retrying of code blocks.
@@ -706,7 +691,7 @@ A simple HTTP and REST client for Ruby, inspired by the Sinatra microframework s
 Kernel#retryable, allow for retrying of code blocks.
 
 <a name="ridley"></a>
-### <a href="https://github.com/RiotGames/ridley">ridley</a> v4.1.0
+### <a href="https://github.com/RiotGames/ridley">ridley</a> v4.1.1
 #### A reliable Chef API client with a clean syntax
 
 <a href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache 2.0</a> whitelisted
@@ -762,7 +747,7 @@ RSpec's 'test double' framework, with support for stubbing and mocking
 Support utilities for RSpec gems
 
 <a name="rubocop"></a>
-### <a href="http://github.com/bbatsov/rubocop">rubocop</a> v0.27.1 (default)
+### <a href="http://github.com/bbatsov/rubocop">rubocop</a> v0.28.0 (default)
 #### Automatic Ruby code style checking tool.
 
 <a href="http://opensource.org/licenses/mit-license">MIT</a> whitelisted
@@ -799,7 +784,7 @@ LruHash class, a Hash with a max size, controlled by a LRU mechanism
 Parse YAML safely
 
 <a name="sawyer"></a>
-### <a href="https://github.com/lostisland/sawyer">sawyer</a> v0.5.5
+### <a href="https://github.com/lostisland/sawyer">sawyer</a> v0.6.0
 #### Secret User Agent of HTTP
 
 <a href="http://opensource.org/licenses/mit-license">MIT</a> whitelisted
@@ -814,7 +799,7 @@ Parse YAML safely
 An elegant library for representing and comparing SemVer versions and constraints
 
 <a name="sequel"></a>
-### <a href="http://sequel.jeremyevans.net">sequel</a> v4.16.0
+### <a href="http://sequel.jeremyevans.net">sequel</a> v4.17.0
 #### The Database Toolkit for Ruby
 
 <a href="http://opensource.org/licenses/mit-license">MIT</a> whitelisted
@@ -822,7 +807,7 @@ An elegant library for representing and comparing SemVer versions and constraint
 The Database Toolkit for Ruby
 
 <a name="serverspec"></a>
-### <a href="http://serverspec.org/">serverspec</a> v2.3.1 (default)
+### <a href="http://serverspec.org/">serverspec</a> v2.7.1 (default)
 #### RSpec tests for your servers configured by Puppet, Chef or anything else
 
 <a href="http://opensource.org/licenses/mit-license">MIT</a> whitelisted
@@ -846,7 +831,7 @@ A simple DSL for gathering options and parsing the command line
 A Ruby version constraint solver
 
 <a name="specinfra"></a>
-### specinfra v2.4.3
+### specinfra v2.10.3
 #### Common layer for serverspec and itamae
 
 <a href="http://opensource.org/licenses/mit-license">MIT</a> whitelisted
@@ -874,7 +859,7 @@ Note that this module is only compatible with SQLite 3.6.16 or newer.
 universal capture of stdout and stderr and handling of child process pid for windows, *nix, etc.
 
 <a name="test-kitchen"></a>
-### <a href="http://kitchen.ci">test-kitchen</a> v1.2.1 (integration)
+### <a href="http://kitchen.ci">test-kitchen</a> v1.2.2.dev (integration)
 #### Test Kitchen is an integration tool for developing and testing infrastructure code and software on isolated target platforms.
 
 <a href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache 2.0</a> whitelisted
@@ -902,6 +887,15 @@ Pure Ruby one-shot and periodic timers
 #### A Ruby-based text parsing and interpretation DSL
 
 <a href="http://opensource.org/licenses/mit-license">MIT</a> whitelisted
+
+
+<a name="uuidtools"></a>
+### <a href="https://github.com/sporkmonger/uuidtools">uuidtools</a> v2.1.5
+#### UUID generator
+
+<a href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache 2.0</a> whitelisted
+
+A simple universally unique ID generation library.
 
 
 <a name="varia_model"></a>

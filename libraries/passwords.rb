@@ -67,17 +67,13 @@ class Chef
         secret_file
       elsif !Chef::Config[:encrypted_data_bag_secret].empty?
         Chef::Config[:encrypted_data_bag_secret]
-      else
-        nil
       end
     end
 
     def data_bag_secret
-      if data_bag_secret_file
-        Chef::EncryptedDataBagItem.load_secret(data_bag_secret_file)
-      else
-        nil
-      end
+      return unless data_bag_secret_file
+
+      Chef::EncryptedDataBagItem.load_secret(data_bag_secret_file)
     end
   end
 end

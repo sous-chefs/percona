@@ -611,6 +611,7 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * generate configuration file before setting up data directory
     * ensure `includedir` is created if provided
     * add attribute `performance_schema`
+    * fix mysql root password update check
 
 
 ## License

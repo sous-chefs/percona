@@ -104,7 +104,7 @@ end
 
 # setup the main server config file
 template percona["main_config_file"] do
-  source "my.cnf.#{node["role"] == "cluster" ? "cluster" : "main"}.erb"
+  source "my.cnf.#{node["percona"]["server"]["role"] == "cluster" ? "cluster" : "main"}.erb"
   owner "root"
   group "root"
   mode "0644"

@@ -106,7 +106,7 @@ performance_schema=<%= node["percona"]["server"]["performance_schema"] ? "ON" : 
 #
 # * Fine Tuning
 #
-key_buffer = <%= node["percona"]["server"]["key_buffer"] %>
+key_buffer_size = <%= node["percona"]["server"]["key_buffer_size"] %>
 
 # The maximum size of a query packet the server can handle as well as
 # maximum query size server can process (Important when working with
@@ -397,7 +397,7 @@ max_allowed_packet = <%= node["percona"]["server"]["max_allowed_packet"] %>
 #no-auto-rehash # faster start of mysql but no tab completition
 
 [isamchk]
-key_buffer = <%= node["percona"]["server"]["key_buffer"] %>
+key_buffer_size = <%= node["percona"]["server"]["key_buffer_size"] %>
 
 #
 # * IMPORTANT: Additional settings that can override those from this file!

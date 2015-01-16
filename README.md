@@ -285,7 +285,7 @@ default["percona"]["server"]["bind_address"]  = "127.0.0.1"
 end
 
 # Fine Tuning
-default["percona"]["server"]["key_buffer"] = "16M"
+default["percona"]["server"]["key_buffer_size"] = "16M"
 default["percona"]["server"]["max_allowed_packet"] = "64M"
 default["percona"]["server"]["thread_stack"] = "192K"
 default["percona"]["server"]["query_alloc_block_size"] = "16K"
@@ -328,7 +328,7 @@ default["percona"]["server"]["log_long_format"] = false
 default["percona"]["server"]["bulk_insert_buffer_size"] = "64M"
 
 # MyISAM Specific
-default["percona"]["server"]["myisam_recover"] = "BACKUP"
+default["percona"]["server"]["myisam_recover_options"] = "BACKUP"
 default["percona"]["server"]["myisam_sort_buffer_size"] = "128M"
 default["percona"]["server"]["myisam_max_sort_file_size"] = "10G"
 default["percona"]["server"]["myisam_repair_threads"] = 1

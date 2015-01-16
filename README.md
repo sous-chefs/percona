@@ -283,7 +283,7 @@ default["percona"]["server"]["bind_address"]                    = "127.0.0.1"
 end
 
 # Fine Tuning
-default["percona"]["server"]["key_buffer"]                      = "16M"
+default["percona"]["server"]["key_buffer_size"]                 = "16M"
 default["percona"]["server"]["max_allowed_packet"]              = "64M"
 default["percona"]["server"]["thread_stack"]                    = "192K"
 default["percona"]["server"]["query_alloc_block_size"]          = "16K"

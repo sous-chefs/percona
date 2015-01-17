@@ -564,6 +564,7 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * enable InnoDB tuning for standalone and cluster
     * set proper `my.cnf` location based on platform family
     * add missing tunables to 'cluster' `my.cnf` template
+    * fix regression in cluster configuration template
 * **[@achied](https://github.com/achied)**
     * fix setting passwords if attribute not defined
 * **[@akshah123](https://github.com/akshah123)**

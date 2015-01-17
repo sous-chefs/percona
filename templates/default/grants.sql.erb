@@ -21,5 +21,7 @@ GRANT RELOAD, LOCK TABLES, REPLICATION CLIENT ON *.* TO '<%= node["percona"]["ba
 # Set the server root password. This should be preseeded by the package installation.
 SET PASSWORD FOR 'root'@'localhost' = PASSWORD('<%= @root_password %>');
 
+# Delete any anonymous user accounts from the installation.
+DELETE FROM mysql.user WHERE USER='';
 
 FLUSH PRIVILEGES;

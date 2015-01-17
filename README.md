@@ -14,11 +14,9 @@ Optionally installs:
 
 * [XtraBackup](http://www.percona.com/software/percona-xtrabackup/) hot backup software
 * [Percona Toolkit](http://www.percona.com/software/percona-toolkit/) advanced command-line tools
-* [XtraDB
-Cluster](http://www.percona.com/software/percona-xtradb-cluster/) high
-availability and high scalability solution for MySQL.
+* [XtraDB Cluster](http://www.percona.com/software/percona-xtradb-cluster/) high availability and high scalability solution for MySQL.
 * [Percona Monitoring Plugins](http://www.percona.com/software/percona-monitoring-plugins) various Nagios plugins for monitoring MySQL
-
+* [pam_auth] (http://www.percona.com/doc/percona-pam-for-mysql/) installs and configures PAM based authentication
 ## Requirements
 
 ### Supported Platforms
@@ -47,6 +45,7 @@ cause, and we'll make reasonable efforts to improve support:
 * [openssl](https://supermarket.getchef.com/cookbooks/openssl) Chef Cookbook
 * [yum](https://supermarket.getchef.com/cookbooks/yum) Chef LWRP Cookbook
 * [yum-epel](https://supermarket.getchef.com/cookbooks/yum-epel) Chef LWRP Cookbook
+* [build-essential](https://supermarket.chef.io/cookbooks/build-essential) Chef Cookbook
 
 ### Chef
 
@@ -83,6 +82,9 @@ This cookbook expects a `mysql` item  and a `system` item. Please refer to the o
 
 ### Skip passwords
 Set the `["percona"]["skip_passwords"]` attribute to skip setting up passwords. Removes the need for the encrypted data bag if using chef-solo. Is useful for setting up development and ci environments where you just want to use the root user with no password. If you are doing this you may want to set `[:percona][:server][:debian_username]` to be `"root"` also.
+
+### Enable PAM authentication
+Set the `["percona"]["enable_pamauth"]` attribute to install and configure PAM authentication.
 
 ### Skip Configure
 
@@ -240,6 +242,9 @@ default["percona"]["main_config_file"]                          = value_for_plat
 default["percona"]["keyserver"]                                 = "keys.gnupg.net"
 default["percona"]["encrypted_data_bag"]                        = "passwords"
 default["percona"]["encrypted_data_bag_secret_file"]            = ""
+default["percona"]["skip_passwords"]                            = false
+default["percona"]["skip_configure"]                            = false
+default["percona"]["enable_pamauth"]                            = false
 default["percona"]["use_percona_repos"]                         = true
 
 # Start percona server on boot

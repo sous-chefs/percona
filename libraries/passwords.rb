@@ -13,12 +13,17 @@ class Chef
     # helper for passwords
     def find_password(item, user, default = nil)
       begin
+        # attribute that controls use of chef-vault or encrypted data bags
+        vault = node["percona"]["use_chef-vault"]
+        # load password from the vault
+        pwds = ChefVault::Item.load(bag, item) if vault
         # load the encrypted data bag item, using a secret if specified
-        passwords = Chef::EncryptedDataBagItem.load(@bag, item, data_bag_secret)
+        pwds = Chef::EncryptedDataBagItem.load(@bag, item, secret) unless vault
         # now, let's look for the user password
-        password = passwords[user]
+        password = pwds[user]
       rescue
-        Chef::Log.info("Using non-encrypted password for #{user}, #{item}")
+        Chef::Log.info("Unable to load password for #{user}, #{item},"\
+                       "fall back to non-encrypted password")
       end
       # password will be nil if no encrypted data bag was loaded
       # fall back to the attribute on this node
@@ -70,7 +75,7 @@ class Chef
       end
     end
 
-    def data_bag_secret
+    def secret
       return unless data_bag_secret_file
 
       Chef::EncryptedDataBagItem.load_secret(data_bag_secret_file)

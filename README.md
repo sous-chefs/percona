@@ -240,6 +240,7 @@ default["percona"]["main_config_file"]                          = value_for_plat
 default["percona"]["keyserver"]                                 = "keys.gnupg.net"
 default["percona"]["encrypted_data_bag"]                        = "passwords"
 default["percona"]["encrypted_data_bag_secret_file"]            = ""
+default["percona"]["use_chef-vault"]                            = false
 default["percona"]["use_percona_repos"]                         = true
 
 # Start percona server on boot

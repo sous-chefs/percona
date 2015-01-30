@@ -14,9 +14,7 @@ Optionally installs:
 
 * [XtraBackup](http://www.percona.com/software/percona-xtrabackup/) hot backup software
 * [Percona Toolkit](http://www.percona.com/software/percona-toolkit/) advanced command-line tools
-* [XtraDB
-Cluster](http://www.percona.com/software/percona-xtradb-cluster/) high
-availability and high scalability solution for MySQL.
+* [XtraDB Cluster](http://www.percona.com/software/percona-xtradb-cluster/) high availability and high scalability solution for MySQL.
 * [Percona Monitoring Plugins](http://www.percona.com/software/percona-monitoring-plugins) various Nagios plugins for monitoring MySQL
 
 ## Requirements
@@ -80,6 +78,35 @@ This cookbook requires [Encrypted Data Bags](http://wiki.opscode.com/display/che
 To use encrypted passwords, you must create an encrypted data bag. This cookbook assumes a data bag named `passwords`, but you can override the name using the `node[:percona][:encrypted_data_bag]` attribute.  You can also optionally specify a data bag secret file to be loaded for the secret key using the `node[:percona][:encrypted_data_bag_secret_file]` attribute.
 
 This cookbook expects a `mysql` item  and a `system` item. Please refer to the official documentation on how to get this setup. It actually uses a MySQL example so it can be mostly copied. Ensure you cover the data bag items as described below.
+
+To store all passwords in a single data bag use the `node[:percona]["single_bag_name"]` attribute. This attribute specifies the data bag item to retrieve all passwords.
+```json
+	...
+  "default_attributes": {
+    "percona": {
+      "encrypted_data_bag": "myEncDataBag",
+      "encrypted_data_bag_secret_file": "/etc/chef/secret.key",
+      "single_bag_name": "secrets"
+	}
+  },
+	...
+```
+The single data bag item assumes the following structure in the data bag:
+```json
+{
+	...
+  "mysql": {
+    "root": "",
+    "backup": "",
+    "replication": ""
+  },
+  "system": {
+    "spud": "",
+    "debian-sys-maint": ""
+  }
+  ...
+}
+```
 
 ### Skip passwords
 Set the `["percona"]["skip_passwords"]` attribute to skip setting up passwords. Removes the need for the encrypted data bag if using chef-solo. Is useful for setting up development and ci environments where you just want to use the root user with no password. If you are doing this you may want to set `[:percona][:server][:debian_username]` to be `"root"` also.

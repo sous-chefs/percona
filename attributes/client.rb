@@ -20,7 +20,14 @@ when "debian"
     libperconaserverclient#{abi_version}-dev percona-server-client-#{version}
   ]
 when "rhel"
-  default["percona"]["client"]["packages"] = %W[
-    Percona-Server-devel-#{version} Percona-Server-client-#{version}
-  ]
+  case node["percona"]["server"]["role"]
+  when "standalone"
+    default["percona"]["client"]["packages"] = %W[
+      Percona-Server-devel-#{version} Percona-Server-client-#{version}
+    ]
+  when "cluster"
+    default["percona"]["client"]["packages"] = %W[
+      Percona-XtraDB-Cluster-devel-#{version} Percona-XtraDB-Cluster-client-#{version}
+    ]
+  end
 end

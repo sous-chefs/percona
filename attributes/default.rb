@@ -73,6 +73,8 @@ default["percona"]["server"]["connect_timeout"]                 = 10
 default["percona"]["server"]["wait_timeout"]                    = 28_800
 default["percona"]["server"]["old_passwords"]                   = 0
 default["percona"]["server"]["bind_address"]                    = "127.0.0.1"
+default["percona"]["server"]["federated"]                       = false
+
 %w[debian_password root_password].each do |attribute|
   next if attribute?(node["percona"]["server"][attribute])
   default["percona"]["server"][attribute]                       = secure_password
@@ -97,6 +99,7 @@ default["percona"]["server"]["sql_modes"]                       = []
 default["percona"]["server"]["table_cache"]                     = 8192
 default["percona"]["server"]["group_concat_max_len"]            = 4096
 default["percona"]["server"]["expand_fast_index_creation"]      = false
+default["percona"]["server"]["read_rnd_buffer_size"]            = 262144
 
 # Query Cache Configuration
 default["percona"]["server"]["query_cache_size"]                = "64M"

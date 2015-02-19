@@ -55,6 +55,10 @@ slave_load_tmpdir = <%= node["percona"]["server"]["tmpdir"] %>
 character_set_server = <%= node["percona"]["server"]["character_set"] %>
 collation_server  = <%= node["percona"]["server"]["collation"] %>
 
+<% if node["percona"]["server"]["federated"] %>
+federated
+<% end %>
+
 <% if node["percona"]["server"]["skip_name_resolve"] %>
 skip-name-resolve
 <% end %>
@@ -118,8 +122,13 @@ group_concat_max_len = <%= node["percona"]["server"]["group_concat_max_len"] %>
 
 <% if node["percona"]["server"]["expand_fast_index_creation"] %>
 expand_fast_index_creation
-
 <% end %>
+
+<% if node["percona"]["server"]["read_rnd_buffer_size"] %>
+# used for some sorts to optimally read rows after the sort
+read_rnd_buffer_size = <%= node["percona"]["server"]["read_rnd_buffer_size"] %>
+<% end %>
+
 # Thread stack size to use. This amount of memory is always reserved at
 # connection time. MySQL itself usually needs no more than 64K of
 # memory, while if you use your own stack hungry UDF functions or your

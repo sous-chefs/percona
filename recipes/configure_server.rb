@@ -17,6 +17,7 @@ template "/root/.my.cnf" do
   group "root"
   mode "0600"
   source "my.cnf.root.erb"
+  sensitive true if Chef::Resource::Template.method_defined? :sensitive
   not_if { node["percona"]["skip_passwords"] }
 end
 
@@ -108,7 +109,7 @@ template percona["main_config_file"] do
   owner "root"
   group "root"
   mode "0644"
-
+  sensitive true if Chef::Resource::Template.method_defined? :sensitive
   notifies :run, "execute[setup mysql datadir]", :immediately
   if node["percona"]["auto_restart"]
     notifies :restart, "service[mysql]", :immediately
@@ -119,6 +120,7 @@ end
 unless node["percona"]["skip_passwords"]
   execute "Update MySQL root password" do
     root_pw = passwords.root_password
+    sensitive true if Chef::Resource::Execute.method_defined? :sensitive
     command "mysqladmin --user=root --password='' password '#{root_pw}'"
     only_if "mysqladmin --user=root --password='' version"
   end
@@ -131,6 +133,7 @@ template "/etc/mysql/debian.cnf" do
   owner "root"
   group "root"
   mode "0640"
+  sensitive true if Chef::Resource::Template.method_defined? :sensitive
   if node["percona"]["auto_restart"]
     notifies :restart, "service[mysql]", :immediately
   end

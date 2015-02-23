@@ -93,7 +93,8 @@ describe "percona::configure_server" do
       expect(chef_run).to create_template("/root/.my.cnf").with(
         owner: "root",
         group: "root",
-        mode: "0600"
+        mode: "0600",
+        sensitive: true
       )
 
       expect(chef_run).to render_file("/root/.my.cnf").with_content("s3kr1t")
@@ -152,7 +153,8 @@ describe "percona::configure_server" do
       expect(chef_run).to create_template("/mysql/my.cnf").with(
         owner: "root",
         group: "root",
-        mode: "0644"
+        mode: "0644",
+        sensitive: true
       )
 
       expect(chef_run).to render_file("/mysql/my.cnf").with_content(
@@ -174,7 +176,8 @@ describe "percona::configure_server" do
       expect(chef_run).to create_template(debian_cnf).with(
         owner: "root",
         group: "root",
-        mode: "0640"
+        mode: "0640",
+        sensitive: true
       )
 
       expect(chef_run).to render_file(debian_cnf).with_content("d3b1an")
@@ -200,7 +203,8 @@ describe "percona::configure_server" do
       expect(chef_run).to create_template("/etc/my.cnf").with(
         owner: "root",
         group: "root",
-        mode: "0644"
+        mode: "0644",
+        sensitive: true
       )
 
       resource = chef_run.template("/etc/my.cnf")

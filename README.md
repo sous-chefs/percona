@@ -653,6 +653,8 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * ensure `includedir` is created if provided
     * add attribute `performance_schema`
     * fix mysql root password update check
+* **[@arnesund](https://github.com/arnesund)**
+    * fix package list for clusters based on CentOS
 
 
 ## License

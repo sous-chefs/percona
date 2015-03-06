@@ -1,19 +1,19 @@
 # chef-percona
 
-As of December 18, 2014  5:44pm. 97 total
+As of March  6, 2015  1:57pm. 101 total
 
 ## Summary
-* 55 MIT
+* 58 MIT
 * 29 Apache 2.0
 * 5 ruby
+* 2 other
 * 1 Apache 2.0, MIT
 * 1 BSD
-* 1 Apache v2
-* 1 GNU GPL v2, MIT, Perl Artistic v2
 * 1 ISC
 * 1 Artistic 2.0, GPL-2, MIT
+* 1 Apache v2
+* 1 GNU GPL v2, MIT, Perl Artistic v2
 * 1 New BSD
-* 1 GPLv3
 
 
 
@@ -21,7 +21,7 @@ As of December 18, 2014  5:44pm. 97 total
 
 
 <a name="addressable"></a>
-### <a href="http://addressable.rubyforge.org/">addressable</a> v2.3.6
+### <a href="http://addressable.rubyforge.org/">addressable</a> v2.3.7
 #### URI Implementation
 
 <a href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache 2.0</a> whitelisted
@@ -48,7 +48,7 @@ A library for working with Abstract Syntax Trees.
 An object-oriented AST extension for Parser
 
 <a name="berkshelf"></a>
-### <a href="http://berkshelf.com">berkshelf</a> v3.2.2 (default)
+### <a href="http://berkshelf.com">berkshelf</a> v3.2.3 (default)
 #### Manages a Cookbook's, or an Application's, Cookbook dependencies
 
 <a href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache 2.0</a> whitelisted
@@ -56,7 +56,7 @@ An object-oriented AST extension for Parser
 Manages a Cookbook's, or an Application's, Cookbook dependencies
 
 <a name="berkshelf-api-client"></a>
-### <a href="http://berkshelf.com">berkshelf-api-client</a> v1.2.0
+### <a href="http://berkshelf.com">berkshelf-api-client</a> v1.2.1
 #### API Client for communicating with a Berkshelf API server
 
 <a href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache 2.0</a> whitelisted
@@ -103,8 +103,21 @@ A mixin for querying the platform running Ruby
 
 A mixin for issuing shell commands and collecting the output
 
+<a name="builder"></a>
+### <a href="http://onestepback.org">builder</a> v3.2.2
+#### Builders for MarkUp.
+
+<a href="http://opensource.org/licenses/mit-license">MIT</a> whitelisted
+
+Builder provides a number of builder objects that make creating structured data
+simple to do.  Currently the following builder objects are supported:
+
+* XML Markup
+* XML Events
+
+
 <a name="bundler"></a>
-### bundler v1.7.6
+### bundler v1.7.12
 #### 
 
 <a href="http://opensource.org/licenses/mit-license">MIT</a> whitelisted
@@ -135,7 +148,7 @@ A Busser runner plugin for Serverspec
 Celluloid enables people to build concurrent programs out of concurrent objects just as easily as they build sequential programs out of sequential objects
 
 <a name="celluloid-io"></a>
-### <a href="http://github.com/celluloid/celluloid-io">celluloid-io</a> v0.16.1
+### <a href="http://github.com/celluloid/celluloid-io">celluloid-io</a> v0.16.2
 #### Celluloid::IO allows you to monitor multiple IO objects within a Celluloid actor
 
 <a href="http://opensource.org/licenses/mit-license">MIT</a> whitelisted
@@ -143,7 +156,7 @@ Celluloid enables people to build concurrent programs out of concurrent objects 
 Evented IO for Celluloid actors
 
 <a name="chef"></a>
-### <a href="http://www.getchef.com">chef</a> v12.0.3 (default)
+### <a href="http://www.getchef.com">chef</a> v12.1.0 (default)
 #### A systems integration framework, built to bring the benefits of configuration management to your entire infrastructure.
 
 <a href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache 2.0</a> whitelisted
@@ -151,12 +164,20 @@ Evented IO for Celluloid actors
 A systems integration framework, built to bring the benefits of configuration management to your entire infrastructure.
 
 <a name="chef-zero"></a>
-### <a href="http://www.opscode.com">chef-zero</a> v3.2.1
+### <a href="http://www.opscode.com">chef-zero</a> v4.0
 #### Self-contained, easy-setup, fast-start in-memory Chef server for testing and solo setup purposes
 
 <a href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache 2.0</a> whitelisted
 
 Self-contained, easy-setup, fast-start in-memory Chef server for testing and solo setup purposes
+
+<a name="chefspec"></a>
+### <a href="http://code.sethvargo.com/chefspec">chefspec</a> v4.2.0 (default)
+#### Write RSpec examples and generate coverage reports for Chef recipes!
+
+<a href="http://opensource.org/licenses/mit-license">MIT</a> whitelisted
+
+ChefSpec is a unit testing and resource coverage (code coverage) framework for testing Chef cookbooks ChefSpec makes it easy to write examples and get fast feedback on cookbook changes without the need for virtual machines or cloud servers.
 
 <a name="cleanroom"></a>
 ### <a href="https://github.com/sethvargo/cleanroom">cleanroom</a> v1.0.0
@@ -230,11 +251,19 @@ We are happy to report that this issue has been resolved.
 
 
 <a name="faraday"></a>
-### <a href="https://github.com/lostisland/faraday">faraday</a> v0.9.0
+### <a href="https://github.com/lostisland/faraday">faraday</a> v0.9.1
 #### HTTP/REST API client library.
 
 <a href="http://opensource.org/licenses/mit-license">MIT</a> whitelisted
 
+
+<a name="fauxhai"></a>
+### <a href="https://github.com/customink/fauxhai">fauxhai</a> v2.3.0
+#### Fauxhai provides an easy way to mock out your ohai data for testing with chefspec!
+
+<a href="http://opensource.org/licenses/mit-license">MIT</a> whitelisted
+
+Easily mock out ohai data
 
 <a name="ffi"></a>
 ### <a href="http://wiki.github.com/ffi/ffi">ffi</a> v1.9.6
@@ -245,7 +274,7 @@ We are happy to report that this issue has been resolved.
 Ruby FFI library
 
 <a name="ffi-yajl"></a>
-### <a href="http://github.com/opscode/ffi-yajl">ffi-yajl</a> v1.3.1
+### <a href="http://github.com/opscode/ffi-yajl">ffi-yajl</a> v1.4.0
 #### Ruby FFI wrapper around YAJL 2.x
 
 <a href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache 2.0</a> whitelisted
@@ -277,7 +306,7 @@ A fast Gherkin lexer/parser based on the Ragel State Machine Compiler.
 Hashie is a collection of classes and mixins that make hashes more powerful.
 
 <a name="highline"></a>
-### <a href="http://highline.rubyforge.org">highline</a> v1.6.21
+### <a href="https://github.com/JEG2/highline">highline</a> v1.7.1
 #### HighLine is a high-level command-line IO library.
 
 <a href="http://www.ruby-lang.org/en/LICENSE.txt">ruby</a> whitelisted
@@ -317,11 +346,12 @@ Makes http fun! Also, makes consuming restful web services dead easy.
 
 
 <a name="json"></a>
-### json v1.8.1
-#### This json is bundled with Ruby
+### <a href="http://flori.github.com/json">json</a> v1.8.2
+#### JSON Implementation for Ruby
 
 <a href="http://www.ruby-lang.org/en/LICENSE.txt">ruby</a> whitelisted
 
+This is a JSON implementation as a Ruby extension in C.
 
 <a name="kitchen-vagrant"></a>
 ### <a href="https://github.com/test-kitchen/kitchen-vagrant/">kitchen-vagrant</a> v0.15.0 (integration)
@@ -360,62 +390,61 @@ Installs a vendored copy of libyajl2 for distributions which lack it
 retrieve the sourcecode for a method
 
 <a name="mime-types"></a>
-### <a href="http://mime-types.rubyforge.org/">mime-types</a> v1.25.1
-#### This library allows for the identification of a file's likely MIME content type
+### <a href="https://github.com/halostatue/mime-types/">mime-types</a> v2.4.3
+#### The mime-types library provides a library and registry for information about MIME content type definitions
 
 <a href="http://opensource.org/licenses/mit-license">MIT</a>, Artistic 2.0, GPL-2 whitelisted
 
-This library allows for the identification of a file's likely MIME content
-type. This is release 1.25.1, fixing an issue with priority comparison for
-mime-types 1.x. The current release is 2.0, which only supports Ruby 1.9 or
-later.
+The mime-types library provides a library and registry for information about
+MIME content type definitions. It can be used to determine defined filename
+extensions for MIME types, or to use filename extensions to look up the likely
+MIME type definitions.
 
-Release 1.25.1 contains all features of 1.25, including the experimental
-caching and lazy loading functionality. The caching and lazy loading features
-were initially implemented by Greg Brockman (gdb). As these features are
-experimental, they are disabled by default and must be enabled through the use
-of environment variables. The cache is invalidated on a per-version basis; the
-cache for version 1.25 will not be reused for any later version.
+MIME content types are used in MIME-compliant communications, as in e-mail or
+HTTP traffic, to indicate the type of content which is transmitted. The
+mime-types library provides the ability for detailed information about MIME
+entities (provided as an enumerable collection of MIME::Type objects) to be
+determined and used programmatically. There are many types defined by RFCs and
+vendors, so the list is long but by definition incomplete; don't hesitate to to
+add additional type definitions (see Contributing.rdoc). The primary sources
+for MIME type definitions found in mime-types is the IANA collection of
+registrations (see below for the link), RFCs, and W3C recommendations.
 
-To use lazy loading, set the environment variable +RUBY_MIME_TYPES_LAZY_LOAD+
-to any value other than 'false'. When using lazy loading, the initial startup
-of MIME::Types is around 12–25× faster than normal startup (on my system,
-normal startup is about 90 ms; lazy startup is about 4 ms). This isn't
-generally useful, however, as the MIME::Types database has not been loaded.
-Lazy startup and load is just *slightly* faster—around 1 ms. The real advantage
-comes from using the cache.
+This is release 2.4.3, restoring full compatibility with Ruby 1.9.2 (which will
+be dropped in mime-types 3.0). It also includes the performance improvements
+from mime-types 2.4.2 (since yanked because of the broken Ruby 1.9.2 support)
+and the 2.4.1 fix of a bug in observed use of the mime-types library where
+extensions were not previously sorted, such that
 
-To enable the cache, set the environment variable +RUBY_MIME_TYPES_CACHE+ to a
-filename where MIME::Types will have read-write access. The first time a new
-version of MIME::Types is run using this file, it will be created, taking a
-little longer than normal. Subsequent loads using the same cache file will be
-approximately 3½× faster (25 ms) than normal loads. This can be combined with
-+RUBY_MIME_TYPES_LAZY_LOAD+, but this is *not* recommended in a multithreaded
-or multiprocess environment where all threads or processes will be using the
-same cache file.
+    MIME::Types.of('image.jpg').first.extensions.first
 
-As the caching interface is still experimental, the only values cached are the
-default MIME::Types database, not any custom MIME::Types added by users.
+returned a value of +jpeg+ in mime-types 1, but +jpe+ in mime-types 2. This was
+introduced because extensions were sorted during assignment
+(MIME::Type#extensions=). This behaviour has been reverted to protect clients
+that work as noted above. The preferred way to express this is the new method:
 
-MIME types are used in MIME-compliant communications, as in e-mail or HTTP
-traffic, to indicate the type of content which is transmitted. MIME::Types
-provides the ability for detailed information about MIME entities (provided as
-a set of MIME::Type objects) to be determined and used programmatically. There
-are many types defined by RFCs and vendors, so the list is long but not
-complete; don't hesitate to ask to add additional information. This library
-follows the IANA collection of MIME types (see below for reference).
+    MIME::Type.of('image.jpg').first.preferred_extension
 
-MIME::Types for Ruby was originally based on MIME::Types for Perl by Mark
-Overmeer, copyright 2001 - 2009.
+Łukasz Śliwa created the
+{friendly_mime}[https://github.com/lukaszsliwa/friendly_mime] gem, which offers
+friendly descriptive names for MIME types. This functionality and
+English-language data has been added to mime-types as MIME::Type#friendly. To
+make it easy for internationalization, MIME::Type#i18n_key has been added,
+which will return a key suitable for use with the
+{I18n}[https://github.com/svenfuchs/i18n] library.
 
-MIME::Types is built to conform to the MIME types of RFCs 2045 and 2231. It
-tracks the {IANA registry}[http://www.iana.org/assignments/media-types/]
-({ftp}[ftp://ftp.iana.org/assignments/media-types]) with some unofficial types
-added from the {LTSW collection}[http://www.ltsw.se/knbase/internet/mime.htp]
-and added by the users of MIME::Types.
+As a reminder, mime-types 2.x is no longer compatible with Ruby 1.8 and
+mime-types 1.x is only being maintained for security issues. No new MIME types
+or features will be added.
+
+mime-types (previously called MIME::Types for Ruby) was originally based on
+MIME::Types for Perl by Mark Overmeer, copyright 2001 - 2009. It is built to
+conform to the MIME types of RFCs 2045 and 2231. It tracks the {IANA Media
+Types registry}[https://www.iana.org/assignments/media-types/media-types.xhtml]
+with some types added by the users of mime-types.
 
 <a name="mini_portile"></a>
-### <a href="http://github.com/luislavena/mini_portile">mini_portile</a> v0.6.1
+### <a href="http://github.com/flavorjones/mini_portile">mini_portile</a> v0.6.2
 #### Simplistic port-like solution for developers
 
 <a href="http://opensource.org/licenses/mit-license">MIT</a> whitelisted
@@ -462,7 +491,7 @@ A class based configuration library
 
 
 <a name="mixlib-shellout"></a>
-### <a href="http://wiki.opscode.com/">mixlib-shellout</a> v2.0.0
+### <a href="http://wiki.opscode.com/">mixlib-shellout</a> v2.0.1
 #### Run external commands on Unix or Windows
 
 <a href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache 2.0</a> whitelisted
@@ -470,7 +499,7 @@ A class based configuration library
 Run external commands on Unix or Windows
 
 <a name="multi_json"></a>
-### <a href="http://github.com/intridea/multi_json">multi_json</a> v1.10.1
+### <a href="http://github.com/intridea/multi_json">multi_json</a> v1.11.0
 #### A common interface to multiple JSON libraries.
 
 <a href="http://opensource.org/licenses/mit-license">MIT</a> whitelisted
@@ -497,7 +526,11 @@ Use with Net::HTTP to do multipart form posts.  IO values that have #content_typ
 ### <a href="http://github.com/mjtko/net-dhcp-ruby">net-dhcp</a> v1.3.2
 #### set of classes to low level handle the DHCP protocol
 
-GPLv3 whitelisted
+other manually approved
+
+>
+
+><cite>  2015-03-06</cite>
 
 The aim of Net::DHCP is to provide a set of classes to low level handle the DHCP protocol (rfc2131, rfc2132, etc.). With Net::DHCP you will be able to craft custom DHCP packages and have access to all the fields defined for the protocol.
 
@@ -527,7 +560,7 @@ and retry according to RFC 2616.
 A pure Ruby implementation of the SCP client protocol
 
 <a name="net-ssh"></a>
-### <a href="https://github.com/net-ssh/net-ssh">net-ssh</a> v2.9.1
+### <a href="https://github.com/net-ssh/net-ssh">net-ssh</a> v2.9.2
 #### Net::SSH: a pure-Ruby implementation of the SSH2 client protocol.
 
 <a href="http://opensource.org/licenses/mit-license">MIT</a> whitelisted
@@ -551,7 +584,7 @@ A simple library to assist in establishing tunneled Net::SSH connections
 Control multiple Net::SSH connections via a single interface.
 
 <a name="nio4r"></a>
-### <a href="https://github.com/celluloid/nio4r">nio4r</a> v1.0.1
+### <a href="https://github.com/celluloid/nio4r">nio4r</a> v1.1.0
 #### NIO provides a high performance selector API for monitoring IO objects
 
 <a href="http://opensource.org/licenses/mit-license">MIT</a> whitelisted
@@ -559,7 +592,7 @@ Control multiple Net::SSH connections via a single interface.
 New IO for Ruby
 
 <a name="nokogiri"></a>
-### <a href="http://nokogiri.org">nokogiri</a> v1.6.5
+### <a href="http://nokogiri.org">nokogiri</a> v1.6.6.2
 #### Nokogiri (鋸) is an HTML, XML, SAX, and Reader parser
 
 <a href="http://opensource.org/licenses/mit-license">MIT</a> whitelisted
@@ -571,7 +604,7 @@ XML is like violence - if it doesn’t solve your problems, you are not using
 enough of it.
 
 <a name="octokit"></a>
-### <a href="https://github.com/octokit/octokit.rb">octokit</a> v3.7.0
+### <a href="https://github.com/octokit/octokit.rb">octokit</a> v3.8.0
 #### Ruby toolkit for working with the GitHub API
 
 <a href="http://opensource.org/licenses/mit-license">MIT</a> whitelisted
@@ -579,7 +612,7 @@ enough of it.
 Simple wrapper for the GitHub API
 
 <a name="ohai"></a>
-### <a href="https://docs.getchef.com/ohai.html">ohai</a> v8.0.1
+### <a href="https://docs.getchef.com/ohai.html">ohai</a> v8.1.1
 #### Ohai profiles your system and emits JSON
 
 <a href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache 2.0</a> whitelisted
@@ -587,7 +620,7 @@ Simple wrapper for the GitHub API
 Ohai profiles your system and emits JSON
 
 <a name="parser"></a>
-### <a href="http://github.com/whitequark/parser">parser</a> v2.2.0.pre.8
+### <a href="https://github.com/whitequark/parser">parser</a> v2.2.0.3
 #### A Ruby parser written in pure Ruby.
 
 <a href="http://opensource.org/licenses/mit-license">MIT</a> whitelisted
@@ -615,7 +648,7 @@ for the file type associated with a filename extension, and it
 augments 'require' to find and load matching files.
 
 <a name="powerpack"></a>
-### <a href="https://github.com/bbatsov/powerpack">powerpack</a> v0.0.9
+### <a href="https://github.com/bbatsov/powerpack">powerpack</a> v0.1.0
 #### A few useful extensions to core Ruby classes.
 
 <a href="http://opensource.org/licenses/mit-license">MIT</a> whitelisted
@@ -654,44 +687,26 @@ Also see http://rack.github.io/.
 Colorize printed text on ANSI terminals
 
 <a name="rake"></a>
-### <a href="https://github.com/ruby/rake">rake</a> v10.4.2 (default)
-#### Rake is a Make-like program implemented in Ruby
+### rake v10.4.2 (default)
+#### This rake is bundled with Ruby
 
-<a href="http://opensource.org/licenses/mit-license">MIT</a> whitelisted
+other manually approved
 
-Rake is a Make-like program implemented in Ruby. Tasks and dependencies are
-specified in standard Ruby syntax.
+>
 
-Rake has the following features:
+><cite>  2015-03-06</cite>
 
-* Rakefiles (rake's version of Makefiles) are completely defined in
-  standard Ruby syntax.  No XML files to edit.  No quirky Makefile
-  syntax to worry about (is that a tab or a space?)
-
-* Users can specify tasks with prerequisites.
-
-* Rake supports rule patterns to synthesize implicit tasks.
-
-* Flexible FileLists that act like arrays but know about manipulating
-  file names and paths.
-
-* A library of prepackaged tasks to make building rakefiles easier. For example,
-  tasks for building tarballs and publishing to FTP or SSH sites.  (Formerly
-  tasks for building RDoc and Gems were included in rake but they're now
-  available in RDoc and RubyGems respectively.)
-
-* Supports parallel execution of tasks.
 
 <a name="retryable"></a>
-### <a href="http://github.com/nfedyashev/retryable">retryable</a> v1.3.6
-#### Kernel#retryable, allow for retrying of code blocks.
+### <a href="http://github.com/nfedyashev/retryable">retryable</a> v2.0.1
+#### Retryable#retryable, allow for retrying of code blocks.
 
 <a href="http://opensource.org/licenses/mit-license">MIT</a> whitelisted
 
-Kernel#retryable, allow for retrying of code blocks.
+Retryable#retryable, allow for retrying of code blocks.
 
 <a name="ridley"></a>
-### <a href="https://github.com/RiotGames/ridley">ridley</a> v4.1.1
+### <a href="https://github.com/RiotGames/ridley">ridley</a> v4.1.2
 #### A reliable Chef API client with a clean syntax
 
 <a href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache 2.0</a> whitelisted
@@ -699,55 +714,63 @@ Kernel#retryable, allow for retrying of code blocks.
 A reliable Chef API client with a clean syntax
 
 <a name="rspec"></a>
-### <a href="http://github.com/rspec">rspec</a> v3.1.0
-#### rspec-3.1.0
+### <a href="http://github.com/rspec">rspec</a> v3.2.0
+#### rspec-3.2.0
 
 <a href="http://opensource.org/licenses/mit-license">MIT</a> whitelisted
 
 BDD for Ruby
 
 <a name="rspec-core"></a>
-### <a href="http://github.com/rspec/rspec-core">rspec-core</a> v3.1.7
-#### rspec-core-3.1.7
+### <a href="http://github.com/rspec/rspec-core">rspec-core</a> v3.2.1
+#### rspec-core-3.2.1
 
 <a href="http://opensource.org/licenses/mit-license">MIT</a> whitelisted
 
 BDD for Ruby. RSpec runner and example groups.
 
 <a name="rspec-expectations"></a>
-### <a href="http://github.com/rspec/rspec-expectations">rspec-expectations</a> v3.1.2
-#### rspec-expectations-3.1.2
+### <a href="http://github.com/rspec/rspec-expectations">rspec-expectations</a> v3.2.0
+#### rspec-expectations-3.2.0
 
 <a href="http://opensource.org/licenses/mit-license">MIT</a> whitelisted
 
 rspec-expectations provides a simple, readable API to express expected outcomes of a code example.
 
 <a name="rspec-its"></a>
-### <a href="https://github.com/rspec/rspec-its">rspec-its</a> v1.1.0
-#### Provides "its" method formally part of rspec-core
+### <a href="https://github.com/rspec/rspec-its">rspec-its</a> v1.2.0
+#### Provides "its" method formerly part of rspec-core
 
 <a href="http://opensource.org/licenses/mit-license">MIT</a> whitelisted
 
 RSpec extension gem for attribute matching
 
 <a name="rspec-mocks"></a>
-### <a href="http://github.com/rspec/rspec-mocks">rspec-mocks</a> v3.1.3
-#### rspec-mocks-3.1.3
+### <a href="http://github.com/rspec/rspec-mocks">rspec-mocks</a> v3.2.1
+#### rspec-mocks-3.2.1
 
 <a href="http://opensource.org/licenses/mit-license">MIT</a> whitelisted
 
 RSpec's 'test double' framework, with support for stubbing and mocking
 
 <a name="rspec-support"></a>
-### <a href="https://github.com/rspec/rspec-support">rspec-support</a> v3.1.2
-#### rspec-support-3.1.2
+### <a href="https://github.com/rspec/rspec-support">rspec-support</a> v3.2.2
+#### rspec-support-3.2.2
 
 <a href="http://opensource.org/licenses/mit-license">MIT</a> whitelisted
 
 Support utilities for RSpec gems
 
+<a name="rspec_junit_formatter"></a>
+### <a href="http://github.com/sj26/rspec_junit_formatter">rspec_junit_formatter</a> v0.2.0
+#### RSpec JUnit XML formatter
+
+<a href="http://opensource.org/licenses/mit-license">MIT</a> whitelisted
+
+RSpec results that Hudson can read.
+
 <a name="rubocop"></a>
-### <a href="http://github.com/bbatsov/rubocop">rubocop</a> v0.28.0 (default)
+### <a href="http://github.com/bbatsov/rubocop">rubocop</a> v0.29.1 (default)
 #### Automatic Ruby code style checking tool.
 
 <a href="http://opensource.org/licenses/mit-license">MIT</a> whitelisted
@@ -757,7 +780,7 @@ Support utilities for RSpec gems
 
 
 <a name="ruby-progressbar"></a>
-### <a href="https://github.com/jfelchner/ruby-progressbar">ruby-progressbar</a> v1.7.0
+### <a href="https://github.com/jfelchner/ruby-progressbar">ruby-progressbar</a> v1.7.1
 #### Ruby/ProgressBar is a flexible text progress bar library for Ruby.
 
 <a href="http://opensource.org/licenses/mit-license">MIT</a> whitelisted
@@ -799,7 +822,7 @@ Parse YAML safely
 An elegant library for representing and comparing SemVer versions and constraints
 
 <a name="sequel"></a>
-### <a href="http://sequel.jeremyevans.net">sequel</a> v4.17.0
+### <a href="http://sequel.jeremyevans.net">sequel</a> v4.20.0
 #### The Database Toolkit for Ruby
 
 <a href="http://opensource.org/licenses/mit-license">MIT</a> whitelisted
@@ -807,12 +830,12 @@ An elegant library for representing and comparing SemVer versions and constraint
 The Database Toolkit for Ruby
 
 <a name="serverspec"></a>
-### <a href="http://serverspec.org/">serverspec</a> v2.7.1 (default)
-#### RSpec tests for your servers configured by Puppet, Chef or anything else
+### <a href="http://serverspec.org/">serverspec</a> v2.10.0 (default)
+#### RSpec tests for your servers configured by Puppet, Chef, Itamae or anything else
 
 <a href="http://opensource.org/licenses/mit-license">MIT</a> whitelisted
 
-RSpec tests for your servers configured by Puppet, Chef or anything else
+RSpec tests for your servers configured by Puppet, Chef, Itamae or anything else
 
 <a name="slop"></a>
 ### <a href="http://github.com/leejarvis/slop">slop</a> v3.6.0
@@ -831,7 +854,7 @@ A simple DSL for gathering options and parsing the command line
 A Ruby version constraint solver
 
 <a name="specinfra"></a>
-### specinfra v2.10.3
+### specinfra v2.18.2
 #### Common layer for serverspec and itamae
 
 <a href="http://opensource.org/licenses/mit-license">MIT</a> whitelisted
@@ -859,7 +882,7 @@ Note that this module is only compatible with SQLite 3.6.16 or newer.
 universal capture of stdout and stderr and handling of child process pid for windows, *nix, etc.
 
 <a name="test-kitchen"></a>
-### <a href="http://kitchen.ci">test-kitchen</a> v1.2.2.dev (integration)
+### <a href="http://kitchen.ci">test-kitchen</a> v1.3.1 (integration)
 #### Test Kitchen is an integration tool for developing and testing infrastructure code and software on isolated target platforms.
 
 <a href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache 2.0</a> whitelisted
@@ -915,7 +938,7 @@ A mixin to provide objects with magic attribute reading and writing
 A lightweight utility over win32ole for accessing basic WMI (Windows Management Instrumentation) functionality in the Microsoft Windows operating system. It has no runtime dependencies other than Ruby, so it can be used without concerns around dependency issues.
 
 <a name="xml-simple"></a>
-### <a href="https://github.com/maik/xml-simple">xml-simple</a> v1.1.4
+### <a href="https://github.com/maik/xml-simple">xml-simple</a> v1.1.5
 #### A simple API for XML processing.
 
 <a href="http://www.ruby-lang.org/en/LICENSE.txt">ruby</a> whitelisted

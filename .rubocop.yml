@@ -1,3 +1,9 @@
+AllCops:
+  Exclude:
+    - ".bundle/**/*"
+    - ".kitchen/**/*"
+    - "vendor/**/*"
+
 LineLength:
   Max: 80
   Exclude:

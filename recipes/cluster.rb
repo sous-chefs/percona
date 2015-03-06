@@ -26,6 +26,7 @@ when "debian"
 when "rhel"
   package "mysql-libs" do
     action :remove
+    not_if "rpm -qa | grep -q '#{node["percona"]["cluster"]["package"]}'"
   end
 
   # This is required for `socat` per:

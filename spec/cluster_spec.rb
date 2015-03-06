@@ -52,6 +52,11 @@ describe "percona::cluster" do
         end.converge(described_recipe)
       end
 
+      before do
+        stub_command("rpm -qa | grep -q 'Percona-XtraDB-Cluster-55'")
+          .and_return(false)
+      end
+
       specify do
         expect(chef_run).to remove_package "mysql-libs"
 
@@ -94,6 +99,11 @@ describe "percona::cluster" do
         ChefSpec::SoloRunner.new(env_options) do |node|
           node.set["percona"]["version"] = "5.6"
         end.converge(described_recipe)
+      end
+
+      before do
+        stub_command("rpm -qa | grep -q 'Percona-XtraDB-Cluster-56'")
+          .and_return(false)
       end
 
       specify do

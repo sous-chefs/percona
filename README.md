@@ -399,14 +399,46 @@ default["percona"]["cluster"]["innodb_locks_unsafe_for_binlog"] = 1
 default["percona"]["cluster"]["innodb_autoinc_lock_mode"] = 2
 ```
 
-### Monitoring.rb
+### client.rb
+
+```ruby
+version = value_for_platform_family(
+  "debian" => node["percona"]["version"],
+  "rhel" => node["percona"]["version"].tr(".", "")
+)
+
+case node["platform_family"]
+when "debian"
+  abi_version = case version
+                when "5.5" then "18"
+                when "5.6" then "18.1"
+                else ""
+                end
+
+  default["percona"]["client"]["packages"] = %W[
+    libperconaserverclient#{abi_version}-dev percona-server-client-#{version}
+  ]
+when "rhel"
+  if Array(node["percona"]["server"]["role"]).include?("cluster")
+    default["percona"]["client"]["packages"] = %W[
+      Percona-XtraDB-Cluster-devel-#{version} Percona-XtraDB-Cluster-client-#{version}
+    ]
+  else
+    default["percona"]["client"]["packages"] = %W[
+      Percona-Server-devel-#{version} Percona-Server-client-#{version}
+    ]
+  end
+end
+```
+
+### monitoring.rb
 
 ```ruby
 default["percona"]["plugins_version"] = "1.1.3"
 default["percona"]["plugins_packages"] = %w[percona-nagios-plugins percona-zabbix-templates percona-cacti-templates]
 ```
 
-### Package_repo.rb
+### package_repo.rb
 
 ```ruby
 default["percona"]["yum"]["description"] = "Percona Packages"

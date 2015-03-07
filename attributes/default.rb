@@ -3,7 +3,14 @@
 # Attributes:: default
 #
 
-::Chef::Node.send(:include, Opscode::OpenSSL::Password)
+# include the openssl cookbook password library
+if defined?(::Opscode::OpenSSL::Password)
+  ::Chef::Node.send(:include, ::Opscode::OpenSSL::Password)
+elsif defined?(::OpenSSLCookbook::Password)
+  ::Chef::Node.send(:include, ::OpenSSLCookbook::Password)
+elsif defined?(::Chef::OpenSSL::Password)
+  ::Chef::Node.send(:include, ::Chef::OpenSSL::Password)
+end
 
 default["percona"]["version"] = "5.6"
 version = node["percona"]["version"]

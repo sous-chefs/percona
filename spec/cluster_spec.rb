@@ -62,7 +62,6 @@ describe "percona::cluster" do
 
         expect(chef_run).to include_recipe "yum-epel"
 
-        expect(chef_run).to install_package "Percona-Server-shared-compat"
         expect(chef_run).to install_package centos_cluster_package
       end
     end
@@ -111,7 +110,6 @@ describe "percona::cluster" do
 
         expect(chef_run).to include_recipe "yum-epel"
 
-        expect(chef_run).to install_package "Percona-Server-shared-compat"
         expect(chef_run).to install_package centos_cluster_package
       end
     end

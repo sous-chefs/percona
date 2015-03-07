@@ -1,19 +1,20 @@
 # chef-percona
 
-As of March  6, 2015  1:57pm. 101 total
+As of March  7, 2015 11:37am. 102 total
 
 ## Summary
-* 58 MIT
+* 59 MIT
 * 29 Apache 2.0
 * 5 ruby
-* 2 other
-* 1 Apache 2.0, MIT
 * 1 BSD
-* 1 ISC
-* 1 Artistic 2.0, GPL-2, MIT
 * 1 Apache v2
 * 1 GNU GPL v2, MIT, Perl Artistic v2
+* 1 Apache 2.0, MIT
 * 1 New BSD
+* 1 ISC
+* 1 Artistic 2.0, GPL-2, MIT
+* 1 other
+* 1 Apache License, v2.0
 
 
 
@@ -162,6 +163,18 @@ Evented IO for Celluloid actors
 <a href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache 2.0</a> whitelisted
 
 A systems integration framework, built to bring the benefits of configuration management to your entire infrastructure.
+
+<a name="chef-vault"></a>
+### <a href="https://github.com/Nordstrom/chef-vault">chef-vault</a> v2.5.0 (default)
+#### Data encryption support for Chef using data bags
+
+Apache License, v2.0 manually approved
+
+>
+
+><cite>  2015-03-07</cite>
+
+Data encryption support for Chef using data bags
 
 <a name="chef-zero"></a>
 ### <a href="http://www.opscode.com">chef-zero</a> v4.0
@@ -687,15 +700,37 @@ Also see http://rack.github.io/.
 Colorize printed text on ANSI terminals
 
 <a name="rake"></a>
-### rake v10.4.2 (default)
-#### This rake is bundled with Ruby
+### <a href="https://github.com/ruby/rake">rake</a> v10.4.2 (default)
+#### Rake is a Make-like program implemented in Ruby
 
-other manually approved
+<a href="http://opensource.org/licenses/mit-license">MIT</a> manually approved
 
 >
 
 ><cite>  2015-03-06</cite>
 
+Rake is a Make-like program implemented in Ruby. Tasks and dependencies are
+specified in standard Ruby syntax.
+
+Rake has the following features:
+
+* Rakefiles (rake's version of Makefiles) are completely defined in
+  standard Ruby syntax.  No XML files to edit.  No quirky Makefile
+  syntax to worry about (is that a tab or a space?)
+
+* Users can specify tasks with prerequisites.
+
+* Rake supports rule patterns to synthesize implicit tasks.
+
+* Flexible FileLists that act like arrays but know about manipulating
+  file names and paths.
+
+* A library of prepackaged tasks to make building rakefiles easier. For example,
+  tasks for building tarballs and publishing to FTP or SSH sites.  (Formerly
+  tasks for building RDoc and Gems were included in rake but they're now
+  available in RDoc and RubyGems respectively.)
+
+* Supports parallel execution of tasks.
 
 <a name="retryable"></a>
 ### <a href="http://github.com/nfedyashev/retryable">retryable</a> v2.0.1
@@ -854,7 +889,7 @@ A simple DSL for gathering options and parsing the command line
 A Ruby version constraint solver
 
 <a name="specinfra"></a>
-### specinfra v2.18.2
+### specinfra v2.18.3
 #### Common layer for serverspec and itamae
 
 <a href="http://opensource.org/licenses/mit-license">MIT</a> whitelisted

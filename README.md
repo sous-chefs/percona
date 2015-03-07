@@ -241,6 +241,7 @@ default["percona"]["main_config_file"] = value_for_platform_family(
 default["percona"]["keyserver"] = "keys.gnupg.net"
 default["percona"]["encrypted_data_bag"] = "passwords"
 default["percona"]["encrypted_data_bag_secret_file"] = ""
+default["percona"]["use_chef_vault"] = false
 default["percona"]["skip_passwords"] = false
 default["percona"]["skip_configure"] = false
 
@@ -657,6 +658,7 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * fix package list for clusters based on CentOS
     * avoid uninstall of `mysql-libs` when not needed
     * fix XtraDB Cluster 5.6 installation on CentOS 7
+    * add support for `chef-vault`
 
 
 ## License

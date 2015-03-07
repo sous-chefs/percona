@@ -23,6 +23,7 @@ depends "build-essential"
 depends "openssl"
 depends "yum", "~> 3.0"
 depends "yum-epel"
+depends "chef-vault"
 
 supports "debian"
 supports "ubuntu"

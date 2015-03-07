@@ -29,22 +29,23 @@
       <div class="span5">
         <h2>Dependencies</h2>
 
-        <p>As of March  6, 2015  1:57pm</p>
+        <p>As of March  7, 2015 11:37am</p>
 
-        <h4>101 total</h4>
+        <h4>102 total</h4>
 
         <ul>
-                      <li>58 MIT</li>
+                      <li>59 MIT</li>
                       <li>29 Apache 2.0</li>
                       <li>5 ruby</li>
-                      <li>2 other</li>
-                      <li>1 Apache 2.0, MIT</li>
                       <li>1 BSD</li>
-                      <li>1 ISC</li>
-                      <li>1 Artistic 2.0, GPL-2, MIT</li>
                       <li>1 Apache v2</li>
                       <li>1 GNU GPL v2, MIT, Perl Artistic v2</li>
+                      <li>1 Apache 2.0, MIT</li>
                       <li>1 New BSD</li>
+                      <li>1 ISC</li>
+                      <li>1 Artistic 2.0, GPL-2, MIT</li>
+                      <li>1 other</li>
+                      <li>1 Apache License, v2.0</li>
                   </ul>
       </div>
           </div>
@@ -426,11 +427,34 @@ simple to do.  Currently the following builder objects are supported:
         <p>A systems integration framework, built to bring the benefits of configuration management to your entire infrastructure.</p>
                   <dl>
             <dt>chef is required by:</dt>
-            <dd>busser, ohai, chefspec</dd>
+            <dd>busser, ohai, chefspec, chef-vault</dd>
           </dl>
                           <dl>
             <dt>chef relies on:</dt>
             <dd>mixlib-config, mixlib-cli, mixlib-log, mixlib-authentication, mixlib-shellout, ohai, ffi-yajl, net-ssh, net-ssh-multi, highline, erubis, diff-lcs, chef-zero, pry, plist, rack, rake, rspec-core, rspec-expectations, rspec-mocks, rspec_junit_formatter, serverspec, specinfra</dd>
+          </dl>
+              </div>
+          <div id="chef-vault" class="clearfix approved">
+        <blockquote class="pull-right">
+                      <p>
+            Apache License, v2.0
+              manually approved
+              <span class="badge badge-success">&#x2713;</span>
+            </p>
+            <p></p>
+            <small>
+                            <time datetime="2015-03-07T19:37:18Z">2015-03-07</time>
+            </small>
+                  </blockquote>
+        <h2>
+          <a href="https://github.com/Nordstrom/chef-vault">chef-vault</a>
+          <small>v2.5.0 (default)</small>
+        </h2>
+        <h4>Data encryption support for Chef using data bags</h4>
+        <p>Data encryption support for Chef using data bags</p>
+                          <dl>
+            <dt>chef-vault relies on:</dt>
+            <dd>rake, rspec, rspec-its, rubocop, chef</dd>
           </dl>
               </div>
           <div id="chef-zero" class="clearfix approved">
@@ -1677,7 +1701,7 @@ Also see http://rack.github.io/.
           <div id="rake" class="clearfix approved">
         <blockquote class="pull-right">
                       <p>
-            other
+            <a href="http://opensource.org/licenses/mit-license">MIT</a>
               manually approved
               <span class="badge badge-success">&#x2713;</span>
             </p>
@@ -1687,14 +1711,35 @@ Also see http://rack.github.io/.
             </small>
                   </blockquote>
         <h2>
-          rake
+          <a href="https://github.com/ruby/rake">rake</a>
           <small>v10.4.2 (default)</small>
         </h2>
-        <h4>This rake is bundled with Ruby</h4>
-        <p></p>
+        <h4>Rake is a Make-like program implemented in Ruby</h4>
+        <p>Rake is a Make-like program implemented in Ruby. Tasks and dependencies are
+specified in standard Ruby syntax.
+
+Rake has the following features:
+
+* Rakefiles (rake's version of Makefiles) are completely defined in
+  standard Ruby syntax.  No XML files to edit.  No quirky Makefile
+  syntax to worry about (is that a tab or a space?)
+
+* Users can specify tasks with prerequisites.
+
+* Rake supports rule patterns to synthesize implicit tasks.
+
+* Flexible FileLists that act like arrays but know about manipulating
+  file names and paths.
+
+* A library of prepackaged tasks to make building rakefiles easier. For example,
+  tasks for building tarballs and publishing to FTP or SSH sites.  (Formerly
+  tasks for building RDoc and Gems were included in rake but they're now
+  available in RDoc and RubyGems respectively.)
+
+* Supports parallel execution of tasks.</p>
                   <dl>
             <dt>rake is required by:</dt>
-            <dd>addressable, ast, slop, parser, astrolabe, berkshelf-api-client, buff-extensions, hashie, varia_model, buff-config, buff-ruby_engine, buff-shell_out, hitimes, timers, celluloid, nio4r, celluloid-io, cleanroom, buff-ignore, mixlib-log, semverse, dep-selector-libgecode, ffi, dep_selector, berkshelf, busser, busser-serverspec, libyajl2, ffi-yajl, rack, chef-zero, diff-lcs, mime-types, mixlib-cli, mixlib-config, wmi-lite, ohai, method_source, chef, rspec-support, rspec-core, rspec-expectations, rspec-mocks, gherkin, nokogiri, rufus-lru, treetop, foodcritic, test-kitchen, license_finder, powerpack, rainbow, rspec-its, rubocop, specinfra, serverspec, fauxhai, chefspec, uuidtools, net-dhcp</dd>
+            <dd>addressable, ast, slop, parser, astrolabe, berkshelf-api-client, buff-extensions, hashie, varia_model, buff-config, buff-ruby_engine, buff-shell_out, hitimes, timers, celluloid, nio4r, celluloid-io, cleanroom, buff-ignore, mixlib-log, semverse, dep-selector-libgecode, ffi, dep_selector, berkshelf, busser, busser-serverspec, libyajl2, ffi-yajl, rack, chef-zero, diff-lcs, mime-types, mixlib-cli, mixlib-config, wmi-lite, ohai, method_source, chef, rspec-support, rspec-core, rspec-expectations, rspec-mocks, gherkin, nokogiri, rufus-lru, treetop, foodcritic, test-kitchen, license_finder, powerpack, rainbow, rspec-its, rubocop, specinfra, serverspec, fauxhai, chefspec, uuidtools, net-dhcp, chef-vault</dd>
           </dl>
                       </div>
           <div id="retryable" class="clearfix approved">
@@ -1759,7 +1804,7 @@ Also see http://rack.github.io/.
         <p>BDD for Ruby</p>
                   <dl>
             <dt>rspec is required by:</dt>
-            <dd>addressable, astrolabe, berkshelf-api-client, buff-extensions, hashie, varia_model, buff-config, buff-ruby_engine, buff-shell_out, timers, celluloid, nio4r, celluloid-io, cleanroom, buff-ignore, mixlib-log, ffi, dep_selector, berkshelf, libyajl2, ffi-yajl, chef-zero, diff-lcs, mixlib-cli, mixlib-config, mixlib-shellout, wmi-lite, gherkin, rufus-lru, treetop, yajl-ruby, license_finder, powerpack, rainbow, ruby-progressbar, rubocop, specinfra, serverspec, chefspec, sequel, uuidtools, net-dhcp, rspec_junit_formatter</dd>
+            <dd>addressable, astrolabe, berkshelf-api-client, buff-extensions, hashie, varia_model, buff-config, buff-ruby_engine, buff-shell_out, timers, celluloid, nio4r, celluloid-io, cleanroom, buff-ignore, mixlib-log, ffi, dep_selector, berkshelf, libyajl2, ffi-yajl, chef-zero, diff-lcs, mixlib-cli, mixlib-config, mixlib-shellout, wmi-lite, gherkin, rufus-lru, treetop, yajl-ruby, license_finder, powerpack, rainbow, ruby-progressbar, rubocop, specinfra, serverspec, chefspec, sequel, uuidtools, net-dhcp, rspec_junit_formatter, chef-vault</dd>
           </dl>
                           <dl>
             <dt>rspec relies on:</dt>
@@ -1828,7 +1873,7 @@ Also see http://rack.github.io/.
         <p>RSpec extension gem for attribute matching</p>
                   <dl>
             <dt>rspec-its is required by:</dt>
-            <dd>license_finder, specinfra, serverspec, addressable</dd>
+            <dd>license_finder, specinfra, serverspec, addressable, chef-vault</dd>
           </dl>
                           <dl>
             <dt>rspec-its relies on:</dt>
@@ -1922,7 +1967,7 @@ Also see http://rack.github.io/.
 </p>
                   <dl>
             <dt>rubocop is required by:</dt>
-            <dd>astrolabe, celluloid</dd>
+            <dd>astrolabe, celluloid, chef-vault</dd>
           </dl>
                           <dl>
             <dt>rubocop relies on:</dt>
@@ -2145,7 +2190,7 @@ percentage, bars of various formats, elapsed time and estimated time remaining.
                   </blockquote>
         <h2>
           specinfra
-          <small>v2.18.2</small>
+          <small>v2.18.3</small>
         </h2>
         <h4>Common layer for serverspec and itamae</h4>
         <p>Common layer for serverspec and itamae</p>

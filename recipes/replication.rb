@@ -16,6 +16,7 @@ template replication_sql do
   owner "root"
   group "root"
   mode "0600"
+  sensitive true
   only_if do
     server["replication"]["host"] != "" || server["role"].include?("master")
   end

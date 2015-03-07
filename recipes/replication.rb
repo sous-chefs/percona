@@ -24,9 +24,9 @@ end
 root_pass = passwords.root_password.to_s
 root_pass = Shellwords.escape(root_pass).prepend("-p") unless root_pass.empty?
 
-execute "mysql-set-replication" do
+execute "mysql-set-replication" do  # ~FC009 - `sensitive`
   command "/usr/bin/mysql #{root_pass} < #{replication_sql}"
   action :nothing
   subscribes :run, resources("template[#{replication_sql}]"), :immediately
-  sensitive true if Chef::Resource::Execute.method_defined? :sensitive
+  sensitive true
 end

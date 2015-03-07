@@ -28,6 +28,7 @@ We provide an expanding set of tests against the following 64-bit platforms:
 * Ubuntu Precise 12.04 LTS
 * Ubuntu Trusty 14.04 LTS
 * CentOS 6.5
+* CentOS 7.0
 
 Although we don't test against all possible platform verions, we expect
 the following to be supported. Please submit an issue if this is not the
@@ -50,7 +51,9 @@ cause, and we'll make reasonable efforts to improve support:
 
 ### Chef
 
-We aim to test the most recent releases of Chef 10 and 11. You can view
+This cookbook requires Chef >= 11.14.2 due to the use of the `sensitive` attribute for some resources.
+
+We aim to test the most recent releases of Chef. You can view
 the [currently tested versions](https://github.com/phlipper/chef-percona/blob/master/.travis.yml).
 (Feel free to submit a pull request if they're out of date!)
 
@@ -482,12 +485,11 @@ In no particular order:
 * Be the most flexible way to setup a MySQL distribution through Chef
     * Support for Chef Solo
     * Support for Chef Server
-* Leverage to official Opscode MySQL cookbook as much as possible.
 * Support the following common database infrastructures:
     * Single server instance
     * Traditional Master/Slave replication
     * Multi-master cluster replication
-* Support the most recent Chef 10 & 11 runtime environments
+* Support the most recent Chef runtime environments
 * Be the easiest way to setup a MySQL distribution through Chef
 
 

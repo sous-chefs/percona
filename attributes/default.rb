@@ -42,7 +42,7 @@ default["percona"]["main_config_file"] = value_for_platform_family(
 default["percona"]["keyserver"] = "keys.gnupg.net"
 default["percona"]["encrypted_data_bag"] = "passwords"
 default["percona"]["encrypted_data_bag_secret_file"] = ""
-default["percona"]["use_chef-vault"] = false
+default["percona"]["use_chef_vault"] = false
 default["percona"]["skip_passwords"] = false
 default["percona"]["skip_configure"] = false
 

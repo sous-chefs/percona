@@ -4,6 +4,7 @@ chef_version = ENV.fetch("CHEF_VERSION", "12.1.0")
 
 gem "chef", "~> #{chef_version}"
 gem "chefspec", "~> 4.2.0" if chef_version > "11.0"
+gem "chef-vault", "~> 2.5.0"
 
 gem "berkshelf", "~> 3.2.2"
 gem "foodcritic", "~> 4.0.0"

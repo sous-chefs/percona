@@ -14,7 +14,7 @@ class Chef
     def find_password(item, user, default = nil)
       begin
         # attribute that controls use of chef-vault or encrypted data bags
-        vault = node["percona"]["use_chef-vault"]
+        vault = node["percona"]["use_chef_vault"]
         # load password from the vault
         pwds = ChefVault::Item.load(bag, item) if vault
         # load the encrypted data bag item, using a secret if specified

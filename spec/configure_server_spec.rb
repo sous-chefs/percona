@@ -12,6 +12,10 @@ describe "percona::configure_server" do
         .and_return(true)
     end
 
+    it "does not include the `chef-vault` recipe" do
+      expect(chef_run).to_not include_recipe "chef-vault"
+    end
+
     it "creates the main server config file" do
       expect(chef_run).to create_template("/etc/mysql/my.cnf").with(
         owner: "root",
@@ -210,6 +214,23 @@ describe "percona::configure_server" do
 
     it "does not create the configuration include directory" do
       expect(chef_run).to_not create_directory("/mysql/conf.d")
+    end
+  end
+
+  describe "`chef-vault` support" do
+    let(:chef_run) do
+      ChefSpec::SoloRunner.new do |node|
+        node.set["percona"]["use_chef_vault"] = true
+      end.converge(described_recipe)
+    end
+
+    before do
+      stub_command("mysqladmin --user=root --password='' version")
+        .and_return(false)
+    end
+
+    it "includes the `chef-vault` recipe" do
+      expect(chef_run).to include_recipe "chef-vault"
     end
   end
 end

@@ -15,7 +15,8 @@ describe "percona::access_grants" do
     expect(chef_run).to create_template(grant_file).with(
       owner: "root",
       group: "root",
-      mode: "0600"
+      mode: "0600",
+      sensitive: true
     )
   end
 

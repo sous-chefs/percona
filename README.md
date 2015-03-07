@@ -666,6 +666,8 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * add support for `chef-vault`
 * **[@n3bulous](https://github.com/n3bulous)**
     * add `federated` and `read_rnd_buffer_size` attributes
+* **[@runwaldarshu](https://github.com/runwaldarshu)**
+    * add `sensitive` attribute for resources
 
 
 ## License

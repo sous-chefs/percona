@@ -658,6 +658,7 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * fix package list for clusters based on CentOS
     * avoid uninstall of `mysql-libs` when not needed
     * fix XtraDB Cluster 5.6 installation on CentOS 7
+    * add support for `chef-vault`
 
 
 ## License

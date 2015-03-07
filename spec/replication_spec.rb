@@ -37,7 +37,8 @@ describe "percona::replication" do
       expect(chef_run).to create_template(replication_sql).with(
         owner: "root",
         group: "root",
-        mode: "0600"
+        mode: "0600",
+        sensitive: true
       )
       expect(chef_run).to render_file(replication_sql).with_content("s3kr1t")
     end

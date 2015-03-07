@@ -662,6 +662,8 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * avoid uninstall of `mysql-libs` when not needed
     * fix XtraDB Cluster 5.6 installation on CentOS 7
     * add support for `chef-vault`
+* **[@n3bulous](https://github.com/n3bulous)**
+    * add `federated` and `read_rnd_buffer_size` attributes
 
 
 ## License

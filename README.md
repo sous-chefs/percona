@@ -668,6 +668,8 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * add `federated` and `read_rnd_buffer_size` attributes
 * **[@runwaldarshu](https://github.com/runwaldarshu)**
     * add `sensitive` attribute for resources
+* **[@vermut](https://github.com/vermut)**
+    * fix `ConfigHelper` definitions to make them available from `module_function`
 
 
 ## License

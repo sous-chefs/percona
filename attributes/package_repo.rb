@@ -9,7 +9,10 @@ default["percona"]["apt_keyserver"] = "hkp://keys.gnupg.net:80"
 default["percona"]["apt_key"] = "0x1C4CBDCDCD2EFD2A"
 
 arch = node["kernel"]["machine"] == "x86_64" ? "x86_64" : "i386"
-pversion = node["platform_version"].to_i
+pversion = value_for_platform(
+  "amazon" => { "default" => "latest" },
+  "default" => node["platform_version"].to_i
+)
 
 default["percona"]["yum"]["description"] = "Percona Packages"
 default["percona"]["yum"]["baseurl"] = "http://repo.percona.com/centos/#{pversion}/os/#{arch}/"

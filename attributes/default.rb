@@ -155,7 +155,7 @@ default["percona"]["server"]["innodb_log_files_in_group"] = 2
 default["percona"]["server"]["innodb_max_dirty_pages_pct"] = 80
 default["percona"]["server"]["innodb_flush_method"] = "O_DIRECT"
 default["percona"]["server"]["innodb_lock_wait_timeout"] = 120
-
+default["percona"]["server"]["innodb_import_table_from_xtrabackup"] = 0
 # Performance Schema
 default["percona"]["server"]["performance_schema"] = false
 

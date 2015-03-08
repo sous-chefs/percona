@@ -25,10 +25,11 @@ availability and high scalability solution for MySQL.
 
 We provide an expanding set of tests against the following 64-bit platforms:
 
-* Ubuntu Precise 12.04 LTS
-* Ubuntu Trusty 14.04 LTS
 * CentOS 6.5
 * CentOS 7.0
+* Debian 7.8
+* Ubuntu 12.04 LTS
+* Ubuntu 14.04 LTS
 
 Although we don't test against all possible platform verions, we expect
 the following to be supported. Please submit an issue if this is not the

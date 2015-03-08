@@ -25,6 +25,7 @@ availability and high scalability solution for MySQL.
 
 We provide an expanding set of tests against the following 64-bit platforms:
 
+* Amazon 2014.03
 * CentOS 6.5
 * CentOS 7.0
 * Debian 7.8

@@ -7,6 +7,9 @@ provisioner:
   name: chef_zero
 
 platforms:
+  - name: amazon-2014
+    driver:
+      box: amazon-linux64-2014-vbox
   - name: centos-6.5
   - name: centos-7.0
   - name: debian-7.8

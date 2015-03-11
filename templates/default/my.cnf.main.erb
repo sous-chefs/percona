@@ -382,6 +382,19 @@ bulk_insert_buffer_size = <%= node["percona"]["server"]["bulk_insert_buffer_size
 # large settings.
 myisam_sort_buffer_size = <%= node["percona"]["server"]["myisam_sort_buffer_size"] %>
 
+# This buffer is allocated when MySQL does a sequential scan for a MyISAM
+# table. It is allocated per thread so be careful with large settings.
+# Note that the maximum permissible setting for read_buffer_size is 2GB.
+# The value of this variable should be a multiple of 4KB. If it is set to
+# a value that is not a multiple of 4KB, its value will be rounded down
+# to the nearest multiple of 4KB.
+# This option is also used in the following context for all search engines:
+# For caching the indexes in a temporary file (not a temporary table), when
+# sorting rows for ORDER BY.
+# For bulk insert into partitions.
+# For caching results of nested queries.
+myisam_read_buffer_size = <%= node["percona"]["server"]["myisam_read_buffer_size"] %>
+
 # The maximum size of the temporary file MySQL is allowed to use while
 # recreating the index (during REPAIR, ALTER TABLE or LOAD DATA INFILE.
 # If the file-size would be bigger than this, the index will be created

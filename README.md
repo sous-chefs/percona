@@ -615,6 +615,7 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * add missing tunables to 'cluster' `my.cnf` template
     * fix regression in cluster configuration template
     * centralize `jemalloc` configuration for cluster and server configurations
+    * sync cluster configuration file with main configuration
 * **[@achied](https://github.com/achied)**
     * fix setting passwords if attribute not defined
 * **[@akshah123](https://github.com/akshah123)**

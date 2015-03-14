@@ -340,6 +340,7 @@ default["percona"]["server"]["bulk_insert_buffer_size"] = "64M"
 default["percona"]["server"]["myisam_recover_options"] = "BACKUP"
 default["percona"]["server"]["myisam_sort_buffer_size"] = "128M"
 default["percona"]["server"]["myisam_max_sort_file_size"] = "10G"
+default["percona"]["server"]["myisam_read_buffer_size"] = "8M"
 default["percona"]["server"]["myisam_repair_threads"] = 1
 
 # InnoDB Specific

@@ -541,6 +541,9 @@ innodb_commit_concurrency=0
 
 innodb_open_files=2000
 
+# set this to 1 if you like to import single tables from xtrabackup snapshot
+innodb_import_table_from_xtrabackup = <%= node["percona"]["server"]["innodb_import_table_from_xtrabackup"] %>
+
 #
 # * Security Features
 #

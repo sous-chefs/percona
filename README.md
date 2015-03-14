@@ -1,7 +1,15 @@
 # chef-percona
 
+## Flair
+
+[![Cookbook Version](https://img.shields.io/cookbook/v/percona.svg)](https://supermarket.chef.io/cookbooks/percona)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](http://phlipper.mit-license.org/2012-2015/license.html)
 [![Build Status](http://img.shields.io/travis-ci/phlipper/chef-percona.png)](https://travis-ci.org/phlipper/chef-percona)
 [![Code Climate](https://codeclimate.com/github/phlipper/chef-percona.png)](https://codeclimate.com/github/phlipper/chef-percona)
+[![Gitter](https://img.shields.io/badge/Gitter%2Eim-Join_Chat_→-yellow.svg)](https://gitter.im/phlipper/chef-percona)
+![It Works On My Machine™](https://img.shields.io/badge/It_Works-On_My_Machine%E2%84%A2-orange.svg)
+[![Tip](http://img.shields.io/gratipay/phlipper.png)](https://gratipay.com/phlipper/)
+[![Endorse](http://api.coderwall.com/phlipper/endorsecount.png)](http://coderwall.com/phlipper)
 
 ## Description
 
@@ -694,5 +702,5 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
 **chef-percona**
 
 * Freely distributable and licensed under the [MIT license](http://phlipper.mit-license.org/2012-2015/license.html).
-* Copyright (c) 2012-2015 Phil Cohen (github@phlippers.net) [![endorse](http://api.coderwall.com/phlipper/endorsecount.png)](http://coderwall.com/phlipper)  [![Gittip](http://img.shields.io/gittip/phlipper.png)](https://www.gittip.com/phlipper/)
+* Copyright (c) 2012-2015 Phil Cohen (github@phlippers.net)
 * http://phlippers.net/

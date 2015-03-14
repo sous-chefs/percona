@@ -673,6 +673,8 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * add `sensitive` attribute for resources
 * **[@vermut](https://github.com/vermut)**
     * fix `ConfigHelper` definitions to make them available from `module_function`
+* **[@dng-dev](https://github.com/dng-dev)**
+    * add `innodb_import_table_from_xtrabackup` attribute
 
 
 ## License

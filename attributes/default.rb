@@ -13,7 +13,6 @@ elsif defined?(::Chef::OpenSSL::Password)
 end
 
 default["percona"]["version"] = "5.6"
-version = node["percona"]["version"]
 
 # Always restart percona on configuration changes
 default["percona"]["auto_restart"] = true
@@ -24,14 +23,11 @@ when "debian"
   default["percona"]["server"]["default_storage_engine"] = "InnoDB"
   default["percona"]["server"]["includedir"] = "/etc/mysql/conf.d/"
   default["percona"]["server"]["pidfile"] = "/var/run/mysqld/mysqld.pid"
-  default["percona"]["server"]["package"] = "percona-server-server-#{version}"
 when "rhel"
   default["percona"]["server"]["socket"] = "/var/lib/mysql/mysql.sock"
   default["percona"]["server"]["default_storage_engine"] = "innodb"
   default["percona"]["server"]["includedir"] = ""
   default["percona"]["server"]["pidfile"] = "/var/lib/mysql/mysqld.pid"
-  default["percona"]["server"]["package"] = "Percona-Server-server-#{version.tr(".", "")}"
-  default["percona"]["server"]["shared_pkg"] = "Percona-Server-shared-#{version.tr(".", "")}"
 end
 
 # Cookbook Settings
@@ -180,10 +176,6 @@ unless attribute?(node["percona"]["backup"]["password"])
 end
 
 # XtraDB Cluster Settings
-default["percona"]["cluster"]["package"] = value_for_platform_family(
-  "debian" => "percona-xtradb-cluster-#{version.tr(".", "")}",
-  "rhel" => "Percona-XtraDB-Cluster-#{version.tr(".", "")}"
-)
 default["percona"]["cluster"]["binlog_format"] = "ROW"
 default["percona"]["cluster"]["wsrep_provider"] = value_for_platform_family(
   "debian" => "/usr/lib/libgalera_smm.so",

@@ -14,6 +14,13 @@ if node["percona"]["cluster"]["wsrep_sst_receive_interface"]
   node.set["percona"]["cluster"]["wsrep_sst_receive_address"] = address
 end
 
+# set default package attributes
+version = node["percona"]["version"]
+node.default["percona"]["cluster"]["package"] = value_for_platform_family(
+  "debian" => "percona-xtradb-cluster-#{version.tr(".", "")}",
+  "rhel" => "Percona-XtraDB-Cluster-#{version.tr(".", "")}"
+)
+
 # install packages
 case node["platform_family"]
 when "debian"

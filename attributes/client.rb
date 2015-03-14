@@ -3,6 +3,9 @@
 # Attributes:: client
 #
 
+# install vs. upgrade packages
+default["percona"]["client"]["package_action"] = "install"
+
 version = value_for_platform_family(
   "debian" => node["percona"]["version"],
   "rhel" => node["percona"]["version"].tr(".", "")

@@ -393,7 +393,7 @@ myisam_sort_buffer_size = <%= node["percona"]["server"]["myisam_sort_buffer_size
 # sorting rows for ORDER BY.
 # For bulk insert into partitions.
 # For caching results of nested queries.
-myisam_read_buffer_size = <%= node["percona"]["server"]["myisam_read_buffer_size"] %>
+read_buffer_size = <%= node["percona"]["server"]["read_buffer_size"] %>
 
 # The maximum size of the temporary file MySQL is allowed to use while
 # recreating the index (during REPAIR, ALTER TABLE or LOAD DATA INFILE.
@@ -554,8 +554,10 @@ innodb_commit_concurrency=0
 
 innodb_open_files=2000
 
+<% if node["percona"]["version"] < "5.6" %>
 # set this to 1 if you like to import single tables from xtrabackup snapshot
 innodb_import_table_from_xtrabackup = <%= node["percona"]["server"]["innodb_import_table_from_xtrabackup"] %>
+<% end %>
 
 #
 # * Security Features

@@ -15,12 +15,12 @@ simple to do.  Currently the following builder objects are supported:
 
 * XML Markup
 * XML Events"
-bundler,1.7.12,MIT,"",""
+bundler,1.7.6,MIT,"",""
 busser,0.6.0,Apache 2.0,Kitchen Busser - Runs tests for projects in test-kitchen,Kitchen Busser - Runs tests for projects in test-kitchen
 busser-serverspec,0.5.3,Apache 2.0,A Busser runner plugin for Serverspec,A Busser runner plugin for Serverspec
 celluloid,0.16.0,MIT,Actor-based concurrent object framework for Ruby,Celluloid enables people to build concurrent programs out of concurrent objects just as easily as they build sequential programs out of sequential objects
 celluloid-io,0.16.2,MIT,Celluloid::IO allows you to monitor multiple IO objects within a Celluloid actor,Evented IO for Celluloid actors
-chef,12.1.0,Apache 2.0,"A systems integration framework, built to bring the benefits of configuration management to your entire infrastructure.","A systems integration framework, built to bring the benefits of configuration management to your entire infrastructure."
+chef,12.1.1,Apache 2.0,"A systems integration framework, built to bring the benefits of configuration management to your entire infrastructure.","A systems integration framework, built to bring the benefits of configuration management to your entire infrastructure."
 chef-vault,2.5.0,"Apache License, v2.0",Data encryption support for Chef using data bags,Data encryption support for Chef using data bags
 chef-zero,4.0,Apache 2.0,"Self-contained, easy-setup, fast-start in-memory Chef server for testing and solo setup purposes","Self-contained, easy-setup, fast-start in-memory Chef server for testing and solo setup purposes"
 chefspec,4.2.0,MIT,Write RSpec examples and generate coverage reports for Chef recipes!,ChefSpec is a unit testing and resource coverage (code coverage) framework for testing Chef cookbooks ChefSpec makes it easy to write examples and get fast feedback on cookbook changes without the need for virtual machines or cloud servers.
@@ -54,7 +54,7 @@ erubis,2.7.0,MIT,a fast and extensible eRuby implementation which supports multi
   * Ruby on Rails support"
 faraday,0.9.1,MIT,HTTP/REST API client library.,""
 fauxhai,2.3.0,MIT,Fauxhai provides an easy way to mock out your ohai data for testing with chefspec!,Easily mock out ohai data
-ffi,1.9.6,BSD,Ruby FFI,Ruby FFI library
+ffi,1.9.7,BSD,Ruby FFI,Ruby FFI library
 ffi-yajl,1.4.0,Apache 2.0,Ruby FFI wrapper around YAJL 2.x,Ruby FFI wrapper around YAJL 2.x
 foodcritic,4.0.0,MIT,foodcritic-4.0.0,Lint tool for Opscode Chef cookbooks.
 gherkin,2.12.2,MIT,gherkin-2.12.2,A fast Gherkin lexer/parser based on the Ragel State Machine Compiler.
@@ -197,7 +197,7 @@ Rake has the following features:
 retryable,2.0.1,MIT,"Retryable#retryable, allow for retrying of code blocks.","Retryable#retryable, allow for retrying of code blocks."
 ridley,4.1.2,Apache 2.0,A reliable Chef API client with a clean syntax,A reliable Chef API client with a clean syntax
 rspec,3.2.0,MIT,rspec-3.2.0,BDD for Ruby
-rspec-core,3.2.1,MIT,rspec-core-3.2.1,BDD for Ruby. RSpec runner and example groups.
+rspec-core,3.2.2,MIT,rspec-core-3.2.2,BDD for Ruby. RSpec runner and example groups.
 rspec-expectations,3.2.0,MIT,rspec-expectations-3.2.0,"rspec-expectations provides a simple, readable API to express expected outcomes of a code example."
 rspec-its,1.2.0,MIT,"Provides ""its"" method formerly part of rspec-core",RSpec extension gem for attribute matching
 rspec-mocks,3.2.1,MIT,rspec-mocks-3.2.1,"RSpec's 'test double' framework, with support for stubbing and mocking"
@@ -213,10 +213,10 @@ safe_yaml,1.0.4,MIT,SameYAML provides an alternative implementation of YAML.load
 sawyer,0.6.0,MIT,Secret User Agent of HTTP,""
 semverse,1.2.1,Apache 2.0,An elegant library for representing and comparing SemVer versions and constraints,An elegant library for representing and comparing SemVer versions and constraints
 sequel,4.20.0,MIT,The Database Toolkit for Ruby,The Database Toolkit for Ruby
-serverspec,2.10.0,MIT,"RSpec tests for your servers configured by Puppet, Chef, Itamae or anything else","RSpec tests for your servers configured by Puppet, Chef, Itamae or anything else"
+serverspec,2.10.1,MIT,"RSpec tests for your servers configured by Puppet, Chef, Itamae or anything else","RSpec tests for your servers configured by Puppet, Chef, Itamae or anything else"
 slop,3.6.0,MIT,Simple Lightweight Option Parsing,A simple DSL for gathering options and parsing the command line
 solve,1.2.1,Apache 2.0,A Ruby version constraint solver implementing Semantic Versioning 2.0.0-rc.1,A Ruby version constraint solver
-specinfra,2.18.3,MIT,Common layer for serverspec and itamae,Common layer for serverspec and itamae
+specinfra,2.19.4,MIT,Common layer for serverspec and itamae,Common layer for serverspec and itamae
 sqlite3,1.3.10,New BSD,This module allows Ruby programs to interface with the SQLite3 database engine (http://www.sqlite.org),"This module allows Ruby programs to interface with the SQLite3
 database engine (http://www.sqlite.org).  You must have the
 SQLite engine installed in order to build this module.

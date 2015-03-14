@@ -1,6 +1,6 @@
 # chef-percona
 
-As of March  7, 2015 11:37am. 102 total
+As of March 14, 2015 11:18am. 102 total
 
 ## Summary
 * 59 MIT
@@ -118,7 +118,7 @@ simple to do.  Currently the following builder objects are supported:
 
 
 <a name="bundler"></a>
-### bundler v1.7.12
+### bundler v1.7.6
 #### 
 
 <a href="http://opensource.org/licenses/mit-license">MIT</a> whitelisted
@@ -157,7 +157,7 @@ Celluloid enables people to build concurrent programs out of concurrent objects 
 Evented IO for Celluloid actors
 
 <a name="chef"></a>
-### <a href="http://www.getchef.com">chef</a> v12.1.0 (default)
+### <a href="http://www.getchef.com">chef</a> v12.1.1 (default)
 #### A systems integration framework, built to bring the benefits of configuration management to your entire infrastructure.
 
 <a href="http://www.apache.org/licenses/LICENSE-2.0.txt">Apache 2.0</a> whitelisted
@@ -279,7 +279,7 @@ We are happy to report that this issue has been resolved.
 Easily mock out ohai data
 
 <a name="ffi"></a>
-### <a href="http://wiki.github.com/ffi/ffi">ffi</a> v1.9.6
+### <a href="http://wiki.github.com/ffi/ffi">ffi</a> v1.9.7
 #### Ruby FFI
 
 <a href="http://en.wikipedia.org/wiki/BSD_licenses#4-clause_license_.28original_.22BSD_License.22.29">BSD</a> whitelisted
@@ -757,8 +757,8 @@ A reliable Chef API client with a clean syntax
 BDD for Ruby
 
 <a name="rspec-core"></a>
-### <a href="http://github.com/rspec/rspec-core">rspec-core</a> v3.2.1
-#### rspec-core-3.2.1
+### <a href="http://github.com/rspec/rspec-core">rspec-core</a> v3.2.2
+#### rspec-core-3.2.2
 
 <a href="http://opensource.org/licenses/mit-license">MIT</a> whitelisted
 
@@ -865,7 +865,7 @@ An elegant library for representing and comparing SemVer versions and constraint
 The Database Toolkit for Ruby
 
 <a name="serverspec"></a>
-### <a href="http://serverspec.org/">serverspec</a> v2.10.0 (default)
+### <a href="http://serverspec.org/">serverspec</a> v2.10.1 (default)
 #### RSpec tests for your servers configured by Puppet, Chef, Itamae or anything else
 
 <a href="http://opensource.org/licenses/mit-license">MIT</a> whitelisted
@@ -889,7 +889,7 @@ A simple DSL for gathering options and parsing the command line
 A Ruby version constraint solver
 
 <a name="specinfra"></a>
-### specinfra v2.18.3
+### specinfra v2.19.4
 #### Common layer for serverspec and itamae
 
 <a href="http://opensource.org/licenses/mit-license">MIT</a> whitelisted

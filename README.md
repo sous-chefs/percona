@@ -679,6 +679,8 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * add `innodb_import_table_from_xtrabackup` attribute
 * **[@washingtoneg](https://github.com/washingtoneg)**
     * add `myisam_read_buffer_size` attribute
+* **[@cmjosh](https://github.com/cmjosh)**
+    * fix version-dependent package attribute issues
 
 
 ## License

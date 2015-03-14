@@ -45,6 +45,9 @@ default["percona"]["skip_configure"] = false
 # Start percona server on boot
 default["percona"]["server"]["enable"] = true
 
+# install vs. upgrade packages
+default["percona"]["server"]["package_action"] = "install"
+
 # Basic Settings
 default["percona"]["server"]["role"] = ["standalone"]
 default["percona"]["server"]["username"] = "mysql"

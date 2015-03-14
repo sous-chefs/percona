@@ -253,6 +253,9 @@ default["percona"]["skip_configure"] = false
 # Start percona server on boot
 default["percona"]["server"]["enable"] = true
 
+# install vs. upgrade packages
+default["percona"]["server"]["package_action"] = "install"
+
 # Basic Settings
 default["percona"]["server"]["role"] = ["standalone"]
 default["percona"]["server"]["username"] = "mysql"
@@ -413,6 +416,9 @@ default["percona"]["cluster"]["innodb_autoinc_lock_mode"] = 2
 ### client.rb
 
 ```ruby
+# install vs. upgrade packages
+default["percona"]["client"]["package_action"] = "install"
+
 version = value_for_platform_family(
   "debian" => node["percona"]["version"],
   "rhel" => node["percona"]["version"].tr(".", "")

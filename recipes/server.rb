@@ -14,6 +14,7 @@ when "debian"
 
   package node["percona"]["server"]["package"] do
     options "--force-yes"
+    action node["percona"]["server"]["package_action"].to_sym
   end
 when "rhel"
   node.default["percona"]["server"]["package"] = "Percona-Server-server-#{version.tr(".", "")}" # rubocop:disable LineLength
@@ -28,7 +29,9 @@ when "rhel"
   # we need mysqladmin
   include_recipe "percona::client"
 
-  package node["percona"]["server"]["package"]
+  package node["percona"]["server"]["package"] do
+    action node["percona"]["server"]["package_action"].to_sym
+  end
 end
 
 unless node["percona"]["skip_configure"]

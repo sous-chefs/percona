@@ -70,4 +70,32 @@ describe "percona::server" do
     it { expect(chef_run).to_not include_recipe("percona::access_grants") }
     it { expect(chef_run).to_not include_recipe("percona::replication") }
   end
+
+  describe "when `package_action` is `upgrade`" do
+    describe "Ubuntu" do
+      let(:chef_run) do
+        ChefSpec::SoloRunner.new do |node|
+          node.set["percona"]["server"]["package_action"] = "upgrade"
+        end.converge(described_recipe)
+      end
+
+      it { expect(chef_run).to upgrade_package("percona-server-server-5.6") }
+    end
+
+    describe "CentOS" do
+      let(:chef_run) do
+        env_options = { platform: "centos", version: "6.5" }
+        ChefSpec::SoloRunner.new(env_options) do |node|
+          node.set["percona"]["server"]["package_action"] = "upgrade"
+        end.converge(described_recipe)
+      end
+
+      before do
+        stub_command("rpm -qa | grep Percona-Server-shared-56")
+          .and_return(false)
+      end
+
+      it { expect(chef_run).to upgrade_package("Percona-Server-server-56") }
+    end
+  end
 end

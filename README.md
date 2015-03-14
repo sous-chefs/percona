@@ -676,6 +676,8 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * fix `ConfigHelper` definitions to make them available from `module_function`
 * **[@dng-dev](https://github.com/dng-dev)**
     * add `innodb_import_table_from_xtrabackup` attribute
+* **[@washingtoneg](https://github.com/washingtoneg)**
+    * add `myisam_read_buffer_size` attribute
 
 
 ## License

@@ -13,7 +13,6 @@ elsif defined?(::Chef::OpenSSL::Password)
 end
 
 default["percona"]["version"] = "5.6"
-version = node["percona"]["version"]
 
 # Always restart percona on configuration changes
 default["percona"]["auto_restart"] = true

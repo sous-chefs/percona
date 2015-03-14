@@ -318,7 +318,7 @@ default["percona"]["server"]["query_cache_size"] = "64M"
 default["percona"]["server"]["query_cache_limit"] = "2M"
 
 # Logging and Replication
-default["percona"]["server"]["sync_binlog"] = 1
+default["percona"]["server"]["sync_binlog"] = (node["percona"]["server"]["role"] == "cluster" ? 0 : 1)
 default["percona"]["server"]["slow_query_log"] = 1
 default["percona"]["server"]["slow_query_logdir"] = "/var/log/mysql"
 default["percona"]["server"]["slow_query_log_file"] = "#{node["percona"]["server"]["slow_query_logdir"]}/mysql-slow.log"
@@ -615,6 +615,7 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * add missing tunables to 'cluster' `my.cnf` template
     * fix regression in cluster configuration template
     * centralize `jemalloc` configuration for cluster and server configurations
+    * sync cluster configuration file with main configuration
 * **[@achied](https://github.com/achied)**
     * fix setting passwords if attribute not defined
 * **[@akshah123](https://github.com/akshah123)**

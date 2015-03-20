@@ -40,7 +40,8 @@ class Chef
     # debian script user password
     def debian_password
       find_password(
-        @system_item, node_server["debian_username"], node_server["debian_password"]
+        @system_item, node_server["debian_username"],
+        node_server["debian_password"]
       )
     end
 

@@ -12,7 +12,10 @@ directory certs_path do
   mode "0700"
 end
 
-certs = Chef::EncryptedDataBagItem.load(data_bag, "ssl_replication")
+certs = Chef::EncryptedDataBagItem.load(
+  data_bag,
+  node["percona"]["encrypted_data_bag_item_sslrep"]
+)
 
 # place the CA certificate, it should be present on both master and slave
 file "#{certs_path}/cacert.pem" do

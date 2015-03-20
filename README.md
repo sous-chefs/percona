@@ -498,7 +498,7 @@ There's a special attribute `node["percona"]["server"]["bind_to"]` that allows y
 
 ## MySQL Gems
 
-This recipe provides a MySQL and MySQL2 gem installer specifically designed for
+This cookbook provides a MySQL and MySQL2 gem installer specifically designed for
 use with Percona. Since they share namespaces with other providers you most
 likely want to call them directly targeting the provider, example provided below:
 

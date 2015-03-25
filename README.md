@@ -514,6 +514,10 @@ mysql_chef_gem 'default' do
 end
 ```
 
+Also keep in mind that since these providers are subclasses of the mysql_chef_gem
+and mysql2_chef_gem cookbooks they need to be added to your metadata.rb file as 
+depends to ensure they pull in the needed resource files.
+
 ## Goals
 
 In no particular order:

@@ -345,9 +345,9 @@ binlog_rows_query_log_events
 binlog-do-db     = <%= db_name %>
 <% end -%>
 
-gtid_mode <%= node["percona"]["server"]["gtid_mode"] %>
+gtid_mode = <%= node["percona"]["server"]["gtid_mode"] %>
 <% if node["percona"]["server"]["enforce_gtid_consistency"] %>
-enforce_gtid_consistency <%= node["percona"]["server"]["enforce_gtid_consistency"] %>
+enforce_gtid_consistency = <%= node["percona"]["server"]["enforce_gtid_consistency"] %>
 <% end %>
 
 <% if node["percona"]["server"]["sync_master_info"] %>

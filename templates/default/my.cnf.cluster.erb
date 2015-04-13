@@ -313,6 +313,13 @@ log_warnings_suppress=1592
 read_only
 <% end %>
 
+# Tells the slave server not to start the slave threads when the server starts.
+# This will allow you to tweak system and/or server settings prior to starting
+# replication.
+<% if node["percona"]["server"]["replication"]["skip_slave_start"] %>
+skip-slave-start
+<% end %>
+
 
 log_bin          = <%= node["percona"]["server"]["datadir"] %>/mysql-bin.log
 expire_logs_days = <%= node["percona"]["server"]["expire_logs_days"] %>

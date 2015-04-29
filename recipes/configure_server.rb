@@ -95,6 +95,7 @@ directory slow_query_logdir do
   owner user
   group user
   recursive true
+  not_if { slow_query_logdir.eql? logdir }
 end
 
 # define the service

@@ -191,6 +191,27 @@ describe "percona::configure_server" do
     end
   end
 
+  describe "custom slow query log directory" do
+    let(:chef_run) do
+      ChefSpec::SoloRunner.new do |node|
+        node.set["percona"]["server"]["slow_query_logdir"] = "/var/log/slowq"
+      end.converge(described_recipe)
+    end
+
+    before do
+      stub_command("mysqladmin --user=root --password='' version")
+        .and_return(true)
+    end
+
+    it "creates the slow query log directory" do
+      expect(chef_run).to create_directory("/var/log/slowq").with(
+        owner: "mysql",
+        group: "mysql",
+        recursive: true
+      )
+    end
+  end
+
   describe "`rhel` platform family" do
     let(:chef_run) do
       env_options = { platform: "centos", version: "6.5" }

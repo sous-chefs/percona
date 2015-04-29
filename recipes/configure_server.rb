@@ -91,10 +91,12 @@ unless includedir.empty?  # ~FC023
 end
 
 # setup slow_query_logdir directory
-directory slow_query_logdir do
-  owner user
-  group user
-  recursive true
+unless slow_query_logdir.eql? logdir
+  directory slow_query_logdir do
+    owner user
+    group user
+    recursive true
+  end
 end
 
 # define the service

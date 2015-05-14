@@ -724,6 +724,8 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * fix version-dependent package attribute issues
 * **[@cybermerc](https://github.com/cybermerc)**
     * fix provider superclass mismatch
+* **[@drywheat](https://github.com/drywheat)**
+    * add `skip_slave_start` attribute
 
 
 ## License

@@ -10,7 +10,7 @@ when "debian"
   include_recipe "apt"
 
   # Pin this repo as to avoid upgrade conflicts with distribution repos.
-  apt_preference "00percona.pref" do
+  apt_preference "00percona" do
     glob "*"
     pin "release o=Percona Development Team"
     pin_priority "1001"

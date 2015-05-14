@@ -18,7 +18,7 @@ recipe "percona::replication",   "Used internally to grant permissions for repli
 recipe "percona::access_grants", "Used internally to grant permissions for recipes"
 recipe "percona::monitoring", "Installs Percona monitoring plugins for Nagios"
 
-depends "apt", ">= 1.9"
+depends "apt", ">= 2.7.0"
 depends "build-essential"
 depends "openssl"
 depends "yum", "~> 3.0"

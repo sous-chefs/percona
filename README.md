@@ -496,6 +496,28 @@ slow_query_log_file = /var/lib/mysql/data/mysql-slow.log
 
 There's a special attribute `node["percona"]["server"]["bind_to"]` that allows you to dynamically set the bind address. This attribute accepts the values `"public_ip"`, `"private_ip"`, `"loopback"`, or and interface name like `"eth0"`. Based on this, the recipe will find a corresponding ipv4 address, and override the `node["percona"]["server"]["bind_address"]` attribute.
 
+## MySQL Gems
+
+This cookbook provides a MySQL and MySQL2 gem installer specifically designed for
+use with Percona. Since they share namespaces with other providers you most
+likely want to call them directly targeting the provider, example provided below:
+
+```ruby
+mysql2_chef_gem 'default' do
+  provider Chef::Provider::Mysql2ChefGem::Percona
+  action :install
+end
+
+mysql_chef_gem 'default' do
+  provider Chef::Provider::MysqlChefGem::Percona
+  action :install
+end
+```
+
+Also keep in mind that since these providers are subclasses of the mysql_chef_gem
+and mysql2_chef_gem cookbooks they need to be added to your metadata.rb file as 
+depends to ensure they pull in the needed resource files.
+
 ## Goals
 
 In no particular order:

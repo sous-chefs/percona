@@ -655,6 +655,7 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * centralize `jemalloc` configuration for cluster and server configurations
     * sync cluster configuration file with main configuration
     * add `innodb_autoextend_increment` and `innodb_open_files` attributes
+    * fix cluster template regression
 * **[@achied](https://github.com/achied)**
     * fix setting passwords if attribute not defined
 * **[@akshah123](https://github.com/akshah123)**

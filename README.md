@@ -359,6 +359,8 @@ default["percona"]["server"]["skip_innodb"] = false
 default["percona"]["server"]["innodb_additional_mem_pool_size"] = "32M"
 default["percona"]["server"]["innodb_buffer_pool_size"] = "128M"
 default["percona"]["server"]["innodb_data_file_path"] = "ibdata1:10M:autoextend"
+default["percona"]["server"]["innodb_autoextend_increment"] = "128M"
+default["percona"]["server"]["innodb_open_files"] = 2000
 default["percona"]["server"]["innodb_file_per_table"] = true
 default["percona"]["server"]["innodb_file_format"] = "Antelope"
 default["percona"]["server"]["innodb_data_home_dir"] = ""
@@ -652,6 +654,7 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * fix regression in cluster configuration template
     * centralize `jemalloc` configuration for cluster and server configurations
     * sync cluster configuration file with main configuration
+    * add `innodb_autoextend_increment` and `innodb_open_files` attributes
 * **[@achied](https://github.com/achied)**
     * fix setting passwords if attribute not defined
 * **[@akshah123](https://github.com/akshah123)**

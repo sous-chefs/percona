@@ -421,7 +421,7 @@ innodb_buffer_pool_size = <%= node["percona"]["server"]["innodb_buffer_pool_size
 # can't specify tablespace sizes for innodb-file-per-table tablespaces
 # so using a big autoextend is preferable in those cases.
 innodb_data_file_path = <%= node["percona"]["server"]["innodb_data_file_path"] %>
-# innodb_autoextend_increment = 128M
+innodb_autoextend_increment = <%= node["percona"]["server"]["innodb_autoextend_increment"] %>
 <% if node["percona"]["server"]["innodb_file_per_table"] %>
 innodb_file_per_table
 <% end %>
@@ -521,7 +521,7 @@ innodb_lock_wait_timeout = <%= node["percona"]["server"]["innodb_lock_wait_timeo
 # isolation level isn't serializable.
 innodb_commit_concurrency=0
 
-innodb_open_files=2000
+innodb_open_files=<%= node["percona"]["server"]["innodb_open_files"] %>
 
 #
 # * Security Features

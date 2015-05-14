@@ -726,6 +726,8 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * fix provider superclass mismatch
 * **[@drywheat](https://github.com/drywheat)**
     * add `skip_slave_start` attribute
+* **[@joelhandwell](https://github.com/joelhandwell)**
+    * fix duplication of slow query log directory creation
 
 
 ## License

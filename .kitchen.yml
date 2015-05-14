@@ -1,18 +1,21 @@
+#<% require "kitchen-sync" %>
+---
 driver:
-  require_chef_omnibus: <%= ENV.fetch("CHEF_VERSION", "latest") %>
-  ssh_key: <%= File.expand_path("./test/support/keys/vagrant") %>
-  name: vagrant
+  name: docker
+  require_chef_omnibus: <%= ENV.fetch("CHEF_VERSION", "true") %>
 
 provisioner:
   name: chef_zero
 
 platforms:
-  - name: amazon-2014
-    driver:
-      box: amazon-linux64-2014-vbox
-  - name: centos-6.5
-  - name: centos-7.0
+  - name: amazon-2015
+    driver_config:
+      image: ambakshi/amazon-linux
+      platform: rhel
+  - name: centos-6.6
+  - name: centos-7.1
   - name: debian-7.8
+  - name: debian-8.0
   - name: ubuntu-12.04
   - name: ubuntu-14.04
 

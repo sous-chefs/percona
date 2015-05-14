@@ -515,7 +515,7 @@ end
 ```
 
 Also keep in mind that since these providers are subclasses of the mysql_chef_gem
-and mysql2_chef_gem cookbooks they need to be added to your metadata.rb file as 
+and mysql2_chef_gem cookbooks they need to be added to your metadata.rb file as
 depends to ensure they pull in the needed resource files.
 
 ## Goals
@@ -717,6 +717,8 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * add `myisam_read_buffer_size` attribute
 * **[@cmjosh](https://github.com/cmjosh)**
     * fix version-dependent package attribute issues
+* **[@cybermerc](https://github.com/cybermerc)**
+    * fix provider superclass mismatch
 
 
 ## License

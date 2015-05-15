@@ -87,9 +87,11 @@ bind-address = <%= node["percona"]["server"]["bind_address"] %>
 <% end %>
 #
 
+<%- if node["percona"]["version"] >= "5.5" %>
 # As of 5.6.6 performance_schema is enabled by default. This allows it to be
 # explicitly turned on or off as needed across all mysql versions
 performance_schema=<%= node["percona"]["server"]["performance_schema"] ? "ON" : "OFF" %>
+<% end %>
 
 # * Fine Tuning
 #
@@ -180,7 +182,11 @@ thread_cache_size = <%= node["percona"]["server"]["thread_cache_size"] %>
 
 # This replaces the startup script and checks MyISAM tables if needed
 # the first time they are touched
+<%- if node["percona"]["version"] < "5.5" %>
+myisam-recover = <%= node["percona"]["server"]["myisam_recover_options"] %>
+<% else %>
 myisam-recover-options = <%= node["percona"]["server"]["myisam_recover_options"] %>
+<% end %>
 
 # back_log is the number of connections the operating system can keep in
 # the listen queue, before the MySQL connection manager thread has
@@ -561,7 +567,7 @@ innodb_commit_concurrency=0
 
 innodb_open_files=<%= node["percona"]["server"]["innodb_open_files"] %>
 
-<% if node["percona"]["version"] < "5.6" %>
+<% if node["percona"]["version"] == "5.5" %>
 # set this to 1 if you like to import single tables from xtrabackup snapshot
 innodb_import_table_from_xtrabackup = <%= node["percona"]["server"]["innodb_import_table_from_xtrabackup"] %>
 <% end %>

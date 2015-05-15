@@ -91,10 +91,12 @@ innodb_locks_unsafe_for_binlog = <%= node["percona"]["cluster"]["innodb_locks_un
 innodb_autoinc_lock_mode       = <%= node["percona"]["cluster"]["innodb_autoinc_lock_mode"] %>
 
 
+<% if @old_passwords %>
 #
 # For compatibility to other Debian packages that still use
 # libmysqlclient10 and libmysqlclient12.
 old_passwords = <%= @old_passwords %>
+<% end %>
 
 #
 # Instead of skip-networking the default is now to listen only on

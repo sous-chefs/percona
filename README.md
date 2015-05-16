@@ -336,6 +336,7 @@ default["percona"]["server"]["slow_query_log_file"] = "#{node["percona"]["server
 default["percona"]["server"]["long_query_time"] = 2
 default["percona"]["server"]["server_id"] = 1
 default["percona"]["server"]["binlog_do_db"] = []
+default["percona"]["server"]["binlog_ignore_db"] = []
 default["percona"]["server"]["expire_logs_days"] = 10
 default["percona"]["server"]["max_binlog_size"] = "100M"
 default["percona"]["server"]["binlog_cache_size"] = "1M"
@@ -728,6 +729,8 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * add `skip_slave_start` attribute
 * **[@joelhandwell](https://github.com/joelhandwell)**
     * fix duplication of slow query log directory creation
+* **[@bitpusher-real](https://github.com/bitpusher-real)**
+    * add `binlog_ignore_db attribute` attribute
 
 
 ## License

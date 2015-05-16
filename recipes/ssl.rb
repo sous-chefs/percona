@@ -14,7 +14,7 @@ end
 
 certs = Chef::EncryptedDataBagItem.load(
   data_bag,
-  node["percona"]["encrypted_data_bag_item_sslrep"]
+  node["percona"]["encrypted_data_bag_item_ssl_replication"]
 )
 
 # place the CA certificate, it should be present on both master and slave

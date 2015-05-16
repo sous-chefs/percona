@@ -691,6 +691,7 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * extend master-master capabilities and add ssl support
 * **[@realloc](https://github.com/realloc)**
     * add `mysql2` gem provider
+    * add ability to set data bag item names using attributes
 * **[@tbunnyman](https://github.com/tbunnyman)**
     * make `ignore_db` attribute into an array & add matching `ignore_table` attribute
     * add `suppress_1592` replication attribute

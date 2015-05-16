@@ -732,6 +732,7 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
 * **[@bitpusher-real](https://github.com/bitpusher-real)**
     * add `binlog_ignore_db attribute` attribute
     * add version restrictions on three MySQL directives
+    * only set `old_passwords` only when a value defined
 
 
 ## License

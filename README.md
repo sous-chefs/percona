@@ -729,6 +729,8 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * add `skip_slave_start` attribute
 * **[@joelhandwell](https://github.com/joelhandwell)**
     * fix duplication of slow query log directory creation
+* **[@bitpusher-real](https://github.com/bitpusher-real)**
+    * add `binlog_ignore_db attribute` attribute
 
 
 ## License

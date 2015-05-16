@@ -731,6 +731,7 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * fix duplication of slow query log directory creation
 * **[@bitpusher-real](https://github.com/bitpusher-real)**
     * add `binlog_ignore_db attribute` attribute
+    * add version restrictions on three MySQL directives
 
 
 ## License

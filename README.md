@@ -94,6 +94,8 @@ To use encrypted passwords, you must create an encrypted data bag. This cookbook
 
 This cookbook expects a `mysql` item  and a `system` item. Please refer to the official documentation on how to get this setup. It actually uses a MySQL example so it can be mostly copied. Ensure you cover the data bag items as described below.
 
+You also may set expected item names via attributes `node["percona"]["encrypted_data_bag_item_mysql"]` and `node["percona"]["encrypted_data_bag_item_system"]`.
+
 ### Skip passwords
 Set the `["percona"]["skip_passwords"]` attribute to skip setting up passwords. Removes the need for the encrypted data bag if using chef-solo. Is useful for setting up development and ci environments where you just want to use the root user with no password. If you are doing this you may want to set `[:percona][:server][:debian_username]` to be `"root"` also.
 
@@ -130,7 +132,7 @@ Above shows the encrypted password in the data bag. Check out the `encrypted_dat
 
 ### Replication over SSL
 To enable SSL based replication, you will need to flip the attribute `node[:percona][:server][:replication][:ssl_enabled]` to `true` and add a new data_bag item
-to the percona encrypted data_bag (see `node[:percona][:encrypted_data_bag]` attribute) with the id `ssl_replication` that contains this data:
+to the percona encrypted data_bag (see`node[:percona][:encrypted_data_bag]` attribute) with the id `ssl_replication` ( see `node["percona"]["encrypted_data_bag_item_ssl_replication"]` attribute) that contains this data:
 
 ```javascript
 {
@@ -689,6 +691,7 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * extend master-master capabilities and add ssl support
 * **[@realloc](https://github.com/realloc)**
     * add `mysql2` gem provider
+    * add ability to set data bag item names using attributes
 * **[@tbunnyman](https://github.com/tbunnyman)**
     * make `ignore_db` attribute into an array & add matching `ignore_table` attribute
     * add `suppress_1592` replication attribute

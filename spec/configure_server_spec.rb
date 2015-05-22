@@ -46,7 +46,17 @@ describe "percona::configure_server" do
     end
 
     it "creates the log directory" do
-      expect(chef_run).to create_directory("/var/log/mysql").with(
+      expect(chef_run).to create_directory("log directory").with(
+        path: "/var/log/mysql",
+        owner: "mysql",
+        group: "mysql",
+        recursive: true
+      )
+    end
+
+    it "do not create duplicated slow query log directory" do
+      expect(chef_run).to_not create_directory("slow query log directory").with(
+        path: "/var/log/mysql",
         owner: "mysql",
         group: "mysql",
         recursive: true

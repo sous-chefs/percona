@@ -24,7 +24,8 @@ suites:
   - name: client_<%= version.tr(".", "") %>
     attributes:
       percona:
-        apt_keyserver: hkp://pgp.mit.edu:80
+        apt:
+          keyserver: hkp://pgp.mit.edu:80
         version: "<%= version %>"
     run_list:
       - recipe[percona::client]
@@ -33,7 +34,8 @@ suites:
   - name: server_<%= version.tr(".", "") %>
     attributes:
       percona:
-        apt_keyserver: hkp://pgp.mit.edu:80
+        apt:
+          keyserver: hkp://pgp.mit.edu:80
         version: "<%= version %>"
         server:
           datadir: /tmp/mysql

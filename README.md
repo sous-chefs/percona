@@ -253,7 +253,7 @@ default["percona"]["main_config_file"] = value_for_platform_family(
   "debian" => "/etc/mysql/my.cnf",
   "rhel" => "/etc/my.cnf"
 )
-default["percona"]["keyserver"] = "keys.gnupg.net"
+default["percona"]["apt"]["keyserver"] = "hkp://keys.gnupg.net:80"
 default["percona"]["encrypted_data_bag"] = "passwords"
 default["percona"]["encrypted_data_bag_secret_file"] = ""
 default["percona"]["use_chef_vault"] = false

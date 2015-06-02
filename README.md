@@ -392,6 +392,7 @@ default["percona"]["server"]["replication"]["ignore_table"] = []
 default["percona"]["server"]["replication"]["ssl_enabled"] = false
 default["percona"]["server"]["replication"]["suppress_1592"] = false
 default["percona"]["server"]["replication"]["skip_slave_start"] = false
+default["percona"]["server"]["replication"]["slave_transaction_retries"] = 10
 
 # XtraBackup Settings
 default["percona"]["backup"]["configure"] = false
@@ -737,6 +738,7 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * add `binlog_ignore_db` attribute
     * add version restrictions on three MySQL directives
     * only set `old_passwords` only when a value defined
+    * add `slave_transaction_retries` attribute
 * **[@cyberflow](https://github.com/cyberflow)**
     * add `replication_sql` attribute
 * **[@jklare](https://github.com/jklare)**

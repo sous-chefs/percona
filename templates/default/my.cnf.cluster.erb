@@ -329,6 +329,10 @@ read_only
 skip-slave-start
 <% end %>
 
+# Number of times the slave SQL thread will retry a transaction in case it
+# failed with a deadlock or elapsed lock wait timeout, before giving up and
+# stopping.
+slave_transaction_retries = <%= node["percona"]["server"]["replication"]["slave_transaction_retries"] %>
 
 log_bin          = <%= node["percona"]["server"]["datadir"] %>/mysql-bin.log
 expire_logs_days = <%= node["percona"]["server"]["expire_logs_days"] %>

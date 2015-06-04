@@ -733,9 +733,11 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
 * **[@joelhandwell](https://github.com/joelhandwell)**
     * fix duplication of slow query log directory creation
 * **[@bitpusher-real](https://github.com/bitpusher-real)**
-    * add `binlog_ignore_db attribute` attribute
+    * add `binlog_ignore_db` attribute
     * add version restrictions on three MySQL directives
     * only set `old_passwords` only when a value defined
+* **[@cyberflow](https://github.com/cyberflow)**
+    * add `replication_sql` attribute
 
 
 ## License

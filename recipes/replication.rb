@@ -6,8 +6,8 @@
 require "shellwords"
 
 passwords = EncryptedPasswords.new(node, node["percona"]["encrypted_data_bag"])
-replication_sql = "/etc/mysql/replication.sql"
 server = node["percona"]["server"]
+replication_sql = server["replication"]["replication_sql"]
 
 # define access grants
 template replication_sql do

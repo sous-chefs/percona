@@ -732,6 +732,7 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * add `skip_slave_start` attribute
 * **[@joelhandwell](https://github.com/joelhandwell)**
     * fix duplication of slow query log directory creation
+    * suppress warning CHEF-3694 for log dir
 * **[@bitpusher-real](https://github.com/bitpusher-real)**
     * add `binlog_ignore_db` attribute
     * add version restrictions on three MySQL directives
@@ -740,8 +741,6 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * add `replication_sql` attribute
 * **[@jklare](https://github.com/jklare)**
     * fix cluster specific settings for `my.cnf` and client packages
-* **[@joelhandwell](https://github.com/joelhandwell)**
-    * suppress warning CHEF-3694 for log dir
 
 
 ## License

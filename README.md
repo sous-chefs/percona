@@ -741,6 +741,9 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * add `replication_sql` attribute
 * **[@jklare](https://github.com/jklare)**
     * fix cluster specific settings for `my.cnf` and client packages
+* **[@whiteley](https://github.com/whiteley)**
+    * remove duplicated attributes
+    * namespace apt attributes following yum example
 
 
 ## License

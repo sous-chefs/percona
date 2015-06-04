@@ -272,6 +272,7 @@ default["percona"]["server"]["username"] = "mysql"
 default["percona"]["server"]["datadir"] = "/var/lib/mysql"
 default["percona"]["server"]["logdir"] = "/var/log/mysql"
 default["percona"]["server"]["tmpdir"] = "/tmp"
+default["percona"]["server"]["slave_load_tmpdir"] = "/tmp"
 default["percona"]["server"]["debian_username"] = "debian-sys-maint"
 default["percona"]["server"]["jemalloc"] = false
 default["percona"]["server"]["jemalloc_lib"] = value_for_platform_family(
@@ -739,6 +740,7 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * add version restrictions on three MySQL directives
     * only set `old_passwords` only when a value defined
     * add `slave_transaction_retries` attribute
+    * add `slave_load_tmpdir` attribute
 * **[@cyberflow](https://github.com/cyberflow)**
     * add `replication_sql` attribute
 * **[@jklare](https://github.com/jklare)**

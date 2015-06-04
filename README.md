@@ -738,6 +738,8 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * only set `old_passwords` only when a value defined
 * **[@cyberflow](https://github.com/cyberflow)**
     * add `replication_sql` attribute
+* **[@jklare](https://github.com/jklare)**
+    * fix cluster specific settings for `my.cnf` and client packages
 
 
 ## License

@@ -740,6 +740,8 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * add `replication_sql` attribute
 * **[@jklare](https://github.com/jklare)**
     * fix cluster specific settings for `my.cnf` and client packages
+* **[@joelhandwell](https://github.com/joelhandwell)**
+    * suppress warning CHEF-3694 for log dir
 
 
 ## License

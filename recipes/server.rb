@@ -10,6 +10,13 @@ version = node["percona"]["version"]
 # install packages
 case node["platform_family"]
 when "debian"
+  # Do not start mysql on install if we are going to configure
+  unless node["percona"]["skip_configure"]
+    dpkg_autostart 'mysql' do
+      allow false
+    end
+  end
+
   node.default["percona"]["server"]["package"] = "percona-server-server-#{version}" # rubocop:disable LineLength
 
   package node["percona"]["server"]["package"] do

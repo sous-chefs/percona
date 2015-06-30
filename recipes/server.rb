@@ -11,7 +11,7 @@ version = node["percona"]["version"]
 case node["platform_family"]
 when "debian"
   # Do not start mysql on install if we are going to configure
-  unless node["percona"]["skip_configure"]
+  unless node["percona"]["skip_configure"]  # ~FC023
     dpkg_autostart 'mysql' do
       allow false
     end

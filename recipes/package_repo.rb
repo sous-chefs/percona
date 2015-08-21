@@ -16,13 +16,24 @@ when "debian"
     pin_priority "1001"
   end
 
-  apt_repository "percona" do
-    uri node["percona"]["apt"]["uri"]
-    distribution node["lsb"]["codename"]
-    components ["main"]
-    keyserver node["percona"]["apt"]["keyserver"]
-    key node["percona"]["apt"]["key"]
+  if node["percona"]["apt"]["use_local_key"]
+    apt_repository "percona" do
+      uri node["percona"]["apt"]["uri"]
+      distribution node["lsb"]["codename"]
+      components ["main"]
+      cookbook node["percona"]["apt"]["cookbook"]
+      key node["percona"]["apt"]["file"]
+    end
+  else
+    apt_repository "percona" do
+      uri node["percona"]["apt"]["uri"]
+      distribution node["lsb"]["codename"]
+      components ["main"]
+      keyserver node["percona"]["apt"]["keyserver"]
+      key node["percona"]["apt"]["key"]
+    end
   end
+
 
 when "rhel"
   include_recipe "yum"

@@ -43,6 +43,7 @@ default["percona"]["encrypted_data_bag_item_ssl_replication"] = "ssl_replication
 default["percona"]["use_chef_vault"] = false
 default["percona"]["skip_passwords"] = false
 default["percona"]["skip_configure"] = false
+default["percona"]["skip_install_db"] = false
 
 # Start percona server on boot
 default["percona"]["server"]["enable"] = true

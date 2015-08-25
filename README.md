@@ -103,6 +103,9 @@ Set the `["percona"]["skip_passwords"]` attribute to skip setting up passwords. 
 
 Set the `['percona']['skip_configure']` attribute to skip having the server recipe include the configure\_server recipe directly after install. This is mostly useful in a wrapper cookbook sort of context. Once skipped, you can then perform any pre-config actions your wrapper needs to, such as dropping a custom configuration file or init script or cleaning up incorrectly sized innodb logfiles. You can then include configure\_server where necessary.
 
+### Skip install\_db
+Set the `["percona"]["skip_install_db"]` attribute to skip running mysql\_install\_db. Useful for replication setups where you still want the database to be partially initialized but you don't want it to be populated with the default tables.
+
 #### mysql item
 
 The mysql item should contain entries for root, backup, and replication. If no value is found, the cookbook will fall back to the default non-encrypted password.

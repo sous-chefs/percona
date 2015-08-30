@@ -14,6 +14,13 @@ if node["percona"]["cluster"]["wsrep_sst_receive_interface"]
   node.set["percona"]["cluster"]["wsrep_sst_receive_address"] = address
 end
 
+# set default package attributes
+version = node["percona"]["version"]
+node.default["percona"]["cluster"]["package"] = value_for_platform_family(
+  "debian" => "percona-xtradb-cluster-#{version.tr(".", "")}",
+  "rhel" => "Percona-XtraDB-Cluster-#{version.tr(".", "")}"
+)
+
 # install packages
 case node["platform_family"]
 when "debian"
@@ -26,18 +33,12 @@ when "debian"
 when "rhel"
   package "mysql-libs" do
     action :remove
+    not_if "rpm -qa | grep -q '#{node["percona"]["cluster"]["package"]}'"
   end
 
   # This is required for `socat` per:
   # www.percona.com/doc/percona-xtradb-cluster/5.6/installation/yum_repo.html
   include_recipe "yum-epel"
-
-  # This follows the originals posters workaround found here:
-  #    https://bugs.launchpad.net/percona-toolkit/+bug/1031427
-  # The package dependency PITA is actually a bug in the XtraDB Cluster package
-  # and not toolkit hence it's inclusion here before the actual XtraDB Cluster
-  # package install.
-  package "Percona-Server-shared-compat"
 
   package node["percona"]["cluster"]["package"]
 end

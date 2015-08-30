@@ -1,3 +1,9 @@
+AllCops:
+  Exclude:
+    - ".bundle/**/*"
+    - ".kitchen/**/*"
+    - "vendor/**/*"
+
 LineLength:
   Max: 80
   Exclude:
@@ -12,6 +18,7 @@ StringLiteralsInInterpolation:
 
 PercentLiteralDelimiters:
   PreferredDelimiters:
+    "%r": "()"
     "%w": "[]"  # Arrays use brackets
     "%W": "[]"  # Arrays use brackets
 

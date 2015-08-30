@@ -7,7 +7,8 @@ describe "percona::cluster" do
 
   before do
     stub_command("test -f /var/lib/mysql/mysql/user.frm").and_return(true)
-    stub_command("test -f /etc/mysql/grants.sql").and_return(true)
+    stub_command("mysqladmin --user=root --password='' version")
+      .and_return(true)
   end
 
   specify do
@@ -51,12 +52,16 @@ describe "percona::cluster" do
         end.converge(described_recipe)
       end
 
+      before do
+        stub_command("rpm -qa | grep -q 'Percona-XtraDB-Cluster-55'")
+          .and_return(false)
+      end
+
       specify do
         expect(chef_run).to remove_package "mysql-libs"
 
         expect(chef_run).to include_recipe "yum-epel"
 
-        expect(chef_run).to install_package "Percona-Server-shared-compat"
         expect(chef_run).to install_package centos_cluster_package
       end
     end
@@ -95,12 +100,16 @@ describe "percona::cluster" do
         end.converge(described_recipe)
       end
 
+      before do
+        stub_command("rpm -qa | grep -q 'Percona-XtraDB-Cluster-56'")
+          .and_return(false)
+      end
+
       specify do
         expect(chef_run).to remove_package "mysql-libs"
 
         expect(chef_run).to include_recipe "yum-epel"
 
-        expect(chef_run).to install_package "Percona-Server-shared-compat"
         expect(chef_run).to install_package centos_cluster_package
       end
     end

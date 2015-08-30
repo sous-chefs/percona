@@ -1,42 +1,48 @@
+#<% require "kitchen-sync" %>
+---
 driver:
-  require_chef_omnibus: <%= ENV.fetch("CHEF_VERSION", "latest") %>
-  ssh_key: <%= File.expand_path("./test/support/keys/vagrant") %>
-  name: vagrant
-  customize:
-    memory: 768
+  name: docker
+  require_chef_omnibus: <%= ENV.fetch("CHEF_VERSION", "true") %>
 
 provisioner:
   name: chef_zero
 
 platforms:
+  - name: amazon-2015
+    driver_config:
+      image: ambakshi/amazon-linux
+      platform: rhel
+  - name: centos-6.6
+  - name: centos-7.1
+  - name: debian-7.8
+  - name: debian-8.0
   - name: ubuntu-12.04
   - name: ubuntu-14.04
-  - name: centos-6.5
 
 suites:
-  - name: client
-    run_list:
-      - recipe[percona::client]
-  - name: server
-    run_list:
-      - recipe[percona::server]
+  <% %w[5.5 5.6].each do |version| %>
+  - name: client_<%= version.tr(".", "") %>
     attributes:
       percona:
+        apt:
+          keyserver: hkp://pgp.mit.edu:80
+        version: "<%= version %>"
+    run_list:
+      - recipe[percona::client]
+      - recipe[percona::toolkit]
+
+  - name: server_<%= version.tr(".", "") %>
+    attributes:
+      percona:
+        apt:
+          keyserver: hkp://pgp.mit.edu:80
+        version: "<%= version %>"
         server:
-          jemalloc: true
+          datadir: /tmp/mysql
           debian_password: d3b1an
+          jemalloc: true
           root_password: r00t
-  - name: xtrabackup
     run_list:
       - recipe[percona::server]
       - recipe[percona::backup]
-  - name: toolkit
-    run_list:
-      - recipe[percona::toolkit]
-  - name: new_datadir
-    run_list:
-      - recipe[percona::server]
-    attributes:
-      percona:
-        server:
-          datadir: "/tmp/mysql"
+  <% end %>

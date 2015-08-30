@@ -4,6 +4,7 @@ whitelist:
 - Apache v2
 - BSD
 - BSD-3
+- GPLv3
 - ISC
 - MIT
 - Ruby

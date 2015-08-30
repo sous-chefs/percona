@@ -382,7 +382,13 @@ innodb_open_files=2000
 # ssl-cert=/etc/mysql/server-cert.pem
 # ssl-key=/etc/mysql/server-key.pem
 
-
+<% if !node["percona"]["cluster"]["wsrep_sst_xtrabackupv2_tkey"].empty? %>
+[sst]
+encrypt=3
+tkey=<%= node["percona"]["cluster"]["wsrep_sst_xtrabackupv2_tkey"] %>
+tcert=<%= node["percona"]["cluster"]["wsrep_sst_xtrabackupv2_tcert"] %>
+NOTE: This option can only be used when wsrep_sst_method is set to xtrabackup-v2.
+<% end %>
 
 [mysqldump]
 quick

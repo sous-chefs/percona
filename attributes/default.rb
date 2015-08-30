@@ -182,6 +182,10 @@ default["percona"]["cluster"]["wsrep_node_name"]                = ""
 default["percona"]["cluster"]["wsrep_notify_cmd"]               = ""
 default["percona"]["cluster"]["wsrep_sst_auth"]                 = ""
 
+# xtrabackup_v2 sst ssl setup
+default["percona"]["cluster"]["wsrep_sst_xtrabackupv2_tcert"]   = ""
+default["percona"]["cluster"]["wsrep_sst_xtrabackupv2_tkey"]    = ""
+
 # These both are used to build wsrep_sst_receive_address
 default["percona"]["cluster"]["wsrep_sst_receive_interface"]    = nil # Works like node["percona"]["server"]["bind_to"]
 default["percona"]["cluster"]["wsrep_sst_receive_port"]         = "4444"

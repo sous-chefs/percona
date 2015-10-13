@@ -118,6 +118,14 @@ if node["percona"]["server"]["replication"]["ssl_enabled"]
   include_recipe "percona::ssl"
 end
 
+if Array(server["role"]).include?("cluster")
+  if node["percona"]["cluster"]["wsrep_sst_auth"] == ""
+    wsrep_sst_auth = "#{node["percona"]["backup"]["username"]}:#{passwords.backup_password}" # rubocop:disable LineLength
+  else
+    wsrep_sst_auth = node["percona"]["cluster"]["wsrep_sst_auth"]
+  end
+end
+
 # setup the main server config file
 template percona["main_config_file"] do
   if Array(server["role"]).include?("cluster")
@@ -129,6 +137,9 @@ template percona["main_config_file"] do
   group "root"
   mode "0644"
   sensitive true
+  if Array(server["role"]).include?("cluster")
+    variables(wsrep_sst_auth: wsrep_sst_auth)
+  end
   notifies :run, "execute[setup mysql datadir]", :immediately
   if node["percona"]["auto_restart"]
     notifies :restart, "service[mysql]", :immediately

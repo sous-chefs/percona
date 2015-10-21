@@ -12,7 +12,7 @@ pversion = value_for_platform(
 )
 
 default["percona"]["apt"]["key"] = "0x1C4CBDCDCD2EFD2A"
-default["percona"]["apt"]["keyserver"] = "hkp://keys.gnupg.net:80"
+default["percona"]["apt"]["keyserver"] = "hkp://keyserver.ubuntu.com:80"
 default["percona"]["apt"]["uri"] = "http://repo.percona.com/apt"
 
 default["percona"]["yum"]["description"] = "Percona Packages"

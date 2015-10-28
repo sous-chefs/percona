@@ -121,10 +121,11 @@ end
 # setup the main server config file
 template percona["main_config_file"] do
   if Array(server["role"]).include?("cluster")
-    source "my.cnf.cluster.erb"
+    source node["percona"]["main_config_template"]["source"]["cluster"]
   else
-    source "my.cnf.main.erb"
+    source node["percona"]["main_config_template"]["source"]["default"]
   end
+  cookbook node["percona"]["main_config_template"]["cookbook"]
   owner "root"
   group "root"
   mode "0644"

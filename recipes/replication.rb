@@ -18,12 +18,14 @@ template replication_sql do
   mode "0600"
   sensitive true
   only_if do
-    
-    # We wrap this in lazy so other cookbooks have a chance to come through and update the `node["percona"]["server"]["replication"]["host"]`
+    # We wrap this in lazy so other cookbooks have a chance to come through and 
+    # update the `node["percona"]["server"]["replication"]["host"]`
     # object *before* we decision to render out the template is made
-    # This will break on versions of chef UNDER 11.6 (but since we're already >= 11.14, this does not break anything!)
-
-    lazy { server["replication"]["host"] != "" || server["role"].include?("master") }
+    # This will break on versions of chef UNDER 11.6 
+    # (but since we're already >= 11.14, this does not break anything!)
+    lazy { 
+      server["replication"]["host"] != "" || server["role"].include?("master") 
+    }
   end
 end
 

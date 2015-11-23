@@ -9,17 +9,19 @@ conf    = percona["conf"]
 mysqld  = (conf && conf["mysqld"]) || {}
 
 # setup SELinux if needed
-semodule_filename = node["percona"]["selinux_module_url"].split("/")[-1]
-semodule_filepath = "#{Chef::Config[:file_cache_path]}/#{semodule_filename}"
-remote_file semodule_filepath do
-  source node["percona"]["selinux_module_url"]
-  only_if { semodule_filename && node["platform_family"] == "rhel" }
-end
+unless node["percona"]["selinux_module_url"].nil? || node["percona"]["selinux_module_url"] == ""
+  semodule_filename = node["percona"]["selinux_module_url"].split("/")[-1]
+  semodule_filepath = "#{Chef::Config[:file_cache_path]}/#{semodule_filename}"
+  remote_file semodule_filepath do
+    source node["percona"]["selinux_module_url"]
+    only_if { semodule_filename && node["platform_family"] == "rhel" }
+  end
 
-execute "semodule-install-#{semodule_filename}" do
-  command "/usr/sbin/semodule -i #{semodule_filepath}"
-  only_if { semodule_filename && node["platform_family"] == "rhel" }
-  only_if { shell_out("/usr/sbin/semodule -l | grep '^#{semodule_filename.split(".")[0..-2]}\\s'").stdout == "" } # rubocop:disable LineLength
+  execute "semodule-install-#{semodule_filename}" do
+    command "/usr/sbin/semodule -i #{semodule_filepath}"
+    only_if { semodule_filename && node["platform_family"] == "rhel" }
+    only_if { shell_out("/usr/sbin/semodule -l | grep '^#{semodule_filename.split(".")[0..-2]}\\s'").stdout == "" } # rubocop:disable LineLength
+  end
 end
 
 # install chef-vault if needed

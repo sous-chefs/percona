@@ -62,8 +62,8 @@ default["percona"]["server"]["jemalloc"] = false
 default["percona"]["server"]["jemalloc_lib"] = value_for_platform_family(
   "debian" => value_for_platform(
     "ubuntu" => {
-      "trusty" => "/usr/lib/x86_64-linux-gnu/libjemalloc.so.1",
-      "precise" => "/usr/lib/libjemalloc.so.1"
+      "14.04" => "/usr/lib/x86_64-linux-gnu/libjemalloc.so.1",
+      "12.04" => "/usr/lib/libjemalloc.so.1"
     }
   ),
   "rhel" => "/usr/lib64/libjemalloc.so.1"

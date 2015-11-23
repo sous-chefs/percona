@@ -84,8 +84,8 @@ wsrep_sst_method               = <%= node["percona"]["cluster"]["wsrep_sst_metho
 wsrep_node_name                = <%= node["percona"]["cluster"]["wsrep_node_name"] %>
 wsrep_notify_cmd               = <%= node["percona"]["cluster"]["wsrep_notify_cmd"] %>
 wsrep_sst_receive_address      = <%= node["percona"]["cluster"]["wsrep_sst_receive_address"] %>
-<%  unless node["percona"]["cluster"]["wsrep_sst_auth"].empty? -%>
-wsrep_sst_auth                 = <%= node["percona"]["cluster"]["wsrep_sst_auth"] %>
+<%  unless @wsrep_sst_auth.empty? -%>
+wsrep_sst_auth                 = "<%= @wsrep_sst_auth %>"
 <% end -%>
 innodb_locks_unsafe_for_binlog = <%= node["percona"]["cluster"]["innodb_locks_unsafe_for_binlog"] %>
 innodb_autoinc_lock_mode       = <%= node["percona"]["cluster"]["innodb_autoinc_lock_mode"] %>

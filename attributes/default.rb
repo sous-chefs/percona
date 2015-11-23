@@ -90,6 +90,7 @@ default["percona"]["server"]["wait_timeout"]  = 28_800
 default["percona"]["server"]["old_passwords"]  = 0
 default["percona"]["server"]["bind_address"]  = "127.0.0.1"
 default["percona"]["server"]["federated"] = false
+default["percona"]["server"]["report_host"] = ""
 
 %w[debian_password root_password].each do |attribute|
   next if attribute?(node["percona"]["server"][attribute])
@@ -200,6 +201,7 @@ default["percona"]["server"]["replication"]["suppress_1592"] = false
 default["percona"]["server"]["replication"]["skip_slave_start"] = false
 default["percona"]["server"]["replication"]["replication_sql"] = "/etc/mysql/replication.sql"
 default["percona"]["server"]["replication"]["slave_transaction_retries"] = 10
+
 
 # XtraBackup Settings
 default["percona"]["backup"]["configure"] = false

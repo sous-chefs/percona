@@ -18,7 +18,8 @@ default["percona"]["version"] = "5.6"
 default["percona"]["auto_restart"] = true
 
 # SELinux module URL
-default["percona"]["selinux_module_url"] = "https://github.com/gguillen/selinux_percona-pxc-56-cluster/raw/master/percona-pxc-56-cluster.pp"
+# If interested, use "https://github.com/gguillen/selinux_percona-pxc-56-cluster/raw/master/percona-pxc-56-cluster.pp"
+default["percona"]["selinux_module_url"] = nil
 
 case node["platform_family"]
 when "debian"

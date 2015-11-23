@@ -350,7 +350,7 @@ expire_logs_days = <%= node["percona"]["server"]["expire_logs_days"] %>
 max_binlog_size  = <%= node["percona"]["server"]["max_binlog_size"] %>
 binlog_format    = <%= node["percona"]["server"]["binlog_format"] %>
 binlog_checksum  = <%= node["percona"]["server"]["binlog_checksum"] %>
-slave_net_timeout = <%= node["percona"]["server"]["master_verify_checksum"] %>
+slave_net_timeout = <%= node["percona"]["server"]["slave_net_timeout"] %>
 <% if node["percona"]["server"]["master_verify_checksum"] %>
 master_verify_checksum = <%= node["percona"]["server"]["master_verify_checksum"] %>
 <% end %>

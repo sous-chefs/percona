@@ -352,14 +352,16 @@ log_bin          = <%= node["percona"]["server"]["datadir"] %>/mysql-bin.log
 expire_logs_days = <%= node["percona"]["server"]["expire_logs_days"] %>
 max_binlog_size  = <%= node["percona"]["server"]["max_binlog_size"] %>
 binlog_format    = <%= node["percona"]["server"]["binlog_format"] %>
+<%- if node["percona"]["version"] >= "5.6" %>
 binlog_checksum  = <%= node["percona"]["server"]["binlog_checksum"] %>
-slave_net_timeout = <%= node["percona"]["server"]["slave_net_timeout"] %>
 <% if node["percona"]["server"]["master_verify_checksum"] %>
 master_verify_checksum = <%= node["percona"]["server"]["master_verify_checksum"] %>
 <% end %>
 <% if node["percona"]["server"]["slave_sql_verify_checksum"] %>
 slave_sql_verify_checksum = <%= node["percona"]["server"]["master_verify_checksum"] %>
 <% end %>
+<% end %>
+slave_net_timeout = <%= node["percona"]["server"]["slave_net_timeout"] %>
 
 <% if node["percona"]["server"]["binlog_rows_query_log_events"] %>
 binlog_rows_query_log_events

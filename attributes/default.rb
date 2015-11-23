@@ -180,6 +180,9 @@ default["percona"]["server"]["replication"]["skip_slave_start"] = false
 default["percona"]["server"]["replication"]["replication_sql"] = "/etc/mysql/replication.sql"
 default["percona"]["server"]["replication"]["slave_transaction_retries"] = 10
 
+# Mysqld_safe
+default["percona"]["server"]["skip_syslog"] = false
+
 # XtraBackup Settings
 default["percona"]["backup"]["configure"] = false
 default["percona"]["backup"]["username"] = "backup"

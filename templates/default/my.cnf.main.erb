@@ -371,6 +371,7 @@ binlog-do-db     = <%= db_name %>
 
 <% node["percona"]["server"]["binlog_ignore_db"].each do |db_name| %>
 binlog-ignore-db = <%= db_name %>
+<% end -%>
 
 gtid_mode = <%= node["percona"]["server"]["gtid_mode"] %>
 <% if node["percona"]["server"]["enforce_gtid_consistency"] %>

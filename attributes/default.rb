@@ -17,6 +17,9 @@ default["percona"]["version"] = "5.6"
 # Always restart percona on configuration changes
 default["percona"]["auto_restart"] = true
 
+# SELinux module URL
+default["percona"]["selinux_module_url"] = "https://github.com/gguillen/selinux_percona-pxc-56-cluster/raw/master/percona-pxc-56-cluster.pp"
+
 case node["platform_family"]
 when "debian"
   default["percona"]["server"]["socket"] = "/var/run/mysqld/mysqld.sock"

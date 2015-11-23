@@ -263,6 +263,9 @@ default["percona"]["skip_configure"] = false
 # Start percona server on boot
 default["percona"]["server"]["enable"] = true
 
+# SELinux module URL
+default["percona"]["selinux_module_url"] = "https://github.com/gguillen/selinux_percona-pxc-56-cluster/raw/master/percona-pxc-56-cluster.pp"
+
 # install vs. upgrade packages
 default["percona"]["server"]["package_action"] = "install"
 

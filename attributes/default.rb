@@ -91,6 +91,7 @@ default["percona"]["server"]["wait_timeout"]  = 28_800
 default["percona"]["server"]["old_passwords"]  = 0
 default["percona"]["server"]["bind_address"]  = "127.0.0.1"
 default["percona"]["server"]["federated"] = false
+default["percona"]["server"]["report_host"] = ""
 
 %w[debian_password root_password].each do |attribute|
   next if attribute?(node["percona"]["server"][attribute])

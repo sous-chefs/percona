@@ -102,11 +102,12 @@ default["percona"]["server"]["max_heap_table_size"] = "64M"
 default["percona"]["server"]["sort_buffer_size"] = "8M"
 default["percona"]["server"]["join_buffer_size"] = "8M"
 default["percona"]["server"]["thread_cache_size"] = 16
-default["percona"]["server"]["back_log"] = 50
+default["percona"]["server"]["back_log"] = 50           # >= 5.6.6, -1 (autosized)
 default["percona"]["server"]["max_connections"] = 30
 default["percona"]["server"]["max_connect_errors"] = 9_999_999
 default["percona"]["server"]["sql_modes"] = []
 default["percona"]["server"]["table_cache"] = 8192
+default["percona"]["server"]["table_definition_cache"] = 4096   # >= 5.6.8, Default -1 (autosized)
 default["percona"]["server"]["group_concat_max_len"] = 4096
 default["percona"]["server"]["expand_fast_index_creation"] = false
 default["percona"]["server"]["read_rnd_buffer_size"] = 262_144
@@ -146,6 +147,7 @@ default["percona"]["server"]["read_buffer_size"] = "8M"
 default["percona"]["server"]["skip_innodb"] = false
 default["percona"]["server"]["innodb_additional_mem_pool_size"] = "32M"
 default["percona"]["server"]["innodb_buffer_pool_size"] = "128M"
+default["percona"]["server"]["innodb_buffer_pool_instances"] = 8
 default["percona"]["server"]["innodb_data_file_path"] = "ibdata1:10M:autoextend"
 default["percona"]["server"]["innodb_autoextend_increment"] = "128M"
 default["percona"]["server"]["innodb_open_files"] = 2000

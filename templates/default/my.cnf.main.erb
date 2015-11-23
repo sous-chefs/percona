@@ -219,6 +219,8 @@ table_open_cache        = <%= node["percona"]["server"]["table_cache"] %>
 table_cache             = <%= node["percona"]["server"]["table_cache"] %>
 <%- end %>
 
+table_definition_cache             = <%= node["percona"]["server"]["table_definition_cache"] %>
+
 #thread_concurrency     = 10
 #
 # * Query Cache Configuration
@@ -457,6 +459,8 @@ innodb_additional_mem_pool_size = <%= node["percona"]["server"]["innodb_addition
 
 # This config file assumes a main memory of at least 8G
 innodb_buffer_pool_size = <%= node["percona"]["server"]["innodb_buffer_pool_size"] %>
+
+innodb_buffer_pool_instances = <%= node["percona"]["server"]["innodb_buffer_pool_instances"] %>
 
 # InnoDB stores data in one or more data files forming the tablespace.
 # If you have a single logical drive for your data, a single

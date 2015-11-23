@@ -592,3 +592,5 @@ key_buffer_size = <%= node["percona"]["server"]["key_buffer_size"] %>
 <% if !node["percona"]["server"]["includedir"].empty? %>
 !includedir <%= node["percona"]["server"]["includedir"] %>
 <% end %>
+
+# vim: ts=1 sts=2

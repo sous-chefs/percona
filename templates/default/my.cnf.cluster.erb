@@ -353,11 +353,13 @@ max_binlog_size  = <%= node["percona"]["server"]["max_binlog_size"] %>
 binlog_format    = <%= node["percona"]["server"]["binlog_format"] %>
 binlog_checksum  = <%= node["percona"]["server"]["binlog_checksum"] %>
 slave_net_timeout = <%= node["percona"]["server"]["slave_net_timeout"] %>
+<%- if node["percona"]["version"] >= "5.6" %>
 <% if node["percona"]["server"]["master_verify_checksum"] %>
 master_verify_checksum = <%= node["percona"]["server"]["master_verify_checksum"] %>
 <% end %>
 <% if node["percona"]["server"]["slave_sql_verify_checksum"] %>
 slave_sql_verify_checksum = <%= node["percona"]["server"]["master_verify_checksum"] %>
+<% end %>
 <% end %>
 
 <% if node["percona"]["server"]["binlog_rows_query_log_events"] %>

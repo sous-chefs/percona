@@ -12,8 +12,8 @@ pversion = value_for_platform(
 )
 
 default["percona"]["apt"]["key"] = "1C4CBDCDCD2EFD2A"
-keyserver_port = default["percona"]["apt"]["keyserver_port"] = nil
-if default["percona"]["apt"]["keyserver_port"]
+keyserver_port = default["percona"]["apt"]["keyserver_port"] = '80'
+if keyserver_port
   default["percona"]["apt"]["keyserver"] = "hkp://keys.gnupg.net:#{keyserver_port}"
 else
   default["percona"]["apt"]["keyserver"] = "hkp://keys.gnupg.net"

@@ -347,6 +347,10 @@ skip-slave-start
 # stopping.
 slave_transaction_retries = <%= node["percona"]["server"]["replication"]["slave_transaction_retries"] %>
 
+# Enable binary logging. This is required for acting as a MASTER in a
+# replication configuration. You also need the binary log if you need
+# the ability to do point in time recovery from your latest backup.
+#
 # Bin log basename
 # https://dev.mysql.com/doc/refman/5.6/en/replication-options-binary-log.html#sysvar_log_bin_basename
 # it is recommened to specify a filename for the binary log, hopefully
@@ -372,6 +376,10 @@ log-bin = <%= node["percona"]["server"]["log_bin_basename"] %>
 <%- if [1,'1',0,'0','OFF','off'].include?(node["percona"]["server"]["log_bin"])  %>
 log_bin                   = <%= node["percona"]["server"]["log_bin"] %>
 <%- end %>
+
+<% unless node["percona"]["server"]["relay_log"].empty? %>
+relay-log = <%= node["percona"]["server"]["relay_log"] %>
+<% end %>
 
 expire_logs_days = <%= node["percona"]["server"]["expire_logs_days"] %>
 max_binlog_size  = <%= node["percona"]["server"]["max_binlog_size"] %>

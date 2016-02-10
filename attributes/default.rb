@@ -170,6 +170,7 @@ default["percona"]["server"]["skip_innodb"] = false
 default["percona"]["server"]["innodb_additional_mem_pool_size"] = "32M"
 default["percona"]["server"]["innodb_buffer_pool_size"] = "128M"
 default["percona"]["server"]["innodb_buffer_pool_instances"] = 8
+default["percona"]["server"]["innodb_buffer_pool_populate"] = 0 # Introduced: MariaDB 5.5 / XtraDB 5.5.28-29.1
 default["percona"]["server"]["innodb_data_file_path"] = "ibdata1:10M:autoextend"
 default["percona"]["server"]["innodb_autoextend_increment"] = "128M"
 default["percona"]["server"]["innodb_open_files"] = 2000
@@ -186,6 +187,7 @@ default["percona"]["server"]["innodb_max_dirty_pages_pct"] = 80
 default["percona"]["server"]["innodb_flush_method"] = "O_DIRECT"
 default["percona"]["server"]["innodb_lock_wait_timeout"] = 120
 default["percona"]["server"]["innodb_import_table_from_xtrabackup"] = 0
+default["percona"]["server"]["innodb_numa_interleave"] = 0
 
 # Performance Schema
 default["percona"]["server"]["performance_schema"] = false

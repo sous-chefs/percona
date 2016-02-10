@@ -513,6 +513,8 @@ innodb_buffer_pool_size = <%= node["percona"]["server"]["innodb_buffer_pool_size
 
 innodb_buffer_pool_instances = <%= node["percona"]["server"]["innodb_buffer_pool_instances"] %>
 
+innodb_buffer_pool_populate = <%= node["percona"]["server"]["innodb_buffer_pool_populate"] %>
+
 # InnoDB stores data in one or more data files forming the tablespace.
 # If you have a single logical drive for your data, a single
 # autoextending file would be good enough. In other cases, a single file
@@ -629,6 +631,8 @@ innodb_lock_wait_timeout = <%= node["percona"]["server"]["innodb_lock_wait_timeo
 innodb_commit_concurrency=0
 
 innodb_open_files=<%= node["percona"]["server"]["innodb_open_files"] %>
+
+innodb_numa_interleave=<%= node["percona"]["server"]["innodb_numa_interleave"] %>
 
 #
 # * Security Features

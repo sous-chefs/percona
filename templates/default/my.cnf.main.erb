@@ -229,6 +229,10 @@ table_open_cache        = <%= node["percona"]["server"]["table_cache"] %>
 table_definition_cache  = <%= node["percona"]["server"]["table_definition_cache"] %>
 <%- else %>
 table_cache             = <%= node["percona"]["server"]["table_cache"] %>
+<# for <= 5.6.7, keep in mind MIN/MAX values. The -1 is the default value #>
+    <%- unless node["percona"]["server"]["table_definition_cache"].to_i.eq?(-1)
+table_definition_cache  = <%= node["percona"]["server"]["table_definition_cache"] %>
+    <%- end %>
 <%- end %>
 
 table_definition_cache             = <%= node["percona"]["server"]["table_definition_cache"] %>

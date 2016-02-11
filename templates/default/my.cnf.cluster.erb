@@ -244,7 +244,7 @@ table_definition_cache  = <%= node["percona"]["server"]["table_definition_cache"
 <%- else %>
 table_open_cache        = <%= node["percona"]["server"]["table_cache"] %>
     <%- unless node["percona"]["server"]["table_definition_cache"].to_i.eql?(-1) %>
-    <# for <= 5.6.7, keep in mind MIN/MAX values. The -1 is the default value #>
+    <%# for <= 5.6.7, keep in mind MIN/MAX values. The -1 is the default value %>
 table_definition_cache  = <%= node["percona"]["server"]["table_definition_cache"] %>
     <%- end %>
 <%- end %>
@@ -363,8 +363,8 @@ slave_transaction_retries = <%= node["percona"]["server"]["replication"]["slave_
 log_bin_basename = <%= node["percona"]["server"]["log_bin_basename"] %>
 <%- else %>
     <%- unless [1,'1',0,'0','OFF','off'].include?(node["percona"]["server"]["log_bin"]) %>
-    <# from toady point log_bin attr. was missused in the cookbook in the past #>
-    <# and contained more or less the base-name #>
+    <%# from toady point log_bin attr. was missused in the cookbook in the past %>
+    <%# and contained more or less the base-name %>
 log-bin = <%= node["percona"]["server"]["log_bin"] %>
     <%- else %>
         # to allow on <= 5.5 useage of log_bin_basename

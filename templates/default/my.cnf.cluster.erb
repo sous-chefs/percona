@@ -365,20 +365,14 @@ log_bin_basename = <%= node["percona"]["server"]["log_bin_basename"] %>
     <%- unless [1,'1',0,'0','OFF','off'].include?(node["percona"]["server"]["log_bin"]) %>
     <%# from toady point log_bin attr. was missused in the cookbook in the past %>
     <%# and contained more or less the base-name %>
-log-bin = <%= node["percona"]["server"]["log_bin"] %>
+log_bin = <%= node["percona"]["server"]["log_bin"] %>
     <%- else %>
         # to allow on <= 5.5 useage of log_bin_basename
         # introduced by this PR
         <%- if node["percona"]["server"].key?('log_bin_basename') %>
-log-bin = <%= node["percona"]["server"]["log_bin_basename"] %>
+log_bin = <%= node["percona"]["server"]["log_bin_basename"] %>
         <%- end %>
     <%- end %>
-<%- end %>
-
-# Bin log on/off switch
-# https://dev.mysql.com/doc/refman/5.6/en/replication-options-binary-log.html#sysvar_log_bin
-<%- if [1,'1',0,'0','OFF','off'].include?(node["percona"]["server"]["log_bin"])  %>
-log_bin                   = <%= node["percona"]["server"]["log_bin"] %>
 <%- end %>
 
 <% unless node["percona"]["server"]["relay_log"].empty? %>

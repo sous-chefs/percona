@@ -361,17 +361,17 @@ slave_transaction_retries = <%= node["percona"]["server"]["replication"]["slave_
 # https://dev.mysql.com/doc/refman/5.6/en/replication-options-binary-log.html#sysvar_log_bin_basename
 # it is recommened to specify a filename for the binary log, hopefully
 # something that is not host specific.  I've chosen master-bin.
-<%- if node["percona"]["version"] >= "5.6" and node["percona"]["server"].key?('log_bin_basename') %>
+<%- if node["percona"]["version"] >= "5.6" and node["percona"]["server"].key?('log_bin_basename') and !node["percona"]["server"]["log_bin_basename"].empty?  %>
 log_bin_basename = <%= node["percona"]["server"]["log_bin_basename"] %>
 <%- else %>
-    <%- unless [1,'1',0,'0','OFF','off'].include?(node["percona"]["server"]["log_bin"]) %>
+    <%- unless [1,'1',0,'0','OFF','off',''].include?(node["percona"]["server"]["log_bin"]) %>
     <%# from toady point log_bin attr. was missused in the cookbook in the past %>
     <%# and contained more or less the base-name %>
 log_bin = <%= node["percona"]["server"]["log_bin"] %>
     <%- else %>
         # to allow on <= 5.5 useage of log_bin_basename
         # introduced by this PR
-        <%- if node["percona"]["server"].key?('log_bin_basename') %>
+        <%- if node["percona"]["server"].key?('log_bin_basename') and !node["percona"]["server"]["log_bin_basename"].empty?  %>
 log_bin = <%= node["percona"]["server"]["log_bin_basename"] %>
         <%- end %>
     <%- end %>
@@ -384,6 +384,7 @@ relay-log = <%= node["percona"]["server"]["relay_log"] %>
 expire_logs_days = <%= node["percona"]["server"]["expire_logs_days"] %>
 max_binlog_size  = <%= node["percona"]["server"]["max_binlog_size"] %>
 binlog_format    = <%= node["percona"]["server"]["binlog_format"] %>
+slave_net_timeout = <%= node["percona"]["server"]["slave_net_timeout"] %>
 <%- if node["percona"]["version"] >= "5.6" %>
 binlog_checksum  = <%= node["percona"]["server"]["binlog_checksum"] %>
 <% if node["percona"]["server"]["master_verify_checksum"] %>
@@ -393,7 +394,6 @@ master_verify_checksum = <%= node["percona"]["server"]["master_verify_checksum"]
 slave_sql_verify_checksum = <%= node["percona"]["server"]["master_verify_checksum"] %>
 <% end %>
 <% end %>
-slave_net_timeout = <%= node["percona"]["server"]["slave_net_timeout"] %>
 
 <% if node["percona"]["server"]["binlog_rows_query_log_events"] %>
 binlog_rows_query_log_events

@@ -305,7 +305,7 @@ log-queries-not-using-indexes = <%= node["percona"]["server"]["log_queries_not_u
 # is required for both master and slave hosts. It defaults to 1 if
 # "master-host" is not set, but will MySQL will not function as a master
 # if it is omitted.
-#server-id    = 1
+# server-id = <%= node["percona"]["server"]["server_id"] %>
 
 <% unless node["percona"]["server"]["replication"]["ignore_db"].empty? %>
 # Tells the slave SQL thread not to replicate any statement where the default database is.
@@ -359,17 +359,17 @@ slave_transaction_retries = <%= node["percona"]["server"]["replication"]["slave_
 # https://dev.mysql.com/doc/refman/5.6/en/replication-options-binary-log.html#sysvar_log_bin_basename
 # it is recommened to specify a filename for the binary log, hopefully
 # something that is not host specific.  I've chosen master-bin.
-<%- if node["percona"]["version"] >= "5.6" and node["percona"]["server"].key?('log_bin_basename') %>
+<%- if node["percona"]["version"] >= "5.6" and node["percona"]["server"].key?('log_bin_basename') and !node["percona"]["server"]["log_bin_basename"].empty?  %>
 log_bin_basename = <%= node["percona"]["server"]["log_bin_basename"] %>
 <%- else %>
-    <%- unless [1,'1',0,'0','OFF','off'].include?(node["percona"]["server"]["log_bin"]) %>
+    <%- unless [1,'1',0,'0','OFF','off',''].include?(node["percona"]["server"]["log_bin"]) %>
     <%# from toady point log_bin attr. was missused in the cookbook in the past %>
     <%# and contained more or less the base-name %>
 log_bin = <%= node["percona"]["server"]["log_bin"] %>
     <%- else %>
         # to allow on <= 5.5 useage of log_bin_basename
         # introduced by this PR
-        <%- if node["percona"]["server"].key?('log_bin_basename') %>
+        <%- if node["percona"]["server"].key?('log_bin_basename') and !node["percona"]["server"]["log_bin_basename"].empty? %>
 log_bin = <%= node["percona"]["server"]["log_bin_basename"] %>
         <%- end %>
     <%- end %>

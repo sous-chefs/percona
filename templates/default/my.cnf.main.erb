@@ -430,7 +430,7 @@ myisam_max_sort_file_size = <%= node["percona"]["server"]["myisam_max_sort_file_
 myisam_repair_threads = <%= node["percona"]["server"]["myisam_repair_threads"] %>
 
 # Automatically check and repair not properly closed MyISAM tables.
-<% if node["percona"]["server"]["myisam_recover_options"] %>
+<% if node["percona"]["server"]["myisam_recover_options"] && node["percona"]["version"] < "5.7" %>
 myisam_recover
 <% end %>
 

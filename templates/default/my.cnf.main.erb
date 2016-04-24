@@ -362,7 +362,7 @@ slave_transaction_retries = <%= node["percona"]["server"]["replication"]["slave_
 # it is recommened to specify a filename for the binary log, hopefully
 # something that is not host specific.  I've chosen master-bin.
 <%- if node["percona"]["version"] >= "5.6" and node["percona"]["server"].key?('log_bin_basename') and !node["percona"]["server"]["log_bin_basename"].empty?  %>
-log_bin_basename = <%= node["percona"]["server"]["log_bin_basename"] %>
+log_bin = <%= node["percona"]["server"]["log_bin_basename"] %>
 <%- else %>
     <%- unless [1,'1',0,'0','OFF','off',''].include?(node["percona"]["server"]["log_bin"]) %>
     <%# from toady point log_bin attr. was missused in the cookbook in the past %>

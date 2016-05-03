@@ -55,8 +55,8 @@ slave_load_tmpdir = <%= node["percona"]["server"]["slave_load_tmpdir"] %>
 character_set_server = <%= node["percona"]["server"]["character_set"] %>
 collation_server  = <%= node["percona"]["server"]["collation"] %>
 
-<% unless node["percona"]["server"]["report_host"].empty? %>
-report-host = <%= node["percona"]["server"]["report_host"] %>
+<% unless node["percona"]["server"]["replication"]["report_host"].empty? %>
+report_host = <%= node["percona"]["server"]["replication"]["report_host"] %>
 <% end %>
 
 <% if node["percona"]["server"]["federated"] %>

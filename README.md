@@ -323,13 +323,16 @@ default["percona"]["server"]["max_connections"] = 30
 default["percona"]["server"]["max_connect_errors"] = 9_999_999
 default["percona"]["server"]["sql_modes"] = []
 default["percona"]["server"]["table_cache"] = 8192
+default["percona"]["server"]["table_definition_cache"] = "-1"
 default["percona"]["server"]["group_concat_max_len"] = 4096
 default["percona"]["server"]["expand_fast_index_creation"] = false
 default["percona"]["server"]["read_rnd_buffer_size"] = 262_144
+default["percona"]["server"]["sysdate_is_now"] = false
 
 # Query Cache Configuration
 default["percona"]["server"]["query_cache_size"] = "64M"
 default["percona"]["server"]["query_cache_limit"] = "2M"
+default["percona"]["server"]["query_cache_type"] = "1"
 
 # Logging and Replication
 default["percona"]["server"]["sync_binlog"] = (node["percona"]["server"]["role"] == "cluster" ? 0 : 1)
@@ -337,19 +340,30 @@ default["percona"]["server"]["slow_query_log"] = 1
 default["percona"]["server"]["slow_query_logdir"] = "/var/log/mysql"
 default["percona"]["server"]["slow_query_log_file"] = "#{node["percona"]["server"]["slow_query_logdir"]}/mysql-slow.log"
 default["percona"]["server"]["long_query_time"] = 2
+default["percona"]["server"]["log_queries_not_using_indexes"] = 0
 default["percona"]["server"]["server_id"] = 1
+default["percona"]["server"]["binlog_rows_query_log_events"] = false
 default["percona"]["server"]["binlog_do_db"] = []
 default["percona"]["server"]["binlog_ignore_db"] = []
 default["percona"]["server"]["expire_logs_days"] = 10
+default["percona"]["server"]["gtid_mode"] = "OFF"
+default["percona"]["server"]["enforce_gtid_consistency"] = false
 default["percona"]["server"]["max_binlog_size"] = "100M"
 default["percona"]["server"]["binlog_cache_size"] = "1M"
 default["percona"]["server"]["binlog_format"] = "MIXED"
+default["percona"]["server"]["binlog_checksum"] = "CRC32"
 default["percona"]["server"]["log_bin"] = "master-bin"
 default["percona"]["server"]["relay_log"] = "slave-relay-bin"
 default["percona"]["server"]["log_slave_updates"] = false
 default["percona"]["server"]["log_warnings"] = true
 default["percona"]["server"]["log_long_format"] = false
 default["percona"]["server"]["bulk_insert_buffer_size"] = "64M"
+default["percona"]["server"]["sync_master_info"] = false
+default["percona"]["server"]["sync_relay_log"] = false
+default["percona"]["server"]["sync_relay_log_info"] = false
+default["percona"]["server"]["master_verify_checksum"] = false
+default["percona"]["server"]["slave_net_timeout"] = 3600
+default["percona"]["server"]["slave_sql_verify_checksum"] = false
 
 # MyISAM Specific
 default["percona"]["server"]["myisam_recover_options"] = "BACKUP"

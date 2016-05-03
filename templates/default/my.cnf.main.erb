@@ -353,7 +353,7 @@ slave_net_timeout = <%= node["percona"]["server"]["slave_net_timeout"] %>
 master_verify_checksum = <%= node["percona"]["server"]["master_verify_checksum"] %>
 <% end %>
 <% if node["percona"]["server"]["slave_sql_verify_checksum"] %>
-slave_sql_verify_checksum = <%= node["percona"]["server"]["master_verify_checksum"] %>
+slave_sql_verify_checksum = <%= node["percona"]["server"]["slave_sql_verify_checksum"] %>
 <% end %>
 
 <% if node["percona"]["server"]["binlog_rows_query_log_events"] %>

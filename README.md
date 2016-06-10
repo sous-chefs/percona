@@ -94,6 +94,8 @@ To use encrypted passwords, you must create an encrypted data bag. This cookbook
 
 This cookbook expects a `mysql` item  and a `system` item. Please refer to the official documentation on how to get this setup. It actually uses a MySQL example so it can be mostly copied. Ensure you cover the data bag items as described below.
 
+You also may set expected item names via attributes `node["percona"]["encrypted_data_bag_item_mysql"]` and `node["percona"]["encrypted_data_bag_item_system"]`.
+
 ### Skip passwords
 Set the `["percona"]["skip_passwords"]` attribute to skip setting up passwords. Removes the need for the encrypted data bag if using chef-solo. Is useful for setting up development and ci environments where you just want to use the root user with no password. If you are doing this you may want to set `[:percona][:server][:debian_username]` to be `"root"` also.
 
@@ -130,7 +132,7 @@ Above shows the encrypted password in the data bag. Check out the `encrypted_dat
 
 ### Replication over SSL
 To enable SSL based replication, you will need to flip the attribute `node[:percona][:server][:replication][:ssl_enabled]` to `true` and add a new data_bag item
-to the percona encrypted data_bag (see `node[:percona][:encrypted_data_bag]` attribute) with the id `ssl_replication` that contains this data:
+to the percona encrypted data_bag (see`node[:percona][:encrypted_data_bag]` attribute) with the id `ssl_replication` ( see `node["percona"]["encrypted_data_bag_item_ssl_replication"]` attribute) that contains this data:
 
 ```javascript
 {
@@ -251,7 +253,7 @@ default["percona"]["main_config_file"] = value_for_platform_family(
   "debian" => "/etc/mysql/my.cnf",
   "rhel" => "/etc/my.cnf"
 )
-default["percona"]["keyserver"] = "keys.gnupg.net"
+default["percona"]["apt"]["keyserver"] = "hkp://keys.gnupg.net:80"
 default["percona"]["encrypted_data_bag"] = "passwords"
 default["percona"]["encrypted_data_bag_secret_file"] = ""
 default["percona"]["use_chef_vault"] = false
@@ -270,6 +272,7 @@ default["percona"]["server"]["username"] = "mysql"
 default["percona"]["server"]["datadir"] = "/var/lib/mysql"
 default["percona"]["server"]["logdir"] = "/var/log/mysql"
 default["percona"]["server"]["tmpdir"] = "/tmp"
+default["percona"]["server"]["slave_load_tmpdir"] = "/tmp"
 default["percona"]["server"]["debian_username"] = "debian-sys-maint"
 default["percona"]["server"]["jemalloc"] = false
 default["percona"]["server"]["jemalloc_lib"] = value_for_platform_family(
@@ -336,6 +339,7 @@ default["percona"]["server"]["slow_query_log_file"] = "#{node["percona"]["server
 default["percona"]["server"]["long_query_time"] = 2
 default["percona"]["server"]["server_id"] = 1
 default["percona"]["server"]["binlog_do_db"] = []
+default["percona"]["server"]["binlog_ignore_db"] = []
 default["percona"]["server"]["expire_logs_days"] = 10
 default["percona"]["server"]["max_binlog_size"] = "100M"
 default["percona"]["server"]["binlog_cache_size"] = "1M"
@@ -359,6 +363,8 @@ default["percona"]["server"]["skip_innodb"] = false
 default["percona"]["server"]["innodb_additional_mem_pool_size"] = "32M"
 default["percona"]["server"]["innodb_buffer_pool_size"] = "128M"
 default["percona"]["server"]["innodb_data_file_path"] = "ibdata1:10M:autoextend"
+default["percona"]["server"]["innodb_autoextend_increment"] = "128M"
+default["percona"]["server"]["innodb_open_files"] = 2000
 default["percona"]["server"]["innodb_file_per_table"] = true
 default["percona"]["server"]["innodb_file_format"] = "Antelope"
 default["percona"]["server"]["innodb_data_home_dir"] = ""
@@ -386,6 +392,8 @@ default["percona"]["server"]["replication"]["ignore_db"] = []
 default["percona"]["server"]["replication"]["ignore_table"] = []
 default["percona"]["server"]["replication"]["ssl_enabled"] = false
 default["percona"]["server"]["replication"]["suppress_1592"] = false
+default["percona"]["server"]["replication"]["skip_slave_start"] = false
+default["percona"]["server"]["replication"]["slave_transaction_retries"] = 10
 
 # XtraBackup Settings
 default["percona"]["backup"]["configure"] = false
@@ -495,6 +503,28 @@ slow_query_log_file = /var/lib/mysql/data/mysql-slow.log
 ## Dynamically setting the bind address
 
 There's a special attribute `node["percona"]["server"]["bind_to"]` that allows you to dynamically set the bind address. This attribute accepts the values `"public_ip"`, `"private_ip"`, `"loopback"`, or and interface name like `"eth0"`. Based on this, the recipe will find a corresponding ipv4 address, and override the `node["percona"]["server"]["bind_address"]` attribute.
+
+## MySQL Gems
+
+This cookbook provides a MySQL and MySQL2 gem installer specifically designed for
+use with Percona. Since they share namespaces with other providers you most
+likely want to call them directly targeting the provider, example provided below:
+
+```ruby
+mysql2_chef_gem 'default' do
+  provider Chef::Provider::Mysql2ChefGem::Percona
+  action :install
+end
+
+mysql_chef_gem 'default' do
+  provider Chef::Provider::MysqlChefGem::Percona
+  action :install
+end
+```
+
+Also keep in mind that since these providers are subclasses of the mysql_chef_gem
+and mysql2_chef_gem cookbooks they need to be added to your metadata.rb file as
+depends to ensure they pull in the needed resource files.
 
 ## Goals
 
@@ -630,6 +660,8 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * fix regression in cluster configuration template
     * centralize `jemalloc` configuration for cluster and server configurations
     * sync cluster configuration file with main configuration
+    * add `innodb_autoextend_increment` and `innodb_open_files` attributes
+    * fix cluster template regression
 * **[@achied](https://github.com/achied)**
     * fix setting passwords if attribute not defined
 * **[@akshah123](https://github.com/akshah123)**
@@ -661,6 +693,7 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * extend master-master capabilities and add ssl support
 * **[@realloc](https://github.com/realloc)**
     * add `mysql2` gem provider
+    * add ability to set data bag item names using attributes
 * **[@tbunnyman](https://github.com/tbunnyman)**
     * make `ignore_db` attribute into an array & add matching `ignore_table` attribute
     * add `suppress_1592` replication attribute
@@ -695,6 +728,26 @@ Many thanks go to the following [contributors](https://github.com/phlipper/chef-
     * add `myisam_read_buffer_size` attribute
 * **[@cmjosh](https://github.com/cmjosh)**
     * fix version-dependent package attribute issues
+* **[@cybermerc](https://github.com/cybermerc)**
+    * fix provider superclass mismatch
+* **[@drywheat](https://github.com/drywheat)**
+    * add `skip_slave_start` attribute
+* **[@joelhandwell](https://github.com/joelhandwell)**
+    * fix duplication of slow query log directory creation
+    * suppress warning CHEF-3694 for log dir
+* **[@bitpusher-real](https://github.com/bitpusher-real)**
+    * add `binlog_ignore_db` attribute
+    * add version restrictions on three MySQL directives
+    * only set `old_passwords` only when a value defined
+    * add `slave_transaction_retries` attribute
+    * add `slave_load_tmpdir` attribute
+* **[@cyberflow](https://github.com/cyberflow)**
+    * add `replication_sql` attribute
+* **[@jklare](https://github.com/jklare)**
+    * fix cluster specific settings for `my.cnf` and client packages
+* **[@whiteley](https://github.com/whiteley)**
+    * remove duplicated attributes
+    * namespace apt attributes following yum example
 
 
 ## License

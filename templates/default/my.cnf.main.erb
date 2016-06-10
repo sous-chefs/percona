@@ -53,7 +53,7 @@ port              = <%= node["percona"]["server"]["port"] %>
 basedir           = <%= node["percona"]["server"]["basedir"] %>
 datadir           = <%= node["percona"]["server"]["datadir"] %>
 tmpdir            = <%= node["percona"]["server"]["tmpdir"] %>
-slave_load_tmpdir = <%= node["percona"]["server"]["tmpdir"] %>
+slave_load_tmpdir = <%= node["percona"]["server"]["slave_load_tmpdir"] %>
 # language          = <%= node["percona"]["server"]["language"] %>
 character_set_server = <%= node["percona"]["server"]["character_set"] %>
 collation_server  = <%= node["percona"]["server"]["collation"] %>
@@ -74,10 +74,12 @@ net_read_timeout = <%= node["percona"]["server"]["net_read_timeout"] %>
 connect_timeout  = <%= node["percona"]["server"]["connect_timeout"] %>
 wait_timeout     = <%= node["percona"]["server"]["wait_timeout"] %>
 
+<% if @old_passwords %>
 #
 # For compatibility to other Debian packages that still use
 # libmysqlclient10 and libmysqlclient12.
 old_passwords = <%= @old_passwords %>
+<% end %>
 
 #
 # Instead of skip-networking the default is now to listen only on
@@ -87,9 +89,11 @@ bind-address = <%= node["percona"]["server"]["bind_address"] %>
 <% end %>
 #
 
+<%- if node["percona"]["version"] >= "5.5" %>
 # As of 5.6.6 performance_schema is enabled by default. This allows it to be
 # explicitly turned on or off as needed across all mysql versions
 performance_schema=<%= node["percona"]["server"]["performance_schema"] ? "ON" : "OFF" %>
+<% end %>
 
 # * Fine Tuning
 #
@@ -180,7 +184,11 @@ thread_cache_size = <%= node["percona"]["server"]["thread_cache_size"] %>
 
 # This replaces the startup script and checks MyISAM tables if needed
 # the first time they are touched
+<%- if node["percona"]["version"] < "5.5" %>
+myisam-recover = <%= node["percona"]["server"]["myisam_recover_options"] %>
+<% else %>
 myisam-recover-options = <%= node["percona"]["server"]["myisam_recover_options"] %>
+<% end %>
 
 # back_log is the number of connections the operating system can keep in
 # the listen queue, before the MySQL connection manager thread has
@@ -309,6 +317,17 @@ log_warnings_suppress=1592
 read_only
 <% end %>
 
+# Tells the slave server not to start the slave threads when the server starts.
+# This will allow you to tweak system and/or server settings prior to starting
+# replication.
+<% if node["percona"]["server"]["replication"]["skip_slave_start"] %>
+skip-slave-start
+<% end %>
+
+# Number of times the slave SQL thread will retry a transaction in case it
+# failed with a deadlock or elapsed lock wait timeout, before giving up and
+# stopping.
+slave_transaction_retries = <%= node["percona"]["server"]["replication"]["slave_transaction_retries"] %>
 
 log_bin          = <%= node["percona"]["server"]["datadir"] %>/mysql-bin.log
 expire_logs_days = <%= node["percona"]["server"]["expire_logs_days"] %>
@@ -318,6 +337,10 @@ binlog_format    = <%= node["percona"]["server"]["binlog_format"] %>
 <% node["percona"]["server"]["binlog_do_db"].each do |db_name| %>
 binlog-do-db     = <%= db_name %>
 <% end -%>
+
+<% node["percona"]["server"]["binlog_ignore_db"].each do |db_name| %>
+binlog-ignore-db = <%= db_name %>
+<% end %>
 
 # The size of the cache to hold the SQL statements for the binary log
 # during a transaction. If you often use big, multi-statement
@@ -412,8 +435,6 @@ myisam_recover
 <% end %>
 
 
-#binlog_do_db   = include_database_name
-#binlog_ignore_db = include_database_name
 #
 # * InnoDB
 #
@@ -452,7 +473,7 @@ innodb_buffer_pool_size = <%= node["percona"]["server"]["innodb_buffer_pool_size
 # can't specify tablespace sizes for innodb-file-per-table tablespaces
 # so using a big autoextend is preferable in those cases.
 innodb_data_file_path = <%= node["percona"]["server"]["innodb_data_file_path"] %>
-# innodb_autoextend_increment = 128M
+innodb_autoextend_increment = <%= node["percona"]["server"]["innodb_autoextend_increment"] %>
 <% if node["percona"]["server"]["innodb_file_per_table"] %>
 innodb_file_per_table
 <% end %>
@@ -552,9 +573,9 @@ innodb_lock_wait_timeout = <%= node["percona"]["server"]["innodb_lock_wait_timeo
 # isolation level isn't serializable.
 innodb_commit_concurrency=0
 
-innodb_open_files=2000
+innodb_open_files=<%= node["percona"]["server"]["innodb_open_files"] %>
 
-<% if node["percona"]["version"] < "5.6" %>
+<% if node["percona"]["version"] == "5.5" %>
 # set this to 1 if you like to import single tables from xtrabackup snapshot
 innodb_import_table_from_xtrabackup = <%= node["percona"]["server"]["innodb_import_table_from_xtrabackup"] %>
 <% end %>

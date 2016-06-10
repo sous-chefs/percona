@@ -46,7 +46,17 @@ describe "percona::configure_server" do
     end
 
     it "creates the log directory" do
-      expect(chef_run).to create_directory("/var/log/mysql").with(
+      expect(chef_run).to create_directory("log directory").with(
+        path: "/var/log/mysql",
+        owner: "mysql",
+        group: "mysql",
+        recursive: true
+      )
+    end
+
+    it "do not create duplicated slow query log directory" do
+      expect(chef_run).to_not create_directory("slow query log directory").with(
+        path: "/var/log/mysql",
         owner: "mysql",
         group: "mysql",
         recursive: true
@@ -188,6 +198,27 @@ describe "percona::configure_server" do
 
       resource = chef_run.template(debian_cnf)
       expect(resource).to notify("service[mysql]").to(:restart).immediately
+    end
+  end
+
+  describe "custom slow query log directory" do
+    let(:chef_run) do
+      ChefSpec::SoloRunner.new do |node|
+        node.set["percona"]["server"]["slow_query_logdir"] = "/var/log/slowq"
+      end.converge(described_recipe)
+    end
+
+    before do
+      stub_command("mysqladmin --user=root --password='' version")
+        .and_return(true)
+    end
+
+    it "creates the slow query log directory" do
+      expect(chef_run).to create_directory("/var/log/slowq").with(
+        owner: "mysql",
+        group: "mysql",
+        recursive: true
+      )
     end
   end
 

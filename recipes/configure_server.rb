@@ -68,7 +68,8 @@ directory datadir do
 end
 
 # setup the log directory
-directory logdir do
+directory "log directory" do
+  path logdir
   owner user
   group user
   recursive true
@@ -91,10 +92,12 @@ unless includedir.empty?  # ~FC023
 end
 
 # setup slow_query_logdir directory
-directory slow_query_logdir do
+directory "slow query log directory" do
+  path slow_query_logdir
   owner user
   group user
   recursive true
+  not_if { slow_query_logdir.eql? logdir }
 end
 
 # define the service
@@ -117,7 +120,11 @@ end
 
 # setup the main server config file
 template percona["main_config_file"] do
-  source "my.cnf.#{server["role"] == "cluster" ? "cluster" : "main"}.erb"
+  if Array(server["role"]).include?("cluster")
+    source "my.cnf.cluster.erb"
+  else
+    source "my.cnf.main.erb"
+  end
   owner "root"
   group "root"
   mode "0644"

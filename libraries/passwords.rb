@@ -8,6 +8,8 @@ class Chef
       @node = node
       @bag = bag
       @secret_file = node["percona"]["encrypted_data_bag_secret_file"]
+      @mysql_item = node["percona"]["encrypted_data_bag_item_mysql"]
+      @system_item = node["percona"]["encrypted_data_bag_item_system"]
     end
 
     # helper for passwords
@@ -32,32 +34,33 @@ class Chef
 
     # mysql root
     def root_password
-      find_password "mysql", "root", node_server["root_password"]
+      find_password @mysql_item, "root", node_server["root_password"]
     end
 
     # debian script user password
     def debian_password
       find_password(
-        "system", node_server["debian_username"], node_server["debian_password"]
+        @system_item, node_server["debian_username"],
+        node_server["debian_password"]
       )
     end
 
     # ?
     def old_passwords
-      find_password "mysql", "old_passwords", node_server["old_passwords"]
+      find_password @mysql_item, "old_passwords", node_server["old_passwords"]
     end
 
     # password for user responsbile for replicating in master/slave environment
     def replication_password
       find_password(
-        "mysql", "replication", node_server["replication"]["password"]
+        @mysql_item, "replication", node_server["replication"]["password"]
       )
     end
 
     # password for user responsbile for running xtrabackup
     def backup_password
       backup = node["percona"]["backup"]
-      find_password "mysql", backup["username"], backup["password"]
+      find_password @mysql_item, backup["username"], backup["password"]
     end
 
     private

@@ -61,7 +61,7 @@ collation_server  = <%= node["percona"]["server"]["collation"] %>
 <% if node["percona"]["server"]["federated"] %>
 federated
 <% end %>
-z
+
 <% if node["percona"]["server"]["skip_name_resolve"] %>
 skip-name-resolve
 <% end %>

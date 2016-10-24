@@ -4,7 +4,7 @@ maintainer_email  "github@phlippers.net"
 license           "MIT"
 description       "Installs Percona MySQL client and server"
 long_description  "Please refer to README.md"
-version           "0.16.3"
+version           "0.16.4"
 
 recipe "percona",                "Includes the client recipe to configure a client"
 recipe "percona::package_repo",  "Sets up the package repository and installs dependent packages"

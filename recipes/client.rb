@@ -7,7 +7,7 @@ include_recipe "percona::package_repo"
 
 version = value_for_platform_family(
   "debian" => node["percona"]["version"],
-   "rhel" => node["percona"]["version"].tr(".", "")
+  "rhel" => node["percona"]["version"].tr(".", "")
 )
 
 case node["platform_family"]
@@ -20,7 +20,8 @@ when "debian"
 
   if Array(node["percona"]["server"]["role"]).include?("cluster")
     packages = %W[
-      libperconaserverclient#{abi_version}-dev percona-xtradb-cluster-client-#{version}
+      libperconaserverclient#{abi_version}-dev
+      percona-xtradb-cluster-client-#{version}
     ]
   else
     packages = %W[
@@ -30,7 +31,8 @@ when "debian"
 when "rhel"
   if Array(node["percona"]["server"]["role"]).include?("cluster")
     packages = %W[
-      Percona-XtraDB-Cluster-devel-#{version} Percona-XtraDB-Cluster-client-#{version}
+      Percona-XtraDB-Cluster-devel-#{version}
+      Percona-XtraDB-Cluster-client-#{version}
     ]
   else
     packages = %W[

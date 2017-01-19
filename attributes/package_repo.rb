@@ -11,7 +11,7 @@ pversion = value_for_platform(
   "default" => node["platform_version"].to_i
 )
 
-default["percona"]["apt"]["key"] = "0x9334A25F8507EFA5"
+default["percona"]["apt"]["key"] = "0x8507EFA5"
 default["percona"]["apt"]["keyserver"] = "hkp://keys.gnupg.net:80"
 default["percona"]["apt"]["uri"] = "http://repo.percona.com/apt"
 

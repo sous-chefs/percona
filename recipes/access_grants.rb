@@ -25,12 +25,12 @@ if passwords.root_password && !passwords.root_password.empty?
   # Stop the server, start it without grant tables, set grants, start regular server back
   execute "mysql-install-privileges" do
     command [
-      "/usr/sbin/service mysql stop",
+      "service mysql stop",
       "/usr/sbin/mysqld --skip-grant-tables --skip-networking --daemonize --pid-file=/tmp/mysqld-tmp.pid &> /dev/null > /dev/null &> /dev/null",
-      "/usr/bin/sleep 10",
+      "sleep 10",
       "/usr/bin/mysql < /etc/mysql/grants.sql",
-      "/usr/bin/kill `cat /tmp/mysqld-tmp.pid`",
-      "/usr/sbin/service mysql start",
+      "kill `cat /tmp/mysqld-tmp.pid`",
+      "service mysql start",
     ].join(" && ")
     action :nothing
     subscribes :run, resources("template[/etc/mysql/grants.sql]"), :immediately

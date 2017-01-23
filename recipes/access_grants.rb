@@ -22,14 +22,18 @@ end
 
 # execute access grants
 if passwords.root_password && !passwords.root_password.empty?
-  # Intent is to check whether the root_password works, and use it to
-  # load the grants if so.  If not, try loading without a password
-  # and see if we get lucky
-  execute "mysql-install-privileges" do  # ~FC009 - `sensitive`
-    command "/usr/bin/mysql -p'#{passwords.root_password}' -e '' &> /dev/null > /dev/null &> /dev/null ; if [ $? -eq 0 ] ; then /usr/bin/mysql -p'#{passwords.root_password}' < /etc/mysql/grants.sql ; else /usr/bin/mysql < /etc/mysql/grants.sql ; fi ;" # rubocop:disable LineLength
+  # Stop the server, start it without grant tables, set grants, start regular server back
+  execute "mysql-install-privileges" do
+    command [
+      "service mysql stop",
+      "/usr/sbin/mysqld --skip-grant-tables --skip-networking --daemonize --pid-file=/tmp/mysqld-tmp.pid &> /dev/null > /dev/null &> /dev/null",
+      "sleep 10",
+      "/usr/bin/mysql < /etc/mysql/grants.sql",
+      "kill `cat /tmp/mysqld-tmp.pid`",
+      "service mysql start",
+    ].join(" && ")
     action :nothing
     subscribes :run, resources("template[/etc/mysql/grants.sql]"), :immediately
-    sensitive true
   end
 else
   # Simpler path...  just try running the grants command
@@ -37,6 +41,5 @@ else
     command "/usr/bin/mysql < /etc/mysql/grants.sql"
     action :nothing
     subscribes :run, resources("template[/etc/mysql/grants.sql]"), :immediately
-    sensitive true
   end
 end

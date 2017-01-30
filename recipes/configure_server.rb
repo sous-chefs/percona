@@ -83,7 +83,7 @@ directory tmpdir do
 end
 
 # setup the configuration include directory
-unless includedir.empty?  # ~FC023
+unless includedir.empty? # ~FC023
   directory includedir do # don't evaluate an empty `directory` resource
     owner user
     group user
@@ -139,7 +139,7 @@ end
 unless node["percona"]["skip_passwords"]
   root_pw = passwords.root_password
 
-  execute "Update MySQL root password" do  # ~FC009 - `sensitive`
+  execute "Update MySQL root password" do # ~FC009 - `sensitive`
     command "mysqladmin --user=root --password='' password '#{root_pw}'"
     only_if "mysqladmin --user=root --password='' version"
     sensitive true

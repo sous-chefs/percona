@@ -7,10 +7,12 @@ module Percona
     def for(ipaddress)
       address = IPAddr.new(ipaddress)
 
-      case
-      when private?(address)  then :private
-      when loopback?(address) then :loopback
-      else :public
+      if private?(address)
+        :private
+      elsif loopback?(address)
+        :loopback
+      else
+        :public
       end
     end
     module_function :for
@@ -40,8 +42,6 @@ module Percona
       end
     end
     module_function :bind_to
-
-    private
 
     def self.find_public_ip(node)
       if node["cloud"] && node["cloud"]["public_ipv4"]

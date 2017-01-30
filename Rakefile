@@ -10,6 +10,8 @@ task all_tests: [
 
 # license finder
 task :license_finder do
+  sh "bundle exec license_finder approval add ffi" # Used by Oahi
+  sh "bundle exec license_finder approval add rubyzip" # Used by license_finder
   sh "bundle exec license_finder --quiet"
 end
 

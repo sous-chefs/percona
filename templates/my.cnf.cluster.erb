@@ -476,7 +476,7 @@ myisam_max_sort_file_size = <%= node["percona"]["server"]["myisam_max_sort_file_
 # have multiple CPUs and plenty of memory.
 myisam_repair_threads = <%= node["percona"]["server"]["myisam_repair_threads"] %>
 
-<%- if node["percona"]["version"] < "5.7.4" %>
+<%- if node["percona"]["version"] < "5.7" %>
 # Automatically check and repair not properly closed MyISAM tables.
 <% if node["percona"]["server"]["myisam_recover_options"] %>
 myisam_recover

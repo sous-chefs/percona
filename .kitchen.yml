@@ -1,43 +1,57 @@
-#<% require "kitchen-sync" %>
 ---
 driver:
-  name: docker
-  require_chef_omnibus: <%= ENV.fetch("CHEF_VERSION", "true") %>
-  use_sudo: false
+name: vagrant
 
 provisioner:
   name: chef_zero
+  product_name: chef
+  product_version: <%= ENV['CHEF_VERSION'] || 'latest' %>
+  install_strategy: once
+
+client_rb:
+  treat_deprecation_warnings_as_errors: true
 
 platforms:
-  - name: amazon-2015
-    driver_config:
-      image: ambakshi/amazon-linux
-      platform: rhel
-  - name: centos-6.6
-  - name: centos-7.1
-  - name: debian-7.8
-  - name: debian-8.0
-  - name: ubuntu-12.04
-  - name: ubuntu-14.04
+- name: amazon-linux
+  driver_config:
+    box: mvbcoding/awslinux
+- name: centos-6
+- name: centos-7
+- name: debian-8
+- name: debian-9
+- name: fedora-27
+- name: freebsd-10
+- name: freebsd-11
+- name: opensuse-leap-42
+- name: ubuntu-16.04
+- name: ubuntu-18.04
 
 suites:
-  <% %w[5.5 5.6].each do |version| %>
-  - name: client_<%= version.tr(".", "") %>
+  - name: client_5.6
     attributes:
       percona:
         apt:
           keyserver: hkp://pgp.mit.edu:80
-        version: "<%= version %>"
+        version: "5.6"
+    run_list:
+      - recipe[percona::client]
+      - recipe[percona::toolkit]
+  - name: client_5.7
+    attributes:
+      percona:
+        apt:
+          keyserver: hkp://pgp.mit.edu:80
+        version: "5.7"
     run_list:
       - recipe[percona::client]
       - recipe[percona::toolkit]
 
-  - name: server_<%= version.tr(".", "") %>
+  - name: server_5.6
     attributes:
       percona:
         apt:
           keyserver: hkp://pgp.mit.edu:80
-        version: "<%= version %>"
+        version: "5.6"
         server:
           datadir: /tmp/mysql
           debian_password: d3b1an
@@ -46,4 +60,18 @@ suites:
     run_list:
       - recipe[percona::server]
       - recipe[percona::backup]
-  <% end %>
+
+  - name: server_5.7
+    attributes:
+      percona:
+        apt:
+          keyserver: hkp://pgp.mit.edu:80
+        version: "5.7"
+        server:
+          datadir: /tmp/mysql
+          debian_password: d3b1an
+          jemalloc: true
+          root_password: r00t
+    run_list:
+      - recipe[percona::server]
+      - recipe[percona::backup]

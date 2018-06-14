@@ -8,10 +8,8 @@ source_url        'https://github.com/phlipper/chef-percona'
 issues_url        'https://github.com/phlipper/chef-percona/issues'
 version           '0.16.4'
 
-depends 'apt', '>= 2.7.0'
 depends 'build-essential'
 depends 'openssl'
-depends 'yum', '~> 3.0'
 depends 'yum-epel'
 depends 'chef-vault'
 

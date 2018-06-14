@@ -35,6 +35,9 @@ open-files-limit = <%= node["percona"]["server"]["open_files_limit"] %>
 <% if node["percona"]["server"]["jemalloc"] %>
 malloc-lib       = <%= node["percona"]["server"]["jemalloc_lib"] %>
 <% end %>
+<% if node["percona"]["server"]["skip_syslog"] %>
+skip-syslog
+<% end %>
 
 # *** Application-specific options follow here ***
 
@@ -57,6 +60,10 @@ slave_load_tmpdir = <%= node["percona"]["server"]["slave_load_tmpdir"] %>
 # language          = <%= node["percona"]["server"]["language"] %>
 character_set_server = <%= node["percona"]["server"]["character_set"] %>
 collation_server  = <%= node["percona"]["server"]["collation"] %>
+
+<% unless node["percona"]["server"]["report_host"].empty? %>
+report-host = <%= node["percona"]["server"]["report_host"] %>
+<% end %>
 
 <% if node["percona"]["server"]["federated"] %>
 federated
@@ -97,6 +104,9 @@ performance_schema=<%= node["percona"]["server"]["performance_schema"] ? "ON" : 
 
 # * Fine Tuning
 #
+
+sysdate_is_now = <%= node["percona"]["server"]["sysdate_is_now"] %>
+
 key_buffer_size = <%= node["percona"]["server"]["key_buffer_size"] %>
 
 # The maximum size of a query packet the server can handle as well as
@@ -200,6 +210,7 @@ myisam-recover-options = <%= node["percona"]["server"]["myisam_recover_options"]
 back_log = <%= node["percona"]["server"]["back_log"] %>
 max_connections = <%= node["percona"]["server"]["max_connections"] %>
 
+
 # I don't know why 0 doesn't disable max_connect_errors checking
 # but it doesn't, so set it to a high value to prevent MySQL from
 # refusing to accept connections from a flaky host, especially if you
@@ -215,9 +226,16 @@ sql-mode = <%= node["percona"]["server"]["sql_modes"].join(",") %>
 # mysqld_safe section
 <%- if node["percona"]["version"] >= "5.6" %>
 table_open_cache        = <%= node["percona"]["server"]["table_cache"] %>
+table_definition_cache  = <%= node["percona"]["server"]["table_definition_cache"] %>
 <%- else %>
 table_cache             = <%= node["percona"]["server"]["table_cache"] %>
+<%# for <= 5.6.7, keep in mind MIN/MAX values. The -1 is the default value %>
+    <%- unless node["percona"]["server"]["table_definition_cache"].to_i.eql?(-1) %>
+table_definition_cache  = <%= node["percona"]["server"]["table_definition_cache"] %>
+    <%- end %>
 <%- end %>
+
+table_definition_cache             = <%= node["percona"]["server"]["table_definition_cache"] %>
 
 #thread_concurrency     = 10
 #
@@ -239,6 +257,9 @@ query_cache_size = <%= node["percona"]["server"]["query_cache_size"] %>
 # protect the query cache of a very large result set overwriting all
 # other query results.
 query_cache_limit = <%= node["percona"]["server"]["query_cache_limit"] %>
+
+query_cache_type = <%= node["percona"]["server"]["query_cache_type"] %>
+
 
 #
 # * Logging and Replication
@@ -273,8 +294,10 @@ slow_query_log_file  = <%= node["percona"]["server"]["slow_query_log_file"] %>
 # currently measures time with second accuracy only).
 long_query_time = <%= node["percona"]["server"]["long_query_time"] %>
 
-# log-queries-not-using-indexes
-#
+<% if node["percona"]["server"]["log_queries_not_using_indexes"] %>
+log-queries-not-using-indexes = <%= node["percona"]["server"]["log_queries_not_using_indexes"] %>
+<% end %>
+
 # The following can be used as easy to replay backup logs or for replication.
 # note: if you are setting up a replication slave, see README.Debian about
 #       other settings you may need to change.
@@ -329,10 +352,52 @@ skip-slave-start
 # stopping.
 slave_transaction_retries = <%= node["percona"]["server"]["replication"]["slave_transaction_retries"] %>
 
-log_bin          = <%= node["percona"]["server"]["datadir"] %>/mysql-bin.log
+
+# Enable binary logging. This is required for acting as a MASTER in a
+# replication configuration. You also need the binary log if you need
+# the ability to do point in time recovery from your latest backup.
+#
+# Bin log basename
+# https://dev.mysql.com/doc/refman/5.6/en/replication-options-binary-log.html#sysvar_log_bin_basename
+# it is recommened to specify a filename for the binary log, hopefully
+# something that is not host specific.  I've chosen master-bin.
+<%- if node["percona"]["version"] >= "5.6" and node["percona"]["server"].key?('log_bin_basename') and !node["percona"]["server"]["log_bin_basename"].empty?  %>
+log_bin = <%= node["percona"]["server"]["log_bin_basename"] %>
+<%- else %>
+    <%- unless [1,'1',0,'0','OFF','off',''].include?(node["percona"]["server"]["log_bin"]) %>
+    <%# from toady point log_bin attr. was missused in the cookbook in the past %>
+    <%# and contained more or less the base-name %>
+log_bin = <%= node["percona"]["server"]["log_bin"] %>
+    <%- else %>
+        # to allow on <= 5.5 useage of log_bin_basename
+        # introduced by this PR
+        <%- if node["percona"]["server"].key?('log_bin_basename') and !node["percona"]["server"]["log_bin_basename"].empty?  %>
+log_bin = <%= node["percona"]["server"]["log_bin_basename"] %>
+        <%- end %>
+    <%- end %>
+<%- end %>
+
+<% unless node["percona"]["server"]["relay_log"].empty? %>
+relay-log = <%= node["percona"]["server"]["relay_log"] %>
+<% end %>
+
 expire_logs_days = <%= node["percona"]["server"]["expire_logs_days"] %>
 max_binlog_size  = <%= node["percona"]["server"]["max_binlog_size"] %>
 binlog_format    = <%= node["percona"]["server"]["binlog_format"] %>
+slave_net_timeout = <%= node["percona"]["server"]["slave_net_timeout"] %>
+<%- if node["percona"]["version"] >= "5.6" %>
+binlog_checksum  = <%= node["percona"]["server"]["binlog_checksum"] %>
+<% if node["percona"]["server"]["master_verify_checksum"] %>
+master_verify_checksum = <%= node["percona"]["server"]["master_verify_checksum"] %>
+<% end %>
+<% if node["percona"]["server"]["slave_sql_verify_checksum"] %>
+slave_sql_verify_checksum = <%= node["percona"]["server"]["master_verify_checksum"] %>
+<% end %>
+<% end %>
+
+<% if node["percona"]["server"]["binlog_rows_query_log_events"] %>
+binlog_rows_query_log_events
+<% end %>
 
 <% node["percona"]["server"]["binlog_do_db"].each do |db_name| %>
 binlog-do-db     = <%= db_name %>
@@ -340,6 +405,23 @@ binlog-do-db     = <%= db_name %>
 
 <% node["percona"]["server"]["binlog_ignore_db"].each do |db_name| %>
 binlog-ignore-db = <%= db_name %>
+<% end -%>
+
+<%- if node["percona"]["version"] >= "5.6" %>
+gtid_mode = <%= node["percona"]["server"]["gtid_mode"] %>
+<% if node["percona"]["server"]["enforce_gtid_consistency"] %>
+enforce_gtid_consistency = <%= node["percona"]["server"]["enforce_gtid_consistency"] %>
+<% end %>
+<% end %>
+
+<% if node["percona"]["server"]["sync_master_info"] %>
+sync_master_info = <%= node["percona"]["server"]["sync_master_info"] %>
+<% end %>
+<% if node["percona"]["server"]["sync_relay_log"] %>
+sync_relay_log = <%= node["percona"]["server"]["sync_relay_log"] %>
+<% end %>
+<% if node["percona"]["server"]["sync_relay_log_info"] %>
+sync_relay_log_info = <%= node["percona"]["server"]["sync_relay_log_info"] %>
 <% end %>
 
 # The size of the cache to hold the SQL statements for the binary log
@@ -351,21 +433,6 @@ binlog-ignore-db = <%= db_name %>
 # instead.  This buffer is allocated per connection on first update
 # statement in transaction
 binlog_cache_size = <%= node["percona"]["server"]["binlog_cache_size"] %>
-
-# Enable binary logging. This is required for acting as a MASTER in a
-# replication configuration. You also need the binary log if you need
-# the ability to do point in time recovery from your latest backup.
-
-# it is recommened to specify a filename for the binary log, hopefully
-# something that is not host specific.  I've chosen master-bin.
-<% unless node["percona"]["server"]["log_bin"].empty? %>
-log-bin = <%= node["percona"]["server"]["log_bin"] %>
-<% end %>
-
-<% unless node["percona"]["server"]["relay_log"].empty? %>
-relay-log = <%= node["percona"]["server"]["relay_log"] %>
-<% end %>
-
 
 # If you're using replication with chained slaves (A->B->C), you need to
 # enable this option on server B. It enables logging of updates done by
@@ -457,6 +524,8 @@ innodb_additional_mem_pool_size = <%= node["percona"]["server"]["innodb_addition
 
 # This config file assumes a main memory of at least 8G
 innodb_buffer_pool_size = <%= node["percona"]["server"]["innodb_buffer_pool_size"] %>
+
+innodb_buffer_pool_instances = <%= node["percona"]["server"]["innodb_buffer_pool_instances"] %>
 
 # InnoDB stores data in one or more data files forming the tablespace.
 # If you have a single logical drive for your data, a single
@@ -574,6 +643,10 @@ innodb_lock_wait_timeout = <%= node["percona"]["server"]["innodb_lock_wait_timeo
 innodb_commit_concurrency=0
 
 innodb_open_files=<%= node["percona"]["server"]["innodb_open_files"] %>
+
+<%- if node["percona"]["version"] >= "5.6" %>
+innodb_numa_interleave=<%= node["percona"]["server"]["innodb_numa_interleave"] %>
+<%- end %>
 
 <% if node["percona"]["version"] == "5.5" %>
 # set this to 1 if you like to import single tables from xtrabackup snapshot

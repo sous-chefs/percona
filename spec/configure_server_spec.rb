@@ -20,7 +20,9 @@ describe "percona::configure_server" do
       expect(chef_run).to create_template("/etc/mysql/my.cnf").with(
         owner: "root",
         group: "root",
-        mode: "0644"
+        mode: "0644",
+        cookbook: "percona",
+        source: "my.cnf.main.erb"
       )
 
       expect(chef_run).to render_file("/etc/mysql/my.cnf").with_content(
@@ -168,7 +170,9 @@ describe "percona::configure_server" do
         owner: "root",
         group: "root",
         mode: "0644",
-        sensitive: true
+        sensitive: true,
+        cookbook: "percona",
+        source: "my.cnf.main.erb"
       )
 
       expect(chef_run).to render_file("/mysql/my.cnf").with_content(
@@ -239,7 +243,9 @@ describe "percona::configure_server" do
         owner: "root",
         group: "root",
         mode: "0644",
-        sensitive: true
+        sensitive: true,
+        cookbook: "percona",
+        source: "my.cnf.main.erb"
       )
 
       resource = chef_run.template("/etc/my.cnf")

@@ -1,10 +1,6 @@
 require "spec_helper"
 
 describe "percona::toolkit" do
-  let(:centos_package) do
-    "Percona-Server-shared-compat"
-  end
-
   let(:toolkit_package) do
     "percona-toolkit"
   end
@@ -15,8 +11,6 @@ describe "percona::toolkit" do
     end
 
     specify do
-      expect(chef_run).to_not install_package(centos_package)
-
       expect(chef_run).to install_package(toolkit_package)
     end
   end
@@ -31,7 +25,6 @@ describe "percona::toolkit" do
       end
 
       specify do
-        expect(chef_run).to install_package(centos_package)
         expect(chef_run).to install_package(toolkit_package)
       end
     end
@@ -45,8 +38,6 @@ describe "percona::toolkit" do
       end
 
       specify do
-        expect(chef_run).to_not install_package(centos_package)
-
         expect(chef_run).to install_package(toolkit_package)
       end
     end

@@ -52,9 +52,7 @@ class Chef
 
     # password for user responsbile for replicating in master/slave environment
     def replication_password
-      find_password(
-        @mysql_item, "replication", node_server["replication"]["password"]
-      )
+      find_password @mysql_item, node_server['replication']['username'], node_server['replication']["password"]
     end
 
     # password for user responsbile for running xtrabackup

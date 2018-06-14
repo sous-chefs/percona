@@ -32,3 +32,6 @@ supports "amazon"
 supports "scientific"
 supports "fedora"
 supports "redhat"
+
+source_url "https://github.com/phlipper/chef-percona" if respond_to?(:source_url)
+issues_url "https://github.com/phlipper/chef-percona/issues" if respond_to?(:issues_url)

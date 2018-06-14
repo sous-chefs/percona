@@ -75,21 +75,21 @@ default["percona"]["server"]["jemalloc_lib"] = value_for_platform_family(
   ),
   "rhel" => "/usr/lib64/libjemalloc.so.1"
 )
-default["percona"]["server"]["nice"]  = 0
-default["percona"]["server"]["open_files_limit"]  = 16_384
-default["percona"]["server"]["hostname"]  = "localhost"
-default["percona"]["server"]["basedir"]  = "/usr"
-default["percona"]["server"]["port"]  = 3306
-default["percona"]["server"]["language"]  = "/usr/share/mysql/english"
-default["percona"]["server"]["character_set"]  = "utf8"
-default["percona"]["server"]["collation"]  = "utf8_unicode_ci"
-default["percona"]["server"]["skip_name_resolve"]  = false
-default["percona"]["server"]["skip_external_locking"]  = true
-default["percona"]["server"]["net_read_timeout"]  = 120
-default["percona"]["server"]["connect_timeout"]  = 10
-default["percona"]["server"]["wait_timeout"]  = 28_800
-default["percona"]["server"]["old_passwords"]  = 0
-default["percona"]["server"]["bind_address"]  = "127.0.0.1"
+default["percona"]["server"]["nice"] = 0
+default["percona"]["server"]["open_files_limit"] = 16_384
+default["percona"]["server"]["hostname"] = "localhost"
+default["percona"]["server"]["basedir"] = "/usr"
+default["percona"]["server"]["port"] = 3306
+default["percona"]["server"]["language"] = "/usr/share/mysql/english"
+default["percona"]["server"]["character_set"] = "utf8"
+default["percona"]["server"]["collation"] = "utf8_unicode_ci"
+default["percona"]["server"]["skip_name_resolve"] = false
+default["percona"]["server"]["skip_external_locking"] = true
+default["percona"]["server"]["net_read_timeout"] = 120
+default["percona"]["server"]["connect_timeout"] = 10
+default["percona"]["server"]["wait_timeout"] = 28_800
+default["percona"]["server"]["old_passwords"] = 0
+default["percona"]["server"]["bind_address"] = "127.0.0.1"
 default["percona"]["server"]["federated"] = false
 default["percona"]["server"]["report_host"] = ""
 

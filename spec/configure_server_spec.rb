@@ -30,7 +30,7 @@ describe "percona::configure_server" do
       )
 
       resource = chef_run.template("/etc/mysql/my.cnf")
-      expect(resource).to notify("execute[setup mysql datadir]").to(:run).immediately  # rubocop:disable LineLength
+      expect(resource).to notify("execute[setup mysql datadir]").to(:run).immediately # rubocop:disable LineLength
       expect(resource).to notify("service[mysql]").to(:restart).immediately
     end
 

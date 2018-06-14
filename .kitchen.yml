@@ -3,6 +3,7 @@
 driver:
   name: docker
   require_chef_omnibus: <%= ENV.fetch("CHEF_VERSION", "true") %>
+  use_sudo: false
 
 provisioner:
   name: chef_zero

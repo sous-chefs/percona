@@ -9,7 +9,7 @@ class Chef
           true
         end
 
-        def action_install
+        action :install do
           converge_by "install mysql2 chef_gem and dependencies" do
             recipe_eval do
               run_context.include_recipe "build-essential"
@@ -22,7 +22,7 @@ class Chef
           end
         end
 
-        def action_remove
+        action :remove do
           chef_gem "mysql2" do
             action :remove
           end

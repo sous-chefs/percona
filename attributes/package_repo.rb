@@ -17,6 +17,6 @@ default['percona']['apt']['uri'] = 'http://repo.percona.com/apt'
 
 default['percona']['yum']['description'] = 'Percona Packages'
 default['percona']['yum']['baseurl'] = "http://repo.percona.com/centos/#{pversion}/os/#{arch}/"
-default['percona']['yum']['gpgkey'] = 'http://www.percona.com/downloads/RPM-GPG-KEY-percona'
+default['percona']['yum']['gpgkey'] = 'https://www.percona.com/downloads/RPM-GPG-KEY-percona'
 default['percona']['yum']['gpgcheck'] = true
 default['percona']['yum']['sslverify'] = true

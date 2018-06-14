@@ -8,6 +8,22 @@ server  = percona["server"]
 conf    = percona["conf"]
 mysqld  = (conf && conf["mysqld"]) || {}
 
+# setup SELinux if needed
+unless node["percona"]["selinux_module_url"].nil? || node["percona"]["selinux_module_url"] == ""
+  semodule_filename = node["percona"]["selinux_module_url"].split("/")[-1]
+  semodule_filepath = "#{Chef::Config[:file_cache_path]}/#{semodule_filename}"
+  remote_file semodule_filepath do
+    source node["percona"]["selinux_module_url"]
+    only_if { semodule_filename && node["platform_family"] == "rhel" }
+  end
+
+  execute "semodule-install-#{semodule_filename}" do
+    command "/usr/sbin/semodule -i #{semodule_filepath}"
+    only_if { semodule_filename && node["platform_family"] == "rhel" }
+    only_if { shell_out("/usr/sbin/semodule -l | grep '^#{semodule_filename.split(".")[0..-2]}\\s'").stdout == "" } # rubocop:disable LineLength
+  end
+end
+
 # install chef-vault if needed
 include_recipe "chef-vault" if node["percona"]["use_chef_vault"]
 
@@ -118,17 +134,29 @@ if node["percona"]["server"]["replication"]["ssl_enabled"]
   include_recipe "percona::ssl"
 end
 
+if Array(server["role"]).include?("cluster")
+  if node["percona"]["cluster"]["wsrep_sst_auth"] == ""
+    wsrep_sst_auth = "#{node["percona"]["backup"]["username"]}:#{passwords.backup_password}" # rubocop:disable LineLength
+  else
+    wsrep_sst_auth = node["percona"]["cluster"]["wsrep_sst_auth"]
+  end
+end
+
 # setup the main server config file
 template percona["main_config_file"] do
   if Array(server["role"]).include?("cluster")
-    source "my.cnf.cluster.erb"
+    source node["percona"]["main_config_template"]["source"]["cluster"]
   else
-    source "my.cnf.main.erb"
+    source node["percona"]["main_config_template"]["source"]["default"]
   end
+  cookbook node["percona"]["main_config_template"]["cookbook"]
   owner "root"
   group "root"
   mode "0644"
   sensitive true
+  if Array(server["role"]).include?("cluster")
+    variables(wsrep_sst_auth: wsrep_sst_auth)
+  end
   notifies :run, "execute[setup mysql datadir]", :immediately
   if node["percona"]["auto_restart"]
     notifies :restart, "service[mysql]", :immediately

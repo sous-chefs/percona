@@ -31,11 +31,13 @@ when "debian"
 when "rhel"
   if Array(node["percona"]["server"]["role"]).include?("cluster")
     default["percona"]["client"]["packages"] = %W[
-      Percona-XtraDB-Cluster-devel-#{version} Percona-XtraDB-Cluster-client-#{version}
+      Percona-XtraDB-Cluster-client-#{version}
     ]
+      #Percona-XtraDB-Cluster-devel-#{version} 
   else
     default["percona"]["client"]["packages"] = %W[
-      Percona-Server-devel-#{version} Percona-Server-client-#{version}
+      Percona-Server-client-#{version}
     ]
+      #Percona-Server-devel-#{version} 
   end
 end

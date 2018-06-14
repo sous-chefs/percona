@@ -22,6 +22,7 @@ when "debian"
     components ["main"]
     keyserver node["percona"]["apt"]["keyserver"]
     key node["percona"]["apt"]["key"]
+    not_if "apt-key list | grep #{node['percona']['apt']['key'][-8,8]}"
   end
 
 when "rhel"

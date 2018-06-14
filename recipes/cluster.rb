@@ -17,8 +17,8 @@ end
 # set default package attributes
 version = node["percona"]["version"]
 node.default["percona"]["cluster"]["package"] = value_for_platform_family(
-  "debian" => "percona-xtradb-cluster-#{version.tr(".", "")}",
-  "rhel" => "Percona-XtraDB-Cluster-#{version.tr(".", "")}"
+  "rhel" => "Percona-XtraDB-Cluster-#{version.tr(".", "")}",
+  "debian" => "percona-xtradb-cluster-#{version.tr(".", "")}"
 )
 
 # install packages

@@ -1,4 +1,4 @@
-require "ipaddr"
+require 'ipaddr'
 
 module Percona
   # Public: This module provides a helper method for returning a "scope" for a
@@ -18,12 +18,12 @@ module Percona
     module_function :for
 
     def loopback?(address)
-      IPAddr.new("127.0.0.0/8").include?(address)
+      IPAddr.new('127.0.0.0/8').include?(address)
     end
     module_function :loopback?
 
     def private?(address)
-      [IPAddr.new("10.0.0.0/8"), IPAddr.new("172.16.0.0/12"), IPAddr.new("192.168.0.0/16")].any? do |range|
+      [IPAddr.new('10.0.0.0/8'), IPAddr.new('172.16.0.0/12'), IPAddr.new('192.168.0.0/16')].any? do |range|
         range.include?(address)
       end
     end
@@ -35,29 +35,29 @@ module Percona
   module ConfigHelper
     def bind_to(node, interface)
       case interface
-      when "public_ip"  then find_public_ip(node)
-      when "private_ip" then find_private_ip(node)
-      when "loopback"   then find_loopback_ip(node)
+      when 'public_ip'  then find_public_ip(node)
+      when 'private_ip' then find_private_ip(node)
+      when 'loopback'   then find_loopback_ip(node)
       else find_interface_ip(node, interface)
       end
     end
     module_function :bind_to
 
     def self.find_public_ip(node)
-      if node["cloud"] && node["cloud"]["public_ipv4"]
-        node["cloud"]["public_ipv4"]
+      if node['cloud'] && node['cloud']['public_ipv4']
+        node['cloud']['public_ipv4']
       else
         find_ip(node, :private)
       end
     end
 
     def self.find_private_ip(node)
-      if node["cloud"] && node["cloud"]["local_ipv4"]
-        node["cloud"]["local_ipv4"]
-      elsif node["cloud"] && node["cloud"]["private_ipv4"]
-        node["cloud"]["private_ipv4"]
-      elsif node["privateaddress"]
-        node["privateaddress"]
+      if node['cloud'] && node['cloud']['local_ipv4']
+        node['cloud']['local_ipv4']
+      elsif node['cloud'] && node['cloud']['private_ipv4']
+        node['cloud']['private_ipv4']
+      elsif node['privateaddress']
+        node['privateaddress']
       else
         find_ip(node, :private)
       end
@@ -68,20 +68,20 @@ module Percona
     end
 
     def self.find_ip(node, scope)
-      node["network"]["interfaces"].each do |_, attrs|
-        next unless attrs["addresses"]
-        attrs["addresses"].each do |addr, data|
-          next unless data["family"] == "inet"
+      node['network']['interfaces'].each do |_, attrs|
+        next unless attrs['addresses']
+        attrs['addresses'].each do |addr, data|
+          next unless data['family'] == 'inet'
           return addr if IPScope.for(addr) == scope
         end
       end
     end
 
     def find_interface_ip(node, interface)
-      interfaces = node["network"]["interfaces"]
+      interfaces = node['network']['interfaces']
       return unless interfaces[interface]
-      addr = interfaces[interface]["addresses"].find do |_, attrs|
-        attrs["family"] == "inet"
+      addr = interfaces[interface]['addresses'].find do |_, attrs|
+        attrs['family'] == 'inet'
       end
       addr && addr[0]
     end

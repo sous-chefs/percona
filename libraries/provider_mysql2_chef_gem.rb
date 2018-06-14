@@ -10,20 +10,20 @@ class Chef
         end
 
         action :install do
-          converge_by "install mysql2 chef_gem and dependencies" do
+          converge_by 'install mysql2 chef_gem and dependencies' do
             recipe_eval do
-              run_context.include_recipe "build-essential"
-              run_context.include_recipe "percona::client"
+              run_context.include_recipe 'build-essential'
+              run_context.include_recipe 'percona::client'
             end
 
-            chef_gem "mysql2" do
+            chef_gem 'mysql2' do
               action :install
             end
           end
         end
 
         action :remove do
-          chef_gem "mysql2" do
+          chef_gem 'mysql2' do
             action :remove
           end
         end

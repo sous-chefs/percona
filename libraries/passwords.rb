@@ -4,19 +4,19 @@ class Chef
   class EncryptedPasswords
     attr_accessor :node, :bag, :secret_file
 
-    def initialize(node, bag = "passwords")
+    def initialize(node, bag = 'passwords')
       @node = node
       @bag = bag
-      @secret_file = node["percona"]["encrypted_data_bag_secret_file"]
-      @mysql_item = node["percona"]["encrypted_data_bag_item_mysql"]
-      @system_item = node["percona"]["encrypted_data_bag_item_system"]
+      @secret_file = node['percona']['encrypted_data_bag_secret_file']
+      @mysql_item = node['percona']['encrypted_data_bag_item_mysql']
+      @system_item = node['percona']['encrypted_data_bag_item_system']
     end
 
     # helper for passwords
     def find_password(item, user, default = nil)
       begin
         # attribute that controls use of chef-vault or encrypted data bags
-        vault = node["percona"]["use_chef_vault"]
+        vault = node['percona']['use_chef_vault']
         # load password from the vault
         pwds = ChefVault::Item.load(bag, item) if vault
         # load the encrypted data bag item, using a secret if specified
@@ -25,7 +25,7 @@ class Chef
         password = pwds[user]
       rescue
         Chef::Log.info("Unable to load password for #{user}, #{item},"\
-                       "fall back to non-encrypted password")
+                       'fall back to non-encrypted password')
       end
       # password will be nil if no encrypted data bag was loaded
       # fall back to the attribute on this node
@@ -34,38 +34,38 @@ class Chef
 
     # mysql root
     def root_password
-      find_password @mysql_item, "root", node_server["root_password"]
+      find_password @mysql_item, 'root', node_server['root_password']
     end
 
     # debian script user password
     def debian_password
       find_password(
-        @system_item, node_server["debian_username"],
-        node_server["debian_password"]
+        @system_item, node_server['debian_username'],
+        node_server['debian_password']
       )
     end
 
     # ?
     def old_passwords
-      find_password @mysql_item, "old_passwords", node_server["old_passwords"]
+      find_password @mysql_item, 'old_passwords', node_server['old_passwords']
     end
 
     # password for user responsbile for replicating in master/slave environment
     def replication_password
-      find_password @mysql_item, node_server['replication']['username'], node_server['replication']["password"]
+      find_password @mysql_item, node_server['replication']['username'], node_server['replication']['password']
     end
 
     # password for user responsbile for running xtrabackup
     def backup_password
-      backup = node["percona"]["backup"]
-      find_password @mysql_item, backup["username"], backup["password"]
+      backup = node['percona']['backup']
+      find_password @mysql_item, backup['username'], backup['password']
     end
 
     private
 
     # helper
     def node_server
-      @node["percona"]["server"]
+      @node['percona']['server']
     end
 
     def data_bag_secret_file

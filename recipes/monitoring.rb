@@ -3,8 +3,8 @@
 # Recipe:: monitoring
 #
 
-node["percona"]["plugins_packages"].each do |pkg|
+node['percona']['plugins_packages'].each do |pkg|
   package pkg do
-    version node["percona"]["plugins_version"]
+    version node['percona']['plugins_version']
   end
 end

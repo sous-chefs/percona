@@ -1,11 +1,11 @@
-require "spec_helper"
+require 'spec_helper'
 
-describe "percona::toolkit" do
+describe 'percona::toolkit' do
   let(:toolkit_package) do
-    "percona-toolkit"
+    'percona-toolkit'
   end
 
-  describe "Ubuntu" do
+  describe 'Ubuntu' do
     let(:chef_run) do
       ChefSpec::SoloRunner.new.converge(described_recipe)
     end
@@ -15,12 +15,12 @@ describe "percona::toolkit" do
     end
   end
 
-  describe "CentOS" do
-    describe "when `version` is 5.5" do
+  describe 'CentOS' do
+    describe 'when `version` is 5.5' do
       let(:chef_run) do
-        env_options = { platform: "centos", version: "6.5" }
+        env_options = { platform: 'centos', version: '6.5' }
         ChefSpec::SoloRunner.new(env_options) do |node|
-          node.set["percona"]["version"] = "5.5"
+          node.set['percona']['version'] = '5.5'
         end.converge(described_recipe)
       end
 
@@ -29,11 +29,11 @@ describe "percona::toolkit" do
       end
     end
 
-    describe "when `version` is 5.6" do
+    describe 'when `version` is 5.6' do
       let(:chef_run) do
-        env_options = { platform: "centos", version: "6.5" }
+        env_options = { platform: 'centos', version: '6.5' }
         ChefSpec::SoloRunner.new(env_options) do |node|
-          node.set["percona"]["version"] = "5.6"
+          node.set['percona']['version'] = '5.6'
         end.converge(described_recipe)
       end
 

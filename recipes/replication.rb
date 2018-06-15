@@ -18,7 +18,7 @@ template replication_sql do
   mode '0600'
   sensitive true
   only_if do
-    server['replication']['host'] != '' || server['role'].include?('master')
+    (server['replication']['host'] != '' || server['role'].include?('master')) && !::File.exists?(replication_sql)
   end
 end
 

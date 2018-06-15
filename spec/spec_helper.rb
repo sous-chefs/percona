@@ -1,14 +1,14 @@
 begin
-  require "chefspec"
-  require "chefspec/berkshelf"
+  require 'chefspec'
+  require 'chefspec/berkshelf'
 rescue LoadError
-  puts "Unable to run `chefspec`"
+  puts 'Unable to run `chefspec`'
   exit
 end
 
 RSpec.configure do |config|
-  config.platform = "ubuntu"
-  config.version = "12.04"
+  config.platform = 'ubuntu'
+  config.version = '12.04'
   config.log_level = :error
   config.raise_errors_for_deprecations!
 end

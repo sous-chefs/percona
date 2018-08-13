@@ -54,17 +54,16 @@ cause, and we'll make reasonable efforts to improve support:
 
 ### Cookbooks
 
-* [apt](https://supermarket.getchef.com/cookbooks/apt) Chef LWRP Cookbook
+* [build-essential](https://github.com/chef-cookbooks/build-essential)
 * [openssl](https://supermarket.getchef.com/cookbooks/openssl) Chef Cookbook
-* [yum](https://supermarket.getchef.com/cookbooks/yum) Chef LWRP Cookbook
 * [yum-epel](https://supermarket.getchef.com/cookbooks/yum-epel) Chef LWRP Cookbook
 
 ### Chef
 
-This cookbook requires Chef >= 11.14.2 due to the use of the `sensitive` attribute for some resources.
+This cookbook requires Chef >= 13.4 due to the use of chef-vault.
 
 We aim to test the most recent releases of Chef. You can view
-the [currently tested versions](https://github.com/phlipper/chef-percona/blob/master/.travis.yml).
+the [currently tested versions](https://github.com/sous-chefs/percona/blob/master/.travis.yml).
 (Feel free to submit a pull request if they're out of date!)
 
 
@@ -88,7 +87,7 @@ This cookbook installs the Percona MySQL components if not present, and pulls up
 
 ### Encrypted Passwords
 
-This cookbook requires [Encrypted Data Bags](http://wiki.opscode.com/display/chef/Encrypted+Data+Bags). If you forget to use them or do not use a node attribute to overwrite them empty passwords will be used.
+This cookbook requires [Encrypted Data Bags](https://docs.chef.io/data_bags.html#encrypt-a-data-bag-item). If you forget to use them or do not use a node attribute to overwrite them empty passwords will be used.
 
 To use encrypted passwords, you must create an encrypted data bag. This cookbook assumes a data bag named `passwords`, but you can override the name using the `node[:percona][:encrypted_data_bag]` attribute.  You can also optionally specify a data bag secret file to be loaded for the secret key using the `node[:percona][:encrypted_data_bag_secret_file]` attribute.
 
@@ -559,7 +558,7 @@ In no particular order:
 
 ## Contributors
 
-Many thanks go to the following [contributors](https://github.com/phlipper/chef-percona/graphs/contributors) who have helped to make this cookbook even better:
+Many thanks go to the following [contributors](https://github.com/sous-chefs/percona/graphs/contributors) who have helped to make this cookbook even better:
 
 * **[@jagcrete](https://github.com/jagcrete)**
     * configurable keyserver

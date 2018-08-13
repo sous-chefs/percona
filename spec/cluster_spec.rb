@@ -22,7 +22,7 @@ describe 'percona::cluster' do
   describe 'version 5.5' do
     let(:chef_run) do
       ChefSpec::SoloRunner.new do |node|
-        node.set['percona']['version'] = '5.5'
+        node.default['percona']['version'] = '5.5'
       end.converge(described_recipe)
     end
 
@@ -48,7 +48,7 @@ describe 'percona::cluster' do
       let(:chef_run) do
         env_options = { platform: 'centos', version: '6.5' }
         ChefSpec::SoloRunner.new(env_options) do |node|
-          node.set['percona']['version'] = '5.5'
+          node.default['percona']['version'] = '5.5'
         end.converge(described_recipe)
       end
 
@@ -70,7 +70,7 @@ describe 'percona::cluster' do
   describe 'version 5.6' do
     let(:chef_run) do
       ChefSpec::SoloRunner.new do |node|
-        node.set['percona']['version'] = '5.6'
+        node.default['percona']['version'] = '5.6'
       end.converge(described_recipe)
     end
 
@@ -96,7 +96,7 @@ describe 'percona::cluster' do
       let(:chef_run) do
         env_options = { platform: 'centos', version: '6.5' }
         ChefSpec::SoloRunner.new(env_options) do |node|
-          node.set['percona']['version'] = '5.6'
+          node.default['percona']['version'] = '5.6'
         end.converge(described_recipe)
       end
 

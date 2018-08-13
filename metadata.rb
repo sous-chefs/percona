@@ -11,7 +11,6 @@ version           '0.16.4'
 depends 'build-essential'
 depends 'openssl'
 depends 'yum-epel'
-depends 'chef-vault'
 
 supports 'debian'
 supports 'ubuntu'

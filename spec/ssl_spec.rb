@@ -3,8 +3,8 @@ require 'spec_helper'
 describe 'percona::ssl' do
   let(:chef_run) do
     ChefSpec::SoloRunner.new do |node|
-      node.set['percona']['encrypted_data_bag'] = 'test-bag'
-      node.set['percona']['server']['role'] = %w(master slave)
+      node.default['percona']['encrypted_data_bag'] = 'test-bag'
+      node.default['percona']['server']['role'] = %w(master slave)
     end.converge(described_recipe)
   end
 

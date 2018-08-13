@@ -7,7 +7,6 @@ return unless node['percona']['use_percona_repos']
 
 case node['platform_family']
 when 'debian'
-  include_recipe 'apt'
 
   # Pin this repo as to avoid upgrade conflicts with distribution repos.
   apt_preference '00percona' do
@@ -26,7 +25,6 @@ when 'debian'
   end
 
 when 'rhel'
-  include_recipe 'yum'
 
   yum_repository 'percona' do
     description node['percona']['yum']['description']

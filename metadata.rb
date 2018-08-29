@@ -9,6 +9,7 @@ source_url        'https://github.com/phlipper/chef-percona'
 issues_url        'https://github.com/phlipper/chef-percona/issues'
 version           '0.16.4'
 
+# TODO: rm once chef_version >= 14
 depends 'build-essential'
 depends 'openssl'
 depends 'yum-epel'

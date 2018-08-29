@@ -1,6 +1,7 @@
 name              'percona'
 maintainer        'Sous Chefs'
 maintainer_email  'help@sous-chefs.org'
+chef_version      '>= 13.0'
 license           'MIT'
 description       'Installs Percona MySQL client and server'
 long_description  IO.read(File.join(File.dirname(__FILE__), 'README.md'))

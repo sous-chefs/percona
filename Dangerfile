@@ -1,5 +1,8 @@
 # Reference: http://danger.systems/reference.html
 
+# Rubocop doesn't know about danger's fail, ignore its recomendation to raise
+# rubocop:disable Style/SignalException
+
 # A pull request summary is required. Add a description of the pull request purpose.
 # Add labels to the pull request in github to identify the type of change. https://help.github.com/articles/applying-labels-to-issues-and-pull-requests/
 # Changelog must be updated for each pull request.
@@ -23,15 +26,15 @@ def test_changes?
   false
 end
 
-raise 'Please provide a summary of your Pull Request.' if github.pr_body.length < 10
+fail 'Please provide a summary of your Pull Request.' if github.pr_body.length < 10
 
-raise 'Please add labels to this Pull Request' if github.pr_labels.empty?
+fail 'Please add labels to this Pull Request' if github.pr_labels.empty?
 
 warn 'This is a big Pull Request.' if git.lines_of_code > 400
 
 # Require a CHANGELOG entry for non-test changes.
 if !git.modified_files.include?('CHANGELOG.md') && code_changes?
-  raise 'Please include a [CHANGELOG](https://github.com/sous-chefs/line-cookbook/blob/master/CHANGELOG.md) entry.'
+  fail 'Please include a [CHANGELOG](https://github.com/sous-chefs/line-cookbook/blob/master/CHANGELOG.md) entry.'
 end
 
 # A sanity check for tests.

@@ -31,7 +31,7 @@ We provide an expanding set of tests against the following 64-bit platforms:
 - Ubuntu 12.04 LTS
 - Ubuntu 14.04 LTS
 
-Although we don't test against all possible platform verions, we expect
+Although we don't test against all possible platform versions, we expect
 the following to be supported. Please submit an issue if this is not the
 cause, and we'll make reasonable efforts to improve support:
 
@@ -472,7 +472,10 @@ default["percona"]["plugins_packages"] = %w[percona-nagios-plugins percona-zabbi
 ```ruby
 default["percona"]["yum"]["description"] = "Percona Packages"
 default["percona"]["yum"]["baseurl"]     = "http://repo.percona.com/centos/#{pversion}/os/#{arch}/"
-default["percona"]["yum"]["gpgkey"]      = "http://www.percona.com/downloads/RPM-GPG-KEY-percona"
+default["percona"]["yum"]["gpgkey"]      = [
+  'https://repo.percona.com/yum/PERCONA-PACKAGING-KEY',
+  'https://repo.percona.com/yum/RPM-GPG-KEY-Percona',
+]
 default["percona"]["yum"]["gpgcheck"]    = true
 default["percona"]["yum"]["sslverify"]   = true
 ```

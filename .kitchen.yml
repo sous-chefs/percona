@@ -30,50 +30,14 @@ platforms:
 
 suites:
   - name: client_5.6
-    attributes:
-      percona:
-        apt:
-          keyserver: hkp://pgp.mit.edu:80
-        version: "5.6"
     run_list:
-      - recipe[percona::client]
-      - recipe[percona::toolkit]
+      - recipe[test::client-56]
   - name: client_5.7
-    attributes:
-      percona:
-        apt:
-          keyserver: hkp://pgp.mit.edu:80
-        version: "5.7"
     run_list:
-      - recipe[percona::client]
-      - recipe[percona::toolkit]
-
+      - recipe[test:client57
   - name: server_5.6
-    attributes:
-      percona:
-        apt:
-          keyserver: hkp://pgp.mit.edu:80
-        version: "5.6"
-        server:
-          datadir: /tmp/mysql
-          debian_password: d3b1an
-          jemalloc: true
-          root_password: r00t
     run_list:
-      - recipe[percona::server]
-      - recipe[percona::backup]
-
+      - recipe[test::server-56]
   - name: server_5.7
-    attributes:
-      percona:
-        apt:
-          keyserver: hkp://pgp.mit.edu:80
-        version: "5.7"
-        server:
-          datadir: /tmp/mysql
-          debian_password: d3b1an
-          jemalloc: true
-          root_password: r00t
     run_list:
-      - recipe[percona::server]
-      - recipe[percona::backup]
+      - recipe[test::server-57]

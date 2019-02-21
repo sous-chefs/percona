@@ -1,10 +1,5 @@
-begin
-  require 'chefspec'
-  require 'chefspec/berkshelf'
-rescue LoadError
-  puts 'Unable to run `chefspec`'
-  exit
-end
+require 'chefspec'
+require 'chefspec/berkshelf'
 
 RSpec.configure do |config|
   config.platform = 'ubuntu'
@@ -20,5 +15,3 @@ end
 def add_apt_preference(resource_name)
   ChefSpec::Matchers::ResourceMatcher.new(:apt_preference, :add, resource_name)
 end
-
-at_exit { ChefSpec::Coverage.report! }

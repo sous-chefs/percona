@@ -8,7 +8,7 @@
 
 Installs the [Percona
 MySQL](http://www.percona.com/software/percona-server) client and/or
-server components. (We are attempting to leverage the official Opscode
+server components. (We are attempting to leverage the Sous-Chefs
 MySQL cookbook as much as possible.)
 
 Optionally installs:

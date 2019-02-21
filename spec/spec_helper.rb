@@ -8,7 +8,7 @@ end
 
 RSpec.configure do |config|
   config.platform = 'ubuntu'
-  config.version = '12.04'
+  config.version = '16.04'
   config.log_level = :error
   config.raise_errors_for_deprecations!
 end

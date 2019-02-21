@@ -89,13 +89,13 @@ describe 'percona::configure_server' do
   describe 'subsequent runs' do
     let(:chef_run) do
       ChefSpec::SoloRunner.new do |node|
-        node.set['percona']['main_config_file'] = '/mysql/my.cnf'
-        node.set['percona']['server']['root_password'] = 's3kr1t'
-        node.set['percona']['server']['debian_password'] = 'd3b1an'
-        node.set['percona']['server']['performance_schema'] = true
-        node.set['percona']['conf']['mysqld']['datadir'] = '/mysql/data'
-        node.set['percona']['conf']['mysqld']['tmpdir'] = '/mysql/tmp'
-        node.set['percona']['conf']['mysqld']['includedir'] = '/mysql/conf.d'
+        node.default['percona']['main_config_file'] = '/mysql/my.cnf'
+        node.default['percona']['server']['root_password'] = 's3kr1t'
+        node.default['percona']['server']['debian_password'] = 'd3b1an'
+        node.default['percona']['server']['performance_schema'] = true
+        node.default['percona']['conf']['mysqld']['datadir'] = '/mysql/data'
+        node.default['percona']['conf']['mysqld']['tmpdir'] = '/mysql/tmp'
+        node.default['percona']['conf']['mysqld']['includedir'] = '/mysql/conf.d'
       end.converge(described_recipe)
     end
 
@@ -208,7 +208,7 @@ describe 'percona::configure_server' do
   describe 'custom slow query log directory' do
     let(:chef_run) do
       ChefSpec::SoloRunner.new do |node|
-        node.set['percona']['server']['slow_query_logdir'] = '/var/log/slowq'
+        node.default['percona']['server']['slow_query_logdir'] = '/var/log/slowq'
       end.converge(described_recipe)
     end
 
@@ -228,7 +228,7 @@ describe 'percona::configure_server' do
 
   describe '`rhel` platform family' do
     let(:chef_run) do
-      env_options = { platform: 'centos', version: '6.5' }
+      env_options = { platform: 'centos', version: '6' }
       ChefSpec::SoloRunner.new(env_options).converge(described_recipe)
     end
 
@@ -261,7 +261,7 @@ describe 'percona::configure_server' do
   describe '`chef-vault` support' do
     let(:chef_run) do
       ChefSpec::SoloRunner.new do |node|
-        node.set['percona']['use_chef_vault'] = true
+        node.default['percona']['use_chef_vault'] = true
       end.converge(described_recipe)
     end
 

@@ -69,7 +69,7 @@ class Chef
     end
 
     def data_bag_secret_file
-      if !secret_file.empty? && ::File.exists?(secret_file)
+      if !secret_file.empty? && ::File.exist?(secret_file)
         secret_file
       elsif !Chef::Config[:encrypted_data_bag_secret].empty?
         Chef::Config[:encrypted_data_bag_secret]

@@ -26,7 +26,7 @@ describe 'percona::server' do
     end
 
     let(:chef_run) do
-      env_options = { platform: 'centos', version: '6.5' }
+      env_options = { platform: 'centos', version: '6' }
       ChefSpec::SoloRunner.new(env_options).converge(described_recipe)
     end
 
@@ -53,7 +53,7 @@ describe 'percona::server' do
   describe 'when `skip_configure` is true' do
     let(:chef_run) do
       ChefSpec::SoloRunner.new do |node|
-        node.set['percona']['skip_configure'] = true
+        node.default['percona']['skip_configure'] = true
       end.converge(described_recipe)
     end
 
@@ -63,7 +63,7 @@ describe 'percona::server' do
   describe 'when `skip_passwords` is true' do
     let(:chef_run) do
       ChefSpec::SoloRunner.new do |node|
-        node.set['percona']['skip_passwords'] = true
+        node.default['percona']['skip_passwords'] = true
       end.converge(described_recipe)
     end
 
@@ -75,7 +75,7 @@ describe 'percona::server' do
     describe 'Ubuntu' do
       let(:chef_run) do
         ChefSpec::SoloRunner.new do |node|
-          node.set['percona']['server']['package_action'] = 'upgrade'
+          node.default['percona']['server']['package_action'] = 'upgrade'
         end.converge(described_recipe)
       end
 
@@ -84,9 +84,9 @@ describe 'percona::server' do
 
     describe 'CentOS' do
       let(:chef_run) do
-        env_options = { platform: 'centos', version: '6.5' }
+        env_options = { platform: 'centos', version: '6' }
         ChefSpec::SoloRunner.new(env_options) do |node|
-          node.set['percona']['server']['package_action'] = 'upgrade'
+          node.default['percona']['server']['package_action'] = 'upgrade'
         end.converge(described_recipe)
       end
 

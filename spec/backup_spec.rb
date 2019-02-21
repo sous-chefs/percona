@@ -13,7 +13,7 @@ describe 'percona::backup' do
 
   describe 'CentOS' do
     let(:chef_run) do
-      env_options = { platform: 'centos', version: '6.5' }
+      env_options = { platform: 'centos', version: '6' }
       ChefSpec::SoloRunner.new(env_options).converge(described_recipe)
     end
 

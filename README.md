@@ -1,15 +1,8 @@
-# chef-percona
-
-## Flair
+# Percona Cookbook
 
 [![Cookbook Version](https://img.shields.io/cookbook/v/percona.svg)](https://supermarket.chef.io/cookbooks/percona)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](http://phlipper.mit-license.org/2012-2015/license.html)
-[![Build Status](http://img.shields.io/travis-ci/phlipper/chef-percona.png)](https://travis-ci.org/phlipper/chef-percona)
-[![Code Climate](https://codeclimate.com/github/phlipper/chef-percona.png)](https://codeclimate.com/github/phlipper/chef-percona)
-[![Gitter](https://img.shields.io/badge/Gitter%2Eim-Join_Chat_→-yellow.svg)](https://gitter.im/phlipper/chef-percona)
-![It Works On My Machine™](https://img.shields.io/badge/It_Works-On_My_Machine%E2%84%A2-orange.svg)
-[![Tip](http://img.shields.io/gratipay/phlipper.png)](https://gratipay.com/phlipper/)
-[![Endorse](http://api.coderwall.com/phlipper/endorsecount.png)](http://coderwall.com/phlipper)
+[![Build Status](https://img.shields.io/circleci/project/github/sous-chefs/percona/master.svg)](https://circleci.com/gh/sous-chefs/percona)
+[![pullreminders](https://pullreminders.com/badge.svg)](https://pullreminders.com?ref=badge)
 
 ## Description
 
@@ -20,12 +13,10 @@ MySQL cookbook as much as possible.)
 
 Optionally installs:
 
-* [XtraBackup](http://www.percona.com/software/percona-xtrabackup/) hot backup software
-* [Percona Toolkit](http://www.percona.com/software/percona-toolkit/) advanced command-line tools
-* [XtraDB
-Cluster](http://www.percona.com/software/percona-xtradb-cluster/) high
-availability and high scalability solution for MySQL.
-* [Percona Monitoring Plugins](http://www.percona.com/software/percona-monitoring-plugins) various Nagios plugins for monitoring MySQL
+- [XtraBackup](http://www.percona.com/software/percona-xtrabackup/) hot backup software
+- [Percona Toolkit](http://www.percona.com/software/percona-toolkit/) advanced command-line tools
+- [XtraDB Cluster](http://www.percona.com/software/percona-xtradb-cluster/) high availability and high scalability solution for MySQL.
+- [Percona Monitoring Plugins](http://www.percona.com/software/percona-monitoring-plugins) various Nagios plugins for monitoring MySQL
 
 ## Requirements
 
@@ -33,31 +24,31 @@ availability and high scalability solution for MySQL.
 
 We provide an expanding set of tests against the following 64-bit platforms:
 
-* Amazon 2014.03
-* CentOS 6.5
-* CentOS 7.0
-* Debian 7.8
-* Ubuntu 12.04 LTS
-* Ubuntu 14.04 LTS
+- Amazon 2014.03
+- CentOS 6.5
+- CentOS 7.0
+- Debian 7.8
+- Ubuntu 12.04 LTS
+- Ubuntu 14.04 LTS
 
 Although we don't test against all possible platform verions, we expect
 the following to be supported. Please submit an issue if this is not the
 cause, and we'll make reasonable efforts to improve support:
 
-* Ubuntu
-* Debian
-* Amazon Linux AMI
-* CentOS
-* Red Hat
-* Scientific
-* Fedora
+- Ubuntu
+- Debian
+- Amazon Linux AMI
+- CentOS
+- Red Hat
+- Scientific
+- Fedora
 
 ### Cookbooks
 
-* [apt](https://supermarket.getchef.com/cookbooks/apt) Chef LWRP Cookbook
-* [openssl](https://supermarket.getchef.com/cookbooks/openssl) Chef Cookbook
-* [yum](https://supermarket.getchef.com/cookbooks/yum) Chef LWRP Cookbook
-* [yum-epel](https://supermarket.getchef.com/cookbooks/yum-epel) Chef LWRP Cookbook
+- [apt](https://supermarket.getchef.com/cookbooks/apt) Chef LWRP Cookbook
+- [openssl](https://supermarket.getchef.com/cookbooks/openssl) Chef Cookbook
+- [yum](https://supermarket.getchef.com/cookbooks/yum) Chef LWRP Cookbook
+- [yum-epel](https://supermarket.getchef.com/cookbooks/yum-epel) Chef LWRP Cookbook
 
 ### Chef
 
@@ -67,20 +58,19 @@ We aim to test the most recent releases of Chef. You can view
 the [currently tested versions](https://github.com/phlipper/chef-percona/blob/master/.travis.yml).
 (Feel free to submit a pull request if they're out of date!)
 
-
 ## Recipes
 
-* `percona` - The default no-op recipe.
-* `percona::package_repo` - Sets up the package repository and installs common packages.
-* `percona::client` - Installs the Percona MySQL client libraries.
-* `percona::server` - Installs and configures the Percona MySQL server daemon.
-* `percona::backup` - Installs and configures the Percona XtraBackup hot backup software.
-* `percona::toolkit` - Installs the Percona Toolkit software
-* `percona::cluster` - Installs the Percona XtraDB Cluster server components
-* `percona::configure_server` - Used internally to manage the server configuration.
-* `percona::replication` - Used internally to grant permissions for replication.
-* `percona::access_grants` - Used internally to grant permissions for recipes.
-* `percona::monitoring` - Installs Percona monitoring plugins for Nagios
+- `percona` - The default no-op recipe.
+- `percona::package_repo` - Sets up the package repository and installs common packages.
+- `percona::client` - Installs the Percona MySQL client libraries.
+- `percona::server` - Installs and configures the Percona MySQL server daemon.
+- `percona::backup` - Installs and configures the Percona XtraBackup hot backup software.
+- `percona::toolkit` - Installs the Percona Toolkit software
+- `percona::cluster` - Installs the Percona XtraDB Cluster server components
+- `percona::configure_server` - Used internally to manage the server configuration.
+- `percona::replication` - Used internally to grant permissions for replication.
+- `percona::access_grants` - Used internally to grant permissions for recipes.
+- `percona::monitoring` - Installs Percona monitoring plugins for Nagios
 
 ## Usage
 
@@ -97,6 +87,7 @@ This cookbook expects a `mysql` item  and a `system` item. Please refer to the o
 You also may set expected item names via attributes `node["percona"]["encrypted_data_bag_item_mysql"]` and `node["percona"]["encrypted_data_bag_item_system"]`.
 
 ### Skip passwords
+
 Set the `["percona"]["skip_passwords"]` attribute to skip setting up passwords. Removes the need for the encrypted data bag if using chef-solo. Is useful for setting up development and ci environments where you just want to use the root user with no password. If you are doing this you may want to set `[:percona][:server][:debian_username]` to be `"root"` also.
 
 ### Skip Configure
@@ -131,6 +122,7 @@ Example: "passwords" data bag - this example assumes that `node[:percona][:serve
 Above shows the encrypted password in the data bag. Check out the `encrypted_data_bag_secret` setting in `knife.rb` to setup your data bag secret during bootstrapping.
 
 ### Replication over SSL
+
 To enable SSL based replication, you will need to flip the attribute `node[:percona][:server][:replication][:ssl_enabled]` to `true` and add a new data_bag item
 to the percona encrypted data_bag (see`node[:percona][:encrypted_data_bag]` attribute) with the id `ssl_replication` ( see `node["percona"]["encrypted_data_bag_item_ssl_replication"]` attribute) that contains this data:
 
@@ -148,6 +140,7 @@ to the percona encrypted data_bag (see`node[:percona][:encrypted_data_bag]` attr
   }
 }
 ```
+
 All certificates and keys have to be converted to a string (easiest way is to use ruby: */usr/bin/env ruby -e 'p ARGF.read'* **filename**) and placed
 instead of CA_CERTIFICATE_STRING, SERVER_CERTIFICATE_STRING, SERVER_KEY_STRING, CLIENT_CERTIFICATE_STRING, CLIENT_KEY_STRING.
 
@@ -488,7 +481,7 @@ default["percona"]["yum"]["sslverify"]   = true
 
 In some situation it is preferable to explicitly define the attributes needed in a `my.cnf` file. This is enabled by adding categories to the `node[:percona][:conf]` attributes. All keys found in the `node[:percona][:conf]` map will represent categories in the `my.cnf` file. Each category contains a map of attributes that will be written to the `my.cnf` file for that category. See the example for more details.
 
-### Example:
+### Example
 
 ```ruby
 node["percona"]["conf"]["mysqld"]["slow_query_log_file"] = "/var/lib/mysql/data/mysql-slow.log"
@@ -496,7 +489,7 @@ node["percona"]["conf"]["mysqld"]["slow_query_log_file"] = "/var/lib/mysql/data/
 
 This configuration would write the `mysqld` category to the `my.cnf` file and have an attribute `slow_query_log_file` whose value would be `/var/lib/mysql/data/mysql-slow.log`.
 
-### Example output (my.cnf):
+### Example output (my.cnf)
 
 ```ini
 [mysqld]
@@ -533,230 +526,111 @@ depends to ensure they pull in the needed resource files.
 
 In no particular order:
 
-* Be the most flexible way to setup a MySQL distribution through Chef
-    * Support for Chef Solo
-    * Support for Chef Server
-* Support the following common database infrastructures:
-    * Single server instance
-    * Traditional Master/Slave replication
-    * Multi-master cluster replication
-* Support the most recent Chef runtime environments
-* Be the easiest way to setup a MySQL distribution through Chef
-
+- Be the most flexible way to setup a MySQL distribution through Chef
+  - Support for Chef Solo
+  - Support for Chef Server
+- Support the following common database infrastructures:
+  - Single server instance
+  - Traditional Master/Slave replication
+  - Multi-master cluster replication
+- Support the most recent Chef runtime environments
+- Be the easiest way to setup a MySQL distribution through Chef
 
 ## TODO
 
-* Fully support all of the standard Chef-supported distributions
-
+- Fully support all of the standard Chef-supported distributions
 
 ## Contributing
 
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Added some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+- Fork it
+- Create your feature branch (`git checkout -b my-new-feature`)
+- Commit your changes (`git commit -am 'Added some feature'`)
+- Push to the branch (`git push origin my-new-feature`)
+- Create new Pull Request
 
 ## Contributors
 
 Many thanks go to the following [contributors](https://github.com/phlipper/chef-percona/graphs/contributors) who have helped to make this cookbook even better:
 
-* **[@jagcrete](https://github.com/jagcrete)**
-    * configurable keyserver
-    * encrypted password data bag
-    * custom `my.cnf` file
-* **[@pwelch](https://github.com/pwelch)**
-    * ensure cookbook dependencies are loaded
-    * [Foodcritic](http://acrmp.github.com/foodcritic/) compliance updates
-    * various minor patches and updates
-* **[@masv](https://github.com/masv)**
-    * compatibility updates for 5.5
-* **[@stottsan](https://github.com/stottsan)**
-    * config cleanup to prevent service restarts on chef run
-* **[@abecciu](https://github.com/abecciu)**
-    * auto-generate secure passwords by default
-    * add ability to dynamically set the bind address
-    * add support for `main_config_file` attribute
-* **[@patcon](https://github.com/patcon)**
-    * add `yum` support for `centos`, `amazon`, `scientific`, `fedora`, and `redhat` distributions
-* **[@psi](https://github.com/psi)**
-    * fixes required for RedHat platforms
-* **[@TheSerapher](https://github.com/TheSerapher)**
-    * improvements for master/slave replication setup
-    * updates and clarifications to the README
-    * add attribute to control server restart on config changes
-* **[@bensomers](https://github.com/bensomers)**
-    * minor fixes to `replication.sql`
-    * fix a very dangerous bug around binlog-do-db setting for slave servers
-    * fix slow query log setting for 5.5
-* **[@tdg5](https://github.com/tdg5)**
-    * avoid use of `set_unless` for chef-solo, workaround for CHEF-2945
-* **[@gpendler](https://github.com/gpendler)**
-    * avoid re-installation of packages RedHat platforms
-* **[@vinu](https://github.com/vinu)**
-    * pin the percona apt repo with high priority
-* **[@ckuttruff](https://github.com/ckuttruff)**
-    * improve security on debian-based systems by changing config file permissions
-    * don't pass mysql root password in plaintext commands
-    * fix issue with -p flag when setting initial password
-* **[@srodrig0209](https://github.com/srodrig0209)**
-    * add the `monitoring` recipe
-* **[@jesseadams](https://github.com/jesseadams)**
-    * fixes for custom datadir setting use case
-    * add more Percona XtraDB cluster options
-    * XtraDB cluster support for replication over ssl
-* **[@see0](https://github.com/see0)**
-    * fix incorrect root password reference
-* **[@baldur](https://github.com/baldur)**
-    * _(honorable mention)_ fix incorrect root password reference
-    * fix typo in attribute for server username
-* **[@chrisroberts](https://github.com/chrisroberts)**
-    * _(honorable mention)_ fix issue with -p flag when setting initial password
-* **[@aaronjensen](https://github.com/aaronjensen)**
-    * allow server to not be started on startup
-* **[@pioneerit](https://github.com/pioneerit)**
-    * add sections to `.my.cnf` for `mysqladmin` and `mysqldump`
-* **[@AndreyChernyh](https://github.com/AndreyChernyh)**
-    * use resources helper to support newer chef versions
-* **[@avit](https://github.com/avit)**
-    * add default utf8 character set option
-    * cleanup replication support
-    * remove dependency on opscode/mysql cookbook
-    * fix permissions for configuration files
-* **[@alexzorin](https://github.com/alexzorin)**
-    * add support for `skip-name-resolve` option
-* **[@jyotty](https://github.com/jyotty)**
-    * specify `binlog_format` in master and slave roles
-* **[@adamdunkley](https://github.com/adamdunkley)**
-    * fix `table_cache` variable for mysql versions 5.6 and above
-    * remove unnecessary rewind, perform it directly
-* **[@freerobby](https://github.com/freerobby)**
-    * add requirements to `Berksfile`
-    * more flexible apt dependency version to minimize conflicts
-* **[@spovich](https://github.com/spovich)**
-    * disable `old_passwords` support by default
-    * force version 5.5 on Debian family to maintain consistency with RHEL family
-* **[@v1nc3ntlaw](https://github.com/v1nc3ntlaw)**
-    * add attribute `innodb_file_format`
-    * add attribute `ignore_db` for slave template
-* **[@joegaudet](https://github.com/joegaudet)**
-    * add attribute `group_concat_max_len`
-* **[@mikesmullin](https://github.com/mikesmullin)**
-    * accumulating patches from multiple sources
-    * tempdir fixes
-* **[@totally](https://github.com/totally)**
-    * support `yum` cookbook v3.0
-    * use attributes for package names
-* **[@sapunoff](https://github.com/sapunoff)**
-    * initial implementation of using attributes for package names
-* **[@errm](https://github.com/errm)**
-    * add attribute `skip_passwords`
-* **[@ewr](https://github.com/ewr)**
-    * fix mysql calls when there is no root password
-* **[@jharley](https://github.com/jharley)**
-    * make `connect_timeout` configurable
-    * add cluster support for `wsrep_sst_auth` configuration
-    * update default for `wsrep_provider` on Debian
-    * enable InnoDB tuning for standalone and cluster
-    * set proper `my.cnf` location based on platform family
-    * add missing tunables to 'cluster' `my.cnf` template
-    * fix regression in cluster configuration template
-    * centralize `jemalloc` configuration for cluster and server configurations
-    * sync cluster configuration file with main configuration
-    * add `innodb_autoextend_increment` and `innodb_open_files` attributes
-    * fix cluster template regression
-* **[@achied](https://github.com/achied)**
-    * fix setting passwords if attribute not defined
-* **[@akshah123](https://github.com/akshah123)**
-    * force client packages to install version 5.5
-* **[@tkuhlman](https://github.com/tkuhlman)**
-    * re-add cluster support
-* **[@mancdaz](https://github.com/mancdaz)**
-    * install monitoring plugins from package instead of tarball
-* **[@iancoffey](https://github.com/iancoffey)**
-    * set debian-sys-maint password after grant
-    * add attribute `skip_configure`
-* **[@notnmeyer](https://github.com/notnmeyer)**
-    * fix `access_grants` guards for `cluster` and `backup` recipes
-* **[@odacrem](https://github.com/odacrem)**
-    * use correct replication username in `replication.sql`
-* **[@g3kk0](https://github.com/g3kk0)**
-    * fix missing mysql log directory
-    * add attribute `wait_timeout`
-    * data-drive percona yum repository
-    * add support for `jemalloc`
-    * fix idempotency with chef-solo and `skip_password` attribute
-    * add attribute `expand_fast_index_creation`
-* **[@gfloyd](https://github.com/gfloyd)**
-    * honor `skip_configure` attribute in cluster recipe
-* **[@paustin01](https://github.com/paustin01)**
-    * add `encrypted_data_bag_secret_file` attribute
-* **[@ajardan](https://github.com/ajardan)**
-    * support master-master replication in the `replication_master.sql` template
-    * extend master-master capabilities and add ssl support
-* **[@realloc](https://github.com/realloc)**
-    * add `mysql2` gem provider
-    * add ability to set data bag item names using attributes
-* **[@tbunnyman](https://github.com/tbunnyman)**
-    * make `ignore_db` attribute into an array & add matching `ignore_table` attribute
-    * add `suppress_1592` replication attribute
-    * add `sql_modes` attribute
-* **[@mzdrale](https://github.com/mzdrale)**
-    * fix cluster package name on RHEL systems
-* **[@Sauraus](https://github.com/Sauraus)**
-    * fix cluster dependency package installation on RHEL systems
-    * fix `slow_query_logdir` path creation
-* **[@jim80net](https://github.com/jim80net)**
-    * fix toolkit installation for version 5.6 on RHEL systems
-* **[@helgi](https://github.com/helgi)**
-    * use `mysql` command vs. a file to check the root password
-    * generate configuration file before setting up data directory
-    * ensure `includedir` is created if provided
-    * add attribute `performance_schema`
-    * fix mysql root password update check
-* **[@arnesund](https://github.com/arnesund)**
-    * fix package list for clusters based on CentOS
-    * avoid uninstall of `mysql-libs` when not needed
-    * fix XtraDB Cluster 5.6 installation on CentOS 7
-    * add support for `chef-vault`
-* **[@n3bulous](https://github.com/n3bulous)**
-    * add `federated` and `read_rnd_buffer_size` attributes
-* **[@runwaldarshu](https://github.com/runwaldarshu)**
-    * add `sensitive` attribute for resources
-* **[@vermut](https://github.com/vermut)**
-    * fix `ConfigHelper` definitions to make them available from `module_function`
-* **[@dng-dev](https://github.com/dng-dev)**
-    * add `innodb_import_table_from_xtrabackup` attribute
-* **[@washingtoneg](https://github.com/washingtoneg)**
-    * add `myisam_read_buffer_size` attribute
-* **[@cmjosh](https://github.com/cmjosh)**
-    * fix version-dependent package attribute issues
-* **[@cybermerc](https://github.com/cybermerc)**
-    * fix provider superclass mismatch
-* **[@drywheat](https://github.com/drywheat)**
-    * add `skip_slave_start` attribute
-* **[@joelhandwell](https://github.com/joelhandwell)**
-    * fix duplication of slow query log directory creation
-    * suppress warning CHEF-3694 for log dir
-* **[@bitpusher-real](https://github.com/bitpusher-real)**
-    * add `binlog_ignore_db` attribute
-    * add version restrictions on three MySQL directives
-    * only set `old_passwords` only when a value defined
-    * add `slave_transaction_retries` attribute
-    * add `slave_load_tmpdir` attribute
-* **[@cyberflow](https://github.com/cyberflow)**
-    * add `replication_sql` attribute
-* **[@jklare](https://github.com/jklare)**
-    * fix cluster specific settings for `my.cnf` and client packages
-* **[@whiteley](https://github.com/whiteley)**
-    * remove duplicated attributes
-    * namespace apt attributes following yum example
-
+- **[@jagcrete](https://github.com/jagcrete)**
+- **[@pwelch](https://github.com/pwelch)**
+- **[@masv](https://github.com/masv)**
+- **[@stottsan](https://github.com/stottsan)**
+- **[@abecciu](https://github.com/abecciu)**
+- **[@patcon](https://github.com/patcon)**
+- **[@psi](https://github.com/psi)**
+- **[@TheSerapher](https://github.com/TheSerapher)**
+- **[@bensomers](https://github.com/bensomers)**
+- **[@tdg5](https://github.com/tdg5)**
+- **[@gpendler](https://github.com/gpendler)**
+- **[@vinu](https://github.com/vinu)**
+- **[@ckuttruff](https://github.com/ckuttruff)**
+- **[@srodrig0209](https://github.com/srodrig0209)**
+- **[@jesseadams](https://github.com/jesseadams)**
+- **[@see0](https://github.com/see0)**
+- **[@baldur](https://github.com/baldur)**
+- **[@chrisroberts](https://github.com/chrisroberts)**
+- **[@aaronjensen](https://github.com/aaronjensen)**
+- **[@pioneerit](https://github.com/pioneerit)**
+- **[@AndreyChernyh](https://github.com/AndreyChernyh)**
+- **[@avit](https://github.com/avit)**
+- **[@alexzorin](https://github.com/alexzorin)**
+- **[@jyotty](https://github.com/jyotty)**
+- **[@adamdunkley](https://github.com/adamdunkley)**
+- **[@freerobby](https://github.com/freerobby)**
+- **[@spovich](https://github.com/spovich)**
+- **[@v1nc3ntlaw](https://github.com/v1nc3ntlaw)**
+- **[@joegaudet](https://github.com/joegaudet)**
+- **[@mikesmullin](https://github.com/mikesmullin)**
+- **[@totally](https://github.com/totally)**
+- **[@sapunoff](https://github.com/sapunoff)**
+- **[@errm](https://github.com/errm)**
+- **[@ewr](https://github.com/ewr)**
+- **[@jharley](https://github.com/jharley)**
+- **[@achied](https://github.com/achied)**
+- **[@akshah123](https://github.com/akshah123)**
+- **[@tkuhlman](https://github.com/tkuhlman)**
+- **[@mancdaz](https://github.com/mancdaz)**
+- **[@iancoffey](https://github.com/iancoffey)**
+- **[@notnmeyer](https://github.com/notnmeyer)**
+- **[@odacrem](https://github.com/odacrem)**
+- **[@g3kk0](https://github.com/g3kk0)**
+- **[@gfloyd](https://github.com/gfloyd)**
+- **[@paustin01](https://github.com/paustin01)**
+- **[@ajardan](https://github.com/ajardan)**
+- **[@realloc](https://github.com/realloc)**
+- **[@tbunnyman](https://github.com/tbunnyman)**
+- **[@mzdrale](https://github.com/mzdrale)**
+- **[@Sauraus](https://github.com/Sauraus)**
+- **[@jim80net](https://github.com/jim80net)**
+- **[@helgi](https://github.com/helgi)**
+- **[@arnesund](https://github.com/arnesund)**
+- **[@n3bulous](https://github.com/n3bulous)**
+- **[@runwaldarshu](https://github.com/runwaldarshu)**
+- **[@vermut](https://github.com/vermut)**
+- **[@dng-dev](https://github.com/dng-dev)**
+- **[@washingtoneg](https://github.com/washingtoneg)**
+- **[@cmjosh](https://github.com/cmjosh)**
+- **[@cybermerc](https://github.com/cybermerc)**
+- **[@drywheat](https://github.com/drywheat)**
+- **[@joelhandwell](https://github.com/joelhandwell)**
+- **[@bitpusher-real](https://github.com/bitpusher-real)**
+- **[@cyberflow](https://github.com/cyberflow)**
+- **[@jklare](https://github.com/jklare)**
+- **[@whiteley](https://github.com/whiteley)**
 
 ## License
 
-**chef-percona**
+```text
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
-* Freely distributable and licensed under the [MIT license](http://phlipper.mit-license.org/2012-2015/license.html).
-* Copyright (c) 2012-2015 Phil Cohen (github@phlippers.net)
-* http://phlippers.net/
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```

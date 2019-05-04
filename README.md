@@ -553,74 +553,28 @@ In no particular order:
 
 ## Contributors
 
-Many thanks go to the following [contributors](https://github.com/phlipper/chef-percona/graphs/contributors) who have helped to make this cookbook even better:
+This project exists thanks to all the people who contribute.
+<img src="https://opencollective.com/sous-chefs/contributors.svg?width=890&button=false" /></a>
 
-- **[@jagcrete](https://github.com/jagcrete)**
-- **[@pwelch](https://github.com/pwelch)**
-- **[@masv](https://github.com/masv)**
-- **[@stottsan](https://github.com/stottsan)**
-- **[@abecciu](https://github.com/abecciu)**
-- **[@patcon](https://github.com/patcon)**
-- **[@psi](https://github.com/psi)**
-- **[@TheSerapher](https://github.com/TheSerapher)**
-- **[@bensomers](https://github.com/bensomers)**
-- **[@tdg5](https://github.com/tdg5)**
-- **[@gpendler](https://github.com/gpendler)**
-- **[@vinu](https://github.com/vinu)**
-- **[@ckuttruff](https://github.com/ckuttruff)**
-- **[@srodrig0209](https://github.com/srodrig0209)**
-- **[@jesseadams](https://github.com/jesseadams)**
-- **[@see0](https://github.com/see0)**
-- **[@baldur](https://github.com/baldur)**
-- **[@chrisroberts](https://github.com/chrisroberts)**
-- **[@aaronjensen](https://github.com/aaronjensen)**
-- **[@pioneerit](https://github.com/pioneerit)**
-- **[@AndreyChernyh](https://github.com/AndreyChernyh)**
-- **[@avit](https://github.com/avit)**
-- **[@alexzorin](https://github.com/alexzorin)**
-- **[@jyotty](https://github.com/jyotty)**
-- **[@adamdunkley](https://github.com/adamdunkley)**
-- **[@freerobby](https://github.com/freerobby)**
-- **[@spovich](https://github.com/spovich)**
-- **[@v1nc3ntlaw](https://github.com/v1nc3ntlaw)**
-- **[@joegaudet](https://github.com/joegaudet)**
-- **[@mikesmullin](https://github.com/mikesmullin)**
-- **[@totally](https://github.com/totally)**
-- **[@sapunoff](https://github.com/sapunoff)**
-- **[@errm](https://github.com/errm)**
-- **[@ewr](https://github.com/ewr)**
-- **[@jharley](https://github.com/jharley)**
-- **[@achied](https://github.com/achied)**
-- **[@akshah123](https://github.com/akshah123)**
-- **[@tkuhlman](https://github.com/tkuhlman)**
-- **[@mancdaz](https://github.com/mancdaz)**
-- **[@iancoffey](https://github.com/iancoffey)**
-- **[@notnmeyer](https://github.com/notnmeyer)**
-- **[@odacrem](https://github.com/odacrem)**
-- **[@g3kk0](https://github.com/g3kk0)**
-- **[@gfloyd](https://github.com/gfloyd)**
-- **[@paustin01](https://github.com/paustin01)**
-- **[@ajardan](https://github.com/ajardan)**
-- **[@realloc](https://github.com/realloc)**
-- **[@tbunnyman](https://github.com/tbunnyman)**
-- **[@mzdrale](https://github.com/mzdrale)**
-- **[@Sauraus](https://github.com/Sauraus)**
-- **[@jim80net](https://github.com/jim80net)**
-- **[@helgi](https://github.com/helgi)**
-- **[@arnesund](https://github.com/arnesund)**
-- **[@n3bulous](https://github.com/n3bulous)**
-- **[@runwaldarshu](https://github.com/runwaldarshu)**
-- **[@vermut](https://github.com/vermut)**
-- **[@dng-dev](https://github.com/dng-dev)**
-- **[@washingtoneg](https://github.com/washingtoneg)**
-- **[@cmjosh](https://github.com/cmjosh)**
-- **[@cybermerc](https://github.com/cybermerc)**
-- **[@drywheat](https://github.com/drywheat)**
-- **[@joelhandwell](https://github.com/joelhandwell)**
-- **[@bitpusher-real](https://github.com/bitpusher-real)**
-- **[@cyberflow](https://github.com/cyberflow)**
-- **[@jklare](https://github.com/jklare)**
-- **[@whiteley](https://github.com/whiteley)**
+
+### Backers
+
+Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/sous-chefs#backer)]
+<a href="https://opencollective.com/sous-chefs#backers" target="_blank"><img src="https://opencollective.com/sous-chefs/backers.svg?width=890"></a>
+
+### Sponsors
+
+Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/sous-chefs#sponsor)]
+<a href="https://opencollective.com/sous-chefs/sponsor/0/website" target="_blank"><img src="https://opencollective.com/sous-chefs/sponsor/0/avatar.svg"></a>
+<a href="https://opencollective.com/sous-chefs/sponsor/1/website" target="_blank"><img src="https://opencollective.com/sous-chefs/sponsor/1/avatar.svg"></a>
+<a href="https://opencollective.com/sous-chefs/sponsor/2/website" target="_blank"><img src="https://opencollective.com/sous-chefs/sponsor/2/avatar.svg"></a>
+<a href="https://opencollective.com/sous-chefs/sponsor/3/website" target="_blank"><img src="https://opencollective.com/sous-chefs/sponsor/3/avatar.svg"></a>
+<a href="https://opencollective.com/sous-chefs/sponsor/4/website" target="_blank"><img src="https://opencollective.com/sous-chefs/sponsor/4/avatar.svg"></a>
+<a href="https://opencollective.com/sous-chefs/sponsor/5/website" target="_blank"><img src="https://opencollective.com/sous-chefs/sponsor/5/avatar.svg"></a>
+<a href="https://opencollective.com/sous-chefs/sponsor/6/website" target="_blank"><img src="https://opencollective.com/sous-chefs/sponsor/6/avatar.svg"></a>
+<a href="https://opencollective.com/sous-chefs/sponsor/7/website" target="_blank"><img src="https://opencollective.com/sous-chefs/sponsor/7/avatar.svg"></a>
+<a href="https://opencollective.com/sous-chefs/sponsor/8/website" target="_blank"><img src="https://opencollective.com/sous-chefs/sponsor/8/avatar.svg"></a>
+<a href="https://opencollective.com/sous-chefs/sponsor/9/website" target="_blank"><img src="https://opencollective.com/sous-chefs/sponsor/9/avatar.svg"></a>
 
 ## License
 

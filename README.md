@@ -2,12 +2,13 @@
 
 [![Cookbook Version](https://img.shields.io/cookbook/v/percona.svg)](https://supermarket.chef.io/cookbooks/percona)
 [![Build Status](https://img.shields.io/circleci/project/github/sous-chefs/percona/master.svg)](https://circleci.com/gh/sous-chefs/percona)
-[![pullreminders](https://pullreminders.com/badge.svg)](https://pullreminders.com?ref=badge)
+[![OpenCollective](https://opencollective.com/sous-chefs/backers/badge.svg)](#backers)
+[![OpenCollective](https://opencollective.com/sous-chefs/sponsors/badge.svg)](#sponsors)
+[![License](https://img.shields.io/badge/License-Apache%202.0-green.svg)](https://opensource.org/licenses/Apache-2.0)
 
 ## Description
 
-Installs the [Percona
-MySQL](http://www.percona.com/software/percona-server) client and/or
+Installs the [Percona MySQL](http://www.percona.com/software/percona-server) client and/or
 server components. (We are attempting to leverage the Sous-Chefs
 MySQL cookbook as much as possible.)
 
@@ -17,6 +18,10 @@ Optionally installs:
 - [Percona Toolkit](http://www.percona.com/software/percona-toolkit/) advanced command-line tools
 - [XtraDB Cluster](http://www.percona.com/software/percona-xtradb-cluster/) high availability and high scalability solution for MySQL.
 - [Percona Monitoring Plugins](http://www.percona.com/software/percona-monitoring-plugins) various Nagios plugins for monitoring MySQL
+
+## Maintainers
+
+This cookbook is maintained by the Sous Chefs. The Sous Chefs are a community of Chef cookbook maintainers working together to maintain important cookbooks. If you’d like to know more please visit [sous-chefs.org](https://sous-chefs.org/) or come chat with us on the Chef Community Slack in [#sous-chefs](https://chefcommunity.slack.com/messages/C2V7B88SF).
 
 ## Requirements
 
@@ -553,87 +558,25 @@ In no particular order:
 
 ## Contributors
 
-Many thanks go to the following [contributors](https://github.com/phlipper/chef-percona/graphs/contributors) who have helped to make this cookbook even better:
+This project exists thanks to all the people who [contribute.](https://opencollective.com/sous-chefs/contributors.svg?width=890&button=false)
 
-- **[@jagcrete](https://github.com/jagcrete)**
-- **[@pwelch](https://github.com/pwelch)**
-- **[@masv](https://github.com/masv)**
-- **[@stottsan](https://github.com/stottsan)**
-- **[@abecciu](https://github.com/abecciu)**
-- **[@patcon](https://github.com/patcon)**
-- **[@psi](https://github.com/psi)**
-- **[@TheSerapher](https://github.com/TheSerapher)**
-- **[@bensomers](https://github.com/bensomers)**
-- **[@tdg5](https://github.com/tdg5)**
-- **[@gpendler](https://github.com/gpendler)**
-- **[@vinu](https://github.com/vinu)**
-- **[@ckuttruff](https://github.com/ckuttruff)**
-- **[@srodrig0209](https://github.com/srodrig0209)**
-- **[@jesseadams](https://github.com/jesseadams)**
-- **[@see0](https://github.com/see0)**
-- **[@baldur](https://github.com/baldur)**
-- **[@chrisroberts](https://github.com/chrisroberts)**
-- **[@aaronjensen](https://github.com/aaronjensen)**
-- **[@pioneerit](https://github.com/pioneerit)**
-- **[@AndreyChernyh](https://github.com/AndreyChernyh)**
-- **[@avit](https://github.com/avit)**
-- **[@alexzorin](https://github.com/alexzorin)**
-- **[@jyotty](https://github.com/jyotty)**
-- **[@adamdunkley](https://github.com/adamdunkley)**
-- **[@freerobby](https://github.com/freerobby)**
-- **[@spovich](https://github.com/spovich)**
-- **[@v1nc3ntlaw](https://github.com/v1nc3ntlaw)**
-- **[@joegaudet](https://github.com/joegaudet)**
-- **[@mikesmullin](https://github.com/mikesmullin)**
-- **[@totally](https://github.com/totally)**
-- **[@sapunoff](https://github.com/sapunoff)**
-- **[@errm](https://github.com/errm)**
-- **[@ewr](https://github.com/ewr)**
-- **[@jharley](https://github.com/jharley)**
-- **[@achied](https://github.com/achied)**
-- **[@akshah123](https://github.com/akshah123)**
-- **[@tkuhlman](https://github.com/tkuhlman)**
-- **[@mancdaz](https://github.com/mancdaz)**
-- **[@iancoffey](https://github.com/iancoffey)**
-- **[@notnmeyer](https://github.com/notnmeyer)**
-- **[@odacrem](https://github.com/odacrem)**
-- **[@g3kk0](https://github.com/g3kk0)**
-- **[@gfloyd](https://github.com/gfloyd)**
-- **[@paustin01](https://github.com/paustin01)**
-- **[@ajardan](https://github.com/ajardan)**
-- **[@realloc](https://github.com/realloc)**
-- **[@tbunnyman](https://github.com/tbunnyman)**
-- **[@mzdrale](https://github.com/mzdrale)**
-- **[@Sauraus](https://github.com/Sauraus)**
-- **[@jim80net](https://github.com/jim80net)**
-- **[@helgi](https://github.com/helgi)**
-- **[@arnesund](https://github.com/arnesund)**
-- **[@n3bulous](https://github.com/n3bulous)**
-- **[@runwaldarshu](https://github.com/runwaldarshu)**
-- **[@vermut](https://github.com/vermut)**
-- **[@dng-dev](https://github.com/dng-dev)**
-- **[@washingtoneg](https://github.com/washingtoneg)**
-- **[@cmjosh](https://github.com/cmjosh)**
-- **[@cybermerc](https://github.com/cybermerc)**
-- **[@drywheat](https://github.com/drywheat)**
-- **[@joelhandwell](https://github.com/joelhandwell)**
-- **[@bitpusher-real](https://github.com/bitpusher-real)**
-- **[@cyberflow](https://github.com/cyberflow)**
-- **[@jklare](https://github.com/jklare)**
-- **[@whiteley](https://github.com/whiteley)**
+### Backers
 
-## License
+Thank you to all our backers!
 
-```text
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+![https://opencollective.com/sous-chefs#backers](https://opencollective.com/sous-chefs/backers.svg?width=600&avatarHeight=40)
 
-    http://www.apache.org/licenses/LICENSE-2.0
+### Sponsors
 
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-```
+Support this project by becoming a sponsor. Your logo will show up here with a link to your website.
+
+![https://opencollective.com/sous-chefs/sponsor/0/website](https://opencollective.com/sous-chefs/sponsor/0/avatar.svg?avatarHeight=100)
+![https://opencollective.com/sous-chefs/sponsor/1/website](https://opencollective.com/sous-chefs/sponsor/1/avatar.svg?avatarHeight=100)
+![https://opencollective.com/sous-chefs/sponsor/2/website](https://opencollective.com/sous-chefs/sponsor/2/avatar.svg?avatarHeight=100)
+![https://opencollective.com/sous-chefs/sponsor/3/website](https://opencollective.com/sous-chefs/sponsor/3/avatar.svg?avatarHeight=100)
+![https://opencollective.com/sous-chefs/sponsor/4/website](https://opencollective.com/sous-chefs/sponsor/4/avatar.svg?avatarHeight=100)
+![https://opencollective.com/sous-chefs/sponsor/5/website](https://opencollective.com/sous-chefs/sponsor/5/avatar.svg?avatarHeight=100)
+![https://opencollective.com/sous-chefs/sponsor/6/website](https://opencollective.com/sous-chefs/sponsor/6/avatar.svg?avatarHeight=100)
+![https://opencollective.com/sous-chefs/sponsor/7/website](https://opencollective.com/sous-chefs/sponsor/7/avatar.svg?avatarHeight=100)
+![https://opencollective.com/sous-chefs/sponsor/8/website](https://opencollective.com/sous-chefs/sponsor/8/avatar.svg?avatarHeight=100)
+![https://opencollective.com/sous-chefs/sponsor/9/website](https://opencollective.com/sous-chefs/sponsor/9/avatar.svg?avatarHeight=100)

@@ -4,12 +4,8 @@
 #
 
 # include the openssl cookbook password library
-if defined?(::Opscode::OpenSSL::Password)
-  ::Chef::Node.send(:include, ::Opscode::OpenSSL::Password)
-elsif defined?(::OpenSSLCookbook::Password)
-  ::Chef::Node.send(:include, ::OpenSSLCookbook::Password)
-elsif defined?(::Chef::OpenSSL::Password)
-  ::Chef::Node.send(:include, ::Chef::OpenSSL::Password)
+if defined?(::OpenSSLCookbook::RandomPassword)
+  ::Chef::Node.send(:include, ::OpenSSLCookbook::RandomPassword)
 end
 
 default['percona']['version'] = '5.6'
@@ -95,7 +91,7 @@ default['percona']['server']['report_host'] = ''
 
 %w(debian_password root_password).each do |attribute|
   next if attribute?(node['percona']['server'][attribute])
-  default['percona']['server'][attribute] = secure_password
+  default['percona']['server'][attribute] = random_password
 end
 
 # Fine Tuning
@@ -213,7 +209,7 @@ default['percona']['server']['skip_syslog'] = false
 default['percona']['backup']['configure'] = false
 default['percona']['backup']['username'] = 'backup'
 unless attribute?(node['percona']['backup']['password'])
-  default['percona']['backup']['password'] = secure_password
+  default['percona']['backup']['password'] = random_password
 end
 
 # XtraDB Cluster Settings

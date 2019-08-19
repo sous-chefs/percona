@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: percona
+# Cookbook:: percona
 # Attributes:: default
 #
 

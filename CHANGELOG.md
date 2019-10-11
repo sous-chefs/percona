@@ -3,6 +3,7 @@
 This file is used to list changes made in each version of the percona cookbook.
 
 ## Unreleased
+
 * run latest cookstyle
 * update .circleci/config.yml for parallel builds
 

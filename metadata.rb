@@ -9,7 +9,6 @@ issues_url        'https://github.com/phlipper/chef-percona/issues'
 version           '0.16.5'
 chef_version      '>= 13.0'
 
-depends 'build-essential'
 depends 'openssl'
 depends 'yum-epel'
 depends 'chef-vault'

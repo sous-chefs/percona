@@ -1,18 +1,23 @@
 ---
+jobs:
+  final:
+    docker:
+      - image: bash:latest
+    steps:
+      - run:
+          name: Finish cooking
+          command: echo "Finished cooking"
 lint_and_unit: &lint_and_unit
   - delivery
   - danger
   - lint-yaml
   - lint-markdown
-
 version: 2.1
 orbs:
-  kitchen: sous-chefs/kitchen@1.0.3
-
+  kitchen: sous-chefs/kitchen@2
 workflows:
   kitchen:
     jobs:
-      # Lint and Unit Test
       - kitchen/yamllint:
           name: lint-yaml
       - kitchen/mdlint:
@@ -22,3 +27,145 @@ workflows:
           context: Danger
       - kitchen/delivery:
           name: delivery
+      - kitchen/dokken-single:
+          name: client-56-amazonlinux-2
+          suite: client-56-amazonlinux-2
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: client-56-debian-8
+          suite: client-56-debian-8
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: client-56-debian-9
+          suite: client-56-debian-9
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: client-56-centos-7
+          suite: client-56-centos-7
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: client-56-ubuntu-1604
+          suite: client-56-ubuntu-1604
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: client-56-ubuntu-1804
+          suite: client-56-ubuntu-1804
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: client-56-opensuse-leap-15
+          suite: client-56-opensuse-leap-15
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: client-57-amazonlinux-2
+          suite: client-57-amazonlinux-2
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: client-57-debian-8
+          suite: client-57-debian-8
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: client-57-debian-9
+          suite: client-57-debian-9
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: client-57-centos-7
+          suite: client-57-centos-7
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: client-57-ubuntu-1604
+          suite: client-57-ubuntu-1604
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: client-57-ubuntu-1804
+          suite: client-57-ubuntu-1804
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: client-57-opensuse-leap-15
+          suite: client-57-opensuse-leap-15
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: server-56-amazonlinux-2
+          suite: server-56-amazonlinux-2
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: server-56-debian-8
+          suite: server-56-debian-8
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: server-56-debian-9
+          suite: server-56-debian-9
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: server-56-centos-7
+          suite: server-56-centos-7
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: server-56-ubuntu-1604
+          suite: server-56-ubuntu-1604
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: server-56-ubuntu-1804
+          suite: server-56-ubuntu-1804
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: server-56-opensuse-leap-15
+          suite: server-56-opensuse-leap-15
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: server-57-amazonlinux-2
+          suite: server-57-amazonlinux-2
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: server-57-debian-8
+          suite: server-57-debian-8
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: server-57-debian-9
+          suite: server-57-debian-9
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: server-57-centos-7
+          suite: server-57-centos-7
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: server-57-ubuntu-1604
+          suite: server-57-ubuntu-1604
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: server-57-ubuntu-1804
+          suite: server-57-ubuntu-1804
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: server-57-opensuse-leap-15
+          suite: server-57-opensuse-leap-15
+          requires: *lint_and_unit
+      - final:
+          requires:
+            - client-56-amazonlinux-2
+            - client-56-debian-8
+            - client-56-debian-9
+            - client-56-centos-7
+            - client-56-ubuntu-1604
+            - client-56-ubuntu-1804
+            - client-56-opensuse-leap-15
+            - client-57-amazonlinux-2
+            - client-57-debian-8
+            - client-57-debian-9
+            - client-57-centos-7
+            - client-57-ubuntu-1604
+            - client-57-ubuntu-1804
+            - client-57-opensuse-leap-15
+            - server-56-amazonlinux-2
+            - server-56-debian-8
+            - server-56-debian-9
+            - server-56-centos-7
+            - server-56-ubuntu-1604
+            - server-56-ubuntu-1804
+            - server-56-opensuse-leap-15
+            - server-57-amazonlinux-2
+            - server-57-debian-8
+            - server-57-debian-9
+            - server-57-centos-7
+            - server-57-ubuntu-1604
+            - server-57-ubuntu-1804
+            - server-57-opensuse-leap-15

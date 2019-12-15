@@ -14,12 +14,12 @@ unless node['percona']['selinux_module_url'].nil? || node['percona']['selinux_mo
   semodule_filepath = "#{Chef::Config[:file_cache_path]}/#{semodule_filename}"
   remote_file semodule_filepath do
     source node['percona']['selinux_module_url']
-    only_if { semodule_filename && node['platform_family'] == 'rhel' }
+    only_if { semodule_filename && platform_family?('rhel') }
   end
 
   execute "semodule-install-#{semodule_filename}" do
     command "/usr/sbin/semodule -i #{semodule_filepath}"
-    only_if { semodule_filename && node['platform_family'] == 'rhel' }
+    only_if { semodule_filename && platform_family?('rhel') }
     only_if { shell_out("/usr/sbin/semodule -l | grep '^#{semodule_filename.split('.')[0..-2]}\\s'").stdout == '' }
   end
 end

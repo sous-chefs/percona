@@ -34,7 +34,7 @@ suites:
       - recipe[test::client-56]
   - name: client_5.7
     run_list:
-      - recipe[test:client57
+      - recipe[test::client-57]
   - name: server_5.6
     run_list:
       - recipe[test::server-56]

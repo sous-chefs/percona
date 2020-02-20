@@ -123,7 +123,7 @@ end
 
 # install db to the data directory
 execute 'setup mysql datadir' do
-  command "mysql_install_db --defaults-file=#{percona['main_config_file']} --user=#{user}"
+  command "mysqld --initalize --defaults-file=#{percona['main_config_file']} --user=#{user} --datadir=\"#{datadir}\""
   not_if "test -f #{datadir}/mysql/user.frm"
   action :nothing
 end
@@ -139,6 +139,11 @@ if Array(server['role']).include?('cluster')
                    else
                      node['percona']['cluster']['wsrep_sst_auth']
                    end
+end
+
+# Reload ohai for version info on packages before creating the cluster
+ohai 'reload' do
+  action :reload
 end
 
 # setup the main server config file

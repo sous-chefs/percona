@@ -496,7 +496,8 @@ myisam_recover
 skip-innodb
 <% end %>
 
-<%- if node["percona"]["version"] < "5.7.4" %>
+# <%=node['packages'][node['percona']['client']['packages'][0]]['version']%>
+<%- if node['packages'][node['percona']['client']['packages'][0]]['version'] < "5.7" %>
 # Additional memory pool that is used by InnoDB to store metadata
 # information.  If InnoDB requires more memory for this purpose it will
 # start to allocate it from the OS.  As this is fast enough on most

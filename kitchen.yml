@@ -17,14 +17,9 @@ platforms:
   - name: amazonlinux-2
     driver_config:
       box: ywatase/amzn2
-  - name: amazon-linux
-    driver_config:
-      box: mvbcoding/awslinux
   - name: centos-6
   - name: centos-7
-  - name: debian-8
   - name: debian-9
-  - name: opensuse-leap-15
   - name: ubuntu-16.04
   - name: ubuntu-18.04
 
@@ -32,12 +27,24 @@ suites:
   - name: client_5.6
     run_list:
       - recipe[test::client-56]
+    attributes:
+        percona:
+          version: "5.6"
   - name: client_5.7
     run_list:
       - recipe[test::client-57]
+    attributes:
+        percona:
+          version: "5.7"
   - name: server_5.6
     run_list:
       - recipe[test::server-56]
+    attributes:
+        percona:
+          version: "5.6"
   - name: server_5.7
     run_list:
       - recipe[test::server-57]
+    attributes:
+      percona:
+        version: "5.7"

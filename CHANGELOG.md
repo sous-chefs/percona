@@ -12,6 +12,7 @@ This file is used to list changes made in each version of the percona cookbook.
 - Migrate to github actions for testing
 - Fixed ChefCorrectness/CookbookUsesNodeSave
 - Fixed ChefRedundantCode/AptRepositoryDistributionDefault
+- Changed `mysql_install_db` to `mysqld --initialize` and added datadir path to command
 
 ## [0.16.5]
 

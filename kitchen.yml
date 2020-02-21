@@ -28,20 +28,20 @@ suites:
     run_list:
       - recipe[test::client-56]
     attributes:
-        percona:
-          version: "5.6"
+      percona:
+        version: "5.6"
   - name: client_5.7
     run_list:
       - recipe[test::client-57]
     attributes:
-        percona:
-          version: "5.7"
+      percona:
+        version: "5.7"
   - name: server_5.6
     run_list:
       - recipe[test::server-56]
     attributes:
-        percona:
-          version: "5.6"
+      percona:
+        version: "5.6"
   - name: server_5.7
     run_list:
       - recipe[test::server-57]

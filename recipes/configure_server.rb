@@ -123,7 +123,11 @@ end
 
 # install db to the data directory
 execute 'setup mysql datadir' do
-  command "mysqld --initalize --defaults-file=#{percona['main_config_file']} --user=#{user} --datadir=\"#{datadir}\""
+  if percona['version'] == '5.6'
+    command "mysql_install_db --defaults-file=#{percona['main_config_file']} --user=#{user} --datadir=\"#{datadir}\""
+  else
+    command "mysqld --initialize --defaults-file=#{percona['main_config_file']} --user=#{user} --datadir=\"#{datadir}\""
+  end
   not_if "test -f #{datadir}/mysql/user.frm"
   action :nothing
 end

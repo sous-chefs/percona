@@ -16,7 +16,6 @@ when 'debian'
 
   apt_repository 'percona' do
     uri node['percona']['apt']['uri']
-    distribution node['lsb']['codename']
     components ['main']
     keyserver node['percona']['apt']['keyserver']
     key node['percona']['apt']['key']

@@ -5,7 +5,7 @@
 
 # include the openssl cookbook password library
 if defined?(::OpenSSLCookbook::RandomPassword)
-  ::Chef::Node.send(:include, ::OpenSSLCookbook::RandomPassword)
+  ::Chef::Node.include ::OpenSSLCookbook::RandomPassword
 end
 
 default['percona']['version'] = '5.6'

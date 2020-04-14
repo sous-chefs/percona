@@ -20,7 +20,7 @@ class Chef
         # load password from the vault
         pwds = ChefVault::Item.load(bag, item) if vault
         # load the encrypted data bag item, using a secret if specified
-        pwds = Chef::EncryptedDataBagItem.load(@bag, item, secret) unless vault
+        pwds = data_bag_item(@bag, item, secret) unless vault
         # now, let's look for the user password
         password = pwds[user]
       rescue

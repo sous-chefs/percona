@@ -14,7 +14,7 @@ directory certs_path do
 end
 
 secret = Chef::EncryptedDataBagItem.load_secret(secret_file)
-certs = Chef::EncryptedDataBagItem.load(
+certs = data_bag_item(
   data_bag,
   node['percona']['encrypted_data_bag_item_ssl_replication'],
   secret

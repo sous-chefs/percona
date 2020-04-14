@@ -2,14 +2,14 @@
 
 This file is used to list changes made in each version of the percona cookbook.
 
-## UNRELEASED
+## Unreleased
 
-* Removed unused use_inline_resources and whyrun_supported? methods from the resources
-* Removed unused long_description metadata from metadata.rb
-* Simplify platform checks inn only_if checks
-* Remove the unused .foodcritic file
-* Update metadata to point to Sous Chefs
-* Migrate to github actions for testing
+- Removed unused use_inline_resources and whyrun_supported? methods from the resources
+- Removed unused long_description metadata from metadata.rb
+- Simplify platform checks inn only_if checks
+- Remove the unused .foodcritic file
+- Update metadata to point to Sous Chefs
+- Migrate to github actions for testing
 
 ## [0.16.5]
 

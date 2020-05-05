@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the percona cookbook.
 
-## Unreleased
+## 0.17.0 - 2020-05-05
 
 - resolved cookstyle error: attributes/default.rb:8:16 warning: `Lint/SendWithMixinArgument`
 - resolved cookstyle error: libraries/passwords.rb:23:16 refactor: `ChefModernize/DatabagHelpers`

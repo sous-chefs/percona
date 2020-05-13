@@ -2,6 +2,17 @@
 
 This file is used to list changes made in each version of the percona cookbook.
 
+## Unreleased
+
+- resolved cookstyle error: recipes/access_grants.rb:28:40 convention: `Layout/TrailingWhitespace`
+- resolved cookstyle error: recipes/access_grants.rb:28:41 refactor: `ChefModernize/FoodcriticComments`
+- resolved cookstyle error: recipes/configure_server.rb:102:25 convention: `Layout/TrailingWhitespace`
+- resolved cookstyle error: recipes/configure_server.rb:102:26 refactor: `ChefModernize/FoodcriticComments`
+- resolved cookstyle error: recipes/configure_server.rb:170:42 convention: `Layout/TrailingWhitespace`
+- resolved cookstyle error: recipes/configure_server.rb:170:43 refactor: `ChefModernize/FoodcriticComments`
+- resolved cookstyle error: recipes/replication.rb:28:35 convention: `Layout/TrailingWhitespace`
+- resolved cookstyle error: recipes/replication.rb:28:36 refactor: `ChefModernize/FoodcriticComments`
+
 ## 0.17.0 - 2020-05-05
 
 - resolved cookstyle error: attributes/default.rb:8:16 warning: `Lint/SendWithMixinArgument`

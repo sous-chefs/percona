@@ -2,6 +2,12 @@
 
 This file is used to list changes made in each version of the percona cookbook.
 
+## Unreleased
+
+### Fixed
+
+- Fix debian_password as a string for testing
+
 ## 0.17.1 - 2020-05-14
 
 - resolved cookstyle error: recipes/access_grants.rb:28:40 convention: `Layout/TrailingWhitespace`

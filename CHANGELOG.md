@@ -2,6 +2,12 @@
 
 This file is used to list changes made in each version of the percona cookbook.
 
+## Unreleased
+
+### Changed
+
+- Disable enforce_idempotency until we can properly fix it
+
 ## 0.17.2 - 2020-08-06
 
 ### Fixed

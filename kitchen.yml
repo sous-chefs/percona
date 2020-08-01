@@ -31,15 +31,27 @@ platforms:
   - name: ubuntu-18.04
 
 suites:
-  - name: client_5.6
+  - name: client-56
     run_list:
-      - recipe[test::client-56]
-  - name: client_5.7
+      - recipe[test::client]
+    attributes:
+      percona:
+        version: '5.6'
+  - name: client-57
     run_list:
-      - recipe[test:client57
-  - name: server_5.6
+      - recipe[test::client]
+    attributes:
+      percona:
+        version: '5.7'
+  - name: server-56
     run_list:
-      - recipe[test::server-56]
-  - name: server_5.7
+      - recipe[test::server]
+    attributes:
+      percona:
+        version: '5.6'
+  - name: server-57
     run_list:
-      - recipe[test::server-57]
+      - recipe[test::server]
+    attributes:
+      percona:
+        version: '5.7'

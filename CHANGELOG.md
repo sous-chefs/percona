@@ -7,6 +7,7 @@ This file is used to list changes made in each version of the percona cookbook.
 ### Changed
 
 - Disable enforce_idempotency until we can properly fix it
+- Convert to InSpec tests and refactor test cookbook recipes
 
 ## 0.17.2 - 2020-08-06
 

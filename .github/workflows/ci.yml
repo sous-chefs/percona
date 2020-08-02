@@ -45,7 +45,6 @@ jobs:
           - 'centos-7'
           - 'ubuntu-1604'
           - 'ubuntu-1804'
-          - 'opensuse-leap-15'
         suite:
           - 'server-56'
           - 'server-57'

@@ -4,6 +4,10 @@ This file is used to list changes made in each version of the percona cookbook.
 
 ## Unreleased
 
+### Fixed
+
+- Update apt gpg key
+
 ### Changed
 
 - Disable enforce_idempotency until we can properly fix it

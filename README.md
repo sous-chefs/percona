@@ -29,7 +29,6 @@ This cookbook is maintained by the Sous Chefs. The Sous Chefs are a community of
 
 We provide an expanding set of tests against the following 64-bit platforms:
 
-- Amazon 2014.03
 - CentOS 6.5
 - CentOS 7.0
 - Debian 7.8
@@ -42,7 +41,6 @@ cause, and we'll make reasonable efforts to improve support:
 
 - Ubuntu
 - Debian
-- Amazon Linux AMI
 - CentOS
 - Red Hat
 - Scientific

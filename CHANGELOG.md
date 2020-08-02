@@ -16,6 +16,10 @@ This file is used to list changes made in each version of the percona cookbook.
 - Don't install abi_version packages on Debian/Ubuntu
 - Standardise files with files in sous-chefs/repo-management
 
+### Removed
+
+- Remove support for Amazon Linux
+
 ## 0.17.2 - 2020-08-06
 
 ### Fixed

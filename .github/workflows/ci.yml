@@ -46,7 +46,6 @@ jobs:
           - 'ubuntu-1604'
           - 'ubuntu-1804'
           - 'opensuse-leap-15'
-          - 'amazonlinux-2'
         suite:
           - 'server-56'
           - 'server-57'

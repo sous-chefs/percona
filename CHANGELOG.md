@@ -7,6 +7,7 @@ This file is used to list changes made in each version of the percona cookbook.
 ### Fixed
 
 - Update apt gpg key
+- Fixes for supporting 5.7
 
 ### Changed
 

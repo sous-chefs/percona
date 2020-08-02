@@ -32,6 +32,23 @@ when 'rhel'
   package node['percona']['server']['package'] do
     action node['percona']['server']['package_action'].to_sym
   end
+
+  # Work around issue with 5.7 on RHEL
+  if node['percona']['version'].to_f >= 5.7
+    execute 'systemctl daemon-reload' do
+      action :nothing
+    end
+
+    delete_lines 'remove PIDFile from systemd.service' do
+      path '/usr/lib/systemd/system/mysqld.service'
+      pattern /^PIDFile=.*/
+      notifies :run, 'execute[systemctl daemon-reload]', :immediately
+    end
+
+    filter_lines '/usr/bin/mysqld_pre_systemd' do
+      filters(substitute: [/--initialize /, /--initialize /, '--initialize-insecure '])
+    end
+  end
 end
 
 unless node['percona']['skip_configure']

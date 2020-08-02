@@ -11,6 +11,7 @@ chef_version      '>= 13.0'
 depends 'openssl'
 depends 'yum-epel'
 depends 'chef-vault'
+depends 'line'
 
 supports 'debian'
 supports 'ubuntu'

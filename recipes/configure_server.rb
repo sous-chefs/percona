@@ -126,6 +126,7 @@ end
 execute 'setup mysql datadir' do
   command "mysql_install_db --defaults-file=#{percona['main_config_file']} --user=#{user}"
   not_if "test -f #{datadir}/mysql/user.frm"
+  not_if { node['percona']['version'] == '5.7' }
   action :nothing
 end
 

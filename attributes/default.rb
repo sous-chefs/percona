@@ -208,6 +208,17 @@ default['percona']['server']['skip_syslog'] = false
 # XtraBackup Settings
 default['percona']['backup']['configure'] = false
 default['percona']['backup']['username'] = 'backup'
+default['percona']['backup']['package_name'] =
+  case node['platform_family']
+  when 'debian'
+    if node['platform_version'].to_i >= 10
+      'percona-xtrabackup-80'
+    else
+      'xtrabackup'
+    end
+  when 'rhel'
+    'percona-xtrabackup'
+  end
 unless attribute?(node['percona']['backup']['password'])
   default['percona']['backup']['password'] = random_password
 end

@@ -31,7 +31,7 @@ We provide an expanding set of tests against the following 64-bit platforms:
 
 - CentOS 6.5
 - CentOS 7.0
-- Debian 7.8
+- Debian 9+
 - Ubuntu 12.04 LTS
 - Ubuntu 14.04 LTS
 
@@ -40,7 +40,6 @@ the following to be supported. Please submit an issue if this is not the
 cause, and we'll make reasonable efforts to improve support:
 
 - Ubuntu
-- Debian
 - CentOS
 - Red Hat
 - Scientific

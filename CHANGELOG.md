@@ -4,6 +4,10 @@ This file is used to list changes made in each version of the percona cookbook.
 
 ## Unreleased
 
+### Added
+
+- Add support for Debian 10 for 5.7 only
+
 ### Fixed
 
 - Update apt gpg key
@@ -20,6 +24,7 @@ This file is used to list changes made in each version of the percona cookbook.
 
 - Remove support for Amazon Linux
 - Remove support for OpenSUSE
+- Remove support for Debian 8 (EOL)
 
 ## 0.17.2 - 2020-08-06
 

@@ -4,6 +4,16 @@ def server_test(version)
       it { should be_installed }
     end
 
+    if os.release.to_i >= 10
+      describe package 'percona-xtrabackup-80' do
+        it { should be_installed }
+      end
+    else
+      describe package 'xtrabackup' do
+        it { should be_installed }
+      end
+    end
+
     describe package 'libjemalloc1' do
       it { should be_installed }
     end
@@ -34,6 +44,10 @@ def server_test(version)
   if os.family == 'rhel'
     ver = version.tr('.', '')
     describe package "Percona-Server-devel-#{ver}" do
+      it { should be_installed }
+    end
+
+    describe package 'xtrabackup' do
       it { should be_installed }
     end
 

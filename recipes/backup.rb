@@ -7,13 +7,8 @@ node.default['percona']['backup']['configure'] = true
 
 include_recipe 'percona::package_repo'
 
-case node['platform_family']
-when 'debian'
-  package 'xtrabackup' do
-    options '--force-yes'
-  end
-when 'rhel'
-  package 'percona-xtrabackup'
+package 'xtrabackup' do
+  package_name node['percona']['backup']['package_name']
 end
 
 # access grants

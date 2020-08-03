@@ -42,8 +42,6 @@ cause, and we'll make reasonable efforts to improve support:
 - Ubuntu
 - CentOS
 - Red Hat
-- Scientific
-- Fedora
 
 ### Cookbooks
 

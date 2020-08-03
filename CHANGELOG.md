@@ -25,6 +25,7 @@ This file is used to list changes made in each version of the percona cookbook.
 - Remove support for Amazon Linux
 - Remove support for OpenSUSE
 - Remove support for Debian 8 (EOL)
+- Remove support for Fedora / Scientific
 
 ## 0.17.2 - 2020-08-06
 

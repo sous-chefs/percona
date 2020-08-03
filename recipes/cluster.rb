@@ -31,11 +31,6 @@ when 'debian'
     notifies :stop, 'service[mysql]', :immediately
   end
 when 'rhel'
-  package 'mysql-libs' do
-    action :remove
-    not_if "rpm -qa | grep -q '#{node['percona']['cluster']['package']}'"
-  end
-
   # This is required for `socat` per:
   # www.percona.com/doc/percona-xtradb-cluster/5.6/installation/yum_repo.html
   include_recipe 'yum-epel'

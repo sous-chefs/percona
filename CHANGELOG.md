@@ -15,6 +15,7 @@ This file is used to list changes made in each version of the percona cookbook.
 - Update apt gpg key
 - Fixes for supporting 5.7
 - Fix manage_symlink_source warning with template[/etc/mysql/my.cnf]
+- Don't remove mysql-libs on RHEL
 
 ### Changed
 

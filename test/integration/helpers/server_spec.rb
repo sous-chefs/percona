@@ -42,6 +42,12 @@ def server_test(version)
   end
 
   if os.family == 'rhel'
+
+    # postfix on RHEL depends on mysql-libs, ensure it still exists when using percona
+    describe package 'postfix' do
+      it { should be_installed }
+    end
+
     ver = version.tr('.', '')
     describe package "Percona-Server-devel-#{ver}" do
       it { should be_installed }

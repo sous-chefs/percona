@@ -32,14 +32,12 @@ We provide an expanding set of tests against the following 64-bit platforms:
 - CentOS 6.5
 - CentOS 7.0
 - Debian 9+
-- Ubuntu 12.04 LTS
-- Ubuntu 14.04 LTS
+- Ubuntu 16.04+ LTS
 
 Although we don't test against all possible platform versions, we expect
 the following to be supported. Please submit an issue if this is not the
 cause, and we'll make reasonable efforts to improve support:
 
-- Ubuntu
 - CentOS
 - Red Hat
 

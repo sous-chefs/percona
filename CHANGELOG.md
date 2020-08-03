@@ -7,6 +7,7 @@ This file is used to list changes made in each version of the percona cookbook.
 ### Added
 
 - Add support for Debian 10 for 5.7 only
+- Add support for Ubuntu 20.04 for 5.7 only
 
 ### Fixed
 

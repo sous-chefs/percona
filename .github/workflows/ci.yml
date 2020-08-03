@@ -45,6 +45,7 @@ jobs:
           - 'centos-7'
           - 'ubuntu-1604'
           - 'ubuntu-1804'
+          - 'ubuntu-2004'
         suite:
           - 'server-56'
           - 'server-57'

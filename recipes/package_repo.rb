@@ -23,11 +23,24 @@ when 'debian'
   end
 
 when 'rhel'
-  yum_repository 'percona' do
+  yum_repository "percona-#{node['kernel']['machine']}" do
     description node['percona']['yum']['description']
-    baseurl node['percona']['yum']['baseurl']
+    baseurl "#{node['percona']['yum']['baseurl']}/$basearch"
     gpgkey node['percona']['yum']['gpgkey']
     gpgcheck node['percona']['yum']['gpgcheck']
     sslverify node['percona']['yum']['sslverify']
+  end
+
+  yum_repository 'percona-noarch' do
+    description node['percona']['yum']['description']
+    baseurl "#{node['percona']['yum']['baseurl']}/noarch"
+    gpgkey node['percona']['yum']['gpgkey']
+    gpgcheck node['percona']['yum']['gpgcheck']
+    sslverify node['percona']['yum']['sslverify']
+  end
+
+  execute 'dnf -y module disable mysql' do
+    only_if { node['platform_version'].to_i >= 8 }
+    not_if 'dnf module list mysql | grep -q "^mysql.*\[x\]"'
   end
 end

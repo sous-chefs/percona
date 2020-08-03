@@ -8,6 +8,7 @@ This file is used to list changes made in each version of the percona cookbook.
 
 - Add support for Debian 10 for 5.7 only
 - Add support for Ubuntu 20.04 for 5.7 only
+- Add support for CentOS 8
 
 ### Fixed
 
@@ -27,6 +28,7 @@ This file is used to list changes made in each version of the percona cookbook.
 - Remove support for OpenSUSE
 - Remove support for Debian 8 (EOL)
 - Remove support for Fedora / Scientific
+- Remove support for CentOS 6
 
 ## 0.17.2 - 2020-08-06
 

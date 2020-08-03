@@ -47,8 +47,14 @@ def server_test(version)
       it { should be_installed }
     end
 
-    describe package 'xtrabackup' do
-      it { should be_installed }
+    if os.release.to_i >= 8
+      describe package 'percona-xtrabackup-80' do
+        it { should be_installed }
+      end
+    else
+      describe package 'xtrabackup' do
+        it { should be_installed }
+      end
     end
 
     describe package "Percona-Server-client-#{ver}" do

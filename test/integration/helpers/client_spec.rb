@@ -15,7 +15,12 @@ def client_test(version)
     end
 
   else
-    describe yum.repo 'percona' do
+    describe yum.repo 'percona-x86_64' do
+      it { should exist }
+      it { should be_enabled }
+    end
+
+    describe yum.repo 'percona-noarch' do
       it { should exist }
       it { should be_enabled }
     end

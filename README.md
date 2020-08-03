@@ -27,19 +27,11 @@ This cookbook is maintained by the Sous Chefs. The Sous Chefs are a community of
 
 ### Supported Platforms
 
-We provide an expanding set of tests against the following 64-bit platforms:
+We provide an expanding set of tests against the following 64-bit platforms which match what upstream supports:
 
-- CentOS 6.5
-- CentOS 7.0
+- CentOS 7+
 - Debian 9+
 - Ubuntu 16.04+ LTS
-
-Although we don't test against all possible platform versions, we expect
-the following to be supported. Please submit an issue if this is not the
-cause, and we'll make reasonable efforts to improve support:
-
-- CentOS
-- Red Hat
 
 ### Cookbooks
 

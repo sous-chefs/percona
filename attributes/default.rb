@@ -217,7 +217,11 @@ default['percona']['backup']['package_name'] =
       'xtrabackup'
     end
   when 'rhel'
-    'percona-xtrabackup'
+    if node['platform_version'].to_i >= 8
+      'percona-xtrabackup-80'
+    else
+      'percona-xtrabackup'
+    end
   end
 unless attribute?(node['percona']['backup']['password'])
   default['percona']['backup']['password'] = random_password

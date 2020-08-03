@@ -155,6 +155,7 @@ template percona['main_config_file'] do
   group 'root'
   mode '0644'
   sensitive true
+  manage_symlink_source true
   if Array(server['role']).include?('cluster')
     variables(wsrep_sst_auth: wsrep_sst_auth)
   end

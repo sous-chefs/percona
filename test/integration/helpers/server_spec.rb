@@ -18,7 +18,7 @@ def server_test(version, type)
         else
           'percona-xtrabackup-24'
         end
-      elsif os.name == 'debian' && os.release.to_i >= 10
+      elsif (os.name == 'debian' && os.release.to_i >= 10) || (os.name == 'ubuntu' && os.release.to_f >= 20.04)
         'percona-xtrabackup-80'
       else
         'xtrabackup'

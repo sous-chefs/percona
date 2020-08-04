@@ -222,20 +222,12 @@ default['percona']['backup']['package_name'] =
   when 'debian'
     case node['platform']
     when 'debian'
-      if node['platform_version'].to_i >= 10
-        'percona-xtrabackup-80'
-      else
-        'xtrabackup'
-      end
+      node['platform_version'].to_i >= 10 ? 'percona-xtrabackup-80' : 'xtrabackup'
     when 'ubuntu'
-      'xtrabackup'
+      node['platform_version'].to_f >= 20.04 ? 'percona-xtrabackup-80' : 'xtrabackup'
     end
   when 'rhel'
-    if node['platform_version'].to_i >= 8
-      'percona-xtrabackup-80'
-    else
-      'percona-xtrabackup'
-    end
+    node['platform_version'].to_i >= 8 ? 'percona-xtrabackup-80' : 'percona-xtrabackup'
   end
 unless attribute?(node['percona']['backup']['password'])
   default['percona']['backup']['password'] = random_password

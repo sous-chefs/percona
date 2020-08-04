@@ -17,7 +17,6 @@ Optionally installs:
 - [XtraBackup](http://www.percona.com/software/percona-xtrabackup/) hot backup software
 - [Percona Toolkit](http://www.percona.com/software/percona-toolkit/) advanced command-line tools
 - [XtraDB Cluster](http://www.percona.com/software/percona-xtradb-cluster/) high availability and high scalability solution for MySQL.
-- [Percona Monitoring Plugins](http://www.percona.com/software/percona-monitoring-plugins) various Nagios plugins for monitoring MySQL
 
 ## Maintainers
 
@@ -60,7 +59,6 @@ the [currently tested versions](https://github.com/phlipper/chef-percona/blob/ma
 - `percona::configure_server` - Used internally to manage the server configuration.
 - `percona::replication` - Used internally to grant permissions for replication.
 - `percona::access_grants` - Used internally to grant permissions for recipes.
-- `percona::monitoring` - Installs Percona monitoring plugins for Nagios
 
 ## Usage
 
@@ -448,13 +446,6 @@ when "rhel"
     ]
   end
 end
-```
-
-### monitoring.rb
-
-```ruby
-default["percona"]["plugins_version"] = "1.1.3"
-default["percona"]["plugins_packages"] = %w[percona-nagios-plugins percona-zabbix-templates percona-cacti-templates]
 ```
 
 ### package_repo.rb

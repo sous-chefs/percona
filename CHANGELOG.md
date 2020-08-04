@@ -35,6 +35,10 @@ This file is used to list changes made in each version of the percona cookbook.
 - Remove support for Fedora / Scientific
 - Remove support for CentOS 6
 
+### Deprecated
+
+- Deprecate monitoring recipe
+
 ## 0.17.2 - 2020-08-06
 
 ### Fixed

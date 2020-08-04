@@ -54,6 +54,25 @@ jobs:
           - 'cluster-57'
           - 'server-56'
           - 'server-57'
+        exclude:
+          - os: centos-8
+            suite: client-56
+          - os: centos-8
+            suite: server-56
+          - os: centos-8
+            suite: cluster-56
+          - os: debian-10
+            suite: client-56
+          - os: debian-10
+            suite: server-56
+          - os: debian-10
+            suite: cluster-56
+          - os: ubuntu-2004
+            suite: client-56
+          - os: ubuntu-2004
+            suite: server-56
+          - os: ubuntu-2004
+            suite: cluster-56
       fail-fast: false
 
     steps:

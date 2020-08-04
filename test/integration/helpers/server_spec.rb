@@ -1,20 +1,44 @@
-def server_test(version)
+def server_test(version, type)
   if os.family == 'debian'
-    describe package "percona-server-server-#{version}" do
+    case type
+    when 'server'
+      describe package "percona-server-server-#{version}" do
+        it { should be_installed }
+      end
+    when 'cluster'
+      describe package "percona-xtradb-cluster-#{version.tr('.', '')}" do
+        it { should be_installed }
+      end
+    end
+
+    xtrabackup_pkg =
+      if type == 'cluster'
+        if version.to_f < 5.7
+          'percona-xtrabackup'
+        else
+          'percona-xtrabackup-24'
+        end
+      elsif os.name == 'debian' && os.release.to_i >= 10
+        'percona-xtrabackup-80'
+      else
+        'xtrabackup'
+      end
+
+    describe package xtrabackup_pkg do
       it { should be_installed }
     end
 
-    if os.release.to_i >= 10
-      describe package 'percona-xtrabackup-80' do
-        it { should be_installed }
+    jemalloc_pkg =
+      case os.name
+      when 'debian'
+        os.release.to_i >= 10 ? 'libjemalloc2' : 'libjemalloc1'
+      when 'ubuntu'
+        os.release.to_f >= 20.04 ? 'libjemalloc2' : 'libjemalloc1'
+      when 'centos'
+        os.release.to_i >= 8 ? 'libjemalloc2' : 'libjemalloc1'
       end
-    else
-      describe package 'xtrabackup' do
-        it { should be_installed }
-      end
-    end
 
-    describe package 'libjemalloc1' do
+    describe package jemalloc_pkg do
       it { should be_installed }
     end
 

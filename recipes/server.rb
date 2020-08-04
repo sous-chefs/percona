@@ -38,10 +38,6 @@ when 'rhel'
       pattern /^PIDFile=.*/
       notifies :run, 'execute[systemctl daemon-reload]', :immediately
     end
-
-    filter_lines '/usr/bin/mysqld_pre_systemd' do
-      filters(substitute: [/--initialize /, /--initialize /, '--initialize-insecure '])
-    end
   end
 end
 

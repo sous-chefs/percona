@@ -21,22 +21,12 @@ node.default['percona']['cluster']['package'] = value_for_platform_family(
   'debian' => "percona-xtradb-cluster-#{version.tr('.', '')}"
 )
 
-# install packages
-case node['platform_family']
-when 'debian'
-  package node['percona']['cluster']['package'] do
-    # The package starts up immediately, then additional config is added and the
-    # restart command fails to work. Instead, stop the database before changing
-    # the configuration.
-    notifies :stop, 'service[mysql]', :immediately
-  end
-when 'rhel'
-  # This is required for `socat` per:
-  # www.percona.com/doc/percona-xtradb-cluster/5.6/installation/yum_repo.html
-  include_recipe 'yum-epel'
+# This is required for `socat` per:
+# www.percona.com/doc/percona-xtradb-cluster/5.6/installation/yum_repo.html
+include_recipe 'yum-epel' if platform_family?('rhel')
 
-  package node['percona']['cluster']['package']
-end
+# install packages
+package node['percona']['cluster']['package']
 
 unless node['percona']['skip_configure']
   include_recipe 'percona::configure_server'

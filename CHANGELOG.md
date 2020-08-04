@@ -9,6 +9,7 @@ This file is used to list changes made in each version of the percona cookbook.
 - Add support for Debian 10 for 5.7 only
 - Add support for Ubuntu 20.04 for 5.7 only
 - Add support for CentOS 8
+- Add cluster suite and tests to test cluster recipe
 
 ### Fixed
 
@@ -16,6 +17,7 @@ This file is used to list changes made in each version of the percona cookbook.
 - Fixes for supporting 5.7
 - Fix manage_symlink_source warning with template[/etc/mysql/my.cnf]
 - Don't remove mysql-libs on RHEL
+- jemalloc package installation and path setup for all platforms
 
 ### Changed
 

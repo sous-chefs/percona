@@ -62,15 +62,24 @@ default['percona']['server']['tmpdir'] = '/tmp'
 default['percona']['server']['slave_load_tmpdir'] = '/tmp'
 default['percona']['server']['debian_username'] = 'debian-sys-maint'
 default['percona']['server']['jemalloc'] = false
-default['percona']['server']['jemalloc_lib'] = value_for_platform_family(
-  'debian' => value_for_platform(
-    'ubuntu' => {
-      '14.04' => '/usr/lib/x86_64-linux-gnu/libjemalloc.so.1',
-      '12.04' => '/usr/lib/libjemalloc.so.1',
-    }
-  ),
-  'rhel' => '/usr/lib64/libjemalloc.so.1'
-)
+default['percona']['server']['jemalloc_package'] =
+  case node['platform']
+  when 'debian'
+    node['platform_version'].to_i >= 10 ? 'libjemalloc2' : 'libjemalloc1'
+  when 'ubuntu'
+    node['platform_version'].to_f >= 20.04 ? 'libjemalloc2' : 'libjemalloc1'
+  when 'centos', 'redhat'
+    'jemalloc'
+  end
+default['percona']['server']['jemalloc_lib'] =
+  case node['platform']
+  when 'debian'
+    node['platform_version'].to_i >= 10 ? '/usr/lib/x86_64-linux-gnu/libjemalloc.so.2' : '/usr/lib/x86_64-linux-gnu/libjemalloc.so.1'
+  when 'ubuntu'
+    node['platform_version'].to_f >= 20.04 ? '/usr/lib/x86_64-linux-gnu/libjemalloc.so.2' : '/usr/lib/x86_64-linux-gnu/libjemalloc.so.1'
+  when 'centos', 'redhat'
+    node['platform_version'].to_i >= 8 ? '/usr/lib64/libjemalloc.so.2' : '/usr/lib64/libjemalloc.so.1'
+  end
 default['percona']['server']['nice'] = 0
 default['percona']['server']['open_files_limit'] = 16_384
 default['percona']['server']['hostname'] = 'localhost'
@@ -211,9 +220,14 @@ default['percona']['backup']['username'] = 'backup'
 default['percona']['backup']['package_name'] =
   case node['platform_family']
   when 'debian'
-    if node['platform_version'].to_i >= 10
-      'percona-xtrabackup-80'
-    else
+    case node['platform']
+    when 'debian'
+      if node['platform_version'].to_i >= 10
+        'percona-xtrabackup-80'
+      else
+        'xtrabackup'
+      end
+    when 'ubuntu'
       'xtrabackup'
     end
   when 'rhel'

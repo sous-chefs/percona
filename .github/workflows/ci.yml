@@ -48,10 +48,12 @@ jobs:
           - 'ubuntu-1804'
           - 'ubuntu-2004'
         suite:
-          - 'server-56'
-          - 'server-57'
           - 'client-56'
           - 'client-57'
+          - 'cluster-56'
+          - 'cluster-57'
+          - 'server-56'
+          - 'server-57'
       fail-fast: false
 
     steps:

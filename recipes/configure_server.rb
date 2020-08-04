@@ -31,12 +31,7 @@ include_recipe 'chef-vault' if node['percona']['use_chef_vault']
 passwords = EncryptedPasswords.new(node, percona['encrypted_data_bag'])
 
 if node['percona']['server']['jemalloc']
-  package_name = value_for_platform_family(
-    'debian' => 'libjemalloc1',
-    'rhel' => 'jemalloc'
-  )
-
-  package package_name
+  package node['percona']['server']['jemalloc_package']
 end
 
 template '/root/.my.cnf' do
@@ -124,9 +119,12 @@ end
 
 # install db to the data directory
 execute 'setup mysql datadir' do
-  command "mysql_install_db --defaults-file=#{percona['main_config_file']} --user=#{user}"
+  if node['percona']['version'].to_f >= 5.7
+    command "mysqld --defaults-file=#{percona['main_config_file']} --user=#{user} --initialize-insecure"
+  else
+    command "mysql_install_db --defaults-file=#{percona['main_config_file']} --user=#{user}"
+  end
   not_if "test -f #{datadir}/mysql/user.frm"
-  not_if { node['percona']['version'] == '5.7' }
   action :nothing
 end
 

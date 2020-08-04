@@ -1,36 +1,35 @@
 require 'spec_helper'
 
 describe 'percona::package_repo' do
-  describe 'Ubuntu' do
-    let(:chef_run) do
-      ChefSpec::SoloRunner.new.converge(described_recipe)
-    end
+  before do
+    stub_command('apt-key list | grep 8507EFA5')
+    stub_command('dnf module list mysql | grep -q "^mysql.*\\[x\\]"')
+  end
+  context 'ubuntu' do
+    platform 'ubuntu'
 
-    before do
-      stub_command('apt-key list | grep 8507EFA5').and_return('foo')
-    end
-
-    it 'sets up an apt repository for `percona`' do
+    it do
       expect(chef_run).to add_apt_repository('percona')
     end
 
-    it 'sets up an apt preference' do
+    it do
       expect(chef_run).to add_apt_preference('00percona')
     end
   end
 
-  describe 'CentOS' do
-    let(:chef_run) do
-      env_options = { platform: 'centos', version: '6' }
-      ChefSpec::SoloRunner.new(env_options).converge(described_recipe)
-    end
+  context 'centos' do
+    platform 'centos'
 
-    it 'sets up a yum repository for `percona`' do
-      expect(chef_run).to create_yum_repository('percona')
+    it do
+      expect(chef_run).to create_yum_repository('percona-x86_64').with(
+        gpgkey: [
+          'https://repo.percona.com/yum/PERCONA-PACKAGING-KEY',
+          'https://repo.percona.com/yum/RPM-GPG-KEY-Percona',
+        ]
+      )
     end
-
-    it 'sets up a yum repository for `percona` with the 2019 GPG key' do
-      expect(chef_run).to create_yum_repository('percona').with(
+    it do
+      expect(chef_run).to create_yum_repository('percona-noarch').with(
         gpgkey: [
           'https://repo.percona.com/yum/PERCONA-PACKAGING-KEY',
           'https://repo.percona.com/yum/RPM-GPG-KEY-Percona',

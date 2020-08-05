@@ -1,11 +1,19 @@
 def client_test(version)
   if os.family == 'debian'
-    describe file '/etc/apt/sources.list.d/percona.list' do
-      it { should be_a_file }
-      if version.to_f >= 8.0
-        its('content') { should match 'http://repo.percona.com/ps-80/apt' }
-      else
-        its('content') { should match 'http://repo.percona.com/apt' }
+    describe apt 'http://repo.percona.com/apt' do
+      it { should exist }
+      it { should be_enabled }
+    end
+
+    if version.to_f >= 8.0
+      describe apt 'http://repo.percona.com/ps-80/apt' do
+        it { should exist }
+        it { should be_enabled }
+      end
+    else
+      describe apt 'http://repo.percona.com/ps-80/apt' do
+        it { should_not exist }
+        it { should_not be_enabled }
       end
     end
 

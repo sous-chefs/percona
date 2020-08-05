@@ -4,6 +4,9 @@
 #
 
 default['percona']['use_percona_repos'] = true
+# From 8.0 onward, Percona has split up each product into individual repositories
+# See https://www.percona.com/doc/percona-repo-config/index.html for more information
+default['percona']['repositories'] = %w(ps-80)
 default['percona']['apt']['key'] = '8507EFA5'
 default['percona']['apt']['keyserver'] = 'hkp://keys.gnupg.net:80'
 default['percona']['apt']['uri'] = 'http://repo.percona.com/apt'

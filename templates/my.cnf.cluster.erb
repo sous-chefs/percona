@@ -252,6 +252,7 @@ table_definition_cache  = <%= node["percona"]["server"]["table_definition_cache"
 table_definition_cache             = <%= node["percona"]["server"]["table_definition_cache"] %>
 
 #thread_concurrency     = 10
+<%- if node["percona"]["version"].to_f < 8.0 %>
 #
 #
 # * Query Cache Configuration
@@ -260,6 +261,7 @@ query_cache_limit = <%= node["percona"]["server"]["query_cache_limit"] %>
 query_cache_size  = <%= node["percona"]["server"]["query_cache_size"] %>
 query_cache_type  = <%= node["percona"]["server"]["query_cache_type"] %>
 
+<%- end %>
 #
 # * Logging and Replication
 #
@@ -531,12 +533,14 @@ innodb_autoextend_increment = <%= node["percona"]["server"]["innodb_autoextend_i
 <% if node["percona"]["server"]["innodb_file_per_table"] %>
 innodb_file_per_table
 <% end %>
+<%- if node["percona"]["version"].to_f < 8.0 %>
 
 # The file format to use for new InnoDB tables.
 # Currently Antelope and Barracuda are supported.
 # This applies only for tables that have their own tablespace,
 # so for it to have an effect innodb_file_per_table must be enabled.
 innodb_file_format = <%= node["percona"]["server"]["innodb_file_format"] %>
+<% end %>
 
 # Set this option if you would like the InnoDB tablespace files to be
 # stored in another location. By default this is the MySQL datadir.

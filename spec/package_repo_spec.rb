@@ -21,7 +21,7 @@ describe 'percona::package_repo' do
     platform 'centos'
 
     it do
-      expect(chef_run).to create_yum_repository('percona-x86_64').with(
+      expect(chef_run).to create_yum_repository('percona').with(
         gpgkey: [
           'https://repo.percona.com/yum/PERCONA-PACKAGING-KEY',
           'https://repo.percona.com/yum/RPM-GPG-KEY-Percona',

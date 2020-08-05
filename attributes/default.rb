@@ -8,7 +8,7 @@ if defined?(::OpenSSLCookbook::RandomPassword)
   ::Chef::Node.include ::OpenSSLCookbook::RandomPassword
 end
 
-default['percona']['version'] = '5.6'
+default['percona']['version'] = '8.0'
 
 # Always restart percona on configuration changes
 default['percona']['auto_restart'] = true
@@ -55,6 +55,14 @@ default['percona']['server']['package_action'] = 'install'
 
 # Basic Settings
 default['percona']['server']['role'] = ['standalone']
+default['percona']['server']['package'] =
+  if node['percona']['version'].to_f >= 8.0
+    'percona-server-server'
+  elsif platform_family?('debian')
+    "percona-server-server-#{node['percona']['version']}"
+  else
+    "Percona-Server-server-#{node['percona']['version'].tr('.', '')}"
+  end
 default['percona']['server']['username'] = 'mysql'
 default['percona']['server']['datadir'] = '/var/lib/mysql'
 default['percona']['server']['logdir'] = '/var/log/mysql'
@@ -153,7 +161,7 @@ default['percona']['server']['log_bin'] = 1 # enable/disable bin log
 default['percona']['server']['log_bin_basename'] = 'master-bin' # 5.6~> default: datadir + '/' + hostname + '-bin'
 default['percona']['server']['relay_log'] = 'slave-relay-bin'
 default['percona']['server']['log_slave_updates'] = false
-default['percona']['server']['log_warnings'] = true
+default['percona']['server']['log_warnings'] = !(node['percona']['version'].to_f >= 8.0)
 default['percona']['server']['log_long_format'] = false
 default['percona']['server']['bulk_insert_buffer_size'] = '64M'
 default['percona']['server']['sync_master_info'] = false
@@ -234,6 +242,14 @@ unless attribute?(node['percona']['backup']['password'])
 end
 
 # XtraDB Cluster Settings
+default['percona']['cluster']['package'] =
+  if node['percona']['version'].to_f >= 8.0
+    'percona-xtradb-cluster-server'
+  elsif platform_family?('rhel')
+    "Percona-XtraDB-Cluster-#{node['percona']['version'].tr('.', '')}"
+  else
+    "percona-xtradb-cluster-#{node['percona']['version'].tr('.', '')}"
+  end
 default['percona']['cluster']['binlog_format'] = 'ROW'
 default['percona']['cluster']['wsrep_provider'] = value_for_platform_family(
   'debian' => '/usr/lib/libgalera_smm.so',

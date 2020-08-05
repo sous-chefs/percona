@@ -3,6 +3,7 @@
 # Recipe:: cluster
 #
 
+node.default['percona']['repositories'] = %w(pxc-80)
 include_recipe 'percona::package_repo'
 
 # Determine and set wsrep_sst_receive_address
@@ -13,13 +14,6 @@ if node['percona']['cluster']['wsrep_sst_receive_interface']
   address = "#{ip}:#{sst_port}"
   node.default['percona']['cluster']['wsrep_sst_receive_address'] = address
 end
-
-# set default package attributes
-version = node['percona']['version']
-node.default['percona']['cluster']['package'] = value_for_platform_family(
-  'rhel' => "Percona-XtraDB-Cluster-#{version.tr('.', '')}",
-  'debian' => "percona-xtradb-cluster-#{version.tr('.', '')}"
-)
 
 # This is required for `socat` per:
 # www.percona.com/doc/percona-xtradb-cluster/5.6/installation/yum_repo.html

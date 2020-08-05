@@ -18,6 +18,8 @@ when 'debian'
       %W(
         percona-xtradb-cluster-client-#{version}
       )
+    elsif node['percona']['version'].to_f >= 8.0
+      %w(percona-server-client)
     else
       %W(
         percona-server-client-#{version}
@@ -29,6 +31,8 @@ when 'rhel'
       %W(
         Percona-XtraDB-Cluster-client-#{version}
       )
+    elsif node['percona']['version'].to_f >= 8.0
+      %w(percona-server-client)
     else
       %W(
         Percona-Server-client-#{version}

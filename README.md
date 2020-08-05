@@ -207,7 +207,7 @@ Now you need to bring three servers up one at a time with the percona role appli
 ## Attributes
 
 ```ruby
-default["percona"]["version"] = "5.6"
+default["percona"]["version"] = "8.0"
 version = node["percona"]["version"]
 
 # Always restart percona on configuration changes

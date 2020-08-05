@@ -2,12 +2,26 @@ def server_test(version, type)
   if os.family == 'debian'
     case type
     when 'server'
-      describe package "percona-server-server-#{version}" do
-        it { should be_installed }
+      if version.to_f >= 8.0
+        describe package 'percona-server-server' do
+          it { should be_installed }
+          its('version') { should >= '8.0' }
+        end
+      else
+        describe package "percona-server-server-#{version}" do
+          it { should be_installed }
+        end
       end
     when 'cluster'
-      describe package "percona-xtradb-cluster-#{version.tr('.', '')}" do
-        it { should be_installed }
+      if version.to_f >= 8.0
+        describe package 'percona-xtradb-cluster-server' do
+          it { should be_installed }
+          its('version') { should >= '1:8.0' }
+        end
+      else
+        describe package "percona-xtradb-cluster-#{version.tr('.', '')}" do
+          it { should be_installed }
+        end
       end
     end
 
@@ -25,7 +39,11 @@ def server_test(version, type)
       end
 
     describe package xtrabackup_pkg do
-      it { should be_installed }
+      if version.to_f >= 8.0 && type == 'cluster'
+        it { should_not be_installed }
+      else
+        it { should be_installed }
+      end
     end
 
     jemalloc_pkg =
@@ -154,14 +172,6 @@ def server_test(version, type)
     it { should be_listening }
   end
 
-  # user_frm = version.to_f < 5.7 ? '/var/lib/mysql/mysql/user.frm' : '/tmp/mysql/mysql/user.frm'
-
-  describe file '/tmp/mysql/mysql/user.frm' do
-    it { should be_a_file }
-    its('owner') { should cmp 'mysql' }
-    its('group') { should cmp 'mysql' }
-  end
-
   describe file '/etc/mysql/grants.sql' do
     it { should be_a_file }
     its('owner') { should cmp 'root' }
@@ -180,6 +190,7 @@ def server_test(version, type)
     its('group') { should cmp 'mysql' }
   end
 
+  mysql_file = version.to_f >= 8.0 ? '/tmp/mysql/mysql.ibd' : '/tmp/mysql/mysql/user.frm'
   mysql_mode = version.to_f < 5.7 ? '0660' : '0640'
 
   describe file '/tmp/mysql/ibdata1' do
@@ -189,7 +200,7 @@ def server_test(version, type)
     its('mode') { should cmp mysql_mode }
   end
 
-  describe file '/tmp/mysql/mysql/user.frm' do
+  describe file mysql_file do
     it { should be_a_file }
     its('owner') { should cmp 'mysql' }
     its('group') { should cmp 'mysql' }

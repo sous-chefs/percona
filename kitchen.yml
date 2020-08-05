@@ -41,6 +41,12 @@ suites:
     attributes:
       percona:
         version: '5.7'
+  - name: client-80
+    run_list:
+      - recipe[test::client]
+    attributes:
+      percona:
+        version: '8.0'
   - name: server-56
     run_list:
       - recipe[test::server]
@@ -57,6 +63,12 @@ suites:
     attributes:
       percona:
         version: '5.7'
+  - name: server-80
+    run_list:
+      - recipe[test::server]
+    attributes:
+      percona:
+        version: '8.0'
   - name: cluster-56
     run_list:
       - recipe[test::cluster]
@@ -73,3 +85,9 @@ suites:
     attributes:
       percona:
         version: '5.7'
+  - name: cluster-80
+    run_list:
+      - recipe[test::cluster]
+    attributes:
+      percona:
+        version: '8.0'

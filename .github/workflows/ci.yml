@@ -50,10 +50,13 @@ jobs:
         suite:
           - 'client-56'
           - 'client-57'
+          - 'client-80'
           - 'cluster-56'
           - 'cluster-57'
+          - 'cluster-80'
           - 'server-56'
           - 'server-57'
+          - 'server-80'
         exclude:
           - os: centos-8
             suite: client-56

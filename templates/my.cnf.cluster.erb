@@ -112,11 +112,9 @@ old_passwords = <%= @old_passwords %>
 bind-address = <%= node["percona"]["server"]["bind_address"] %>
 <% end %>
 
-<%- if node["percona"]["version"] >= "5.5" %>
 # As of 5.6.6 performance_schema is enabled by default. This allows it to be
 # explicitly turned on or off as needed across all mysql versions
 performance_schema=<%= node["percona"]["server"]["performance_schema"] ? "ON" : "OFF" %>
-<% end %>
 
 #
 # * Fine Tuning
@@ -208,11 +206,7 @@ thread_cache_size = <%= node["percona"]["server"]["thread_cache_size"] %>
 
 # This replaces the startup script and checks MyISAM tables if needed
 # the first time they are touched
-<%- if node["percona"]["version"] < "5.5" %>
-myisam-recover = <%= node["percona"]["server"]["myisam_recover_options"] %>
-<% else %>
 myisam-recover-options = <%= node["percona"]["server"]["myisam_recover_options"] %>
-<% end %>
 
 
 # back_log is the number of connections the operating system can keep in
@@ -238,7 +232,7 @@ sql-mode = <%= node["percona"]["server"]["sql_modes"].join(",") %>
 # The number of open tables for all threads.
 # make sure that the open file limit is at least twice this in the
 # mysqld_safe section
-<%- if node["percona"]["version"] >= "5.6" %>
+<%- if node["percona"]["version"].to_f >= 5.6 %>
 table_open_cache        = <%= node["percona"]["server"]["table_cache"] %>
 table_definition_cache  = <%= node["percona"]["server"]["table_definition_cache"] %>
 <%- else %>
@@ -326,11 +320,7 @@ replicate-ignore-table = <%= ignore_table %>
 
 <% if node["percona"]["server"]["replication"]["suppress_1592"] %>
 #turns off this statement is unsafe in statement-based replication
-<% if node["percona"]["version"] < "5.5" -%>
-suppress_log_warning_1592
-<% else %>
 log_warnings_suppress=1592
-<% end %>
 <% end %>
 
 # Make the slave read-only. Only users with the SUPER privilege and the
@@ -361,20 +351,8 @@ slave_transaction_retries = <%= node["percona"]["server"]["replication"]["slave_
 # https://dev.mysql.com/doc/refman/5.6/en/replication-options-binary-log.html#sysvar_log_bin_basename
 # it is recommened to specify a filename for the binary log, hopefully
 # something that is not host specific.  I've chosen master-bin.
-<%- if node["percona"]["version"] >= "5.6" and node["percona"]["server"].key?('log_bin_basename') and !node["percona"]["server"]["log_bin_basename"].empty?  %>
+<%- if node["percona"]["version"].to_f >= 5.6 and node["percona"]["server"].key?('log_bin_basename') and !node["percona"]["server"]["log_bin_basename"].empty?  %>
 log_bin = <%= node["percona"]["server"]["log_bin_basename"] %>
-<%- else %>
-    <%- unless [1,'1',0,'0','OFF','off',''].include?(node["percona"]["server"]["log_bin"]) %>
-    <%# from toady point log_bin attr. was missused in the cookbook in the past %>
-    <%# and contained more or less the base-name %>
-log_bin = <%= node["percona"]["server"]["log_bin"] %>
-    <%- else %>
-        # to allow on <= 5.5 useage of log_bin_basename
-        # introduced by this PR
-        <%- if node["percona"]["server"].key?('log_bin_basename') and !node["percona"]["server"]["log_bin_basename"].empty? %>
-log_bin = <%= node["percona"]["server"]["log_bin_basename"] %>
-        <%- end %>
-    <%- end %>
 <%- end %>
 
 <% unless node["percona"]["server"]["relay_log"].empty? %>
@@ -385,7 +363,7 @@ expire_logs_days = <%= node["percona"]["server"]["expire_logs_days"] %>
 max_binlog_size  = <%= node["percona"]["server"]["max_binlog_size"] %>
 binlog_format    = <%= node["percona"]["server"]["binlog_format"] %>
 slave_net_timeout = <%= node["percona"]["server"]["slave_net_timeout"] %>
-<%- if node["percona"]["version"] >= "5.6" %>
+<%- if node["percona"]["version"].to_f >= 5.6 %>
 binlog_checksum  = <%= node["percona"]["server"]["binlog_checksum"] %>
 <% if node["percona"]["server"]["master_verify_checksum"] %>
 master_verify_checksum = <%= node["percona"]["server"]["master_verify_checksum"] %>
@@ -407,7 +385,7 @@ binlog-do-db     = <%= db_name %>
 binlog-ignore-db = <%= db_name %>
 <% end -%>
 
-<%- if node["percona"]["version"] >= "5.6" %>
+<%- if node["percona"]["version"].to_f >= 5.6 %>
 gtid_mode = <%= node["percona"]["server"]["gtid_mode"] %>
 <% if node["percona"]["server"]["enforce_gtid_consistency"] %>
 enforce_gtid_consistency = <%= node["percona"]["server"]["enforce_gtid_consistency"] %>
@@ -478,7 +456,7 @@ myisam_max_sort_file_size = <%= node["percona"]["server"]["myisam_max_sort_file_
 # have multiple CPUs and plenty of memory.
 myisam_repair_threads = <%= node["percona"]["server"]["myisam_repair_threads"] %>
 
-<%- if node["percona"]["version"] < "5.7" %>
+<%- if node["percona"]["version"].to_f < 5.7 %>
 # Automatically check and repair not properly closed MyISAM tables.
 <% if node["percona"]["server"]["myisam_recover_options"] %>
 myisam_recover
@@ -498,7 +476,7 @@ myisam_recover
 skip-innodb
 <% end %>
 
-<%- if node["percona"]["version"] < "5.7.4" %>
+<%- if node["percona"]["version"].to_f < 5.7 %>
 # Additional memory pool that is used by InnoDB to store metadata
 # information.  If InnoDB requires more memory for this purpose it will
 # start to allocate it from the OS.  As this is fast enough on most
@@ -633,7 +611,7 @@ innodb_commit_concurrency=0
 
 innodb_open_files=<%= node["percona"]["server"]["innodb_open_files"] %>
 
-<%- if node["percona"]["version"] >= "5.6" %>
+<%- if node["percona"]["version"].to_f >= 5.6 %>
 innodb_numa_interleave=<%= node["percona"]["server"]["innodb_numa_interleave"] %>
 <%- end %>
 

@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the percona cookbook.
 
-## Unreleased
+## 0.17.2 - 2020-08-06
 
 ### Fixed
 

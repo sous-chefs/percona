@@ -7,6 +7,7 @@ This file is used to list changes made in each version of the percona cookbook.
 ### Fixed
 
 - Fix debian_password as a string for testing
+- Fix idempotency issues with find_password method
 
 ## 0.17.1 - 2020-05-14
 

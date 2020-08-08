@@ -12,6 +12,7 @@ This file is used to list changes made in each version of the percona cookbook.
 - Add cluster suite and tests to test cluster recipe
 - Add support for Percona 8.0 and default to that version
 - Re-add ChefSpec tests
+- Add ssl suite and tests for ssl recipe
 
 ### Fixed
 

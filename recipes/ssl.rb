@@ -6,18 +6,15 @@
 certs_path = '/etc/mysql/ssl'
 server = node['percona']['server']
 data_bag = node['percona']['encrypted_data_bag']
-secret_file = node['percona']['encrypted_data_bag_secret_file']
 
 directory certs_path do
   owner node['percona']['server']['username']
   mode '0700'
 end
 
-secret = Chef::EncryptedDataBagItem.load_secret(secret_file)
 certs = data_bag_item(
   data_bag,
-  node['percona']['encrypted_data_bag_item_ssl_replication'],
-  secret
+  node['percona']['encrypted_data_bag_item_ssl_replication']
 )
 
 # place the CA certificate, it should be present on both master and slave

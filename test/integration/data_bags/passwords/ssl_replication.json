@@ -1,0 +1,12 @@
+{
+  "id": "ssl_replication",
+  "ca-cert": "CA_CERTIFICATE_STRING",
+  "server": {
+    "server-cert": "SERVER_CERTIFICATE_STRING",
+    "server-key": "SERVER_KEY_STRING"
+  },
+  "client": {
+    "client-cert": "CLIENT_CERTIFICATE_STRING",
+    "client-key": "CLIENT_KEY_STRING"
+  }
+}

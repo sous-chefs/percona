@@ -70,6 +70,28 @@ suites:
     attributes:
       percona:
         version: '8.0'
+  - name: master-56
+    run_list:
+      - recipe[test::master]
+    attributes:
+      percona:
+        version: '5.6'
+    excludes:
+      - centos-8
+      - debian-10
+      - ubuntu-20.04
+  - name: master-57
+    run_list:
+      - recipe[test::master]
+    attributes:
+      percona:
+        version: '5.7'
+  - name: master-80
+    run_list:
+      - recipe[test::master]
+    attributes:
+      percona:
+        version: '8.0'
   - name: cluster-56
     run_list:
       - recipe[test::cluster]

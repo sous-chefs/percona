@@ -180,8 +180,22 @@ def server_test(version, type)
     its('content') { should match /7tCk\(V5I/ }
   end
 
-  describe file '/etc/mysql/replication.sql' do
-    it { should_not be_a_file }
+  if type == 'master'
+    describe file '/etc/mysql/replication.sql' do
+      it { should be_a_file }
+      its('owner') { should cmp 'root' }
+      its('group') { should cmp 'root' }
+      its('mode') { should cmp '0600' }
+      its('content') { should match /\)6\$W2M{\// }
+      its('content') { should match /TO 'replication'@'%'/ }
+      its('content') { should match /MASTER_HOST='master-host'/ }
+      its('content') { should match /MASTER_USER='replication'/ }
+      its('content') { should match /MASTER_PASSWORD='\)6\$W2M{\/'/ }
+    end
+  else
+    describe file '/etc/mysql/replication.sql' do
+      it { should_not be_a_file }
+    end
   end
 
   describe file '/tmp/mysql' do

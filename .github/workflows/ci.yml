@@ -54,6 +54,9 @@ jobs:
           - 'cluster-56'
           - 'cluster-57'
           - 'cluster-80'
+          - 'master-56'
+          - 'master-57'
+          - 'master-80'
           - 'server-56'
           - 'server-57'
           - 'server-80'
@@ -61,21 +64,27 @@ jobs:
           - os: centos-8
             suite: client-56
           - os: centos-8
-            suite: server-56
+            suite: cluster-56
           - os: centos-8
-            suite: cluster-56
+            suite: master-56
+          - os: centos-8
+            suite: server-56
           - os: debian-10
             suite: client-56
           - os: debian-10
-            suite: server-56
-          - os: debian-10
             suite: cluster-56
+          - os: debian-10
+            suite: master-56
+          - os: debian-10
+            suite: server-56
           - os: ubuntu-2004
             suite: client-56
           - os: ubuntu-2004
-            suite: server-56
-          - os: ubuntu-2004
             suite: cluster-56
+          - os: ubuntu-2004
+            suite: master-56
+          - os: ubuntu-2004
+            suite: server-56
       fail-fast: false
 
     steps:

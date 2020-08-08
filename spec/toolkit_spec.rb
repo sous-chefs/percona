@@ -1,45 +1,30 @@
-# require 'spec_helper'
+require 'spec_helper'
 
-# describe 'percona::toolkit' do
-#   let(:toolkit_package) do
-#     'percona-toolkit'
-#   end
+describe 'percona::toolkit' do
+  describe 'Ubuntu' do
+    platform 'ubuntu'
 
-#   describe 'Ubuntu' do
-#     let(:chef_run) do
-#       ChefSpec::SoloRunner.new.converge(described_recipe)
-#     end
+    it do
+      expect(chef_run).to install_package('percona-toolkit')
+    end
+  end
 
-#     specify do
-#       expect(chef_run).to install_package(toolkit_package)
-#     end
-#   end
+  describe 'CentOS' do
+    platform 'centos', '7'
 
-#   describe 'CentOS' do
-#     describe 'when `version` is 5.5' do
-#       let(:chef_run) do
-#         env_options = { platform: 'centos', version: '6' }
-#         ChefSpec::SoloRunner.new(env_options) do |node|
-#           node.default['percona']['version'] = '5.5'
-#         end.converge(described_recipe)
-#       end
+    before do
+      stub_command('dnf module list mysql | grep -q "^mysql.*\\[x\\]"')
+    end
 
-#       specify do
-#         expect(chef_run).to install_package(toolkit_package)
-#       end
-#     end
-
-#     describe 'when `version` is 5.6' do
-#       let(:chef_run) do
-#         env_options = { platform: 'centos', version: '6' }
-#         ChefSpec::SoloRunner.new(env_options) do |node|
-#           node.default['percona']['version'] = '5.6'
-#         end.converge(described_recipe)
-#       end
-
-#       specify do
-#         expect(chef_run).to install_package(toolkit_package)
-#       end
-#     end
-#   end
-# end
+    it do
+      expect(chef_run).to install_package('percona-toolkit')
+    end
+    context 'CentOS 8 & Percona 8.0' do
+      platform 'centos', '8'
+      override_attributes['percona']['version'] = '8.0'
+      it do
+        expect(chef_run).to_not install_package('percona-toolkit')
+      end
+    end
+  end
+end

@@ -8,6 +8,23 @@ describe 'percona::configure_server' do
       stub_command("mysqladmin --user=root --password='' version").and_return(true)
     end
 
+    describe 'inclusion tests' do
+      context 'role master' do
+        override_attributes['percona']['server']['role'] = %w(master)
+        it do
+          expect(Chef::Log).to receive(:warn).with('Please use source/replica instead of master/slave for the role name. The next major release of the percona cookbook will only support the new terms.')
+          chef_run
+        end
+      end
+      context 'role slave' do
+        override_attributes['percona']['server']['role'] = %w(slave)
+        it do
+          expect(Chef::Log).to receive(:warn).with('Please use source/replica instead of master/slave for the role name. The next major release of the percona cookbook will only support the new terms.')
+          chef_run
+        end
+      end
+    end
+
     it 'does not include the `chef-vault` recipe' do
       expect(chef_run).to_not include_recipe 'chef-vault'
     end

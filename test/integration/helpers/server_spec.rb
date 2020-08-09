@@ -180,7 +180,7 @@ def server_test(version, type)
     its('content') { should match /7tCk\(V5I/ }
   end
 
-  if type == 'master'
+  if type == 'source'
     describe file '/etc/mysql/replication.sql' do
       it { should be_a_file }
       its('owner') { should cmp 'root' }
@@ -188,7 +188,7 @@ def server_test(version, type)
       its('mode') { should cmp '0600' }
       its('content') { should match %r{\)6\$W2M\{/} }
       its('content') { should match /TO 'replication'@'%'/ }
-      its('content') { should match /MASTER_HOST='master-host'/ }
+      its('content') { should match /MASTER_HOST='source-host'/ }
       its('content') { should match /MASTER_USER='replication'/ }
       its('content') { should match %r{MASTER_PASSWORD='\)6\$W2M\{/'} }
     end
@@ -205,7 +205,7 @@ def server_test(version, type)
       else
         its('content') { should match %r{GRANT REPLICATION SLAVE ON \*\.\* TO 'replication'@'%' IDENTIFIED BY '\)6\$W2M\{/' REQUIRE SSL;} }
       end
-      its('content') { should match /MASTER_HOST='master-host'/ }
+      its('content') { should match /MASTER_HOST='source-host'/ }
       its('content') { should match /MASTER_USER='replication'/ }
       its('content') { should match %r{MASTER_PASSWORD='\)6\$W2M\{/'} }
       its('content') { should match /MASTER_SSL=1/ }

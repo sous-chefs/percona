@@ -8,6 +8,10 @@ server  = percona['server']
 conf    = percona['conf']
 mysqld  = (conf && conf['mysqld']) || {}
 
+if node['percona']['server']['role'].include?('master') || node['percona']['server']['role'].include?('slave')
+  Chef::Log.warn('Please use source/replica instead of master/slave for the role name. The next major release of the percona cookbook will only support the new terms.')
+end
+
 # setup SELinux if needed
 unless node['percona']['selinux_module_url'].nil? || node['percona']['selinux_module_url'] == ''
   semodule_filename = node['percona']['selinux_module_url'].split('/')[-1]

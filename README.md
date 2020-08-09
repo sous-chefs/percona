@@ -62,7 +62,14 @@ the [currently tested versions](https://github.com/phlipper/chef-percona/blob/ma
 
 ## Usage
 
-This cookbook installs the Percona MySQL components if not present, and pulls updates if they are installed on the system.
+This cookbook installs the Percona MySQL components if not present, and pulls updates if they are installed on the
+system.
+
+This cookbook uses inclusion terminology where applicable replacing terms such as ``master/slave`` to ``source/replica``
+which matches the [terminology decided upstream](https://mysqlhighavailability.com/mysql-terminology-updates/). Older
+releases of Percona still use the terms in their configuration so those will remain, however we will be using the newer
+terms with attributes, property and variable names.  Currently both terms should work however the next major release of
+this cookbook will only use the new terminology.
 
 ### Encrypted Passwords
 
@@ -515,8 +522,8 @@ In no particular order:
   - Support for Chef Server
 - Support the following common database infrastructures:
   - Single server instance
-  - Traditional Master/Slave replication
-  - Multi-master cluster replication
+  - Traditional Source/Replica replication
+  - Multi-source cluster replication
 - Support the most recent Chef runtime environments
 - Be the easiest way to setup a MySQL distribution through Chef
 

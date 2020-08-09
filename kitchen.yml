@@ -70,9 +70,9 @@ suites:
     attributes:
       percona:
         version: '8.0'
-  - name: master-56
+  - name: source-56
     run_list:
-      - recipe[test::master]
+      - recipe[test::source]
     attributes:
       percona:
         version: '5.6'
@@ -80,15 +80,15 @@ suites:
       - centos-8
       - debian-10
       - ubuntu-20.04
-  - name: master-57
+  - name: source-57
     run_list:
-      - recipe[test::master]
+      - recipe[test::source]
     attributes:
       percona:
         version: '5.7'
-  - name: master-80
+  - name: source-80
     run_list:
-      - recipe[test::master]
+      - recipe[test::source]
     attributes:
       percona:
         version: '8.0'

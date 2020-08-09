@@ -270,7 +270,7 @@ query_cache_type = <%= node["percona"]["server"]["query_cache_type"] %>
 # sync_binlog ensures that all writes to the binary log are immediately
 # flushed to disk.  This is important, especially for replication, because
 # if the server crashes and has not written all of the binary log to disk (and flushed it)
-# then some rows will not make it to the slave
+# then some rows will not make it to the replica
 sync_binlog = <%= node["percona"]["server"]["sync_binlog"] %>
 
 #
@@ -296,24 +296,24 @@ log-queries-not-using-indexes = <%= node["percona"]["server"]["log_queries_not_u
 <% end %>
 
 # The following can be used as easy to replay backup logs or for replication.
-# note: if you are setting up a replication slave, see README.Debian about
+# note: if you are setting up a replication replica, see README.Debian about
 #       other settings you may need to change.
 
 # Unique server identification number between 1 and 2^32-1. This value
-# is required for both master and slave hosts. It defaults to 1 if
-# "master-host" is not set, but will MySQL will not function as a master
+# is required for both source and replica hosts. It defaults to 1 if
+# "master-host" is not set, but will MySQL will not function as a source
 # if it is omitted.
 server-id = <%= node["percona"]["server"]["server_id"] %>
 
 <% unless node["percona"]["server"]["replication"]["ignore_db"].empty? %>
-# Tells the slave SQL thread not to replicate any statement where the default database is.
+# Tells the replica SQL thread not to replicate any statement where the default database is.
 <% Array(node["percona"]["server"]["replication"]["ignore_db"]).each do |ignore_db| -%>
 replicate-ignore-db = <%= ignore_db %>
 <% end -%>
 <% end -%>
 
 <% unless node["percona"]["server"]["replication"]["ignore_table"].empty? %>
-# Creates a replication filter by telling the slave SQL thread not to replicate any statement that updates the specified table, even if any other tables might be updated by the same statement.
+# Creates a replication filter by telling the replica SQL thread not to replicate any statement that updates the specified table, even if any other tables might be updated by the same statement.
 <% node["percona"]["server"]["replication"]["ignore_table"].each do |ignore_table| -%>
 replicate-ignore-table = <%= ignore_table %>
 <% end -%>
@@ -325,22 +325,22 @@ replicate-ignore-table = <%= ignore_table %>
 log_warnings_suppress=1592
 <% end %>
 
-# Make the slave read-only. Only users with the SUPER privilege and the
-# replication slave thread will be able to modify data on it. You can
+# Make the replica read-only. Only users with the SUPER privilege and the
+# replication replica thread will be able to modify data on it. You can
 # use this to ensure that no applications will accidently modify data on
-# the slave instead of the master
+# the replica instead of the source
 <% if node["percona"]["server"]["replication"]["read_only"] %>
 read_only
 <% end %>
 
-# Tells the slave server not to start the slave threads when the server starts.
+# Tells the replica server not to start the replica threads when the server starts.
 # This will allow you to tweak system and/or server settings prior to starting
 # replication.
 <% if node["percona"]["server"]["replication"]["skip_slave_start"] %>
 skip-slave-start
 <% end %>
 
-# Number of times the slave SQL thread will retry a transaction in case it
+# Number of times the replica SQL thread will retry a transaction in case it
 # failed with a deadlock or elapsed lock wait timeout, before giving up and
 # stopping.
 slave_transaction_retries = <%= node["percona"]["server"]["replication"]["slave_transaction_retries"] %>
@@ -415,9 +415,9 @@ sync_relay_log_info = <%= node["percona"]["server"]["sync_relay_log_info"] %>
 # statement in transaction
 binlog_cache_size = <%= node["percona"]["server"]["binlog_cache_size"] %>
 
-# If you're using replication with chained slaves (A->B->C), you need to
+# If you're using replication with chained replicas (A->B->C), you need to
 # enable this option on server B. It enables logging of updates done by
-# the slave thread into the slave's binary log.
+# the replica thread into the replica's binary log.
 <% if node["percona"]["server"]["log_slave_updates"] %>
 log_slave_updates
 <% end %>

@@ -23,7 +23,7 @@ describe 'percona::replication' do
   end
 
   describe 'with replication configured' do
-    override_attributes['percona']['server']['role'] = ['master']
+    override_attributes['percona']['server']['role'] = %w(source)
     override_attributes['percona']['server']['root_password'] = 's3kr1t'
     override_attributes['percona']['server']['replication']['password'] = 's3kr1t'
     override_attributes['percona']['server']['replication']['username'] = 'replication'
@@ -44,6 +44,27 @@ describe 'percona::replication' do
         /MASTER_PASSWORD='s3kr1t'/,
       ].each do |line|
         expect(chef_run).to render_file(replication_sql).with_content(line)
+      end
+    end
+
+    context 'role master' do
+      override_attributes['percona']['server']['role'] = %w(master)
+      it 'creates a replication template' do
+        expect(chef_run).to create_template(replication_sql).with(
+          owner: 'root',
+          group: 'root',
+          mode: '0600',
+          sensitive: true
+        )
+        [
+          /CREATE USER IF NOT EXISTS 'replication'@'%' IDENTIFIED BY 's3kr1t';/,
+          /GRANT REPLICATION SLAVE ON \*\.\* TO 'replication'@'%';/,
+          /MASTER_HOST='master-host'/,
+          /MASTER_USER='replication'/,
+          /MASTER_PASSWORD='s3kr1t'/,
+        ].each do |line|
+          expect(chef_run).to render_file(replication_sql).with_content(line)
+        end
       end
     end
 
@@ -84,6 +105,18 @@ describe 'percona::replication' do
             %r{MASTER_SSL_CA='/etc/mysql/ssl/cacert.pem'},
             %r{MASTER_SSL_CERT='/etc/mysql/ssl/server-cert.pem'},
             %r{MASTER_SSL_KEY='/etc/mysql/ssl/server-key.pem'},
+          ].each do |line|
+            expect(chef_run).to render_file(replication_sql).with_content(line)
+          end
+        end
+      end
+
+      context 'role replica' do
+        override_attributes['percona']['server']['role'] = %w(replica)
+        it do
+          [
+            %r{MASTER_SSL_CERT='/etc/mysql/ssl/client-cert.pem'},
+            %r{MASTER_SSL_KEY='/etc/mysql/ssl/client-key.pem'},
           ].each do |line|
             expect(chef_run).to render_file(replication_sql).with_content(line)
           end

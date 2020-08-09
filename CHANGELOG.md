@@ -45,6 +45,7 @@ This file is used to list changes made in each version of the percona cookbook.
 ### Deprecated
 
 - Deprecate monitoring recipe
+- Use new inclusive terminology and add deprecation warning for old terms
 
 ## 0.17.2 - 2020-08-06
 

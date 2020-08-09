@@ -19,10 +19,10 @@ CHANGE MASTER TO
   <% if node["percona"]["server"]["replication"]["ssl_enabled"] %>
   MASTER_SSL=1,
   MASTER_SSL_CA='/etc/mysql/ssl/cacert.pem',
-  <% if node['percona']['server']['role'].include?('slave') %>
+  <% if node['percona']['server']['role'].include?('replica') || node['percona']['server']['role'].include?('slave') %>
   MASTER_SSL_CERT='/etc/mysql/ssl/client-cert.pem',
   MASTER_SSL_KEY='/etc/mysql/ssl/client-key.pem',
-  <% elsif node['percona']['server']['role'].include?('master') %>
+  <% elsif node['percona']['server']['role'].include?('source') || node['percona']['server']['role'].include?('master') %>
   MASTER_SSL_CERT='/etc/mysql/ssl/server-cert.pem',
   MASTER_SSL_KEY='/etc/mysql/ssl/server-key.pem',
   <% end %>

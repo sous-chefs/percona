@@ -192,7 +192,7 @@ def server_test(version, type)
       its('content') { should match /MASTER_USER='replication'/ }
       its('content') { should match %r{MASTER_PASSWORD='\)6\$W2M\{/'} }
     end
-  elsif type == 'ssl'
+  elsif type == 'replication'
     describe file '/etc/mysql/replication.sql' do
       it { should be_a_file }
       its('owner') { should cmp 'root' }

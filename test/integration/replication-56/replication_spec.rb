@@ -1,3 +1,3 @@
 require_relative '../helpers/server_spec.rb'
 
-server_test('5.7', 'ssl')
+server_test('5.6', 'replication')

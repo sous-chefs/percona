@@ -60,6 +60,9 @@ jobs:
           - 'server-56'
           - 'server-57'
           - 'server-80'
+          - 'ssl-56'
+          - 'ssl-57'
+          - 'ssl-80'
         exclude:
           - os: centos-8
             suite: client-56
@@ -69,6 +72,8 @@ jobs:
             suite: master-56
           - os: centos-8
             suite: server-56
+          - os: centos-8
+            suite: ssl-56
           - os: debian-10
             suite: client-56
           - os: debian-10
@@ -77,6 +82,8 @@ jobs:
             suite: master-56
           - os: debian-10
             suite: server-56
+          - os: debian-10
+            suite: ssl-56
           - os: ubuntu-2004
             suite: client-56
           - os: ubuntu-2004
@@ -85,6 +92,8 @@ jobs:
             suite: master-56
           - os: ubuntu-2004
             suite: server-56
+          - os: ubuntu-2004
+            suite: ssl-56
       fail-fast: false
 
     steps:

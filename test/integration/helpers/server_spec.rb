@@ -186,11 +186,32 @@ def server_test(version, type)
       its('owner') { should cmp 'root' }
       its('group') { should cmp 'root' }
       its('mode') { should cmp '0600' }
-      its('content') { should match /\)6\$W2M{\// }
+      its('content') { should match %r{\)6\$W2M\{/} }
       its('content') { should match /TO 'replication'@'%'/ }
       its('content') { should match /MASTER_HOST='master-host'/ }
       its('content') { should match /MASTER_USER='replication'/ }
-      its('content') { should match /MASTER_PASSWORD='\)6\$W2M{\/'/ }
+      its('content') { should match %r{MASTER_PASSWORD='\)6\$W2M\{/'} }
+    end
+  elsif type == 'ssl'
+    describe file '/etc/mysql/replication.sql' do
+      it { should be_a_file }
+      its('owner') { should cmp 'root' }
+      its('group') { should cmp 'root' }
+      its('mode') { should cmp '0600' }
+      if version.to_f >= 8.0
+        its('content') { should match %r{CREATE USER IF NOT EXISTS 'replication'@'%' IDENTIFIED BY '\)6\$W2M\{\/';} }
+        its('content') { should match /GRANT REPLICATION SLAVE ON \*\.\* TO 'replication'@'%';/ }
+        its('content') { should match /ALTER USER 'replication'@'%' REQUIRE SSL;/ }
+      else
+        its('content') { should match %r{GRANT REPLICATION SLAVE ON \*\.\* TO 'replication'@'%' IDENTIFIED BY '\)6\$W2M\{/' REQUIRE SSL;} }
+      end
+      its('content') { should match /MASTER_HOST='master-host'/ }
+      its('content') { should match /MASTER_USER='replication'/ }
+      its('content') { should match %r{MASTER_PASSWORD='\)6\$W2M\{/'} }
+      its('content') { should match /MASTER_SSL=1/ }
+      its('content') { should match %r{MASTER_SSL_CA='/etc/mysql/ssl/cacert.pem'} }
+      its('content') { should match %r{MASTER_SSL_CERT='/etc/mysql/ssl/server-cert.pem'} }
+      its('content') { should match %r{MASTER_SSL_KEY='/etc/mysql/ssl/server-key.pem'} }
     end
   else
     describe file '/etc/mysql/replication.sql' do

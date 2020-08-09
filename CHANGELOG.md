@@ -23,6 +23,8 @@ This file is used to list changes made in each version of the percona cookbook.
 - Don't remove mysql-libs on RHEL
 - jemalloc package installation and path setup for all platforms
 - Fixed enabled ChefSpec tests
+- Use the correct syntax on 8.0 for SSL replication
+- Use correct cert path for master/slave
 
 ### Changed
 

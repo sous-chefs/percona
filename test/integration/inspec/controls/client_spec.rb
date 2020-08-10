@@ -1,4 +1,5 @@
 version = input('version')
+type = input('type')
 
 control 'client' do
   desc 'Ensure Percona clients are installed.'
@@ -10,7 +11,12 @@ control 'client' do
       it { should be_enabled }
     end
 
-    if version.to_f >= 8.0
+    if type == 'cluster' && version.to_f >= 8.0
+      describe apt 'http://repo.percona.com/pxc-80/apt' do
+        it { should exist }
+        it { should be_enabled }
+      end
+    elsif version.to_f >= 8.0
       describe apt 'http://repo.percona.com/ps-80/apt' do
         it { should exist }
         it { should be_enabled }
@@ -27,7 +33,16 @@ control 'client' do
       its('content') { should match 'release o=Percona Development Team' }
     end
 
-    if version.to_f >= 8.0
+    if type == 'cluster' && version.to_f >= 8.0
+      describe package 'percona-xtradb-cluster-client' do
+        it { should be_installed }
+        its('version') { should >= '1:8' }
+      end
+    elsif type == 'cluster'
+      describe package "percona-xtradb-cluster-client-#{version}" do
+        it { should be_installed }
+      end
+    elsif version.to_f >= 8.0
       describe package 'percona-server-client' do
         it { should be_installed }
         its('version') { should >= '8' }
@@ -49,7 +64,16 @@ control 'client' do
       it { should be_enabled }
     end
 
-    if version.to_f >= 8.0
+    if type == 'cluster' && version.to_f >= 8.0
+      describe package 'percona-xtradb-cluster-client' do
+        it { should be_installed }
+        its('version') { should >= '8' }
+      end
+    elsif type == 'cluster'
+      describe package "Percona-XtraDB-Cluster-client-#{version.tr('.', '')}" do
+        it { should be_installed }
+      end
+    elsif version.to_f >= 8.0
       describe package 'percona-server-client' do
         it { should be_installed }
         its('version') { should >= '8' }
@@ -58,16 +82,6 @@ control 'client' do
       describe package "Percona-Server-client-#{version.tr('.', '')}" do
         it { should be_installed }
       end
-    end
-  end
-
-  if version.to_f >= 8.0 && os.family == 'redhat' && os.release.to_i >= 8
-    describe package 'percona-toolkit' do
-      it { should_not be_installed }
-    end
-  else
-    describe package 'percona-toolkit' do
-      it { should be_installed }
     end
   end
 

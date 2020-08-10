@@ -16,8 +16,7 @@ provisioner:
 verifier:
   name: inspec
   inspec_tests:
-    - path: test/integration/client
-    - path: test/integration/server
+    - path: test/integration/inspec
 
 platforms:
   - name: centos-7
@@ -38,6 +37,7 @@ suites:
     verifier:
       controls:
         - client
+        - toolkit
       inputs:
         version: '5.6'
     excludes:
@@ -53,6 +53,7 @@ suites:
     verifier:
       controls:
         - client
+        - toolkit
       inputs:
         version: '5.7'
   - name: client-80
@@ -64,6 +65,7 @@ suites:
     verifier:
       controls:
         - client
+        - toolkit
       inputs:
         version: '8.0'
   - name: server-56
@@ -78,6 +80,7 @@ suites:
       - ubuntu-20.04
     verifier:
       controls:
+        - client
         - server
       inputs:
         version: '5.6'
@@ -89,6 +92,7 @@ suites:
         version: '5.7'
     verifier:
       controls:
+        - client
         - server
       inputs:
         version: '5.7'
@@ -100,6 +104,7 @@ suites:
         version: '8.0'
     verifier:
       controls:
+        - client
         - server
       inputs:
         version: '8.0'
@@ -115,6 +120,7 @@ suites:
       - ubuntu-20.04
     verifier:
       controls:
+        - client
         - server
       inputs:
         version: '5.6'
@@ -127,6 +133,7 @@ suites:
         version: '5.7'
     verifier:
       controls:
+        - client
         - server
       inputs:
         version: '5.7'
@@ -139,6 +146,7 @@ suites:
         version: '8.0'
     verifier:
       controls:
+        - client
         - server
       inputs:
         version: '8.0'
@@ -155,6 +163,7 @@ suites:
       - ubuntu-20.04
     verifier:
       controls:
+        - client
         - server
       inputs:
         version: '5.6'
@@ -167,6 +176,7 @@ suites:
         version: '5.7'
     verifier:
       controls:
+        - client
         - server
       inputs:
         version: '5.7'
@@ -179,6 +189,7 @@ suites:
         version: '8.0'
     verifier:
       controls:
+        - client
         - server
       inputs:
         version: '8.0'
@@ -195,6 +206,7 @@ suites:
       - ubuntu-20.04
     verifier:
       controls:
+        - client
         - server
       inputs:
         version: '5.6'
@@ -207,6 +219,7 @@ suites:
         version: '5.7'
     verifier:
       controls:
+        - client
         - server
       inputs:
         version: '5.7'
@@ -219,6 +232,7 @@ suites:
         version: '8.0'
     verifier:
       controls:
+        - client
         - server
       inputs:
         version: '8.0'

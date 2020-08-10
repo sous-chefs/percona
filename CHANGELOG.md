@@ -14,6 +14,7 @@ This file is used to list changes made in each version of the percona cookbook.
 - Re-add ChefSpec tests
 - Add ssl suite and tests for ssl recipe
 - Add master suite and tests for testing the replication recipe
+- Suite to test compatibility with Chef 13
 
 ### Fixed
 

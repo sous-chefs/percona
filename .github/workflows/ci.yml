@@ -41,11 +41,14 @@ jobs:
       matrix:
         os:
           - 'debian-9'
+          - 'debian-9-chef-13'
           - 'debian-10'
           - 'centos-7'
+          - 'centos-7-chef-13'
           - 'centos-8'
           - 'ubuntu-1604'
           - 'ubuntu-1804'
+          - 'ubuntu-1804-chef-13'
           - 'ubuntu-2004'
         suite:
           - 'client-56'

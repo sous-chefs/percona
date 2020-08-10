@@ -20,6 +20,14 @@ platforms:
       intermediate_instructions:
         - RUN /usr/bin/apt-get update
 
+  - name: debian-9-chef-13
+    driver:
+      image: dokken/debian-9
+      pid_one_command: /bin/systemd
+      intermediate_instructions:
+        - RUN /usr/bin/apt-get update
+      chef_version: 13
+
   - name: debian-10
     driver:
       image: dokken/debian-10
@@ -31,6 +39,12 @@ platforms:
     driver:
       image: dokken/centos-7
       pid_one_command: /usr/lib/systemd/systemd
+
+  - name: centos-7-chef-13
+    driver:
+      image: dokken/centos-7
+      pid_one_command: /usr/lib/systemd/systemd
+      chef_version: 13
 
   - name: centos-8
     driver:
@@ -50,6 +64,14 @@ platforms:
       pid_one_command: /bin/systemd
       intermediate_instructions:
         - RUN /usr/bin/apt-get update
+
+  - name: ubuntu-18.04-chef-13
+    driver:
+      image: dokken/ubuntu-18.04
+      pid_one_command: /bin/systemd
+      intermediate_instructions:
+        - RUN /usr/bin/apt-get update
+      chef_version: 13
 
   - name: ubuntu-20.04
     driver:

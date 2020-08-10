@@ -8,6 +8,8 @@ describe 'percona::server' do
     stub_command('dnf module list mysql | grep -q "^mysql.*\\[x\\]"')
   end
 
+  it { expect(chef_run).to include_recipe('percona::client') }
+
   describe 'Ubuntu' do
     platform 'ubuntu'
 
@@ -35,7 +37,6 @@ describe 'percona::server' do
   context 'CentOS' do
     platform 'centos'
 
-    it { expect(chef_run).to include_recipe('percona::client') }
     it { expect(chef_run).to install_package('percona-server-server') }
 
     it do

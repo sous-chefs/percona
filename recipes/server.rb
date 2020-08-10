@@ -4,6 +4,7 @@
 #
 
 include_recipe 'percona::package_repo'
+include_recipe 'percona::client'
 
 # install packages
 case node['platform_family']
@@ -13,9 +14,6 @@ when 'debian'
     action node['percona']['server']['package_action'].to_sym
   end
 when 'rhel'
-  # we need mysqladmin
-  include_recipe 'percona::client'
-
   package node['percona']['server']['package'] do
     action node['percona']['server']['package_action'].to_sym
   end

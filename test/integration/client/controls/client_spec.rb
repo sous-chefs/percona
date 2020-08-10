@@ -1,4 +1,9 @@
-def client_test(version)
+version = input('version')
+
+control 'client' do
+  desc 'Ensure Percona clients are installed.'
+  impact 1.0
+
   if os.family == 'debian'
     describe apt 'http://repo.percona.com/apt' do
       it { should exist }

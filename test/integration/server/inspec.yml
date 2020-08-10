@@ -1,0 +1,13 @@
+---
+name: server
+title: Integration tests for Percona server installation
+version: 0.1.0
+inputs:
+  - name: version
+    type: Numeric
+    required: true
+  - name: type
+    required: true
+    value: 'server'
+supports:
+  - os-family: linux

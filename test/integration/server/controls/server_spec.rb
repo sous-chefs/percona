@@ -1,4 +1,10 @@
-def server_test(version, type)
+version = input('version')
+type = input('type')
+
+control 'server' do
+  desc 'Ensure server is installed'
+  impact 1.0
+
   if os.family == 'debian'
     case type
     when 'server'

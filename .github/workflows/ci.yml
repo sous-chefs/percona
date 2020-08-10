@@ -51,9 +51,6 @@ jobs:
           - 'client-56'
           - 'client-57'
           - 'client-80'
-          - 'cluster-56'
-          - 'cluster-57'
-          - 'cluster-80'
           - 'server-56'
           - 'server-57'
           - 'server-80'
@@ -67,8 +64,6 @@ jobs:
           - os: centos-8
             suite: client-56
           - os: centos-8
-            suite: cluster-56
-          - os: centos-8
             suite: server-56
           - os: centos-8
             suite: source-56
@@ -77,8 +72,6 @@ jobs:
           - os: debian-10
             suite: client-56
           - os: debian-10
-            suite: cluster-56
-          - os: debian-10
             suite: server-56
           - os: debian-10
             suite: source-56
@@ -86,8 +79,6 @@ jobs:
             suite: replication-56
           - os: ubuntu-2004
             suite: client-56
-          - os: ubuntu-2004
-            suite: cluster-56
           - os: ubuntu-2004
             suite: server-56
           - os: ubuntu-2004

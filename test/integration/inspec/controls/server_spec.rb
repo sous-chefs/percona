@@ -169,9 +169,9 @@ control 'server' do
     it { should be_running }
   end
 
-  describe command 'pgrep mysql' do
-    its(:stdout) { should match(/\d+/) }
-    its(:exit_status) { should eq 0 }
+  describe processes('mysqld') do
+    it { should exist }
+    its('users') { should include 'mysql' }
   end
 
   describe port 3306 do
@@ -249,8 +249,8 @@ control 'server' do
   end
 
   describe command "mysqladmin --user='root' --password='7tCk(V5I' variables" do
-    its(:stdout) { should match %r{datadir\s+| /tmp/mysql/} }
-    its(:stdout) { should match %r{general_log_file\s+| /tmp/mysql/} }
-    its(:exit_status) { should eq 0 }
+    its('stdout') { should match %r{datadir\s+| /tmp/mysql/} }
+    its('stdout') { should match %r{general_log_file\s+| /tmp/mysql/} }
+    its('exit_status') { should eq 0 }
   end
 end

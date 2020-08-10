@@ -5,6 +5,7 @@ describe 'percona::configure_server' do
   describe 'first run' do
     before do
       stub_command('test -f /var/lib/mysql/mysql/user.frm').and_return(false)
+      stub_command('test -f /var/lib/mysql.ibd').and_return(false)
       stub_command("mysqladmin --user=root --password='' version").and_return(true)
     end
 
@@ -117,6 +118,7 @@ describe 'percona::configure_server' do
 
     before do
       stub_command('test -f /mysql/data/mysql/user.frm').and_return(true)
+      stub_command('test -f /mysql/data/mysql.ibd').and_return(true)
       stub_command("mysqladmin --user=root --password='' version").and_return(false)
     end
 

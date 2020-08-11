@@ -55,14 +55,7 @@ default['percona']['server']['package_action'] = 'install'
 
 # Basic Settings
 default['percona']['server']['role'] = ['standalone']
-default['percona']['server']['package'] =
-  if node['percona']['version'].to_f >= 8.0
-    'percona-server-server'
-  elsif platform_family?('debian')
-    "percona-server-server-#{node['percona']['version']}"
-  else
-    "Percona-Server-server-#{node['percona']['version'].tr('.', '')}"
-  end
+default['percona']['server']['package'] = []
 default['percona']['server']['username'] = 'mysql'
 default['percona']['server']['datadir'] = '/var/lib/mysql'
 default['percona']['server']['logdir'] = '/var/log/mysql'
@@ -70,24 +63,6 @@ default['percona']['server']['tmpdir'] = '/tmp'
 default['percona']['server']['slave_load_tmpdir'] = '/tmp'
 default['percona']['server']['debian_username'] = 'debian-sys-maint'
 default['percona']['server']['jemalloc'] = false
-default['percona']['server']['jemalloc_package'] =
-  case node['platform']
-  when 'debian'
-    node['platform_version'].to_i >= 10 ? 'libjemalloc2' : 'libjemalloc1'
-  when 'ubuntu'
-    node['platform_version'].to_f >= 20.04 ? 'libjemalloc2' : 'libjemalloc1'
-  when 'centos', 'redhat'
-    'jemalloc'
-  end
-default['percona']['server']['jemalloc_lib'] =
-  case node['platform']
-  when 'debian'
-    node['platform_version'].to_i >= 10 ? '/usr/lib/x86_64-linux-gnu/libjemalloc.so.2' : '/usr/lib/x86_64-linux-gnu/libjemalloc.so.1'
-  when 'ubuntu'
-    node['platform_version'].to_f >= 20.04 ? '/usr/lib/x86_64-linux-gnu/libjemalloc.so.2' : '/usr/lib/x86_64-linux-gnu/libjemalloc.so.1'
-  when 'centos', 'redhat'
-    node['platform_version'].to_i >= 8 ? '/usr/lib64/libjemalloc.so.2' : '/usr/lib64/libjemalloc.so.1'
-  end
 default['percona']['server']['nice'] = 0
 default['percona']['server']['open_files_limit'] = 16_384
 default['percona']['server']['hostname'] = 'localhost'
@@ -225,31 +200,11 @@ default['percona']['server']['skip_syslog'] = false
 # XtraBackup Settings
 default['percona']['backup']['configure'] = false
 default['percona']['backup']['username'] = 'backup'
-default['percona']['backup']['package_name'] =
-  case node['platform_family']
-  when 'debian'
-    case node['platform']
-    when 'debian'
-      node['platform_version'].to_i >= 10 ? 'percona-xtrabackup-80' : 'xtrabackup'
-    when 'ubuntu'
-      node['platform_version'].to_f >= 20.04 ? 'percona-xtrabackup-80' : 'xtrabackup'
-    end
-  when 'rhel'
-    node['platform_version'].to_i >= 8 ? 'percona-xtrabackup-80' : 'percona-xtrabackup'
-  end
 unless attribute?(node['percona']['backup']['password'])
   default['percona']['backup']['password'] = random_password
 end
 
 # XtraDB Cluster Settings
-default['percona']['cluster']['package'] =
-  if node['percona']['version'].to_f >= 8.0
-    'percona-xtradb-cluster-server'
-  elsif platform_family?('rhel')
-    "Percona-XtraDB-Cluster-#{node['percona']['version'].tr('.', '')}"
-  else
-    "percona-xtradb-cluster-#{node['percona']['version'].tr('.', '')}"
-  end
 default['percona']['cluster']['binlog_format'] = 'ROW'
 default['percona']['cluster']['wsrep_provider'] = value_for_platform_family(
   'debian' => '/usr/lib/libgalera_smm.so',

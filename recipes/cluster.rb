@@ -4,21 +4,7 @@
 #
 
 node.default['percona']['repositories'] = %w(pxc-80)
-node.default['percona']['client']['packages'] =
-  case node['platform_family']
-  when 'debian'
-    if node['percona']['version'].to_f >= 8.0
-      %w(percona-xtradb-cluster-client)
-    else
-      %W(percona-xtradb-cluster-client-#{node['percona']['version']})
-    end
-  when 'rhel'
-    if node['percona']['version'].to_f >= 8.0
-      %w(percona-xtradb-cluster-client)
-    else
-      %W(Percona-XtraDB-Cluster-client-#{node['percona']['version'].tr('.', '')})
-    end
-  end
+node.default['percona']['client']['packages'] = percona_cluster_client_package
 
 include_recipe 'percona::package_repo'
 include_recipe 'percona::client'
@@ -37,7 +23,7 @@ end
 include_recipe 'yum-epel' if platform_family?('rhel')
 
 # install packages
-package node['percona']['cluster']['package']
+package percona_cluster_package
 
 unless node['percona']['skip_configure']
   include_recipe 'percona::configure_server'

@@ -26,6 +26,7 @@ This file is used to list changes made in each version of the percona cookbook.
 - Fixed enabled ChefSpec tests
 - Use the correct syntax on 8.0 for SSL replication
 - Use correct cert path for master/slave
+- Fix issue when trying to set node['percona']['version'] in a recipe
 
 ### Changed
 

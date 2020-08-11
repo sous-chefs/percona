@@ -6,18 +6,14 @@
 include_recipe 'percona::package_repo'
 include_recipe 'percona::client'
 
-# install packages
-case node['platform_family']
-when 'debian'
-  package node['percona']['server']['package'] do
-    options '--force-yes'
-    action node['percona']['server']['package_action'].to_sym
-  end
-when 'rhel'
-  package node['percona']['server']['package'] do
-    action node['percona']['server']['package_action'].to_sym
-  end
+pkg = node['percona']['server']['package'].empty? ? percona_server_package : node['percona']['server']['package']
 
+package pkg do
+  action node['percona']['server']['package_action'].to_sym
+end
+
+# install packages
+if platform_family?('rhel')
   # Work around issue with 5.7 on RHEL
   if node['percona']['version'].to_f >= 5.7
     execute 'systemctl daemon-reload' do

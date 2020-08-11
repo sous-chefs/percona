@@ -29,7 +29,7 @@ describe 'percona::cluster' do
 
     describe 'Ubuntu' do
       it do
-        expect(chef_run).to install_package 'percona-xtradb-cluster-56'
+        expect(chef_run).to install_package 'percona-xtradb-cluster-5.6'
       end
 
       it do
@@ -58,7 +58,7 @@ describe 'percona::cluster' do
 
     describe 'Ubuntu' do
       it do
-        expect(chef_run).to install_package 'percona-xtradb-cluster-57'
+        expect(chef_run).to install_package 'percona-xtradb-cluster-5.7'
       end
 
       it do

@@ -35,7 +35,7 @@ include_recipe 'chef-vault' if node['percona']['use_chef_vault']
 passwords = EncryptedPasswords.new(node, percona['encrypted_data_bag'])
 
 if node['percona']['server']['jemalloc']
-  package node['percona']['server']['jemalloc_package']
+  package percona_jemalloc_package
 end
 
 template '/root/.my.cnf' do
@@ -159,9 +159,10 @@ template percona['main_config_file'] do
   mode '0644'
   sensitive true
   manage_symlink_source true
-  if Array(server['role']).include?('cluster')
-    variables(wsrep_sst_auth: wsrep_sst_auth)
-  end
+  variables(
+    jemalloc_lib: percona_jemalloc_lib,
+    wsrep_sst_auth: wsrep_sst_auth
+  )
   notifies :run, 'execute[setup mysql datadir]', :immediately
   if node['percona']['auto_restart']
     notifies :restart, 'service[mysql]', :immediately

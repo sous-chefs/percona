@@ -25,7 +25,7 @@ control 'server' do
           its('version') { should >= '1:8.0' }
         end
       else
-        describe package "percona-xtradb-cluster-#{version.tr('.', '')}" do
+        describe package "percona-xtradb-cluster-server-#{version}" do
           it { should be_installed }
         end
       end

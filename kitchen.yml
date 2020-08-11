@@ -5,11 +5,8 @@ driver:
 provisioner:
   name: chef_solo
   product_name: chef
-  # TODO:
-  # - template[/etc/mysql/grants.sql]
-  # - execute[mysql-install-privileges]
-  # enforce_idempotency: true
-  # multiple_converge: 2
+  enforce_idempotency: true
+  multiple_converge: 2
   deprecations_as_errors: true
   data_bags_path: test/integration/data_bags
 

@@ -21,7 +21,7 @@ when 'debian'
     key node['percona']['apt']['key']
   end
 
-  if node['percona']['version'].to_f >= 8.0
+  if node['percona']['version'].to_i >= 8
     node['percona']['repositories'].each do |repo|
       apt_repository "percona-#{repo}" do
         uri "http://repo.percona.com/#{repo}/apt"
@@ -41,7 +41,7 @@ when 'rhel'
     sslverify node['percona']['yum']['sslverify']
   end
 
-  if node['percona']['version'].to_f >= 8.0
+  if node['percona']['version'].to_i >= 8
     node['percona']['repositories'].each do |repo|
       yum_repository "percona-#{repo}" do
         description node['percona']['yum']['description'] + ' - ' + repo

@@ -11,12 +11,12 @@ control 'client' do
       it { should be_enabled }
     end
 
-    if type == 'cluster' && version.to_f >= 8.0
+    if type == 'cluster' && version.to_i >= 8
       describe apt 'http://repo.percona.com/pxc-80/apt' do
         it { should exist }
         it { should be_enabled }
       end
-    elsif version.to_f >= 8.0
+    elsif version.to_i >= 8
       describe apt 'http://repo.percona.com/ps-80/apt' do
         it { should exist }
         it { should be_enabled }
@@ -33,7 +33,7 @@ control 'client' do
       its('content') { should match 'release o=Percona Development Team' }
     end
 
-    if type == 'cluster' && version.to_f >= 8.0
+    if type == 'cluster' && version.to_i >= 8
       describe package 'percona-xtradb-cluster-client' do
         it { should be_installed }
         its('version') { should >= '1:8' }
@@ -42,7 +42,7 @@ control 'client' do
       describe package "percona-xtradb-cluster-client-#{version}" do
         it { should be_installed }
       end
-    elsif version.to_f >= 8.0
+    elsif version.to_i >= 8
       describe package 'percona-server-client' do
         it { should be_installed }
         its('version') { should >= '8' }
@@ -64,7 +64,7 @@ control 'client' do
       it { should be_enabled }
     end
 
-    if type == 'cluster' && version.to_f >= 8.0
+    if type == 'cluster' && version.to_i >= 8
       describe package 'percona-xtradb-cluster-client' do
         it { should be_installed }
         its('version') { should >= '8' }
@@ -73,7 +73,7 @@ control 'client' do
       describe package "Percona-XtraDB-Cluster-client-#{version.tr('.', '')}" do
         it { should be_installed }
       end
-    elsif version.to_f >= 8.0
+    elsif version.to_i >= 8
       describe package 'percona-server-client' do
         it { should be_installed }
         its('version') { should >= '8' }
@@ -87,7 +87,7 @@ control 'client' do
 
   describe command 'mysql --version' do
     its('exit_status') { should eq 0 }
-    if version.to_f >= 8.0
+    if version.to_i >= 8
       its('stdout') { should match /Ver #{version.tr('.', '\.')}.+/ }
     else
       its('stdout') { should match /Distrib #{version.tr('.', '\.')}.+/ }

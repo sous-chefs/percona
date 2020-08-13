@@ -13,13 +13,13 @@ module Percona
       def percona_client_packages
         case node['platform_family']
         when 'debian'
-          if node['percona']['version'].to_f >= 8.0
+          if node['percona']['version'].to_i >= 8
             %w(percona-server-client)
           else
             %W(percona-server-client-#{percona_version})
           end
         when 'rhel'
-          if node['percona']['version'].to_f >= 8.0
+          if node['percona']['version'].to_i >= 8
             %w(percona-server-client)
           else
             %W(Percona-Server-client-#{percona_version})
@@ -28,7 +28,7 @@ module Percona
       end
 
       def percona_server_package
-        if node['percona']['version'].to_f >= 8.0
+        if node['percona']['version'].to_i >= 8
           'percona-server-server'
         elsif platform_family?('debian')
           "percona-server-server-#{percona_version}"
@@ -40,13 +40,13 @@ module Percona
       def percona_cluster_client_package
         case node['platform_family']
         when 'debian'
-          if node['percona']['version'].to_f >= 8.0
+          if node['percona']['version'].to_i >= 8
             %w(percona-xtradb-cluster-client)
           else
             %W(percona-xtradb-cluster-client-#{percona_version})
           end
         when 'rhel'
-          if node['percona']['version'].to_f >= 8.0
+          if node['percona']['version'].to_i >= 8
             %w(percona-xtradb-cluster-client)
           else
             %W(Percona-XtraDB-Cluster-client-#{percona_version})
@@ -55,7 +55,7 @@ module Percona
       end
 
       def percona_cluster_package
-        if node['percona']['version'].to_f >= 8.0
+        if node['percona']['version'].to_i >= 8
           'percona-xtradb-cluster-server'
         elsif platform_family?('rhel')
           "Percona-XtraDB-Cluster-#{percona_version}"

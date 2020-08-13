@@ -8,7 +8,7 @@ control 'server' do
   if os.family == 'debian'
     case type
     when 'server'
-      if version.to_f >= 8.0
+      if version.to_i >= 8
         describe package 'percona-server-server' do
           it { should be_installed }
           its('version') { should >= '8.0' }
@@ -19,7 +19,7 @@ control 'server' do
         end
       end
     when 'cluster'
-      if version.to_f >= 8.0
+      if version.to_i >= 8
         describe package 'percona-xtradb-cluster-server' do
           it { should be_installed }
           its('version') { should >= '1:8.0' }
@@ -45,7 +45,7 @@ control 'server' do
       end
 
     describe package xtrabackup_pkg do
-      if version.to_f >= 8.0 && type == 'cluster'
+      if version.to_i >= 8 && type == 'cluster'
         it { should_not be_installed }
       else
         it { should be_installed }
@@ -204,7 +204,7 @@ control 'server' do
       its('owner') { should cmp 'root' }
       its('group') { should cmp 'root' }
       its('mode') { should cmp '0600' }
-      if version.to_f >= 8.0
+      if version.to_i >= 8
         its('content') { should match %r{CREATE USER IF NOT EXISTS 'replication'@'%' IDENTIFIED BY '\)6\$W2M\{\/';} }
         its('content') { should match /GRANT REPLICATION SLAVE ON \*\.\* TO 'replication'@'%';/ }
         its('content') { should match /ALTER USER 'replication'@'%' REQUIRE SSL;/ }
@@ -231,7 +231,7 @@ control 'server' do
     its('group') { should cmp 'mysql' }
   end
 
-  mysql_file = version.to_f >= 8.0 ? '/tmp/mysql/mysql.ibd' : '/tmp/mysql/mysql/user.frm'
+  mysql_file = version.to_i >= 8 ? '/tmp/mysql/mysql.ibd' : '/tmp/mysql/mysql/user.frm'
   mysql_mode = version.to_f < 5.7 ? '0660' : '0640'
 
   describe file '/tmp/mysql/ibdata1' do

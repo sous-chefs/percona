@@ -12,7 +12,7 @@ SET PASSWORD FOR '<%= @debian_user %>'@'localhost' = PASSWORD('<%= @debian_passw
 <% if node["percona"]["backup"]["configure"] %>
 # Grant permissions for the XtraBackup user
 # Ensure the user exists, then revoke all grants, then re-grant specific permissions
-<% if node["percona"]["version"].to_f >= 8.0 %>
+<% if node["percona"]["version"].to_i >= 8 %>
 CREATE USER IF NOT EXISTS '<%= node["percona"]["backup"]["username"] %>'@'localhost' IDENTIFIED BY '<%= @backup_password %>';
 GRANT RELOAD, LOCK TABLES, REPLICATION CLIENT ON *.* TO '<%= node["percona"]["backup"]["username"] %>'@'localhost';
 REVOKE ALL PRIVILEGES, GRANT OPTION FROM '<%= node["percona"]["backup"]["username"] %>'@'localhost';
@@ -25,7 +25,7 @@ GRANT RELOAD, LOCK TABLES, REPLICATION CLIENT ON *.* TO '<%= node["percona"]["ba
 <% end -%>
 
 # Set the server root password. This should be preseeded by the package installation.
-<% if node["percona"]["version"].to_f >= 8.0 %>
+<% if node["percona"]["version"].to_i >= 8 %>
 ALTER USER 'root'@'localhost' IDENTIFIED BY '<%= @root_password %>';
 <% else -%>
 SET PASSWORD FOR 'root'@'localhost' = PASSWORD('<%= @root_password %>');

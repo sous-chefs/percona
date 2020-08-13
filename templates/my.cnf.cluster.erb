@@ -246,7 +246,7 @@ table_definition_cache  = <%= node["percona"]["server"]["table_definition_cache"
 table_definition_cache             = <%= node["percona"]["server"]["table_definition_cache"] %>
 
 #thread_concurrency     = 10
-<%- if node["percona"]["version"].to_f < 8.0 %>
+<%- if node["percona"]["version"].to_i < 8 %>
 #
 #
 # * Query Cache Configuration
@@ -511,7 +511,7 @@ innodb_autoextend_increment = <%= node["percona"]["server"]["innodb_autoextend_i
 <% if node["percona"]["server"]["innodb_file_per_table"] %>
 innodb_file_per_table
 <% end %>
-<%- if node["percona"]["version"].to_f < 8.0 %>
+<%- if node["percona"]["version"].to_i < 8 %>
 
 # The file format to use for new InnoDB tables.
 # Currently Antelope and Barracuda are supported.

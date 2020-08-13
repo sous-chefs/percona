@@ -128,8 +128,7 @@ execute 'setup mysql datadir' do
   else
     command "mysql_install_db --defaults-file=#{percona['main_config_file']} --user=#{user}"
   end
-  not_if "test -f #{datadir}/mysql/user.frm"
-  not_if "test -f #{datadir}/mysql.ibd"
+  not_if { ::File.exist?("#{datadir}/mysql/user.frm") || ::File.exist?("#{datadir}/mysql.ibd") }
   action :nothing
 end
 

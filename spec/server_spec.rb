@@ -1,101 +1,100 @@
-# require 'spec_helper'
+require 'spec_helper'
 
-# describe 'percona::server' do
-#   let(:chef_run) do
-#     ChefSpec::SoloRunner.new.converge(described_recipe)
-#   end
+describe 'percona::server' do
+  platform 'ubuntu'
 
-#   before do
-#     stub_command('test -f /var/lib/mysql/mysql/user.frm').and_return(true)
-#     stub_command("mysqladmin --user=root --password='' version")
-#       .and_return(true)
-#   end
+  before do
+    stub_command("mysqladmin --user=root --password='' version").and_return(true)
+    stub_command('dnf module list mysql | grep -q "^mysql.*\\[x\\]"')
+  end
 
-#   it { expect(chef_run).to include_recipe('percona::package_repo') }
-#   it { expect(chef_run).to include_recipe('percona::configure_server') }
-#   it { expect(chef_run).to include_recipe('percona::access_grants') }
-#   it { expect(chef_run).to include_recipe('percona::replication') }
+  it { expect(chef_run).to include_recipe('percona::client') }
 
-#   describe 'Ubuntu' do
-#     it { expect(chef_run).to install_package('percona-server-server-5.6') }
-#   end
+  describe 'Ubuntu' do
+    platform 'ubuntu'
 
-#   describe 'CentOS' do
-#     let(:shared_pkg) do
-#       'Percona-Server-shared-56'
-#     end
+    it { expect(chef_run).to include_recipe('percona::package_repo') }
+    it { expect(chef_run).to include_recipe('percona::configure_server') }
+    it { expect(chef_run).to include_recipe('percona::access_grants') }
+    it { expect(chef_run).to include_recipe('percona::replication') }
+    it { expect(chef_run).to install_package('percona-server-server') }
 
-#     let(:chef_run) do
-#       env_options = { platform: 'centos', version: '6' }
-#       ChefSpec::SoloRunner.new(env_options).converge(described_recipe)
-#     end
+    context 'version 5.7' do
+      override_attributes['percona']['version'] = '5.7'
+      it do
+        expect(chef_run).to install_package 'percona-server-server-5.7'
+      end
+    end
 
-#     before do
-#       stub_command("rpm -qa | grep #{shared_pkg}").and_return(false)
-#     end
+    context 'version 5.6' do
+      override_attributes['percona']['version'] = '5.6'
+      it do
+        expect(chef_run).to install_package 'percona-server-server-5.6'
+      end
+    end
+  end
 
-#     describe 'without percona server shared package' do
-#       it { expect(chef_run).to remove_package('mysql-libs') }
-#     end
+  context 'CentOS' do
+    platform 'centos'
 
-#     describe 'with percona server shared package' do
-#       before do
-#         stub_command("rpm -qa | grep #{shared_pkg}").and_return(true)
-#       end
+    it { expect(chef_run).to install_package('percona-server-server') }
 
-#       it { expect(chef_run).to_not remove_package('mysql-libs') }
-#     end
+    it do
+      expect(chef_run).to nothing_execute('systemctl daemon-reload')
+    end
 
-#     it { expect(chef_run).to include_recipe('percona::client') }
-#     it { expect(chef_run).to install_package('Percona-Server-server-56') }
-#   end
+    it do
+      expect(chef_run).to edit_delete_lines('remove PIDFile from systemd.service').with(
+        path: '/usr/lib/systemd/system/mysqld.service'
+        # pattern: /^PIDFile=.*/ TODO: this errors out with <The diff is empty, are your objects producing identical `#inspect` output?>
+      )
+    end
 
-#   describe 'when `skip_configure` is true' do
-#     let(:chef_run) do
-#       ChefSpec::SoloRunner.new do |node|
-#         node.default['percona']['skip_configure'] = true
-#       end.converge(described_recipe)
-#     end
+    it do
+      expect(chef_run.delete_lines('remove PIDFile from systemd.service')).to \
+        notify('execute[systemctl daemon-reload]').to(:run).immediately
+    end
 
-#     it { expect(chef_run).to_not include_recipe('percona::configure_server') }
-#   end
+    context 'version 5.7' do
+      override_attributes['percona']['version'] = '5.7'
+      it do
+        expect(chef_run).to install_package 'Percona-Server-server-57'
+      end
+    end
 
-#   describe 'when `skip_passwords` is true' do
-#     let(:chef_run) do
-#       ChefSpec::SoloRunner.new do |node|
-#         node.default['percona']['skip_passwords'] = true
-#       end.converge(described_recipe)
-#     end
+    context 'version 5.6' do
+      override_attributes['percona']['version'] = '5.6'
+      it do
+        expect(chef_run).to install_package 'Percona-Server-server-56'
+      end
+    end
+  end
 
-#     it { expect(chef_run).to_not include_recipe('percona::access_grants') }
-#     it { expect(chef_run).to_not include_recipe('percona::replication') }
-#   end
+  describe 'when `skip_configure` is true' do
+    override_attributes['percona']['skip_configure'] = true
 
-#   describe 'when `package_action` is `upgrade`' do
-#     describe 'Ubuntu' do
-#       let(:chef_run) do
-#         ChefSpec::SoloRunner.new do |node|
-#           node.default['percona']['server']['package_action'] = 'upgrade'
-#         end.converge(described_recipe)
-#       end
+    it { expect(chef_run).to_not include_recipe('percona::configure_server') }
+  end
 
-#       it { expect(chef_run).to upgrade_package('percona-server-server-5.6') }
-#     end
+  describe 'when `skip_passwords` is true' do
+    override_attributes['percona']['skip_passwords'] = true
 
-#     describe 'CentOS' do
-#       let(:chef_run) do
-#         env_options = { platform: 'centos', version: '6' }
-#         ChefSpec::SoloRunner.new(env_options) do |node|
-#           node.default['percona']['server']['package_action'] = 'upgrade'
-#         end.converge(described_recipe)
-#       end
+    it { expect(chef_run).to_not include_recipe('percona::access_grants') }
+    it { expect(chef_run).to_not include_recipe('percona::replication') }
+  end
 
-#       before do
-#         stub_command('rpm -qa | grep Percona-Server-shared-56')
-#           .and_return(false)
-#       end
+  describe 'when `package_action` is `upgrade`' do
+    describe 'Ubuntu' do
+      override_attributes['percona']['server']['package_action'] = 'upgrade'
 
-#       it { expect(chef_run).to upgrade_package('Percona-Server-server-56') }
-#     end
-#   end
-# end
+      it { expect(chef_run).to upgrade_package('percona-server-server') }
+    end
+
+    context 'CentOS' do
+      platform 'centos'
+      override_attributes['percona']['server']['package_action'] = 'upgrade'
+
+      it { expect(chef_run).to upgrade_package('percona-server-server') }
+    end
+  end
+end

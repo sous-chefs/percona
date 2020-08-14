@@ -33,7 +33,7 @@ socket           = <%= node["percona"]["server"]["socket"] %>
 nice             = <%= node["percona"]["server"]["nice"] %>
 open-files-limit = <%= node["percona"]["server"]["open_files_limit"] %>
 <% if node["percona"]["server"]["jemalloc"] %>
-malloc-lib       = <%= node["percona"]["server"]["jemalloc_lib"] %>
+malloc-lib       = <%= @jemalloc_lib %>
 <% end %>
 <% if node["percona"]["server"]["skip_syslog"] %>
 skip-syslog
@@ -96,11 +96,9 @@ bind-address = <%= node["percona"]["server"]["bind_address"] %>
 <% end %>
 #
 
-<%- if node["percona"]["version"] >= "5.5" %>
 # As of 5.6.6 performance_schema is enabled by default. This allows it to be
 # explicitly turned on or off as needed across all mysql versions
 performance_schema=<%= node["percona"]["server"]["performance_schema"] ? "ON" : "OFF" %>
-<% end %>
 
 # * Fine Tuning
 #
@@ -194,11 +192,7 @@ thread_cache_size = <%= node["percona"]["server"]["thread_cache_size"] %>
 
 # This replaces the startup script and checks MyISAM tables if needed
 # the first time they are touched
-<%- if node["percona"]["version"] < "5.5" %>
-myisam-recover = <%= node["percona"]["server"]["myisam_recover_options"] %>
-<% else %>
 myisam-recover-options = <%= node["percona"]["server"]["myisam_recover_options"] %>
-<% end %>
 
 # back_log is the number of connections the operating system can keep in
 # the listen queue, before the MySQL connection manager thread has
@@ -224,7 +218,7 @@ sql-mode = <%= node["percona"]["server"]["sql_modes"].join(",") %>
 # The number of open tables for all threads.
 # make sure that the open file limit is at least twice this in the
 # mysqld_safe section
-<%- if node["percona"]["version"] >= "5.6" %>
+<%- if node["percona"]["version"].to_f >= 5.6 %>
 table_open_cache        = <%= node["percona"]["server"]["table_cache"] %>
 table_definition_cache  = <%= node["percona"]["server"]["table_definition_cache"] %>
 <%- else %>
@@ -238,6 +232,8 @@ table_definition_cache  = <%= node["percona"]["server"]["table_definition_cache"
 table_definition_cache             = <%= node["percona"]["server"]["table_definition_cache"] %>
 
 #thread_concurrency     = 10
+<%- if node["percona"]["version"].to_i < 8 %>
+#
 #
 # * Query Cache Configuration
 #
@@ -261,6 +257,7 @@ query_cache_limit = <%= node["percona"]["server"]["query_cache_limit"] %>
 query_cache_type = <%= node["percona"]["server"]["query_cache_type"] %>
 
 
+<%- end %>
 #
 # * Logging and Replication
 #
@@ -273,7 +270,7 @@ query_cache_type = <%= node["percona"]["server"]["query_cache_type"] %>
 # sync_binlog ensures that all writes to the binary log are immediately
 # flushed to disk.  This is important, especially for replication, because
 # if the server crashes and has not written all of the binary log to disk (and flushed it)
-# then some rows will not make it to the slave
+# then some rows will not make it to the replica
 sync_binlog = <%= node["percona"]["server"]["sync_binlog"] %>
 
 #
@@ -299,24 +296,24 @@ log-queries-not-using-indexes = <%= node["percona"]["server"]["log_queries_not_u
 <% end %>
 
 # The following can be used as easy to replay backup logs or for replication.
-# note: if you are setting up a replication slave, see README.Debian about
+# note: if you are setting up a replication replica, see README.Debian about
 #       other settings you may need to change.
 
 # Unique server identification number between 1 and 2^32-1. This value
-# is required for both master and slave hosts. It defaults to 1 if
-# "master-host" is not set, but will MySQL will not function as a master
+# is required for both source and replica hosts. It defaults to 1 if
+# "master-host" is not set, but will MySQL will not function as a source
 # if it is omitted.
 server-id = <%= node["percona"]["server"]["server_id"] %>
 
 <% unless node["percona"]["server"]["replication"]["ignore_db"].empty? %>
-# Tells the slave SQL thread not to replicate any statement where the default database is.
+# Tells the replica SQL thread not to replicate any statement where the default database is.
 <% Array(node["percona"]["server"]["replication"]["ignore_db"]).each do |ignore_db| -%>
 replicate-ignore-db = <%= ignore_db %>
 <% end -%>
 <% end -%>
 
 <% unless node["percona"]["server"]["replication"]["ignore_table"].empty? %>
-# Creates a replication filter by telling the slave SQL thread not to replicate any statement that updates the specified table, even if any other tables might be updated by the same statement.
+# Creates a replication filter by telling the replica SQL thread not to replicate any statement that updates the specified table, even if any other tables might be updated by the same statement.
 <% node["percona"]["server"]["replication"]["ignore_table"].each do |ignore_table| -%>
 replicate-ignore-table = <%= ignore_table %>
 <% end -%>
@@ -325,29 +322,25 @@ replicate-ignore-table = <%= ignore_table %>
 
 <% if node["percona"]["server"]["replication"]["suppress_1592"] %>
 #turns off this statement is unsafe in statement-based replication
-<% if node["percona"]["version"] < "5.5" -%>
-suppress_log_warning_1592
-<% else %>
 log_warnings_suppress=1592
 <% end %>
-<% end %>
 
-# Make the slave read-only. Only users with the SUPER privilege and the
-# replication slave thread will be able to modify data on it. You can
+# Make the replica read-only. Only users with the SUPER privilege and the
+# replication replica thread will be able to modify data on it. You can
 # use this to ensure that no applications will accidently modify data on
-# the slave instead of the master
+# the replica instead of the source
 <% if node["percona"]["server"]["replication"]["read_only"] %>
 read_only
 <% end %>
 
-# Tells the slave server not to start the slave threads when the server starts.
+# Tells the replica server not to start the replica threads when the server starts.
 # This will allow you to tweak system and/or server settings prior to starting
 # replication.
 <% if node["percona"]["server"]["replication"]["skip_slave_start"] %>
 skip-slave-start
 <% end %>
 
-# Number of times the slave SQL thread will retry a transaction in case it
+# Number of times the replica SQL thread will retry a transaction in case it
 # failed with a deadlock or elapsed lock wait timeout, before giving up and
 # stopping.
 slave_transaction_retries = <%= node["percona"]["server"]["replication"]["slave_transaction_retries"] %>
@@ -361,20 +354,8 @@ slave_transaction_retries = <%= node["percona"]["server"]["replication"]["slave_
 # https://dev.mysql.com/doc/refman/5.6/en/replication-options-binary-log.html#sysvar_log_bin_basename
 # it is recommened to specify a filename for the binary log, hopefully
 # something that is not host specific.  I've chosen master-bin.
-<%- if node["percona"]["version"] >= "5.6" and node["percona"]["server"].key?('log_bin_basename') and !node["percona"]["server"]["log_bin_basename"].empty?  %>
+<%- if node["percona"]["version"].to_f >= 5.6 and node["percona"]["server"].key?('log_bin_basename') and !node["percona"]["server"]["log_bin_basename"].empty?  %>
 log_bin = <%= node["percona"]["server"]["log_bin_basename"] %>
-<%- else %>
-    <%- unless [1,'1',0,'0','OFF','off',''].include?(node["percona"]["server"]["log_bin"]) %>
-    <%# from toady point log_bin attr. was missused in the cookbook in the past %>
-    <%# and contained more or less the base-name %>
-log_bin = <%= node["percona"]["server"]["log_bin"] %>
-    <%- else %>
-        # to allow on <= 5.5 useage of log_bin_basename
-        # introduced by this PR
-        <%- if node["percona"]["server"].key?('log_bin_basename') and !node["percona"]["server"]["log_bin_basename"].empty?  %>
-log_bin = <%= node["percona"]["server"]["log_bin_basename"] %>
-        <%- end %>
-    <%- end %>
 <%- end %>
 
 <% unless node["percona"]["server"]["relay_log"].empty? %>
@@ -385,7 +366,7 @@ expire_logs_days = <%= node["percona"]["server"]["expire_logs_days"] %>
 max_binlog_size  = <%= node["percona"]["server"]["max_binlog_size"] %>
 binlog_format    = <%= node["percona"]["server"]["binlog_format"] %>
 slave_net_timeout = <%= node["percona"]["server"]["slave_net_timeout"] %>
-<%- if node["percona"]["version"] >= "5.6" %>
+<%- if node["percona"]["version"].to_f >= 5.6 %>
 binlog_checksum  = <%= node["percona"]["server"]["binlog_checksum"] %>
 <% if node["percona"]["server"]["master_verify_checksum"] %>
 master_verify_checksum = <%= node["percona"]["server"]["master_verify_checksum"] %>
@@ -407,7 +388,7 @@ binlog-do-db     = <%= db_name %>
 binlog-ignore-db = <%= db_name %>
 <% end -%>
 
-<%- if node["percona"]["version"] >= "5.6" %>
+<%- if node["percona"]["version"].to_f >= 5.6 %>
 gtid_mode = <%= node["percona"]["server"]["gtid_mode"] %>
 <% if node["percona"]["server"]["enforce_gtid_consistency"] %>
 enforce_gtid_consistency = <%= node["percona"]["server"]["enforce_gtid_consistency"] %>
@@ -434,9 +415,9 @@ sync_relay_log_info = <%= node["percona"]["server"]["sync_relay_log_info"] %>
 # statement in transaction
 binlog_cache_size = <%= node["percona"]["server"]["binlog_cache_size"] %>
 
-# If you're using replication with chained slaves (A->B->C), you need to
+# If you're using replication with chained replicas (A->B->C), you need to
 # enable this option on server B. It enables logging of updates done by
-# the slave thread into the slave's binary log.
+# the replica thread into the replica's binary log.
 <% if node["percona"]["server"]["log_slave_updates"] %>
 log_slave_updates
 <% end %>
@@ -496,7 +477,7 @@ myisam_max_sort_file_size = <%= node["percona"]["server"]["myisam_max_sort_file_
 # have multiple CPUs and plenty of memory.
 myisam_repair_threads = <%= node["percona"]["server"]["myisam_repair_threads"] %>
 
-<%- if node["percona"]["version"] < "5.7" %>
+<%- if node["percona"]["version"].to_f < 5.7 %>
 # Automatically check and repair not properly closed MyISAM tables.
 <% if node["percona"]["server"]["myisam_recover_options"] %>
 myisam_recover
@@ -516,7 +497,7 @@ myisam_recover
 skip-innodb
 <% end %>
 
-<%- if node["percona"]["version"] < "5.7.4" %>
+<%- if node["percona"]["version"].to_f < 5.7 %>
 # Additional memory pool that is used by InnoDB to store metadata
 # information.  If InnoDB requires more memory for this purpose it will
 # start to allocate it from the OS.  As this is fast enough on most
@@ -549,12 +530,14 @@ innodb_autoextend_increment = <%= node["percona"]["server"]["innodb_autoextend_i
 <% if node["percona"]["server"]["innodb_file_per_table"] %>
 innodb_file_per_table
 <% end %>
+<%- if node["percona"]["version"].to_i < 8 %>
 
 # The file format to use for new InnoDB tables.
 # Currently Antelope and Barracuda are supported.
 # This applies only for tables that have their own tablespace,
 # so for it to have an effect innodb_file_per_table must be enabled.
 innodb_file_format = <%= node["percona"]["server"]["innodb_file_format"] %>
+<% end %>
 
 # Set this option if you would like the InnoDB tablespace files to be
 # stored in another location. By default this is the MySQL datadir.
@@ -647,14 +630,9 @@ innodb_commit_concurrency=0
 
 innodb_open_files=<%= node["percona"]["server"]["innodb_open_files"] %>
 
-<%- if node["percona"]["version"] >= "5.6" %>
+<%- if node["percona"]["version"].to_f >= 5.6 %>
 innodb_numa_interleave=<%= node["percona"]["server"]["innodb_numa_interleave"] %>
 <%- end %>
-
-<% if node["percona"]["version"] == "5.5" %>
-# set this to 1 if you like to import single tables from xtrabackup snapshot
-innodb_import_table_from_xtrabackup = <%= node["percona"]["server"]["innodb_import_table_from_xtrabackup"] %>
-<% end %>
 
 #
 # * Security Features

@@ -50,7 +50,7 @@ class Chef
       find_password @mysql_item, 'old_passwords', node_server['old_passwords']
     end
 
-    # password for user responsbile for replicating in master/slave environment
+    # password for user responsbile for replicating in source/replica environment
     def replication_password
       find_password @mysql_item, node_server['replication']['username'], node_server['replication']['password']
     end

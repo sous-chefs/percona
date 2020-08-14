@@ -8,7 +8,7 @@ if defined?(::OpenSSLCookbook::RandomPassword)
   ::Chef::Node.include ::OpenSSLCookbook::RandomPassword
 end
 
-default['percona']['version'] = '5.6'
+default['percona']['version'] = '8.0'
 
 # Always restart percona on configuration changes
 default['percona']['auto_restart'] = true
@@ -55,6 +55,7 @@ default['percona']['server']['package_action'] = 'install'
 
 # Basic Settings
 default['percona']['server']['role'] = ['standalone']
+default['percona']['server']['package'] = []
 default['percona']['server']['username'] = 'mysql'
 default['percona']['server']['datadir'] = '/var/lib/mysql'
 default['percona']['server']['logdir'] = '/var/log/mysql'
@@ -62,15 +63,6 @@ default['percona']['server']['tmpdir'] = '/tmp'
 default['percona']['server']['slave_load_tmpdir'] = '/tmp'
 default['percona']['server']['debian_username'] = 'debian-sys-maint'
 default['percona']['server']['jemalloc'] = false
-default['percona']['server']['jemalloc_lib'] = value_for_platform_family(
-  'debian' => value_for_platform(
-    'ubuntu' => {
-      '14.04' => '/usr/lib/x86_64-linux-gnu/libjemalloc.so.1',
-      '12.04' => '/usr/lib/libjemalloc.so.1',
-    }
-  ),
-  'rhel' => '/usr/lib64/libjemalloc.so.1'
-)
 default['percona']['server']['nice'] = 0
 default['percona']['server']['open_files_limit'] = 16_384
 default['percona']['server']['hostname'] = 'localhost'
@@ -144,7 +136,7 @@ default['percona']['server']['log_bin'] = 1 # enable/disable bin log
 default['percona']['server']['log_bin_basename'] = 'master-bin' # 5.6~> default: datadir + '/' + hostname + '-bin'
 default['percona']['server']['relay_log'] = 'slave-relay-bin'
 default['percona']['server']['log_slave_updates'] = false
-default['percona']['server']['log_warnings'] = true
+default['percona']['server']['log_warnings'] = node['percona']['version'].to_i < 8
 default['percona']['server']['log_long_format'] = false
 default['percona']['server']['bulk_insert_buffer_size'] = '64M'
 default['percona']['server']['sync_master_info'] = false

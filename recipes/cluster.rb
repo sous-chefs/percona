@@ -3,7 +3,11 @@
 # Recipe:: cluster
 #
 
+node.default['percona']['repositories'] = %w(pxc-80)
+node.default['percona']['client']['packages'] = percona_cluster_client_package
+
 include_recipe 'percona::package_repo'
+include_recipe 'percona::client'
 
 # Determine and set wsrep_sst_receive_address
 if node['percona']['cluster']['wsrep_sst_receive_interface']
@@ -14,34 +18,12 @@ if node['percona']['cluster']['wsrep_sst_receive_interface']
   node.default['percona']['cluster']['wsrep_sst_receive_address'] = address
 end
 
-# set default package attributes
-version = node['percona']['version']
-node.default['percona']['cluster']['package'] = value_for_platform_family(
-  'rhel' => "Percona-XtraDB-Cluster-#{version.tr('.', '')}",
-  'debian' => "percona-xtradb-cluster-#{version.tr('.', '')}"
-)
+# This is required for `socat` per:
+# www.percona.com/doc/percona-xtradb-cluster/5.6/installation/yum_repo.html
+include_recipe 'yum-epel' if platform_family?('rhel')
 
 # install packages
-case node['platform_family']
-when 'debian'
-  package node['percona']['cluster']['package'] do
-    # The package starts up immediately, then additional config is added and the
-    # restart command fails to work. Instead, stop the database before changing
-    # the configuration.
-    notifies :stop, 'service[mysql]', :immediately
-  end
-when 'rhel'
-  package 'mysql-libs' do
-    action :remove
-    not_if "rpm -qa | grep -q '#{node['percona']['cluster']['package']}'"
-  end
-
-  # This is required for `socat` per:
-  # www.percona.com/doc/percona-xtradb-cluster/5.6/installation/yum_repo.html
-  include_recipe 'yum-epel'
-
-  package node['percona']['cluster']['package']
-end
+package percona_cluster_package
 
 unless node['percona']['skip_configure']
   include_recipe 'percona::configure_server'

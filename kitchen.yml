@@ -7,37 +7,244 @@ provisioner:
   product_name: chef
   enforce_idempotency: true
   multiple_converge: 2
-  solo_rb:
-    treat_deprecation_warnings_as_errors: true
+  deprecations_as_errors: true
+  data_bags_path: test/integration/data_bags
 
 verifier:
   name: inspec
+  inspec_tests:
+    - path: test/integration/inspec
 
 platforms:
-  - name: amazonlinux-2
-    driver_config:
-      box: ywatase/amzn2
-  - name: amazon-linux
-    driver_config:
-      box: mvbcoding/awslinux
-  - name: centos-6
   - name: centos-7
-  - name: debian-8
+  - name: centos-8
   - name: debian-9
-  - name: opensuse-leap-15
+  - name: debian-10
   - name: ubuntu-16.04
   - name: ubuntu-18.04
+  - name: ubuntu-20.04
 
 suites:
-  - name: client_5.6
+  - name: client-56
     run_list:
-      - recipe[test::client-56]
-  - name: client_5.7
+      - recipe[test::client]
+    attributes:
+      percona:
+        version: '5.6'
+    verifier:
+      controls:
+        - client
+        - toolkit
+      inputs:
+        version: '5.6'
+    excludes:
+      - centos-8
+      - debian-10
+      - ubuntu-20.04
+
+  - name: client-57
     run_list:
-      - recipe[test:client57
-  - name: server_5.6
+      - recipe[test::client]
+    attributes:
+      percona:
+        version: '5.7'
+    verifier:
+      controls:
+        - client
+        - toolkit
+      inputs:
+        version: '5.7'
+
+  - name: client-80
     run_list:
-      - recipe[test::server-56]
-  - name: server_5.7
+      - recipe[test::client]
+    attributes:
+      percona:
+        version: '8.0'
+    verifier:
+      controls:
+        - client
+        - toolkit
+      inputs:
+        version: '8.0'
+
+  - name: server-56
     run_list:
-      - recipe[test::server-57]
+      - recipe[test::server]
+    attributes:
+      percona:
+        version: '5.6'
+    excludes:
+      - centos-8
+      - debian-10
+      - ubuntu-20.04
+    verifier:
+      controls:
+        - client
+        - server
+      inputs:
+        version: '5.6'
+
+  - name: server-57
+    run_list:
+      - recipe[test::server]
+    attributes:
+      percona:
+        version: '5.7'
+    verifier:
+      controls:
+        - client
+        - server
+      inputs:
+        version: '5.7'
+
+  - name: server-80
+    run_list:
+      - recipe[test::server]
+    attributes:
+      percona:
+        version: '8.0'
+    verifier:
+      controls:
+        - client
+        - server
+      inputs:
+        version: '8.0'
+
+  - name: source-56
+    run_list:
+      - recipe[test::source]
+    attributes:
+      percona:
+        version: '5.6'
+    excludes:
+      - centos-8
+      - debian-10
+      - ubuntu-20.04
+    verifier:
+      controls:
+        - client
+        - server
+      inputs:
+        version: '5.6'
+        type: 'source'
+
+  - name: source-57
+    run_list:
+      - recipe[test::source]
+    attributes:
+      percona:
+        version: '5.7'
+    verifier:
+      controls:
+        - client
+        - server
+      inputs:
+        version: '5.7'
+        type: 'source'
+
+  - name: source-80
+    run_list:
+      - recipe[test::source]
+    attributes:
+      percona:
+        version: '8.0'
+    verifier:
+      controls:
+        - client
+        - server
+      inputs:
+        version: '8.0'
+        type: 'source'
+
+  - name: cluster-56
+    run_list:
+      - recipe[test::cluster]
+    attributes:
+      percona:
+        version: '5.6'
+    excludes:
+      - centos-8
+      - debian-10
+      - ubuntu-20.04
+    verifier:
+      controls:
+        - client
+        - server
+      inputs:
+        version: '5.6'
+        type: 'cluster'
+
+  - name: cluster-57
+    run_list:
+      - recipe[test::cluster]
+    attributes:
+      percona:
+        version: '5.7'
+    verifier:
+      controls:
+        - client
+        - server
+      inputs:
+        version: '5.7'
+        type: 'cluster'
+
+  - name: cluster-80
+    run_list:
+      - recipe[test::cluster]
+    attributes:
+      percona:
+        version: '8.0'
+    verifier:
+      controls:
+        - client
+        - server
+      inputs:
+        version: '8.0'
+        type: 'cluster'
+
+  - name: replication-56
+    run_list:
+      - recipe[test::replication]
+    attributes:
+      percona:
+        version: '5.6'
+    excludes:
+      - centos-8
+      - debian-10
+      - ubuntu-20.04
+    verifier:
+      controls:
+        - client
+        - server
+      inputs:
+        version: '5.6'
+        type: 'replication'
+
+  - name: replication-57
+    run_list:
+      - recipe[test::replication]
+    attributes:
+      percona:
+        version: '5.7'
+    verifier:
+      controls:
+        - client
+        - server
+      inputs:
+        version: '5.7'
+        type: 'replication'
+
+  - name: replication-80
+    run_list:
+      - recipe[test::replication]
+    attributes:
+      percona:
+        version: '8.0'
+    verifier:
+      controls:
+        - client
+        - server
+      inputs:
+        version: '8.0'
+        type: 'replication'

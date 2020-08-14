@@ -2,6 +2,53 @@
 
 This file is used to list changes made in each version of the percona cookbook.
 
+## Unreleased
+
+### Added
+
+- Add support for Debian 10 for 5.7 only
+- Add support for Ubuntu 20.04 for 5.7 only
+- Add support for CentOS 8
+- Add cluster suite and tests to test cluster recipe
+- Add support for Percona 8.0 and default to that version
+- Re-add ChefSpec tests
+- Add ssl suite and tests for ssl recipe
+- Add master suite and tests for testing the replication recipe
+- Suite to test compatibility with Chef 13
+
+### Fixed
+
+- Update apt gpg key
+- Fixes for supporting 5.7
+- Fix manage_symlink_source warning with template[/etc/mysql/my.cnf]
+- Don't remove mysql-libs on RHEL
+- jemalloc package installation and path setup for all platforms
+- Fixed enabled ChefSpec tests
+- Use the correct syntax on 8.0 for SSL replication
+- Use correct cert path for master/slave
+- Fix issue when trying to set node['percona']['version'] in a recipe
+
+### Changed
+
+- Convert to InSpec tests and refactor test cookbook recipes
+- Don't install abi_version packages on Debian/Ubuntu
+- Standardise files with files in sous-chefs/repo-management
+- Move client package installation for cluster to cluster recipe
+
+### Removed
+
+- Remove support for Amazon Linux
+- Remove support for OpenSUSE
+- Remove support for Debian 8 (EOL)
+- Remove support for Fedora / Scientific
+- Remove support for CentOS 6
+- Remove references to EOL 5.5 release
+
+### Deprecated
+
+- Deprecate monitoring recipe
+- Use new inclusive terminology and add deprecation warning for old terms
+
 ## 0.17.2 - 2020-08-06
 
 ### Fixed

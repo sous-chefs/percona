@@ -8,6 +8,10 @@ server  = percona['server']
 conf    = percona['conf']
 mysqld  = (conf && conf['mysqld']) || {}
 
+if node['percona']['server']['role'].include?('master') || node['percona']['server']['role'].include?('slave')
+  Chef::Log.warn('Please use source/replica instead of master/slave for the role name. The next major release of the percona cookbook will only support the new terms.')
+end
+
 # setup SELinux if needed
 unless node['percona']['selinux_module_url'].nil? || node['percona']['selinux_module_url'] == ''
   semodule_filename = node['percona']['selinux_module_url'].split('/')[-1]
@@ -31,12 +35,7 @@ include_recipe 'chef-vault' if node['percona']['use_chef_vault']
 passwords = EncryptedPasswords.new(node, percona['encrypted_data_bag'])
 
 if node['percona']['server']['jemalloc']
-  package_name = value_for_platform_family(
-    'debian' => 'libjemalloc1',
-    'rhel' => 'jemalloc'
-  )
-
-  package package_name
+  package percona_jemalloc_package
 end
 
 template '/root/.my.cnf' do
@@ -53,7 +52,7 @@ if server['bind_to']
   ipaddr = Percona::ConfigHelper.bind_to(node, server['bind_to'])
   if ipaddr && server['bind_address'] != ipaddr
     node.override['percona']['server']['bind_address'] = ipaddr
-    node.save unless Chef::Config[:solo]
+    node.save unless Chef::Config[:solo] # rubocop:disable ChefCorrectness/CookbookUsesNodeSave
   end
 
   log "Can't find ip address for #{server['bind_to']}" do
@@ -124,8 +123,12 @@ end
 
 # install db to the data directory
 execute 'setup mysql datadir' do
-  command "mysql_install_db --defaults-file=#{percona['main_config_file']} --user=#{user}"
-  not_if "test -f #{datadir}/mysql/user.frm"
+  if node['percona']['version'].to_f >= 5.7
+    command "mysqld --defaults-file=#{percona['main_config_file']} --user=#{user} --initialize-insecure"
+  else
+    command "mysql_install_db --defaults-file=#{percona['main_config_file']} --user=#{user}"
+  end
+  not_if { ::File.exist?("#{datadir}/mysql/user.frm") || ::File.exist?("#{datadir}/mysql.ibd") }
   action :nothing
 end
 
@@ -154,9 +157,11 @@ template percona['main_config_file'] do
   group 'root'
   mode '0644'
   sensitive true
-  if Array(server['role']).include?('cluster')
-    variables(wsrep_sst_auth: wsrep_sst_auth)
-  end
+  manage_symlink_source true
+  variables(
+    jemalloc_lib: percona_jemalloc_lib,
+    wsrep_sst_auth: wsrep_sst_auth
+  )
   notifies :run, 'execute[setup mysql datadir]', :immediately
   if node['percona']['auto_restart']
     notifies :restart, 'service[mysql]', :immediately

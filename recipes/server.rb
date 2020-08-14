@@ -4,33 +4,27 @@
 #
 
 include_recipe 'percona::package_repo'
+include_recipe 'percona::client'
 
-version = node['percona']['version']
+pkg = node['percona']['server']['package'].empty? ? percona_server_package : node['percona']['server']['package']
+
+package pkg do
+  action node['percona']['server']['package_action'].to_sym
+end
 
 # install packages
-case node['platform_family']
-when 'debian'
-  node.default['percona']['server']['package'] = "percona-server-server-#{version}"
+if platform_family?('rhel')
+  # Work around issue with 5.7 on RHEL
+  if node['percona']['version'].to_f >= 5.7
+    execute 'systemctl daemon-reload' do
+      action :nothing
+    end
 
-  package node['percona']['server']['package'] do
-    options '--force-yes'
-    action node['percona']['server']['package_action'].to_sym
-  end
-when 'rhel'
-  node.default['percona']['server']['package'] = "Percona-Server-server-#{version.tr('.', '')}"
-  node.default['percona']['server']['shared_pkg'] = "Percona-Server-shared-#{version.tr('.', '')}"
-
-  # Need to remove this to avoid conflicts
-  package 'mysql-libs' do
-    action :remove
-    not_if "rpm -qa | grep #{node['percona']['server']['shared_pkg']}"
-  end
-
-  # we need mysqladmin
-  include_recipe 'percona::client'
-
-  package node['percona']['server']['package'] do
-    action node['percona']['server']['package_action'].to_sym
+    delete_lines 'remove PIDFile from systemd.service' do
+      path '/usr/lib/systemd/system/mysqld.service'
+      pattern /^PIDFile=.*/
+      notifies :run, 'execute[systemctl daemon-reload]', :immediately
+    end
   end
 end
 

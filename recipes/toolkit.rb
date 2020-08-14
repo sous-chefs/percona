@@ -5,6 +5,6 @@
 
 include_recipe 'percona::package_repo'
 
-package 'percona-toolkit' do
-  options '--force-yes' if platform_family?('debian')
+unless node['percona']['version'].to_i >= 8 && platform_family?('rhel') && node['platform_version'].to_i >= 8
+  package 'percona-toolkit'
 end

@@ -13,18 +13,6 @@ provisioner:
   name: dokken
 
 platforms:
-  - name: amazonlinux-2
-    driver:
-      image: dokken/amazonlinux-2
-      pid_one_command: /usr/lib/systemd/systemd
-
-  - name: debian-8
-    driver:
-      image: dokken/debian-8
-      pid_one_command: /bin/systemd
-      intermediate_instructions:
-        - RUN /usr/bin/apt-get update
-
   - name: debian-9
     driver:
       image: dokken/debian-9
@@ -32,9 +20,35 @@ platforms:
       intermediate_instructions:
         - RUN /usr/bin/apt-get update
 
+  - name: debian-9-chef-13
+    driver:
+      image: dokken/debian-9
+      pid_one_command: /bin/systemd
+      intermediate_instructions:
+        - RUN /usr/bin/apt-get update
+      chef_version: 13
+
+  - name: debian-10
+    driver:
+      image: dokken/debian-10
+      pid_one_command: /bin/systemd
+      intermediate_instructions:
+        - RUN /usr/bin/apt-get update
+
   - name: centos-7
     driver:
       image: dokken/centos-7
+      pid_one_command: /usr/lib/systemd/systemd
+
+  - name: centos-7-chef-13
+    driver:
+      image: dokken/centos-7
+      pid_one_command: /usr/lib/systemd/systemd
+      chef_version: 13
+
+  - name: centos-8
+    driver:
+      image: dokken/centos-8
       pid_one_command: /usr/lib/systemd/systemd
 
   - name: ubuntu-16.04
@@ -51,7 +65,17 @@ platforms:
       intermediate_instructions:
         - RUN /usr/bin/apt-get update
 
-  - name: opensuse-leap-15
+  - name: ubuntu-18.04-chef-13
     driver:
-      image: dokken/opensuse-leap-15
+      image: dokken/ubuntu-18.04
       pid_one_command: /bin/systemd
+      intermediate_instructions:
+        - RUN /usr/bin/apt-get update
+      chef_version: 13
+
+  - name: ubuntu-20.04
+    driver:
+      image: dokken/ubuntu-20.04
+      pid_one_command: /bin/systemd
+      intermediate_instructions:
+        - RUN /usr/bin/apt-get update

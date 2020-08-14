@@ -40,18 +40,54 @@ jobs:
     strategy:
       matrix:
         os:
-          - 'debian-8'
           - 'debian-9'
+          - 'debian-9-chef-13'
+          - 'debian-10'
           - 'centos-7'
+          - 'centos-7-chef-13'
+          - 'centos-8'
           - 'ubuntu-1604'
           - 'ubuntu-1804'
-          - 'opensuse-leap-15'
-          - 'amazonlinux-2'
+          - 'ubuntu-1804-chef-13'
+          - 'ubuntu-2004'
         suite:
-          - 'server-56'
-          - 'server-57'
           - 'client-56'
           - 'client-57'
+          - 'client-80'
+          - 'server-56'
+          - 'server-57'
+          - 'server-80'
+          - 'source-56'
+          - 'source-57'
+          - 'source-80'
+          - 'replication-56'
+          - 'replication-57'
+          - 'replication-80'
+        exclude:
+          - os: centos-8
+            suite: client-56
+          - os: centos-8
+            suite: server-56
+          - os: centos-8
+            suite: source-56
+          - os: centos-8
+            suite: replication-56
+          - os: debian-10
+            suite: client-56
+          - os: debian-10
+            suite: server-56
+          - os: debian-10
+            suite: source-56
+          - os: debian-10
+            suite: replication-56
+          - os: ubuntu-2004
+            suite: client-56
+          - os: ubuntu-2004
+            suite: server-56
+          - os: ubuntu-2004
+            suite: source-56
+          - os: ubuntu-2004
+            suite: replication-56
       fail-fast: false
 
     steps:
@@ -59,6 +95,13 @@ jobs:
         uses: actions/checkout@master
       - name: Install Chef
         uses: actionshub/chef-install@master
+      # https://github.com/actions/virtual-environments/issues/181#issuecomment-610874237
+      - name: Disable apparmor for mysqld
+        run: |
+            set -x
+            sudo apt-get -y remove mysql-server --purge
+            sudo apt-get -y install apparmor-profiles
+            sudo apparmor_parser -R /etc/apparmor.d/usr.sbin.mysqld
       - name: Dokken
         uses: actionshub/kitchen-dokken@master
         env:
@@ -67,6 +110,14 @@ jobs:
         with:
           suite: ${{ matrix.suite }}
           os: ${{ matrix.os }}
+      - name: Print debug output on failure
+        if: failure()
+        run: |
+            set -x
+            sudo journalctl -l --since today
+            sudo docker version
+            sudo docker info
+            KITCHEN_LOCAL_YAML=kitchen.dokken.yml /usr/bin/kitchen exec ${{ matrix.suite }}-${{ matrix.os }} -c "journalctl -l"
 
   final:
     needs: [dokken]

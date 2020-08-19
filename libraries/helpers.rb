@@ -27,6 +27,25 @@ module Percona
         end
       end
 
+      def percona_devel_package
+        case node['platform_family']
+        when 'rhel'
+          if node['percona']['version'].to_i >= 8
+            'percona-server-devel'
+          else
+            "Percona-Server-devel-#{percona_version}"
+          end
+        when 'debian'
+          if node['percona']['version'].to_i >= 8
+            'libperconaserverclient21-dev'
+          elsif node['percona']['version'] == '5.7'
+            'libperconaserverclient20-dev'
+          elsif node['percona']['version'] == '5.6'
+            'libperconaserverclient18.1-dev'
+          end
+        end
+      end
+
       def percona_server_package
         if node['percona']['version'].to_i >= 8
           'percona-server-server'

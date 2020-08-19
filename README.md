@@ -113,10 +113,14 @@ Example: "passwords" data bag - this example assumes that `node['percona']['serv
 
 Above shows the encrypted password in the data bag. Check out the `encrypted_data_bag_secret` setting in `knife.rb` to setup your data bag secret during bootstrapping.
 
+### Install client development package
+
+To install the package including header files needed to compile software using the client library (`percona-server-devel` on Centos and `libperconaserverclient-dev` on Debian), set `node['percona']['client']['install_devel_package']` to `true`. This will add those packages to the list to be installed when running the `percona::client` recipe. This attribute is disabled by default.
+
 ### Replication over SSL
 
-To enable SSL based replication, you will need to flip the attribute `node['percona']['server']['replication']['ssl_enabled']` to `true` and add a new data_bag item
-to the percona encrypted data_bag (see`node['percona']['encrypted_data_bag']` attribute) with the id `ssl_replication` ( see `node['percona']['encrypted_data_bag_item_ssl_replication']` attribute) that contains this data:
+To enable SSL based replication, you will need to flip the attribute `node['percona']['server']['replication']['ssl_enabled']` to `true` and add a new data\_bag item
+to the percona encrypted data\_bag (see`node['percona']['encrypted_data_bag']` attribute) with the id `ssl_replication` ( see `node['percona']['encrypted_data_bag_item_ssl_replication']` attribute) that contains this data:
 
 ```javascript
 {

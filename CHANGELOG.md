@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the percona cookbook.
 
+## 1.1.0 - 2020-08-20
+
+- Add devel package attribute to client recipe
+
 ## 1.0.0 - 2020-08-14
 
 ### Added

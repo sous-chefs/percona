@@ -68,6 +68,58 @@ suites:
       inputs:
         version: '8.0'
 
+  - name: devel-56
+    run_list:
+      - recipe[test::client]
+    attributes:
+      percona:
+        version: '5.6'
+        client:
+          install_devel_package: true
+    verifier:
+      controls:
+        - client
+        - toolkit
+      inputs:
+        version: '5.6'
+        devel: true
+    excludes:
+      - centos-8
+      - debian-10
+      - ubuntu-20.04
+
+  - name: devel-57
+    run_list:
+      - recipe[test::client]
+    attributes:
+      percona:
+        version: '5.7'
+        client:
+          install_devel_package: true
+    verifier:
+      controls:
+        - client
+        - toolkit
+      inputs:
+        version: '5.7'
+        devel: true
+
+  - name: devel-80
+    run_list:
+      - recipe[test::client]
+    attributes:
+      percona:
+        version: '8.0'
+        client:
+          install_devel_package: true
+    verifier:
+      controls:
+        - client
+        - toolkit
+      inputs:
+        version: '8.0'
+        devel: true
+
   - name: server-56
     run_list:
       - recipe[test::server]

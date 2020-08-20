@@ -1,5 +1,6 @@
 version = input('version')
 type = input('type')
+devel = input('devel')
 
 control 'client' do
   desc 'Ensure Percona clients are installed.'
@@ -53,6 +54,34 @@ control 'client' do
       end
     end
 
+    if devel == true
+      if version.to_i >= 8
+        describe package 'libperconaserverclient21-dev' do
+          it { should be_installed }
+        end
+      elsif version == '5.7'
+        describe package 'libperconaserverclient20-dev' do
+          it { should be_installed }
+        end
+      elsif version == '5.6'
+        describe package 'libperconaserverclient18.1-dev' do
+          it { should be_installed }
+        end
+      end
+    elsif version.to_i >= 8
+      describe package 'libperconaserverclient21-dev' do
+        it { should_not be_installed }
+      end
+    elsif version == '5.7'
+      describe package 'libperconaserverclient20-dev' do
+        it { should_not be_installed }
+      end
+    elsif version == '5.6'
+      describe package 'libperconaserverclient18.1-dev' do
+        it { should_not be_installed }
+      end
+    end
+
   else
     describe yum.repo 'percona' do
       it { should exist }
@@ -83,6 +112,26 @@ control 'client' do
         it { should be_installed }
       end
     end
+
+    if devel == true
+      if version.to_i >= 8
+        describe package 'percona-server-devel' do
+          it { should be_installed }
+        end
+      else
+        describe package "Percona-Server-devel-#{version.tr('.', '')}" do
+          it { should be_installed }
+        end
+      end
+    else
+      describe package "Percona-Server-devel-#{version.tr('.', '')}" do
+        it { should_not be_installed }
+      end
+      describe package 'percona-server-devel' do
+        it { should_not be_installed }
+      end
+    end
+
   end
 
   describe command 'mysql --version' do

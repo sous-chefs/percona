@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the percona cookbook.
 
+## Unreleased
+
+- resolved cookstyle error: libraries/helpers.rb:125:1 refactor: `ChefCorrectness/IncorrectLibraryInjection`
+
 ## 1.1.0 - 2020-08-20
 
 - Add devel package attribute to client recipe

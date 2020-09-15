@@ -122,5 +122,5 @@ module Percona
   end
 end
 
-Chef::Recipe.include ::Percona::Cookbook::Helpers
+Chef::DSL::Recipe.include ::Percona::Cookbook::Helpers
 Chef::Resource.include ::Percona::Cookbook::Helpers

@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the percona cookbook.
 
-## Unreleased
+## 1.1.1 - 2020-09-16
 
 - resolved cookstyle error: libraries/helpers.rb:125:1 refactor: `ChefCorrectness/IncorrectLibraryInjection`
 

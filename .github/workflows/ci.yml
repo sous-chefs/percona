@@ -66,6 +66,9 @@ jobs:
           - 'replication-56'
           - 'replication-57'
           - 'replication-80'
+          - 'resources-56'
+          - 'resources-57'
+          - 'resources-80'
         exclude:
           - os: centos-8
             suite: client-56
@@ -77,6 +80,8 @@ jobs:
             suite: source-56
           - os: centos-8
             suite: replication-56
+          - os: centos-8
+            suite: resources-56
           - os: debian-10
             suite: client-56
           - os: debian-10
@@ -87,6 +92,8 @@ jobs:
             suite: source-56
           - os: debian-10
             suite: replication-56
+          - os: debian-10
+            suite: resources-56
           - os: ubuntu-2004
             suite: client-56
           - os: ubuntu-2004
@@ -97,6 +104,8 @@ jobs:
             suite: source-56
           - os: ubuntu-2004
             suite: replication-56
+          - os: ubuntu-2004
+            suite: resources-56
       fail-fast: false
 
     steps:

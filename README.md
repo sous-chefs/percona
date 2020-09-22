@@ -59,8 +59,8 @@ This cookbook requires Chef >= 13.
 
 ## Resources
 
-- [`user`](https://github.com/sous-chefs/percona/blob/master/documentation/resource_percona_user.md)
-- [`database`](https://github.com/sous-chefs/percona/blob/master/documentation/resource_percona_database.md)
+- [`percona_user`](https://github.com/sous-chefs/percona/blob/master/documentation/resource_percona_user.md)
+- [`percona_database`](https://github.com/sous-chefs/percona/blob/master/documentation/resource_percona_database.md)
 
 ## Usage
 

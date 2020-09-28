@@ -1,4 +1,4 @@
-# percona\_user
+# percona\_mysql\_user
 
 Manage users and grant them privileges on database objects.
 
@@ -36,24 +36,24 @@ This property should be set to `false` if the user is local (host of `localhost`
 
 ```ruby
 # Create an user but grant no privileges
-percona_user 'disenfranchised' do
+percona_mysql_user 'disenfranchised' do
   password 'super_secret'
   action :create
 end
 
 # Create an user using a hashed password string instead of plain text one
-percona_user 'disenfranchised' do
+percona_mysql_user 'disenfranchised' do
   password hashed_password('md5eacdbf8d9847a76978bd515fae200a2a')
   action :create
 end
 
 # Drop a user
-percona_user 'foo_user' do
+percona_mysql_user 'foo_user' do
   action :drop
 end
 
 # Grant SELECT, UPDATE, and INSERT privileges to all tables in foo db from all hosts
-percona_user 'foo_user' do
+percona_mysql_user 'foo_user' do
   password 'super_secret'
   database_name 'foo'
   host '%'

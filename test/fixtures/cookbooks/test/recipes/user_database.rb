@@ -66,33 +66,33 @@ bash 'create rizzo' do
 end
 
 ## Resources we're testing
-percona_database 'databass' do
+percona_mysql_database 'databass' do
   action :create
   password ''
 end
 
-percona_database 'datatrout' do
+percona_mysql_database 'datatrout' do
   action :drop
   password ''
 end
 
-percona_user 'piggy' do
+percona_mysql_user 'piggy' do
   action :create
   ctrl_password ''
 end
 
-percona_user 'kermit' do
+percona_mysql_user 'kermit' do
   action :drop
   ctrl_password ''
 end
 
-percona_user 'rowlf' do
+percona_mysql_user 'rowlf' do
   password '123456' # hashed: *6BB4837EB74329105EE4568DDA7DC67ED2CA2AD9
   ctrl_password ''
   action :create
 end
 
-percona_user 'gonzo' do
+percona_mysql_user 'gonzo' do
   password 'abcdef'
   ctrl_password ''
   host '10.10.10.%'
@@ -100,7 +100,7 @@ percona_user 'gonzo' do
 end
 
 # create gonzo again to ensure the create action is idempotent
-percona_user 'gonzo' do
+percona_mysql_user 'gonzo' do
   password 'abcdef'
   ctrl_password ''
   host '10.10.10.%'
@@ -109,13 +109,13 @@ end
 
 hash = hashed_password('*2027D9391E714343187E07ACB41AE8925F30737E'); # 'l33t'
 
-percona_user 'statler' do
+percona_mysql_user 'statler' do
   password hash
   ctrl_password ''
   action :create
 end
 
-percona_user 'fozzie' do
+percona_mysql_user 'fozzie' do
   database_name 'databass'
   password 'wokkawokka'
   host 'mars'
@@ -127,7 +127,7 @@ end
 
 hash2 = hashed_password('*F798E7C0681068BAE3242AA2297D2360DBBDA62B'); # 'zokkazokka'
 
-percona_user 'moozie' do
+percona_mysql_user 'moozie' do
   database_name 'databass'
   password hash2
   ctrl_password ''
@@ -139,7 +139,7 @@ end
 
 # all the grants exist ('Granting privs' should not show up), but the password is different
 # and should get updated
-percona_user 'rizzo' do
+percona_mysql_user 'rizzo' do
   database_name 'datasalmon'
   password 'salmon'
   ctrl_password ''
@@ -152,7 +152,7 @@ end
 # Should converge normally for all versions
 # Checks to insure SHA2 password algo works for percona 8
 # with the host set to localhost
-percona_user 'beaker' do
+percona_mysql_user 'beaker' do
   password 'meep'
   host 'localhost'
   ctrl_password ''
@@ -160,7 +160,7 @@ percona_user 'beaker' do
   action :create
 end
 
-percona_database 'flush privileges' do
+percona_mysql_database 'flush privileges' do
   database_name 'databass'
   password ''
   sql 'flush privileges'

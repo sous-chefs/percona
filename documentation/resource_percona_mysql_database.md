@@ -1,4 +1,4 @@
-# percona\_database
+# percona\_mysql\_database
 
 Manage databases and execute SQL queries on them. It works by establishing a control connection to the Percona server using the percona client (be sure it is installed before using this resource).
 
@@ -27,7 +27,7 @@ When `host` has the value `localhost`, it will try to connect using a Unix socke
 
 ```ruby
 # Create a database
-percona_database 'wordpress-cust01' do
+percona_mysql_database 'wordpress-cust01' do
   host '127.0.0.1'
   user 'root'
   password node['wordpress-cust01']['mysql']['initial_root_password']
@@ -35,12 +35,12 @@ percona_database 'wordpress-cust01' do
 end
 
 # Drop a database
-percona_database 'baz' do
+percona_mysql_database 'baz' do
   action :drop
 end
 
 # Query a database
-percona_database 'flush the privileges' do
+percona_mysql_database 'flush the privileges' do
   sql 'flush privileges'
   action :query
 end

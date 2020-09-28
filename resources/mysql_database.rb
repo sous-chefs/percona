@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-provides :percona_database
+provides :percona_mysql_database
 
 include Percona::Cookbook::Helpers
 

@@ -1,6 +1,6 @@
 # percona\_mysql\_database
 
-Manage databases and execute SQL queries on them. It works by establishing a control connection to the Percona server using the percona client (be sure it is installed before using this resource).
+Manage Percona MySQL databases and execute SQL queries on them. It works by establishing a control connection to the Percona server using the percona client (be sure it is installed before using this resource).
 
 ## Actions
 
@@ -47,4 +47,3 @@ end
 ```
 
 **The `query` action will NOT select a database before running the query, nor return the actual results from the SQL query.**
-

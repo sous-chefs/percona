@@ -1,6 +1,6 @@
 # percona\_mysql\_user
 
-Manage users and grant them privileges on database objects.
+Manage Percona MySQL users and grant them privileges on database objects.
 
 ## Actions
 
@@ -61,4 +61,3 @@ percona_mysql_user 'foo_user' do
   action :grant
 end
 ```
-

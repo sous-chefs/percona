@@ -17,6 +17,7 @@
 provides :percona_mysql_database
 
 include Percona::Cookbook::Helpers
+include Percona::Cookbook
 
 property :database_name, String,         name_property: true
 property :host,          [String, nil],  default: 'localhost', desired_state: false

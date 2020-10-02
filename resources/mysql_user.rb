@@ -17,9 +17,10 @@
 provides :percona_mysql_user
 
 include Percona::Cookbook::Helpers
+include Percona::Cookbook
 
 property :username,      String,                             name_property: true
-property :password,      [String, HashedPassword, NilClass], default: nil,  sensitive: true
+property :password,      [String, HashedPassword, NilClass], default: nil, sensitive: true
 property :host,          String,                             default: 'localhost', desired_state: false
 property :database_name, String
 property :table,         String

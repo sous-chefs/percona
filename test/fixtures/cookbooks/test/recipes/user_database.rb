@@ -1,4 +1,4 @@
-::Chef::DSL::Recipe.include HashedPassword::Helper
+::Chef::DSL::Recipe.include Percona::Cookbook::HashedPassword::Helper
 
 node.default['percona']['skip_passwords'] = true
 node.default['percona']['server']['debian_username'] = 'root'

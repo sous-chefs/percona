@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the percona cookbook.
 
-## Unreleased
+## 2.0.1 - *2020-12-15*
 
 - Fix links to resources in README
 
@@ -110,5 +110,5 @@ This file is used to list changes made in each version of the percona cookbook.
 
 - Many changes
 
-[Unreleased]: https://github.com/sous-chefs/percona/compare/v0.16.1...HEAD
+[2.0.1 - *2020-12-15*]: https://github.com/sous-chefs/percona/compare/v0.16.1...HEAD
 [0.16.1]: https://github.com/sous-chefs/percona/compare/v0.16.0...v0.16.1

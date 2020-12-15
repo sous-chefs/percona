@@ -2,6 +2,8 @@
 
 This file is used to list changes made in each version of the percona cookbook.
 
+## Unreleased
+
 ## 2.0.1 - *2020-12-15*
 
 - Fix links to resources in README

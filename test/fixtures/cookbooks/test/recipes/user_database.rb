@@ -115,6 +115,15 @@ percona_mysql_user 'statler' do
   action :create
 end
 
+# test global permissions
+percona_mysql_user 'camilla' do
+  password 'bokbokbok'
+  privileges [:select, :repl_client, :create_tmp_table, :show_db]
+  require_ssl true
+  ctrl_password ''
+  action [:create, :grant]
+end
+
 percona_mysql_user 'fozzie' do
   database_name 'databass'
   password 'wokkawokka'

@@ -5,6 +5,7 @@ This file is used to list changes made in each version of the percona cookbook.
 ## Unreleased
 
 - Fix error when granting multi-word privileges (ex. `REPLICATION CLIENT`) to users through `percona_mysql_user`
+- Remove support for Ubuntu 16.04
 
 ## 2.0.1 - *2020-12-15*
 

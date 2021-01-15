@@ -13,7 +13,7 @@ depends 'yum-epel'
 depends 'chef-vault'
 depends 'line'
 
-supports 'centos', '>=7'
+supports 'centos', '>= 7.0'
 supports 'debian'
 supports 'redhat'
 supports 'ubuntu', '>= 18.04'

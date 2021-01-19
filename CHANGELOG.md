@@ -2,6 +2,8 @@
 
 This file is used to list changes made in each version of the percona cookbook.
 
+## Unreleased
+
 ## 2.1.0 - *2021-01-19*
 
 - Fix error when granting multi-word privileges (ex. `REPLICATION CLIENT`) to users through `percona_mysql_user`

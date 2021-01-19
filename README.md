@@ -30,7 +30,7 @@ We provide an expanding set of tests against the following 64-bit platforms whic
 
 - CentOS 7+
 - Debian 9+
-- Ubuntu 16.04+ LTS
+- Ubuntu 18.04+ LTS
 
 ### Cookbooks
 

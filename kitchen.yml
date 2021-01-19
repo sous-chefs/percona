@@ -20,7 +20,6 @@ platforms:
   - name: centos-8
   - name: debian-9
   - name: debian-10
-  - name: ubuntu-16.04
   - name: ubuntu-18.04
   - name: ubuntu-20.04
 

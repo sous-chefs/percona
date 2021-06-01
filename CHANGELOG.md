@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the percona cookbook.
 
-## Unreleased
+## 2.1.1 - *2021-06-01*
 
 ## 2.1.0 - *2021-01-19*
 

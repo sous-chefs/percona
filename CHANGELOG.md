@@ -4,6 +4,8 @@ This file is used to list changes made in each version of the percona cookbook.
 
 ## Unreleased
 
+- resolved cookstyle error: metadata.rb:11:1 refactor: `Chef/Modernize/DependsOnOpensslCookbook`
+- resolved cookstyle error: metadata.rb:13:1 refactor: `Chef/Modernize/DependsOnChefVaultCookbook`
 - resolved cookstyle error: resources/mysql_database.rb:1:1 refactor: `Chef/Deprecations/ResourceWithoutUnifiedTrue`
 - resolved cookstyle error: resources/mysql_user.rb:1:1 refactor: `Chef/Deprecations/ResourceWithoutUnifiedTrue`
 ## 2.1.0 - *2021-01-19*

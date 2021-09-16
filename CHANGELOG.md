@@ -6,6 +6,7 @@ This file is used to list changes made in each version of the percona cookbook.
 
 - Chef 17 updates: enable `unified_mode` on all resources
 - Remove dependency on openssl cookbook and create `percona_secure_random` method to replace that functionality
+- Remove dependency on chef-vault cookbook and require Chef >= 16
 
 ## 2.1.2 - *2021-08-30*
 

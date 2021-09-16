@@ -2,7 +2,7 @@ control 'percona_database' do
   impact 1.0
   title 'test creation and removal of databases'
 
-  sql = mysql_session('root')
+  sql = mysql_session('root', '')
 
   describe sql.query('show databases') do
     its(:stdout) { should match(/databass/) }
@@ -17,7 +17,7 @@ control 'percona_user' do
   version = input('version')
   password_column = version.to_f >= 5.7 ? 'authentication_string' : 'password'
 
-  sql = mysql_session('root')
+  sql = mysql_session('root', '')
 
   describe sql.query('select User,Host from mysql.user') do
     its(:stdout) { should match(/fozzie/) }

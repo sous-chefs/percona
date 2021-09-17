@@ -27,10 +27,6 @@ describe 'percona::configure_server' do
       end
     end
 
-    it 'does not include the `chef-vault` recipe' do
-      expect(chef_run).to_not include_recipe 'chef-vault'
-    end
-
     it 'creates the main server config file' do
       expect(chef_run).to create_template('/etc/mysql/my.cnf').with(
         owner: 'root',
@@ -361,8 +357,8 @@ describe 'percona::configure_server' do
       stub_command("mysqladmin --user=root --password='' version").and_return(false)
     end
 
-    it 'includes the `chef-vault` recipe' do
-      expect(chef_run).to include_recipe 'chef-vault'
+    it 'converges successfully' do
+      expect { chef_run }.to_not raise_error
     end
   end
 end

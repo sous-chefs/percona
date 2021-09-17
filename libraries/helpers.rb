@@ -205,6 +205,12 @@ module Percona
           '/var/run/mysqld/mysqld.sock'
         end
       end
+
+      def percona_secure_random
+        r = SecureRandom.hex
+        Chef::Log.debug "Generated password: #{r}"
+        r
+      end
     end
   end
 end

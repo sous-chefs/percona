@@ -15,6 +15,7 @@
 # limitations under the License.
 #
 provides :percona_mysql_database
+unified_mode true
 
 include Percona::Cookbook::Helpers
 include Percona::Cookbook

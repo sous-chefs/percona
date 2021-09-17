@@ -12,8 +12,8 @@ describe 'percona::package_repo' do
       expect(chef_run).to add_apt_repository('percona').with(
         uri: 'http://repo.percona.com/apt',
         components: %w(main),
-        keyserver: 'hkp://keys.gnupg.net:80',
-        key: %w(8507EFA5)
+        keyserver: 'keyserver.ubuntu.com',
+        key: %w(9334A25F8507EFA5)
       )
     end
 
@@ -29,8 +29,8 @@ describe 'percona::package_repo' do
       expect(chef_run).to add_apt_repository('percona-ps-80').with(
         uri: 'http://repo.percona.com/ps-80/apt',
         components: %w(main),
-        keyserver: 'hkp://keys.gnupg.net:80',
-        key: %w(8507EFA5)
+        keyserver: 'keyserver.ubuntu.com',
+        key: %w(9334A25F8507EFA5)
       )
     end
 

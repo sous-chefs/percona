@@ -2,6 +2,8 @@
 
 This file is used to list changes made in each version of the percona cookbook.
 
+## Unreleased
+
 ## 3.0.0 - *2021-09-17*
 
 - Chef 17 updates: enable `unified_mode` on all resources

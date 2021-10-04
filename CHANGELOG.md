@@ -2,6 +2,8 @@
 
 This file is used to list changes made in each version of the percona cookbook.
 
+## Unreleased
+
 ## 3.1.0 - *2021-10-04*
 
 - Use `dnf_module` resource from `yum` cookbook instead of manually disabling module

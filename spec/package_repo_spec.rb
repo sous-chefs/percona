@@ -1,10 +1,6 @@
 require 'spec_helper'
 
 describe 'percona::package_repo' do
-  before do
-    stub_command('dnf module list mysql | grep -q "^mysql.*\\[x\\]"')
-  end
-
   context 'ubuntu' do
     platform 'ubuntu'
 
@@ -45,6 +41,10 @@ describe 'percona::package_repo' do
 
   context 'centos' do
     platform 'centos'
+
+    it do
+      expect(chef_run).to disable_dnf_module('mysql')
+    end
 
     it do
       expect(chef_run).to create_yum_repository('percona').with(

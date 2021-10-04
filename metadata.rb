@@ -8,6 +8,7 @@ issues_url        'https://github.com/sous-chefs/chef-percona/issues'
 version           '3.0.0'
 chef_version      '>= 16.0'
 
+depends 'yum'
 depends 'yum-epel'
 depends 'line'
 

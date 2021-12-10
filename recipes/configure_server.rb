@@ -173,7 +173,11 @@ unless node['percona']['skip_passwords']
   root_pw = passwords.root_password
 
   execute 'Update MySQL root password' do
-    command "mysqladmin --user=root --password='' password '#{root_pw}'"
+    if node['percona']['version'].to_f < 5.7
+      command "mysqladmin --user=root --password='' password '#{root_pw}'"
+    else
+      command "mysql --user=root --password='' -e \"ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '#{root_pw}';\""
+    end
     only_if "mysqladmin --user=root --password='' version"
     sensitive true
   end

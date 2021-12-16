@@ -34,14 +34,12 @@ We provide an expanding set of tests against the following 64-bit platforms whic
 
 ### Cookbooks
 
-- [openssl](https://supermarket.chef.io/cookbooks/openssl)
 - [yum-epel](https://supermarket.chef.io/cookbooks/yum-epel)
-- [chef-vault](https://supermarket.chef.io/cookbooks/chef-vault)
 - [line](https://supermarket.chef.io/cookbooks/line)
 
 ### Chef
 
-This cookbook requires Chef >= 13.
+This cookbook requires Chef >= 16.
 
 ## Recipes
 

@@ -28,9 +28,6 @@ unless node['percona']['selinux_module_url'].nil? || node['percona']['selinux_mo
   end
 end
 
-# install chef-vault if needed
-include_recipe 'chef-vault' if node['percona']['use_chef_vault']
-
 # construct an encrypted passwords helper -- giving it the node and bag name
 passwords = EncryptedPasswords.new(node, percona['encrypted_data_bag'])
 

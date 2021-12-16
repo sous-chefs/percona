@@ -33,6 +33,11 @@ when 'debian'
   end
 
 when 'rhel'
+  dnf_module 'mysql' do
+    action :disable
+    only_if { node['platform_version'].to_i >= 8 }
+  end
+
   yum_repository 'percona' do
     description node['percona']['yum']['description']
     baseurl "#{node['percona']['yum']['baseurl']}/$basearch"
@@ -59,10 +64,5 @@ when 'rhel'
     gpgkey node['percona']['yum']['gpgkey']
     gpgcheck node['percona']['yum']['gpgcheck']
     sslverify node['percona']['yum']['sslverify']
-  end
-
-  execute 'dnf -y module disable mysql' do
-    only_if { node['platform_version'].to_i >= 8 }
-    not_if 'dnf module list mysql | grep -q "^mysql.*\[x\]"'
   end
 end

@@ -2,6 +2,20 @@
 
 This file is used to list changes made in each version of the percona cookbook.
 
+## Unreleased
+
+## 3.1.0 - *2021-10-04*
+
+- Use `dnf_module` resource from `yum` cookbook instead of manually disabling module
+
+## 3.0.0 - *2021-09-17*
+
+- Chef 17 updates: enable `unified_mode` on all resources
+- Remove dependency on openssl cookbook and create `percona_secure_random` method to replace that functionality
+- Remove dependency on chef-vault cookbook and require Chef >= 16
+- Use full gpg key id for apt repos and switch to using keyserver.ubuntu.com
+- Move mysql dnf module disabling to before yum repos
+
 ## 2.1.2 - *2021-08-30*
 
 - Standardise files with files in sous-chefs/repo-management

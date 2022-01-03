@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of the percona cookbook.
 
-## Unreleased
+## 3.1.1 - *2022-01-03*
 
 - Fix root password setting for version >= 5.7
 

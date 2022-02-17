@@ -4,7 +4,11 @@ This file is used to list changes made in each version of the percona cookbook.
 
 ## Unreleased
 
-Standardise files with files in sous-chefs/repo-management
+- Standardise files with files in sous-chefs/repo-management
+
+## 3.1.2 - *2022-02-08*
+
+- Remove delivery folder
 
 ## 3.1.1 - *2022-01-03*
 

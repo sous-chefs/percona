@@ -4,7 +4,6 @@ driver:
 
 provisioner:
   name: chef_solo
-  product_name: chef
   enforce_idempotency: true
   multiple_converge: 2
   deprecations_as_errors: true
@@ -16,10 +15,12 @@ verifier:
     - path: test/integration/inspec
 
 platforms:
+  - name: almalinux-8
   - name: centos-7
-  - name: centos-8
-  - name: debian-9
+  - name: centos-stream-8
   - name: debian-10
+  - name: debian-11
+  - name: rockylinux-8
   - name: ubuntu-18.04
   - name: ubuntu-20.04
 
@@ -37,8 +38,11 @@ suites:
       inputs:
         version: '5.6'
     excludes:
-      - centos-8
+      - almalinux-8
+      - centos-stream-8
       - debian-10
+      - debian-11
+      - rockylinux-8
       - ubuntu-20.04
 
   - name: client-57
@@ -83,8 +87,11 @@ suites:
         version: '5.6'
         devel: true
     excludes:
-      - centos-8
+      - almalinux-8
+      - centos-stream-8
       - debian-10
+      - debian-11
+      - rockylinux-8
       - ubuntu-20.04
 
   - name: devel-57
@@ -126,8 +133,11 @@ suites:
       percona:
         version: '5.6'
     excludes:
-      - centos-8
+      - almalinux-8
+      - centos-stream-8
       - debian-10
+      - debian-11
+      - rockylinux-8
       - ubuntu-20.04
     verifier:
       controls:
@@ -169,8 +179,11 @@ suites:
       percona:
         version: '5.6'
     excludes:
-      - centos-8
+      - almalinux-8
+      - centos-stream-8
       - debian-10
+      - debian-11
+      - rockylinux-8
       - ubuntu-20.04
     verifier:
       controls:
@@ -215,8 +228,11 @@ suites:
       percona:
         version: '5.6'
     excludes:
-      - centos-8
+      - almalinux-8
+      - centos-stream-8
       - debian-10
+      - debian-11
+      - rockylinux-8
       - ubuntu-20.04
     verifier:
       controls:
@@ -261,8 +277,11 @@ suites:
       percona:
         version: '5.6'
     excludes:
-      - centos-8
+      - almalinux-8
+      - centos-stream-8
       - debian-10
+      - debian-11
+      - rockylinux-8
       - ubuntu-20.04
     verifier:
       controls:
@@ -307,8 +326,11 @@ suites:
       percona:
         version: '5.6'
     excludes:
-      - centos-8
+      - almalinux-8
+      - centos-stream-8
       - debian-10
+      - debian-11
+      - rockylinux-8
       - ubuntu-20.04
     verifier:
       controls:

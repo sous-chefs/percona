@@ -34,7 +34,8 @@ describe 'percona::configure_server' do
         mode: '0644',
         cookbook: 'percona',
         source: 'my.cnf.main.erb',
-        manage_symlink_source: true
+        manage_symlink_source: false,
+        force_unlink: true
       )
 
       expect(chef_run).to render_file('/etc/mysql/my.cnf').with_content(
@@ -255,16 +256,16 @@ describe 'percona::configure_server' do
         )
       end
     end
-    context 'Debian 9' do
-      platform 'debian', '9'
+    context 'Debian 11' do
+      platform 'debian', '11'
 
       it do
-        expect(chef_run).to install_package 'libjemalloc1'
+        expect(chef_run).to install_package 'libjemalloc2'
       end
 
       it 'sets the correct malloc-lib path' do
         expect(chef_run).to render_file('/etc/mysql/my.cnf').with_content(
-          %r{^malloc-lib.*= /usr/lib/x86_64-linux-gnu/libjemalloc.so.1}
+          %r{^malloc-lib.*= /usr/lib/x86_64-linux-gnu/libjemalloc.so.2}
         )
       end
     end

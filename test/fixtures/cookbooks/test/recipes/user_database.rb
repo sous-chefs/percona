@@ -3,6 +3,7 @@
 node.default['percona']['skip_passwords'] = true
 node.default['percona']['server']['debian_username'] = 'root'
 node.default['percona']['server']['debian_password'] = ''
+include_recipe 'test::_remove_mysql_common'
 include_recipe 'percona::server'
 
 # Create a schema to test mysql_database :drop against

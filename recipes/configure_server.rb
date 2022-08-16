@@ -154,7 +154,8 @@ template percona['main_config_file'] do
   group 'root'
   mode '0644'
   sensitive true
-  manage_symlink_source true
+  manage_symlink_source false
+  force_unlink true
   variables(
     jemalloc_lib: percona_jemalloc_lib,
     wsrep_sst_auth: wsrep_sst_auth

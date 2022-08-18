@@ -2,6 +2,8 @@
 
 This file is used to list changes made in each version of the percona cookbook.
 
+## Unreleased
+
 ## 3.2.0 - *2022-08-18*
 
 - Remove `myisam_repair_threads` for < 5.7 as it's been deprecated

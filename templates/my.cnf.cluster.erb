@@ -450,13 +450,13 @@ myisam_sort_buffer_size = <%= node["percona"]["server"]["myisam_sort_buffer_size
 # If the file-size would be bigger than this, the index will be created
 # through the key cache (which is slower).
 myisam_max_sort_file_size = <%= node["percona"]["server"]["myisam_max_sort_file_size"] %>
+<%- if node["percona"]["version"].to_f < 5.7 %>
 
 # If a table has more than one index, MyISAM can use more than one
 # thread to repair them by sorting in parallel. This makes sense if you
 # have multiple CPUs and plenty of memory.
 myisam_repair_threads = <%= node["percona"]["server"]["myisam_repair_threads"] %>
 
-<%- if node["percona"]["version"].to_f < 5.7 %>
 # Automatically check and repair not properly closed MyISAM tables.
 <% if node["percona"]["server"]["myisam_recover_options"] %>
 myisam_recover

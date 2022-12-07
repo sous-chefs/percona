@@ -6,6 +6,8 @@ This file is used to list changes made in each version of the percona cookbook.
 
 Standardise files with files in sous-chefs/repo-management
 
+Standardise files with files in sous-chefs/repo-management
+
 ## 3.1.3 - *2022-02-17*
 
 - Standardise files with files in sous-chefs/repo-management

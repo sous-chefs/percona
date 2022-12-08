@@ -6,7 +6,16 @@ This file is used to list changes made in each version of the percona cookbook.
 
 Standardise files with files in sous-chefs/repo-management
 
-Standardise files with files in sous-chefs/repo-management
+## 3.2.0 - *2022-08-18*
+
+- Remove `myisam_repair_threads` for < 5.7 as it's been deprecated
+- Remove delivery and move to calling RSpec directly via a reusable workflow
+- Update tested platforms
+- Add support to Alma Linux & Rocky Linux
+- Update default encoding when using 8.0 to `utf8mb3` to fix idempotency issues
+- Fix management of server `my.cnf`
+  - Set `manage_symlink_source` to `false` and set `force_unlink` to `true` to fix idempotency on Debian based systems
+- Fix issue when testing on Debian dokken images by removing mailutils (and thus mysql-common)
 
 ## 3.1.3 - *2022-02-17*
 

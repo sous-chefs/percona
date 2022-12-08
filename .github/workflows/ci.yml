@@ -8,75 +8,72 @@ name: ci
       - main
 
 jobs:
-  delivery:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v2
-      - name: Run Chef Delivery
-        uses: actionshub/chef-delivery@main
-        env:
-          CHEF_LICENSE: accept-no-persist
-
-  yamllint:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v2
-      - name: Run yaml Lint
-        uses: actionshub/yamllint@main
-
-  mdl:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v2
-      - name: Run Markdown Lint
-        uses: actionshub/markdownlint@main
+  lint-unit:
+    uses: sous-chefs/.github/.github/workflows/lint-unit.yml@0.0.3
+    permissions:
+      actions: write
+      checks: write
+      pull-requests: write
+      statuses: write
+      issues: write
 
   integration:
-    needs: [mdl, yamllint, delivery]
+    needs: lint-unit
     runs-on: ubuntu-latest
     strategy:
       matrix:
         os:
-          - 'debian-9'
-          - 'debian-10'
-          - 'centos-7'
-          - 'centos-8'
-          - 'ubuntu-1804'
-          - 'ubuntu-2004'
+          - almalinux-8
+          - centos-7
+          - centos-stream-8
+          - debian-10
+          - debian-11
+          - rockylinux-8
+          - ubuntu-1804
+          - ubuntu-2004
         suite:
-          - 'client-56'
-          - 'client-57'
-          - 'client-80'
-          - 'devel-56'
-          - 'devel-57'
-          - 'devel-80'
-          - 'server-56'
-          - 'server-57'
-          - 'server-80'
-          - 'source-56'
-          - 'source-57'
-          - 'source-80'
-          - 'replication-56'
-          - 'replication-57'
-          - 'replication-80'
-          - 'resources-56'
-          - 'resources-57'
-          - 'resources-80'
+          - client-56
+          - client-57
+          - client-80
+          - devel-56
+          - devel-57
+          - devel-80
+          - server-56
+          - server-57
+          - server-80
+          - source-56
+          - source-57
+          - source-80
+          - replication-56
+          - replication-57
+          - replication-80
+          - resources-56
+          - resources-57
+          - resources-80
         exclude:
-          - os: centos-8
+          - os: almalinux-8
             suite: client-56
-          - os: centos-8
+          - os: almalinux-8
             suite: devel-56
-          - os: centos-8
+          - os: almalinux-8
             suite: server-56
-          - os: centos-8
+          - os: almalinux-8
             suite: source-56
-          - os: centos-8
+          - os: almalinux-8
             suite: replication-56
-          - os: centos-8
+          - os: almalinux-8
+            suite: resources-56
+          - os: centos-stream-8
+            suite: client-56
+          - os: centos-stream-8
+            suite: devel-56
+          - os: centos-stream-8
+            suite: server-56
+          - os: centos-stream-8
+            suite: source-56
+          - os: centos-stream-8
+            suite: replication-56
+          - os: centos-stream-8
             suite: resources-56
           - os: debian-10
             suite: client-56
@@ -89,6 +86,30 @@ jobs:
           - os: debian-10
             suite: replication-56
           - os: debian-10
+            suite: resources-56
+          - os: debian-11
+            suite: client-56
+          - os: debian-11
+            suite: devel-56
+          - os: debian-11
+            suite: server-56
+          - os: debian-11
+            suite: source-56
+          - os: debian-11
+            suite: replication-56
+          - os: debian-11
+            suite: resources-56
+          - os: rockylinux-8
+            suite: client-56
+          - os: rockylinux-8
+            suite: devel-56
+          - os: rockylinux-8
+            suite: server-56
+          - os: rockylinux-8
+            suite: source-56
+          - os: rockylinux-8
+            suite: replication-56
+          - os: rockylinux-8
             suite: resources-56
           - os: ubuntu-2004
             suite: client-56

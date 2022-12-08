@@ -7,4 +7,5 @@ node.default['percona']['backup']['password'] = 'I}=sJ2bS'
 # Install postfix on RHEL to ensure we don't properly break mysql-libs compatibility
 package 'postfix' if platform_family?('rhel')
 
+include_recipe 'test::_remove_mysql_common'
 include_recipe 'percona::cluster'

@@ -26,7 +26,7 @@ property :port,          [Integer, nil], default: 3306, desired_state: false
 property :user,          [String, nil],  default: 'root', desired_state: false
 property :socket,        [String, nil], desired_state: false
 property :password,      [String, nil], sensitive: true, desired_state: false
-property :encoding,      String,         default: 'utf8'
+property :encoding,      String,         default: lazy { percona_default_encoding }
 property :collation,     String,         default: 'utf8_general_ci'
 property :sql,           String
 

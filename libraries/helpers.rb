@@ -103,7 +103,7 @@ module Percona
           node['platform_version'].to_i >= 10 ? 'libjemalloc2' : 'libjemalloc1'
         when 'ubuntu'
           node['platform_version'].to_f >= 20.04 ? 'libjemalloc2' : 'libjemalloc1'
-        when 'centos', 'redhat'
+        when 'centos', 'redhat', 'almalinux', 'rocky'
           'jemalloc'
         end
       end
@@ -114,8 +114,16 @@ module Percona
           node['platform_version'].to_i >= 10 ? '/usr/lib/x86_64-linux-gnu/libjemalloc.so.2' : '/usr/lib/x86_64-linux-gnu/libjemalloc.so.1'
         when 'ubuntu'
           node['platform_version'].to_f >= 20.04 ? '/usr/lib/x86_64-linux-gnu/libjemalloc.so.2' : '/usr/lib/x86_64-linux-gnu/libjemalloc.so.1'
-        when 'centos', 'redhat'
+        when 'centos', 'redhat', 'almalinux', 'rocky'
           node['platform_version'].to_i >= 8 ? '/usr/lib64/libjemalloc.so.2' : '/usr/lib64/libjemalloc.so.1'
+        end
+      end
+
+      def percona_default_encoding
+        if node['percona']['version'].to_i >= 8
+          'utf8mb3'
+        else
+          'utf8'
         end
       end
 

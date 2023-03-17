@@ -4,6 +4,8 @@ This file is used to list changes made in each version of the percona cookbook.
 
 ## Unreleased
 
+- Fixed the user key in the ctrl_hash for the run_query method in the mysql_user custom resource
+
 ## 3.2.6 - *2023-03-20*
 
 Standardise files with files in sous-chefs/repo-management

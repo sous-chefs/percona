@@ -66,6 +66,16 @@ bash 'create rizzo' do
   action :run
 end
 
+# Create a user to test ctrl_user, ctrl_password, and ctrl_host
+bash 'create beauregard' do
+  code <<-EOF
+  echo "CREATE USER 'beauregard'@'localhost' IDENTIFIED BY 'mupp3ts'; GRANT ALL PRIVILEGES ON *.* TO 'beauregard'@'localhost' WITH GRANT OPTION; FLUSH PRIVILEGES;" | /usr/bin/mysql -u root;
+  touch /tmp/beauregardmarker
+  EOF
+  not_if { ::File.exist?('/tmp/beauregardmarker') }
+  action :run
+end
+
 ## Resources we're testing
 percona_mysql_database 'databass' do
   action :create
@@ -168,6 +178,18 @@ percona_mysql_user 'beaker' do
   ctrl_password ''
   use_native_auth false
   action :create
+end
+
+# Create new user non-root user beauregard to test ctrl_hash
+percona_mysql_user 'bunsen' do
+  database_name 'datasalmon'
+  password 'honeydont'
+  ctrl_user 'beauregard'
+  ctrl_password 'mupp3ts'
+  ctrl_host '127.0.0.1'
+  host 'localhost'
+  privileges [:select]
+  action [:create, :grant]
 end
 
 percona_mysql_database 'flush privileges' do

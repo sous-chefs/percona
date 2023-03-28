@@ -40,7 +40,7 @@ Standardise files with files in sous-chefs/repo-management
 - Add support to Alma Linux & Rocky Linux
 - Update default encoding when using 8.0 to `utf8mb3` to fix idempotency issues
 - Fix management of server `my.cnf`
-  - Set `manage_symlink_source` to `false` and set `force_unlink` to `true` to fix idempotency on Debian based systems
+- Set `manage_symlink_source` to `false` and set `force_unlink` to `true` to fix idempotency on Debian based systems
 - Fix issue when testing on Debian dokken images by removing mailutils (and thus mysql-common)
 
 ## 3.1.3 - *2022-02-17*

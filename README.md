@@ -243,12 +243,12 @@ There's a special attribute `node['percona']['server']['bind_to']` that allows y
 In no particular order:
 
 - Be the most flexible way to setup a MySQL distribution through Chef
-  - Support for Chef Solo
-  - Support for Chef Server
+   - Support for Chef Solo
+   - Support for Chef Server
 - Support the following common database infrastructures:
-  - Single server instance
-  - Traditional Source/Replica replication
-  - Multi-source cluster replication
+   - Single server instance
+   - Traditional Source/Replica replication
+   - Multi-source cluster replication
 - Support the most recent Chef runtime environments
 - Be the easiest way to setup a MySQL distribution through Chef
 

@@ -2,6 +2,8 @@
 
 This file is used to list changes made in each version of the percona cookbook.
 
+## Unreleased
+
 ## 3.2.8 - *2023-04-01*
 
 ## 3.2.7 - *2023-04-01*

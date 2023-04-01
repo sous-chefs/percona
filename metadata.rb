@@ -5,7 +5,7 @@ license           'Apache-2.0'
 description       'Installs Percona MySQL client and server'
 source_url        'https://github.com/sous-chefs/chef-percona'
 issues_url        'https://github.com/sous-chefs/chef-percona/issues'
-version           '3.2.7'
+version           '3.2.8'
 chef_version      '>= 16.0'
 
 depends 'yum'

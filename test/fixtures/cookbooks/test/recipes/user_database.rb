@@ -76,6 +76,26 @@ bash 'create beauregard' do
   action :run
 end
 
+# Create a user to test mysql_database_user password update via :create and non-root user
+bash 'create waldorf@localhost' do
+  code <<-EOF
+  echo "CREATE USER 'waldorf'@'localhost' IDENTIFIED BY 'balcony';" | /usr/bin/mysql -u root;
+  touch /tmp/waldorf_localhost
+  EOF
+  not_if { ::File.exist?('/tmp/waldorf_localhostmarker') }
+  action :run
+end
+
+# Create a user to test mysql_database_user password update via :create and non-root user
+bash 'create waldorf' do
+  code <<-EOF
+  echo "CREATE USER 'waldorf'@'127.0.0.1' IDENTIFIED BY 'boxseat';" | /usr/bin/mysql -u root;
+  touch /tmp/waldorf_127marker
+  EOF
+  not_if { ::File.exist?('/tmp/waldorf_127marker') }
+  action :run
+end
+
 ## Resources we're testing
 percona_mysql_database 'databass' do
   action :create
@@ -180,16 +200,25 @@ percona_mysql_user 'beaker' do
   action :create
 end
 
-# Create new user non-root user beauregard to test ctrl_hash
+# Create new user non-root user beauregard to test ctrl_hash and validate password with special character
 percona_mysql_user 'bunsen' do
   database_name 'datasalmon'
-  password 'honeydont'
+  password '>honeydont'
   ctrl_user 'beauregard'
   ctrl_password 'mupp3ts'
   ctrl_host '127.0.0.1'
   host 'localhost'
   privileges [:select]
   action [:create, :grant]
+end
+
+percona_mysql_user 'waldorf' do
+  password 'balcony' # hashed: *6BB4837EB74329105EE4568DDA7DC67ED2CA2AD9
+  ctrl_user 'beauregard'
+  ctrl_password 'mupp3ts'
+  ctrl_host '127.0.0.1'
+  host '127.0.0.1'
+  action :create
 end
 
 percona_mysql_database 'flush privileges' do

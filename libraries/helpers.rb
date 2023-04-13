@@ -147,7 +147,7 @@ module Percona
         Chef::Log.debug("Control Hash: [#{ctrl.to_json}]\n")
         cmd = "/usr/bin/mysql -B -e \"#{raw_query}\""
         cmd << " --user=#{ctrl[:user]}" if ctrl && ctrl.key?(:user) && !ctrl[:user].nil?
-        cmd << " -p#{ctrl[:password]}"  if ctrl && ctrl.key?(:password) && !ctrl[:password].nil?
+        cmd << " -p'#{ctrl[:password]}'"  if ctrl && ctrl.key?(:password) && !ctrl[:password].nil?
         cmd << " -h #{ctrl[:host]}"     if ctrl && ctrl.key?(:host) && !ctrl[:host].nil? && ctrl[:host] != 'localhost'
         cmd << " -P #{ctrl[:port]}"     if ctrl && ctrl.key?(:port) && !ctrl[:port].nil? && ctrl[:host] != 'localhost'
         cmd << " -S #{default_socket}"   if ctrl && ctrl.key?(:host) && !ctrl[:host].nil? && ctrl[:host] == 'localhost'

@@ -69,7 +69,7 @@ end
 # Create a user to test ctrl_user, ctrl_password, and ctrl_host
 bash 'create beauregard' do
   code <<-EOF
-  echo "CREATE USER 'beauregard'@'localhost' IDENTIFIED BY 'mupp3ts'; GRANT ALL PRIVILEGES ON *.* TO 'beauregard'@'localhost' WITH GRANT OPTION; FLUSH PRIVILEGES;" | /usr/bin/mysql -u root;
+  echo "CREATE USER 'beauregard'@'localhost' IDENTIFIED BY '>mupp3ts'; GRANT ALL PRIVILEGES ON *.* TO 'beauregard'@'localhost' WITH GRANT OPTION; FLUSH PRIVILEGES;" | /usr/bin/mysql -u root;
   touch /tmp/beauregardmarker
   EOF
   not_if { ::File.exist?('/tmp/beauregardmarker') }
@@ -200,12 +200,12 @@ percona_mysql_user 'beaker' do
   action :create
 end
 
-# Create new user non-root user beauregard to test ctrl_hash and validate password with special character
+# Create new user with a ctrl_user as non-root to test ctrl_hash and validate ctrl_password with special character
 percona_mysql_user 'bunsen' do
   database_name 'datasalmon'
-  password '>honeydont'
+  password 'honeydont'
   ctrl_user 'beauregard'
-  ctrl_password 'mupp3ts'
+  ctrl_password '>mupp3ts'
   ctrl_host '127.0.0.1'
   host 'localhost'
   privileges [:select]
@@ -213,9 +213,9 @@ percona_mysql_user 'bunsen' do
 end
 
 percona_mysql_user 'waldorf' do
-  password 'balcony' # hashed: *6BB4837EB74329105EE4568DDA7DC67ED2CA2AD9
+  password 'balcony'
   ctrl_user 'beauregard'
-  ctrl_password 'mupp3ts'
+  ctrl_password '>mupp3ts'
   ctrl_host '127.0.0.1'
   host '127.0.0.1'
   action :create

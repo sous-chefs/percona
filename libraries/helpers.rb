@@ -121,9 +121,17 @@ module Percona
 
       def percona_default_encoding
         if node['percona']['version'].to_i >= 8
-          'utf8mb3'
+          'utf8mb4'
         else
           'utf8'
+        end
+      end
+
+      def percona_default_collate
+        if node['percona']['version'].to_i >= 8
+          'utf8mb4_0900_ai_ci'
+        else
+          'utf8_general_ci'
         end
       end
 

@@ -4,6 +4,10 @@ This file is used to list changes made in each version of the percona cookbook.
 
 ## Unreleased
 
+- Fixed the user key in the ctrl_hash for the run_query method in the mysql_user custom resource
+- Updated ctrl_hash (now user_hash) parameters to validate if a user can login using username@host instead of username@ctrl_host
+- Wrapped password substring in single quotes to protect from special characters in sql_command_string helper method 
+
 ## 3.2.10 - *2023-04-07*
 
 Standardise files with files in sous-chefs/repo-management

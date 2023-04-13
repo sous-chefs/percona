@@ -80,7 +80,7 @@ end
 bash 'create waldorf@localhost' do
   code <<-EOF
   echo "CREATE USER 'waldorf'@'localhost' IDENTIFIED BY 'balcony';" | /usr/bin/mysql -u root;
-  touch /tmp/waldorf_localhost
+  touch /tmp/waldorf_localhostmarker
   EOF
   not_if { ::File.exist?('/tmp/waldorf_localhostmarker') }
   action :run

@@ -135,6 +135,10 @@ module Percona
         end
       end
 
+      def percona_8_on_centos_7
+        node['platform_family'] == 'rhel' && node['platform_version'].to_i == 7 && node['percona']['version'].to_i >= 8
+      end
+
       include Chef::Mixin::ShellOut
       require 'securerandom'
       #######

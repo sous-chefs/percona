@@ -8,6 +8,7 @@ This file is used to list changes made in each version of the percona cookbook.
 - Updated ctrl_hash (now user_hash) parameters to validate if a user can login using username@host instead of username@ctrl_host
 - Wrapped password substring in single quotes to protect from special characters in sql_command_string helper method
 - Updated default encoding and collate in 8.0 to `utf8mb4` and `utf8mb4_0900_ai_ci` respectively
+- Fixed 8.0 client rpm dependency conflict on centos 7 
 
 ## 3.2.10 - *2023-04-07*
 

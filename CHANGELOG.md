@@ -2,6 +2,8 @@
 
 This file is used to list changes made in each version of the percona cookbook.
 
+## Unreleased
+
 ## 3.2.11 - *2023-04-25*
 
 Standardise files with files in sous-chefs/repo-management

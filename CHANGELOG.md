@@ -4,6 +4,14 @@ This file is used to list changes made in each version of the percona cookbook.
 
 ## Unreleased
 
+- Fixed the user key in the ctrl_hash for the run_query method in the mysql_user custom resource
+- Updated ctrl_hash (now user_hash) parameters to validate if a user can login using username@host instead of username@ctrl_host
+- Wrapped password substring in single quotes to protect from special characters in sql_command_string helper method
+- Updated default encoding and collate in 8.0 to `utf8mb4` and `utf8mb4_0900_ai_ci` respectively
+- Fixed 8.0 client rpm dependency conflict on centos 7
+- Stop running tests for Server and Client 5.6
+- Change test behaviour to not enable jemalloc on RHEL 9.
+
 ## 3.2.11 - *2023-04-25*
 
 Standardise files with files in sous-chefs/repo-management
@@ -56,7 +64,7 @@ Standardise files with files in sous-chefs/repo-management
 - Add support to Alma Linux & Rocky Linux
 - Update default encoding when using 8.0 to `utf8mb3` to fix idempotency issues
 - Fix management of server `my.cnf`
-  - Set `manage_symlink_source` to `false` and set `force_unlink` to `true` to fix idempotency on Debian based systems
+- Set `manage_symlink_source` to `false` and set `force_unlink` to `true` to fix idempotency on Debian based systems
 - Fix issue when testing on Debian dokken images by removing mailutils (and thus mysql-common)
 
 ## 3.1.3 - *2022-02-17*

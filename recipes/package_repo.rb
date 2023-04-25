@@ -35,7 +35,7 @@ when 'debian'
 when 'rhel'
   dnf_module 'mysql' do
     action :disable
-    only_if { node['platform_version'].to_i >= 8 }
+    only_if { node['platform_version'].to_i == 8 }
   end
 
   yum_repository 'percona' do

@@ -53,4 +53,8 @@ control 'percona_user' do
   describe sql.query("SELECT #{password_column} FROM mysql.user WHERE user='rizzo' AND host='127.0.0.1'") do
     its(:stdout) { should include '*125EA03B506F7C876D9321E9055F37601461E970' }
   end
+
+  describe sql.query('select User,Host from mysql.user') do
+    its(:stdout) { should match(/bunsen/) }
+  end
 end

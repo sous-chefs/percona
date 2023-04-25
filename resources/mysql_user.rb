@@ -67,7 +67,7 @@ action_class do
 
   def run_query(query)
     socket = new_resource.ctrl_host == 'localhost' ? default_socket : nil
-    ctrl_hash = { host: new_resource.ctrl_host, port: new_resource.ctrl_port, username: new_resource.ctrl_user, password: new_resource.ctrl_password, socket: socket }
+    ctrl_hash = { user: new_resource.ctrl_user, password: new_resource.ctrl_password }.merge!(socket.nil? ? { host: new_resource.ctrl_host, port: new_resource.ctrl_port } : { socket: socket })
     Chef::Log.debug("#{@new_resource}: Performing query [#{query}]")
     execute_sql(query, nil, ctrl_hash)
   end
@@ -101,11 +101,12 @@ action_class do
       run_query(test_sql).split("\n").count > 1
     else # Works for any authentication method as long as the host is localhost
       test_sql = "SELECT 'user can login'"
-      socket = new_resource.ctrl_host == 'localhost' ? default_socket : nil
-      ctrl_hash = { host: new_resource.ctrl_host, port: new_resource.ctrl_port, user: new_resource.username, password: new_resource.password, socket: socket }
+      socket = new_resource.host == 'localhost' ? default_socket : nil
+      # Passing host instead of ctrl_host to validate the user@scope login instead of user@ctrl_host
+      user_hash = { user: new_resource.username, password: new_resource.password }.merge!(socket.nil? ? { host: new_resource.host, port: new_resource.ctrl_port } : { socket: socket })
       Chef::Log.debug("#{@new_resource}: Performing query [#{test_sql}]")
 
-      if execute_sql_exitstatus(test_sql, ctrl_hash) == 0
+      if execute_sql_exitstatus(test_sql, user_hash) == 0
         true
       else # handles mysql_native_password authentication method
         test_sql = 'SELECT User,Host,authentication_string FROM mysql.user ' \

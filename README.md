@@ -1,7 +1,6 @@
 # Percona Cookbook
 
 [![Cookbook Version](https://img.shields.io/cookbook/v/percona.svg)](https://supermarket.chef.io/cookbooks/percona)
-[![Build Status](https://img.shields.io/circleci/project/github/sous-chefs/percona/master.svg)](https://circleci.com/gh/sous-chefs/percona)
 [![OpenCollective](https://opencollective.com/sous-chefs/backers/badge.svg)](#backers)
 [![OpenCollective](https://opencollective.com/sous-chefs/sponsors/badge.svg)](#sponsors)
 [![License](https://img.shields.io/badge/License-Apache%202.0-green.svg)](https://opensource.org/licenses/Apache-2.0)

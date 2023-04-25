@@ -27,7 +27,7 @@ property :user,          [String, nil],  default: 'root', desired_state: false
 property :socket,        [String, nil], desired_state: false
 property :password,      [String, nil], sensitive: true, desired_state: false
 property :encoding,      String,         default: lazy { percona_default_encoding }
-property :collation,     String,         default: 'utf8_general_ci'
+property :collation,     String,         default: lazy { percona_default_collate }
 property :sql,           String
 
 action :create do
@@ -60,7 +60,7 @@ action :query do
 end
 
 load_current_value do
-  lsocket = (socket && host == 'localhost') ? socket : nil
+  lsocket = (host == 'localhost') ? default_socket : nil
   ctrl = { user: user, password: password
                    }.merge!(lsocket.nil? ? { host: host, port: port } : { socket: lsocket })
   query = "SHOW DATABASES LIKE '#{database_name}'"

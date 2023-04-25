@@ -120,11 +120,11 @@ module Percona
       end
 
       def percona_default_encoding
-        if node['percona']['version'].to_i >= 8
-          'utf8mb3'
-        else
-          'utf8'
-        end
+        node['percona']['version'].to_i >= 8 ? 'utf8mb4' : 'utf8'
+      end
+
+      def percona_default_collate
+        node['percona']['version'].to_i >= 8 ? 'utf8mb4_0900_ai_ci' : 'utf8_general_ci'
       end
 
       include Chef::Mixin::ShellOut
@@ -147,7 +147,7 @@ module Percona
         Chef::Log.debug("Control Hash: [#{ctrl.to_json}]\n")
         cmd = "/usr/bin/mysql -B -e \"#{raw_query}\""
         cmd << " --user=#{ctrl[:user]}" if ctrl && ctrl.key?(:user) && !ctrl[:user].nil?
-        cmd << " -p#{ctrl[:password]}"  if ctrl && ctrl.key?(:password) && !ctrl[:password].nil?
+        cmd << " -p'#{ctrl[:password]}'" if ctrl && ctrl.key?(:password) && !ctrl[:password].nil?
         cmd << " -h #{ctrl[:host]}"     if ctrl && ctrl.key?(:host) && !ctrl[:host].nil? && ctrl[:host] != 'localhost'
         cmd << " -P #{ctrl[:port]}"     if ctrl && ctrl.key?(:port) && !ctrl[:port].nil? && ctrl[:host] != 'localhost'
         cmd << " -S #{default_socket}"   if ctrl && ctrl.key?(:host) && !ctrl[:host].nil? && ctrl[:host] == 'localhost'

@@ -66,6 +66,36 @@ bash 'create rizzo' do
   action :run
 end
 
+# Create a user to test ctrl_user, ctrl_password, and ctrl_host
+bash 'create beauregard' do
+  code <<-EOF
+  echo "CREATE USER 'beauregard'@'localhost' IDENTIFIED BY '>mupp3ts'; GRANT ALL PRIVILEGES ON *.* TO 'beauregard'@'localhost' WITH GRANT OPTION; FLUSH PRIVILEGES;" | /usr/bin/mysql -u root;
+  touch /tmp/beauregardmarker
+  EOF
+  not_if { ::File.exist?('/tmp/beauregardmarker') }
+  action :run
+end
+
+# Create a user to test mysql_database_user password update via :create and non-root user
+bash 'create waldorf@localhost' do
+  code <<-EOF
+  echo "CREATE USER 'waldorf'@'localhost' IDENTIFIED BY 'balcony';" | /usr/bin/mysql -u root;
+  touch /tmp/waldorf_localhostmarker
+  EOF
+  not_if { ::File.exist?('/tmp/waldorf_localhostmarker') }
+  action :run
+end
+
+# Create a user to test mysql_database_user password update via :create and non-root user
+bash 'create waldorf' do
+  code <<-EOF
+  echo "CREATE USER 'waldorf'@'127.0.0.1' IDENTIFIED BY 'boxseat';" | /usr/bin/mysql -u root;
+  touch /tmp/waldorf_127marker
+  EOF
+  not_if { ::File.exist?('/tmp/waldorf_127marker') }
+  action :run
+end
+
 ## Resources we're testing
 percona_mysql_database 'databass' do
   action :create
@@ -167,6 +197,27 @@ percona_mysql_user 'beaker' do
   host 'localhost'
   ctrl_password ''
   use_native_auth false
+  action :create
+end
+
+# Create new user with a ctrl_user as non-root to test ctrl_hash and validate ctrl_password with special character
+percona_mysql_user 'bunsen' do
+  database_name 'datasalmon'
+  password 'honeydont'
+  ctrl_user 'beauregard'
+  ctrl_password '>mupp3ts'
+  ctrl_host '127.0.0.1'
+  host 'localhost'
+  privileges [:select]
+  action [:create, :grant]
+end
+
+percona_mysql_user 'waldorf' do
+  password 'balcony'
+  ctrl_user 'beauregard'
+  ctrl_password '>mupp3ts'
+  ctrl_host '127.0.0.1'
+  host '127.0.0.1'
   action :create
 end
 

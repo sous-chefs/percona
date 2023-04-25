@@ -4,13 +4,19 @@ This file is used to list changes made in each version of the percona cookbook.
 
 ## Unreleased
 
+Standardise files with files in sous-chefs/repo-management
+
 ## 3.2.10 - *2023-04-07*
 
 Standardise files with files in sous-chefs/repo-management
 
 ## 3.2.9 - *2023-04-01*
 
+Standardise files with files in sous-chefs/repo-management
+
 ## 3.2.8 - *2023-04-01*
+
+Standardise files with files in sous-chefs/repo-management
 
 ## 3.2.7 - *2023-04-01*
 
@@ -24,15 +30,13 @@ Standardise files with files in sous-chefs/repo-management
 
 Standardise files with files in sous-chefs/repo-management
 
-Standardise files with files in sous-chefs/repo-management
-
 ## 3.2.4 - *2023-02-23*
 
 Standardise files with files in sous-chefs/repo-management
 
-Standardise files with files in sous-chefs/repo-management
-
 ## 3.2.3 - *2023-02-14*
+
+Standardise files with files in sous-chefs/repo-management
 
 ## 3.2.2 - *2023-02-14*
 
@@ -96,12 +100,8 @@ Standardise files with files in sous-chefs/repo-management
 
 ## 2.0.0 - 2020-10-23
 
-### Added
-
 - Add `percona_mysql_database` resource for creating, querying and removing databases
 - Add `percona_mysql_user` resource for creating, modifying and removing database users
-
-### Removed
 
 - Remove `mysql_chef_gem` and `mysql2_chef_gem` providers in favor of the `percona_mysql_database` and `percona_mysql_user` resources
 
@@ -115,8 +115,6 @@ Standardise files with files in sous-chefs/repo-management
 
 ## 1.0.0 - 2020-08-14
 
-### Added
-
 - Add support for Debian 10 for 5.7 only
 - Add support for Ubuntu 20.04 for 5.7 only
 - Add support for CentOS 8
@@ -126,8 +124,7 @@ Standardise files with files in sous-chefs/repo-management
 - Add ssl suite and tests for ssl recipe
 - Add master suite and tests for testing the replication recipe
 - Suite to test compatibility with Chef 13
-
-### Fixed
+@2.0.1
 
 - Update apt gpg key
 - Fixes for supporting 5.7
@@ -139,14 +136,10 @@ Standardise files with files in sous-chefs/repo-management
 - Use correct cert path for master/slave
 - Fix issue when trying to set node['percona']['version'] in a recipe
 
-### Changed
-
 - Convert to InSpec tests and refactor test cookbook recipes
 - Don't install abi_version packages on Debian/Ubuntu
 - Standardise files with files in sous-chefs/repo-management
 - Move client package installation for cluster to cluster recipe
-
-### Removed
 
 - Remove support for Amazon Linux
 - Remove support for OpenSUSE
@@ -162,7 +155,7 @@ Standardise files with files in sous-chefs/repo-management
 
 ## 0.17.2 - 2020-08-06
 
-### Fixed
+@2.0.1
 
 - Fix debian_password as a string for testing
 - Fix idempotency issues with find_password method
@@ -198,5 +191,4 @@ Standardise files with files in sous-chefs/repo-management
 
 - Many changes
 
-[2.0.1 - *2020-12-15*]: https://github.com/sous-chefs/percona/compare/v0.16.1...HEAD
 [0.16.1]: https://github.com/sous-chefs/percona/compare/v0.16.0...v0.16.1

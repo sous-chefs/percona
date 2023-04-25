@@ -2,6 +2,8 @@
 
 This file is used to list changes made in each version of the percona cookbook.
 
+## Unreleased
+
 ## 3.3.0 - *2023-04-25*
 
 - Fixed the user key in the ctrl_hash for the run_query method in the mysql_user custom resource

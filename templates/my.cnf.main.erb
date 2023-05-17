@@ -229,8 +229,6 @@ table_definition_cache  = <%= node["percona"]["server"]["table_definition_cache"
     <%- end %>
 <%- end %>
 
-table_definition_cache             = <%= node["percona"]["server"]["table_definition_cache"] %>
-
 #thread_concurrency     = 10
 <%- if node["percona"]["version"].to_i < 8 %>
 #

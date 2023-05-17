@@ -84,12 +84,8 @@ describe 'percona::configure_server' do
       )
     end
 
-    it 'creates the temporary directory' do
-      expect(chef_run).to create_directory('/tmp').with(
-        owner: 'mysql',
-        group: 'mysql',
-        recursive: true
-      )
+    it 'does not create temporary directory since it is /tmp' do
+      expect(chef_run).to_not create_directory('/tmp')
     end
 
     it 'creates the configuration include directory' do

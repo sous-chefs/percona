@@ -4,6 +4,11 @@ This file is used to list changes made in each version of the percona cookbook.
 
 ## Unreleased
 
+- Avoid changing the perms on /tmp
+- Remove duplicate configuration line
+- Avoid duplicating mysqld configuration section in my.cnf
+- Remove the open file limit from the systemd unit since it is already set in my.cnf anyway
+
 ## 3.3.1 - *2023-05-17*
 
 ## 3.3.0 - *2023-04-25*

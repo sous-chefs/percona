@@ -25,6 +25,12 @@ if platform_family?('rhel')
       pattern /^PIDFile=.*/
       notifies :run, 'execute[systemctl daemon-reload]', :immediately
     end
+
+    delete_lines 'remove LimitNOFILE from systemd.service' do
+      path '/usr/lib/systemd/system/mysqld.service'
+      pattern /^LimitNOFILE =.*/
+      notifies :run, 'execute[systemctl daemon-reload]', :immediately
+    end
   end
 end
 

@@ -229,8 +229,6 @@ table_definition_cache  = <%= node["percona"]["server"]["table_definition_cache"
     <%- end %>
 <%- end %>
 
-table_definition_cache             = <%= node["percona"]["server"]["table_definition_cache"] %>
-
 #thread_concurrency     = 10
 <%- if node["percona"]["version"].to_i < 8 %>
 #
@@ -648,6 +646,11 @@ innodb_numa_interleave=<%= node["percona"]["server"]["innodb_numa_interleave"] %
     ssl-key=/etc/mysql/ssl/server-key.pem
 <% end %>
 
+<% unless node["percona"]["conf"].nil? or node["percona"]["conf"]["mysqld"].nil? %>
+<% node["percona"]["conf"]["mysqld"].keys.each do |key| %>
+    <%= "#{key} = #{node["percona"]["conf"]["mysqld"][key]}" %>
+<% end %>
+<% end %>
 
 [mysqldump]
 quick
@@ -663,12 +666,14 @@ key_buffer_size = <%= node["percona"]["server"]["key_buffer_size"] %>
 ##### custom configurations go here
 <% unless node["percona"]["conf"].nil? or node["percona"]["conf"].empty? %>
 <% node["percona"]["conf"].keys.each do |category| %>
+<% unless category == 'mysqld' %>
 
     <%= "[#{category}]" %>
     <% node["percona"]["conf"][category].keys.each do |key| %>
         <%= "#{key} = #{node["percona"]["conf"][category][key]}" %>
     <% end %>
 
+<% end %>
 <% end %>
 <% end %>
 

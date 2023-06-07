@@ -155,12 +155,6 @@ control 'server' do
   describe file '/var/log/mysql' do
     it { should be_a_directory }
     its('owner') { should cmp 'mysql' }
-    its('group') { should cmp  'mysql' }
-  end
-
-  describe file '/tmp' do
-    it { should be_a_directory }
-    its('owner') { should cmp 'mysql' }
     its('group') { should cmp 'mysql' }
   end
 

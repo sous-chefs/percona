@@ -55,6 +55,18 @@ describe 'percona::server' do
         notify('execute[systemctl daemon-reload]').to(:run).immediately
     end
 
+    it do
+      expect(chef_run).to edit_delete_lines('remove LimitNOFILE from systemd.service').with(
+        path: '/usr/lib/systemd/system/mysqld.service'
+        # pattern: /^LimitNOFILE =.*/ TODO: this errors out with <The diff is empty, are your objects producing identical `#inspect` output?>
+      )
+    end
+
+    it do
+      expect(chef_run.delete_lines('remove LimitNOFILE from systemd.service')).to \
+        notify('execute[systemctl daemon-reload]').to(:run).immediately
+    end
+
     context 'version 5.7' do
       override_attributes['percona']['version'] = '5.7'
       it do

@@ -92,6 +92,7 @@ directory tmpdir do
   owner user
   group user
   recursive true
+  not_if { tmpdir == '/tmp' }
 end
 
 # setup the configuration include directory

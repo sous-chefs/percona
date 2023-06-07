@@ -2,6 +2,8 @@
 
 This file is used to list changes made in each version of the percona cookbook.
 
+## Unreleased
+
 ## 3.4.0 - *2023-06-07*
 
 - Avoid changing the perms on /tmp

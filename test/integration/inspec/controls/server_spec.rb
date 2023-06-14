@@ -243,11 +243,11 @@ control 'server' do
   end
 
   describe command "mysqladmin --user='root' --password='7tCk(V5I' variables" do
-    its('stdout') { should match %r{datadir\s+| /tmp/mysql/} }
-    its('stdout') { should match %r{general_log_file\s+| /tmp/mysql/} }
-    its('stdout') { should match %r{max_connections\s+| 30} }
-    its('stdout') { should match %r{table_cache\s+| 8192} }
-    its('stdout') { should match %r{open_files_limit\s+| 16384} }
+    its('stdout') { should match %r{datadir\s+\| /tmp/mysql/} }
+    its('stdout') { should match %r{general_log_file\s+\| /tmp/mysql/} }
+    its('stdout') { should match /max_connections\s+\| 30/ }
+    its('stdout') { should match /table_open_cache\s+\| 8172/ } # (open_files_limit - 10 - max_connections) / 2
+    its('stdout') { should match /open_files_limit\s+\| 16384/ }
     its('exit_status') { should eq 0 }
   end
 end

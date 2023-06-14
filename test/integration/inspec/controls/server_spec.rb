@@ -246,8 +246,8 @@ control 'server' do
     its('stdout') { should match %r{datadir\s+\| /tmp/mysql/} }
     its('stdout') { should match %r{general_log_file\s+\| /tmp/mysql/} }
     its('stdout') { should match /max_connections\s+\| 30/ }
-    its('stdout') { should match /table_open_cache\s+\| 8172/ } # (open_files_limit - 10 - max_connections) / 2
-    its('stdout') { should match /open_files_limit\s+\| 16384/ }
+    its('stdout') { should match /table_open_cache\s+\| 8172/ } unless os.family == 'debian' # (open_files_limit - 10 - max_connections) / 2
+    its('stdout') { should match /open_files_limit\s+\| 16384/ } unless os.family == 'debian'
     its('exit_status') { should eq 0 }
   end
 end

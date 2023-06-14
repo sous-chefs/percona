@@ -2,6 +2,8 @@
 
 This file is used to list changes made in each version of the percona cookbook.
 
+## Unreleased
+
 ## 3.4.1 - *2023-06-14*
 
 - Fix adjustment of open files limit within systemd unit

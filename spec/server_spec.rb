@@ -56,14 +56,15 @@ describe 'percona::server' do
     end
 
     it do
-      expect(chef_run).to edit_delete_lines('remove LimitNOFILE from systemd.service').with(
-        path: '/usr/lib/systemd/system/mysqld.service'
+      expect(chef_run).to edit_replace_or_add('configure LimitNOFILE in systemd.service').with(
+        path: '/usr/lib/systemd/system/mysqld.service',
+        line: 'LimitNOFILE = 16384'
         # pattern: /^LimitNOFILE =.*/ TODO: this errors out with <The diff is empty, are your objects producing identical `#inspect` output?>
       )
     end
 
     it do
-      expect(chef_run.delete_lines('remove LimitNOFILE from systemd.service')).to \
+      expect(chef_run.replace_or_add('configure LimitNOFILE in systemd.service')).to \
         notify('execute[systemctl daemon-reload]').to(:run).immediately
     end
 

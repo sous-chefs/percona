@@ -245,6 +245,9 @@ control 'server' do
   describe command "mysqladmin --user='root' --password='7tCk(V5I' variables" do
     its('stdout') { should match %r{datadir\s+| /tmp/mysql/} }
     its('stdout') { should match %r{general_log_file\s+| /tmp/mysql/} }
+    its('stdout') { should match %r{max_connections\s+| 30} }
+    its('stdout') { should match %r{table_cache\s+| 8192} }
+    its('stdout') { should match %r{open_files_limit\s+| 16384} }
     its('exit_status') { should eq 0 }
   end
 end

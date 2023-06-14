@@ -26,9 +26,10 @@ if platform_family?('rhel')
       notifies :run, 'execute[systemctl daemon-reload]', :immediately
     end
 
-    delete_lines 'remove LimitNOFILE from systemd.service' do
+    replace_or_add 'configure LimitNOFILE in systemd.service' do
       path '/usr/lib/systemd/system/mysqld.service'
       pattern /^LimitNOFILE =.*/
+      line "LimitNOFILE = #{node['percona']['server']['open_files_limit']}"
       notifies :run, 'execute[systemctl daemon-reload]', :immediately
     end
   end

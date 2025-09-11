@@ -1,6 +1,10 @@
 # percona\_mysql\_database
 
-Manage Percona MySQL databases and execute SQL queries on them. It works by establishing a control connection to the Percona server using the percona client (be sure it is installed before using this resource).
+Manage Percona MySQL databases and execute SQL queries on them. Works with Percona Server 8.0+ (where supported). Establishes a control connection to the Percona server using the percona client (ensure it is installed before using this resource).
+
+Terminology: This resource uses inclusive terms (`source/replica`) matching upstream MySQL. See README for details.
+
+See test suite examples in `test/fixtures/cookbooks/test/recipes/user_database.rb`.
 
 ## Actions
 

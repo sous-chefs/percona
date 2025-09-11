@@ -3,7 +3,7 @@
 # Recipe:: cluster
 #
 
-node.default['percona']['repositories'] = %w(pxc-80)
+node.default['percona']['cluster_enabled'] = true
 node.default['percona']['client']['packages'] = percona_cluster_client_package
 
 include_recipe 'percona::package_repo'

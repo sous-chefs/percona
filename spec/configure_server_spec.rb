@@ -59,13 +59,6 @@ describe 'percona::configure_server' do
       expect(chef_run).to nothing_execute('setup mysql datadir').with(command: 'mysqld --defaults-file=/etc/mysql/my.cnf --user=mysql --initialize-insecure')
     end
 
-    context 'version < 5.7' do
-      override_attributes['percona']['version'] = '5.6'
-      it 'defines the setup for the data directory' do
-        expect(chef_run).to nothing_execute('setup mysql datadir').with(command: 'mysql_install_db --defaults-file=/etc/mysql/my.cnf --user=mysql')
-      end
-    end
-
     it 'creates the log directory' do
       expect(chef_run).to create_directory('log directory').with(
         path: '/var/log/mysql',
@@ -278,19 +271,6 @@ describe 'percona::configure_server' do
         )
       end
     end
-    context 'Ubuntu 18.04' do
-      platform 'ubuntu', '18.04'
-
-      it do
-        expect(chef_run).to install_package 'libjemalloc1'
-      end
-
-      it 'sets the correct malloc-lib path' do
-        expect(chef_run).to render_file('/etc/mysql/my.cnf').with_content(
-          %r{^malloc-lib.*= /usr/lib/x86_64-linux-gnu/libjemalloc.so.1}
-        )
-      end
-    end
     context 'CentOS 8' do
       platform 'centos', '8'
 
@@ -301,19 +281,6 @@ describe 'percona::configure_server' do
       it 'sets the correct malloc-lib path' do
         expect(chef_run).to render_file('/etc/my.cnf').with_content(
           %r{^malloc-lib.*= /usr/lib64/libjemalloc.so.2}
-        )
-      end
-    end
-    context 'CentOS 7' do
-      platform 'centos', '7'
-
-      it do
-        expect(chef_run).to install_package 'jemalloc'
-      end
-
-      it 'sets the correct malloc-lib path' do
-        expect(chef_run).to render_file('/etc/my.cnf').with_content(
-          %r{^malloc-lib.*= /usr/lib64/libjemalloc.so.1}
         )
       end
     end

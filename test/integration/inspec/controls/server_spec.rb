@@ -33,33 +33,25 @@ control 'server' do
 
     xtrabackup_pkg =
       if type == 'cluster'
-        if version.to_f < 5.7
-          'percona-xtrabackup'
-        else
-          'percona-xtrabackup-24'
-        end
-      elsif (os.name == 'debian' && os.release.to_i >= 10) || (os.name == 'ubuntu' && os.release.to_f >= 20.04)
-        'percona-xtrabackup-80'
+        'percona-xtrabackup-24'
       else
-        'xtrabackup'
+        "percona-xtrabackup-#{version.tr('.', '')}"
       end
 
     describe package xtrabackup_pkg do
-      if version.to_i >= 8 && type == 'cluster'
+      if type == 'cluster'
         it { should_not be_installed }
       else
         it { should be_installed }
       end
-    end
+    end unless os.family == 'redhat' && os.release.to_i >= 10
 
     jemalloc_pkg =
-      case os.name
+      case os.family
       when 'debian'
-        os.release.to_i >= 10 ? 'libjemalloc2' : 'libjemalloc1'
-      when 'ubuntu'
-        os.release.to_f >= 20.04 ? 'libjemalloc2' : 'libjemalloc1'
-      when 'centos'
-        os.release.to_i >= 8 ? 'libjemalloc2' : 'libjemalloc1'
+        'libjemalloc2'
+      when 'redhat'
+        'libjemalloc2'
       end
 
     describe package jemalloc_pkg do
@@ -71,13 +63,6 @@ control 'server' do
       its('owner') { should cmp 'root' }
       its('group') { should cmp 'root' }
       its('mode') { should cmp '0644' }
-    end
-
-    if version.to_f < 5.7
-      describe file '/etc/mysql/grants.sql' do
-        its('content') { should match 'debian-sys-maint' }
-        its('content') { should match /0kb\)F\?Zj/ }
-      end
     end
 
     describe file '/etc/mysql/debian.cnf' do
@@ -101,14 +86,8 @@ control 'server' do
       it { should be_installed }
     end
 
-    if os.release.to_i >= 8
-      describe package 'percona-xtrabackup-80' do
-        it { should be_installed }
-      end
-    else
-      describe package 'xtrabackup' do
-        it { should be_installed }
-      end
+    describe package 'percona-xtrabackup-80' do
+      it { should be_installed }
     end
 
     describe package "Percona-Server-client-#{ver}" do
@@ -188,9 +167,9 @@ control 'server' do
       its('mode') { should cmp '0600' }
       its('content') { should match %r{\)6\$W2M\{/} }
       its('content') { should match /TO 'replication'@'%'/ }
-      its('content') { should match /MASTER_HOST='source-host'/ }
-      its('content') { should match /MASTER_USER='replication'/ }
-      its('content') { should match %r{MASTER_PASSWORD='\)6\$W2M\{/'} }
+      its('content') { should match /SOURCE_HOST='source-host'/ }
+      its('content') { should match /SOURCE_USER='replication'/ }
+      its('content') { should match %r{SOURCE_PASSWORD='\)6\$W2M\{/'} }
     end
   elsif type == 'replication'
     describe file '/etc/mysql/replication.sql' do
@@ -198,20 +177,16 @@ control 'server' do
       its('owner') { should cmp 'root' }
       its('group') { should cmp 'root' }
       its('mode') { should cmp '0600' }
-      if version.to_i >= 8
-        its('content') { should match %r{CREATE USER IF NOT EXISTS 'replication'@'%' IDENTIFIED BY '\)6\$W2M\{\/';} }
-        its('content') { should match /GRANT REPLICATION SLAVE ON \*\.\* TO 'replication'@'%';/ }
-        its('content') { should match /ALTER USER 'replication'@'%' REQUIRE SSL;/ }
-      else
-        its('content') { should match %r{GRANT REPLICATION SLAVE ON \*\.\* TO 'replication'@'%' IDENTIFIED BY '\)6\$W2M\{/' REQUIRE SSL;} }
-      end
-      its('content') { should match /MASTER_HOST='source-host'/ }
-      its('content') { should match /MASTER_USER='replication'/ }
-      its('content') { should match %r{MASTER_PASSWORD='\)6\$W2M\{/'} }
-      its('content') { should match /MASTER_SSL=1/ }
-      its('content') { should match %r{MASTER_SSL_CA='/etc/mysql/ssl/cacert.pem'} }
-      its('content') { should match %r{MASTER_SSL_CERT='/etc/mysql/ssl/server-cert.pem'} }
-      its('content') { should match %r{MASTER_SSL_KEY='/etc/mysql/ssl/server-key.pem'} }
+      its('content') { should match %r{CREATE USER IF NOT EXISTS 'replication'@'%' IDENTIFIED BY '\)6\$W2M\{\/';} }
+      its('content') { should match /GRANT REPLICATION SLAVE ON \*\.\* TO 'replication'@'%';/ }
+      its('content') { should match /ALTER USER 'replication'@'%' REQUIRE SSL;/ }
+      its('content') { should match /SOURCE_HOST='source-host'/ }
+      its('content') { should match /SOURCE_USER='replication'/ }
+      its('content') { should match %r{SOURCE_PASSWORD='\)6\$W2M\{/'} }
+      its('content') { should match /SOURCE_SSL=1/ }
+      its('content') { should match %r{SOURCE_SSL_CA='/etc/mysql/ssl/cacert.pem'} }
+      its('content') { should match %r{SOURCE_SSL_CERT='/etc/mysql/ssl/server-cert.pem'} }
+      its('content') { should match %r{SOURCE_SSL_KEY='/etc/mysql/ssl/server-key.pem'} }
     end
   else
     describe file '/etc/mysql/replication.sql' do
@@ -225,8 +200,8 @@ control 'server' do
     its('group') { should cmp 'mysql' }
   end
 
-  mysql_file = version.to_i >= 8 ? '/tmp/mysql/mysql.ibd' : '/tmp/mysql/mysql/user.frm'
-  mysql_mode = version.to_f < 5.7 ? '0660' : '0640'
+  mysql_file = '/tmp/mysql/mysql.ibd'
+  mysql_mode = '0640'
 
   describe file '/tmp/mysql/ibdata1' do
     it { should be_a_file }

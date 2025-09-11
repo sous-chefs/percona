@@ -25,27 +25,50 @@ jobs:
         os:
           - almalinux-8
           - almalinux-9
-          - centos-7
-          - centos-stream-8
+          - almalinux-10
           - centos-stream-9
-          - debian-10
-          - debian-11
-          - ubuntu-1804
-          - ubuntu-2004
+          - centos-stream-10
+          - debian-12
           - ubuntu-2204
+          - ubuntu-2404
         suite:
-          - client-57
           - client-80
-          - devel-57
+          - client-84
           - devel-80
-          - server-57
+          - devel-84
           - server-80
-          - source-57
+          - server-84
           - source-80
-          - replication-57
+          - source-84
           - replication-80
-          - resources-57
+          - replication-84
           - resources-80
+          - resources-84
+        exclude:
+          - os: almalinux-10
+            suite: client-80
+          - os: almalinux-10
+            suite: devel-80
+          - os: almalinux-10
+            suite: server-80
+          - os: almalinux-10
+            suite: source-80
+          - os: almalinux-10
+            suite: replication-80
+          - os: almalinux-10
+            suite: resources-80
+          - os: centos-stream-10
+            suite: client-80
+          - os: centos-stream-10
+            suite: devel-80
+          - os: centos-stream-10
+            suite: server-80
+          - os: centos-stream-10
+            suite: source-80
+          - os: centos-stream-10
+            suite: replication-80
+          - os: centos-stream-10
+            suite: resources-80
       fail-fast: false
 
     steps:

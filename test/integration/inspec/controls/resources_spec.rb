@@ -14,8 +14,7 @@ control 'percona_user' do
   impact 1.0
   title 'test creation, granting and removal of users'
 
-  version = input('version')
-  password_column = version.to_f >= 5.7 ? 'authentication_string' : 'password'
+  password_column = 'authentication_string'
 
   sql = mysql_session('root', '')
 

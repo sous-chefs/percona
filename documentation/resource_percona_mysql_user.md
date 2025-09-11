@@ -1,6 +1,10 @@
 # percona\_mysql\_user
 
-Manage Percona MySQL users and grant them privileges on database objects.
+Manage Percona MySQL users and grant them privileges on database objects. Works with Percona Server 8.0+ (where supported).
+
+Terminology: This resource uses inclusive terms (`source/replica`) matching upstream MySQL. See README for details.
+
+See test suite examples in `test/fixtures/cookbooks/test/recipes/user_database.rb`.
 
 ## Actions
 

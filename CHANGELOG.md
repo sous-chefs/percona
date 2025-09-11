@@ -4,6 +4,18 @@ This file is used to list changes made in each version of the percona cookbook.
 
 ## Unreleased
 
+### Major update
+
+- **Breaking:** Removed support for all end-of-life (EOL) platforms:
+  - Debian 11
+  - CentOS 7
+- **Breaking:** Dropped support for EOL Percona Server 5.7. Cookbook now targets Percona Server 8.0+.
+- **Added:** Support for AlmaLinux 8+ and Rocky Linux 8+.
+- **Improved:** Documentation updates:
+  - README.md now lists current supported platforms, Chef version requirements, and resource documentation links.
+  - Resource docs clarify Percona version compatibility and terminology.
+  - Usage and encrypted data bag sections improved for clarity.
+
 ## 3.4.11 - *2025-09-04*
 
 ## 3.4.10 - *2024-12-04*

@@ -3,7 +3,8 @@ driver:
   name: vagrant
 
 provisioner:
-  name: chef_solo
+  name: chef_infra
+  chef_license: accept-no-persist
   enforce_idempotency: true
   multiple_converge: 2
   deprecations_as_errors: true
@@ -16,48 +17,18 @@ verifier:
 
 platforms:
   - name: almalinux-8
-  - name: centos-7
-  - name: centos-stream-8
-  - name: debian-10
-  - name: debian-11
+  - name: almalinux-9
+  - name: almalinux-10
+  - name: centos-stream-9
+  - name: centos-stream-10
+  - name: debian-12
   - name: rockylinux-8
-  - name: ubuntu-18.04
-  - name: ubuntu-20.04
+  - name: rockylinux-9
+  - name: rockylinux-10
+  - name: ubuntu-22.04
+  - name: ubuntu-24.04
 
 suites:
-  - name: client-56
-    run_list:
-      - recipe[test::client]
-    attributes:
-      percona:
-        version: '5.6'
-    verifier:
-      controls:
-        - client
-        - toolkit
-      inputs:
-        version: '5.6'
-    excludes:
-      - almalinux-8
-      - centos-stream-8
-      - debian-10
-      - debian-11
-      - rockylinux-8
-      - ubuntu-20.04
-
-  - name: client-57
-    run_list:
-      - recipe[test::client]
-    attributes:
-      percona:
-        version: '5.7'
-    verifier:
-      controls:
-        - client
-        - toolkit
-      inputs:
-        version: '5.7'
-
   - name: client-80
     run_list:
       - recipe[test::client]
@@ -70,45 +41,23 @@ suites:
         - toolkit
       inputs:
         version: '8.0'
-
-  - name: devel-56
-    run_list:
-      - recipe[test::client]
-    attributes:
-      percona:
-        version: '5.6'
-        client:
-          install_devel_package: true
-    verifier:
-      controls:
-        - client
-        - toolkit
-      inputs:
-        version: '5.6'
-        devel: true
     excludes:
-      - almalinux-8
-      - centos-stream-8
-      - debian-10
-      - debian-11
-      - rockylinux-8
-      - ubuntu-20.04
+      - almalinux-10
+      - centos-stream-10
+      - rockylinux-10
 
-  - name: devel-57
+  - name: client-84
     run_list:
       - recipe[test::client]
     attributes:
       percona:
-        version: '5.7'
-        client:
-          install_devel_package: true
+        version: '8.4'
     verifier:
       controls:
         - client
         - toolkit
       inputs:
-        version: '5.7'
-        devel: true
+        version: '8.4'
 
   - name: devel-80
     run_list:
@@ -125,39 +74,26 @@ suites:
       inputs:
         version: '8.0'
         devel: true
-
-  - name: server-56
-    run_list:
-      - recipe[test::server]
-    attributes:
-      percona:
-        version: '5.6'
     excludes:
-      - almalinux-8
-      - centos-stream-8
-      - debian-10
-      - debian-11
-      - rockylinux-8
-      - ubuntu-20.04
-    verifier:
-      controls:
-        - client
-        - server
-      inputs:
-        version: '5.6'
+      - almalinux-10
+      - centos-stream-10
+      - rockylinux-10
 
-  - name: server-57
+  - name: devel-84
     run_list:
-      - recipe[test::server]
+      - recipe[test::client]
     attributes:
       percona:
-        version: '5.7'
+        version: '8.4'
+        client:
+          install_devel_package: true
     verifier:
       controls:
         - client
-        - server
+        - toolkit
       inputs:
-        version: '5.7'
+        version: '8.4'
+        devel: true
 
   - name: server-80
     run_list:
@@ -171,41 +107,23 @@ suites:
         - server
       inputs:
         version: '8.0'
-
-  - name: source-56
-    run_list:
-      - recipe[test::source]
-    attributes:
-      percona:
-        version: '5.6'
     excludes:
-      - almalinux-8
-      - centos-stream-8
-      - debian-10
-      - debian-11
-      - rockylinux-8
-      - ubuntu-20.04
-    verifier:
-      controls:
-        - client
-        - server
-      inputs:
-        version: '5.6'
-        type: 'source'
+      - almalinux-10
+      - centos-stream-10
+      - rockylinux-10
 
-  - name: source-57
+  - name: server-84
     run_list:
-      - recipe[test::source]
+      - recipe[test::server]
     attributes:
       percona:
-        version: '5.7'
+        version: '8.4'
     verifier:
       controls:
         - client
         - server
       inputs:
-        version: '5.7'
-        type: 'source'
+        version: '8.4'
 
   - name: source-80
     run_list:
@@ -220,41 +138,24 @@ suites:
       inputs:
         version: '8.0'
         type: 'source'
-
-  - name: cluster-56
-    run_list:
-      - recipe[test::cluster]
-    attributes:
-      percona:
-        version: '5.6'
     excludes:
-      - almalinux-8
-      - centos-stream-8
-      - debian-10
-      - debian-11
-      - rockylinux-8
-      - ubuntu-20.04
-    verifier:
-      controls:
-        - client
-        - server
-      inputs:
-        version: '5.6'
-        type: 'cluster'
+      - almalinux-10
+      - centos-stream-10
+      - rockylinux-10
 
-  - name: cluster-57
+  - name: source-84
     run_list:
-      - recipe[test::cluster]
+      - recipe[test::source]
     attributes:
       percona:
-        version: '5.7'
+        version: '8.4'
     verifier:
       controls:
         - client
         - server
       inputs:
-        version: '5.7'
-        type: 'cluster'
+        version: '8.4'
+        type: 'source'
 
   - name: cluster-80
     run_list:
@@ -269,41 +170,24 @@ suites:
       inputs:
         version: '8.0'
         type: 'cluster'
-
-  - name: replication-56
-    run_list:
-      - recipe[test::replication]
-    attributes:
-      percona:
-        version: '5.6'
     excludes:
-      - almalinux-8
-      - centos-stream-8
-      - debian-10
-      - debian-11
-      - rockylinux-8
-      - ubuntu-20.04
-    verifier:
-      controls:
-        - client
-        - server
-      inputs:
-        version: '5.6'
-        type: 'replication'
+      - almalinux-10
+      - centos-stream-10
+      - rockylinux-10
 
-  - name: replication-57
+  - name: cluster-84
     run_list:
-      - recipe[test::replication]
+      - recipe[test::cluster]
     attributes:
       percona:
-        version: '5.7'
+        version: '8.4'
     verifier:
       controls:
         - client
         - server
       inputs:
-        version: '5.7'
-        type: 'replication'
+        version: '8.4'
+        type: 'cluster'
 
   - name: replication-80
     run_list:
@@ -318,39 +202,24 @@ suites:
       inputs:
         version: '8.0'
         type: 'replication'
-
-  - name: resources-56
-    run_list:
-      - recipe[test::user_database]
-    attributes:
-      percona:
-        version: '5.6'
     excludes:
-      - almalinux-8
-      - centos-stream-8
-      - debian-10
-      - debian-11
-      - rockylinux-8
-      - ubuntu-20.04
-    verifier:
-      controls:
-        - percona_database
-        - percona_user
-      inputs:
-        version: '5.6'
+      - almalinux-10
+      - centos-stream-10
+      - rockylinux-10
 
-  - name: resources-57
+  - name: replication-84
     run_list:
-      - recipe[test::user_database]
+      - recipe[test::replication]
     attributes:
       percona:
-        version: '5.7'
+        version: '8.4'
     verifier:
       controls:
-        - percona_database
-        - percona_user
+        - client
+        - server
       inputs:
-        version: '5.8'
+        version: '8.4'
+        type: 'replication'
 
   - name: resources-80
     run_list:
@@ -364,3 +233,20 @@ suites:
         - percona_user
       inputs:
         version: '8.0'
+    excludes:
+      - almalinux-10
+      - centos-stream-10
+      - rockylinux-10
+
+  - name: resources-84
+    run_list:
+      - recipe[test::user_database]
+    attributes:
+      percona:
+        version: '8.4'
+    verifier:
+      controls:
+        - percona_database
+        - percona_user
+      inputs:
+        version: '8.4'

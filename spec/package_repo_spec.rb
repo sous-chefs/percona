@@ -5,37 +5,63 @@ describe 'percona::package_repo' do
     platform 'ubuntu'
 
     it do
-      expect(chef_run).to add_apt_repository('percona').with(
-        uri: 'http://repo.percona.com/apt',
-        components: %w(main),
-        keyserver: 'keyserver.ubuntu.com',
-        key: %w(9334A25F8507EFA5)
+      is_expected.to create_remote_file("#{Chef::Config[:file_cache_path]}/percona-release.dpkg").with(
+        source: 'https://repo.percona.com/apt/percona-release_latest.generic_all.deb'
       )
     end
 
     it do
-      expect(chef_run).to add_apt_preference('00percona').with(
-        glob: '*',
-        pin: 'release o=Percona Development Team',
-        pin_priority: '1001'
+      is_expected.to install_dpkg_package('percona-release').with(
+        source: "#{Chef::Config[:file_cache_path]}/percona-release.dpkg"
+      )
+    end
+
+    %w(
+      percona-pmm2-client-release
+      percona-prel-release
+      percona-telemetry-release
+    ).each do |r|
+      it { is_expected.to remove_apt_repository r }
+    end
+
+    it do
+      expect(chef_run).to add_apt_repository('percona-release').with(
+        uri: 'https://repo.percona.com/prel/apt',
+        components: %w(main),
+        signed_by: '/usr/share/keyrings/percona-keyring.gpg'
+      )
+    end
+
+    it do
+      expect(chef_run).to add_apt_repository('percona-telemetry').with(
+        uri: 'https://repo.percona.com/telemetry/apt',
+        components: %w(main),
+        signed_by: '/usr/share/keyrings/percona-keyring.gpg'
+      )
+    end
+
+    it do
+      expect(chef_run).to add_apt_repository('percona-pmm2-client').with(
+        uri: 'https://repo.percona.com/pmm2-client/apt',
+        components: %w(main),
+        signed_by: '/usr/share/keyrings/percona-keyring.gpg'
+      )
+    end
+
+    it do
+      expect(chef_run).to add_apt_repository('percona-tools').with(
+        uri: 'https://repo.percona.com/tools/apt',
+        components: %w(main),
+        signed_by: '/usr/share/keyrings/percona-keyring.gpg'
       )
     end
 
     it do
       expect(chef_run).to add_apt_repository('percona-ps-80').with(
-        uri: 'http://repo.percona.com/ps-80/apt',
+        uri: 'https://repo.percona.com/ps-80/apt',
         components: %w(main),
-        keyserver: 'keyserver.ubuntu.com',
-        key: %w(9334A25F8507EFA5)
+        signed_by: '/usr/share/keyrings/percona-keyring.gpg'
       )
-    end
-
-    context 'version < 8.0' do
-      override_attributes['percona']['version'] = '5.7'
-
-      it do
-        expect(chef_run).to_not add_apt_repository('percona-ps-80')
-      end
     end
   end
 
@@ -47,26 +73,59 @@ describe 'percona::package_repo' do
     end
 
     it do
-      expect(chef_run).to create_yum_repository('percona').with(
-        description: 'Percona Packages',
-        baseurl: 'http://repo.percona.com/yum/release/$releasever/RPMS/$basearch',
-        gpgkey: [
-          'https://repo.percona.com/yum/PERCONA-PACKAGING-KEY',
-          'https://repo.percona.com/yum/RPM-GPG-KEY-Percona',
-        ],
+      is_expected.to create_remote_file("#{Chef::Config[:file_cache_path]}/percona-release.rpm").with(
+        source: 'https://repo.percona.com/yum/percona-release-latest.noarch.rpm'
+      )
+    end
+
+    it do
+      is_expected.to install_package('percona-release').with(
+        source: "#{Chef::Config[:file_cache_path]}/percona-release.rpm"
+      )
+    end
+
+    %w(
+      percona-prel-release
+      percona-telemetry-release
+    ).each do |r|
+      it { is_expected.to remove_yum_repository r }
+    end
+
+    it do
+      expect(chef_run).to create_yum_repository('percona-release').with(
+        description: 'Percona Release',
+        baseurl: 'https://repo.percona.com/prel/yum/release/$releasever/RPMS/noarch',
+        gpgkey: 'file:///etc/pki/rpm-gpg/PERCONA-PACKAGING-KEY',
         gpgcheck: true,
         sslverify: true
       )
     end
 
     it do
-      expect(chef_run).to create_yum_repository('percona-noarch').with(
-        description: 'Percona Packages - noarch',
-        baseurl: 'http://repo.percona.com/yum/release/$releasever/RPMS/noarch',
-        gpgkey: [
-          'https://repo.percona.com/yum/PERCONA-PACKAGING-KEY',
-          'https://repo.percona.com/yum/RPM-GPG-KEY-Percona',
-        ],
+      expect(chef_run).to create_yum_repository('percona-telemetry').with(
+        description: 'Percona Telemetry',
+        baseurl: 'https://repo.percona.com/telemetry/yum/release/$releasever/RPMS/$basearch',
+        gpgkey: 'file:///etc/pki/rpm-gpg/PERCONA-PACKAGING-KEY',
+        gpgcheck: true,
+        sslverify: true
+      )
+    end
+
+    it do
+      expect(chef_run).to create_yum_repository('percona-pmm2-client').with(
+        description: 'Percona Monitoring and Management Client',
+        baseurl: 'https://repo.percona.com/pmm2-client/yum/release/$releasever/RPMS/$basearch',
+        gpgkey: 'file:///etc/pki/rpm-gpg/PERCONA-PACKAGING-KEY',
+        gpgcheck: true,
+        sslverify: true
+      )
+    end
+
+    it do
+      expect(chef_run).to create_yum_repository('percona-tools').with(
+        description: 'Percona Tools',
+        baseurl: 'https://repo.percona.com/tools/yum/release/$releasever/RPMS/$basearch',
+        gpgkey: 'file:///etc/pki/rpm-gpg/PERCONA-PACKAGING-KEY',
         gpgcheck: true,
         sslverify: true
       )
@@ -75,22 +134,11 @@ describe 'percona::package_repo' do
     it do
       expect(chef_run).to create_yum_repository('percona-ps-80').with(
         description: 'Percona Packages - ps-80',
-        baseurl: 'http://repo.percona.com/ps-80/yum/release/$releasever/RPMS/$basearch',
-        gpgkey: [
-          'https://repo.percona.com/yum/PERCONA-PACKAGING-KEY',
-          'https://repo.percona.com/yum/RPM-GPG-KEY-Percona',
-        ],
+        baseurl: 'https://repo.percona.com/ps-80/yum/release/$releasever/RPMS/$basearch',
+        gpgkey: 'file:///etc/pki/rpm-gpg/PERCONA-PACKAGING-KEY',
         gpgcheck: true,
         sslverify: true
       )
-    end
-
-    context 'version < 8.0' do
-      override_attributes['percona']['version'] = '5.7'
-
-      it do
-        expect(chef_run).to_not create_yum_repository('percona-ps-80')
-      end
     end
   end
 end

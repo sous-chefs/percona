@@ -13,7 +13,11 @@
 - `resources/` - Custom Chef resources with properties and actions (if this is a resource-driven cookbook)
 - `spec/` - ChefSpec unit tests
 - `test/integration/` - InSpec integration tests (tests all platforms supported)
-- `attributes/`, `libraries/`, `templates/` - Configuration, helpers, ERB templates
+- `test/cookbooks/` or `test/fixtures/` - Example cookbooks used during testing that show good examples of custom resource usage
+- `attributes/` - Configuration for recipe driven cookbooks (not applicable to resource cookbooks)
+- `libraries/` - Library helpers to assist with the cookbook. May contain multiple files depending on complexity of the cookbook.
+- `templates/` - ERB templates that may be used in the cookbook
+- `files/` - files that may be used in the cookbook
 - `metadata.rb`, `Berksfile` - Cookbook metadata and dependencies
 
 ## Build and Test System
@@ -49,9 +53,9 @@ chef exec rspec                 # Unit tests (ChefSpec)
 1. Edit recipes/resources/attributes/templates/libraries
 2. Update corresponding ChefSpec tests in `spec/`
 3. Also update any InSpec tests under test/integration
-4. Ensure cookstyle and rspec passes at least
+4. Ensure cookstyle and rspec passes at least. You may run `cookstyle -a` to automatically fix issues if needed.
 5. Also always update all documentation found in README.md and any files under documentation/*
-6. **Always update CHANGELOG.md** (required by Dangerfile)
+6. **Always update CHANGELOG.md** (required by Dangerfile) - Make sure this conforms with the Sous Chefs changelog standards.
 
 ### Pull Request Requirements
 - **PR description >10 chars** (Danger enforced)
@@ -75,7 +79,7 @@ chef exec rspec                 # Unit tests (ChefSpec)
 
 ### Testing Approach
 - **ChefSpec (Unit):** Mock dependencies, test recipe logic in `spec/`
-- **InSpec (Integration):** Verify actual system state in `test/integration/inspec/`
+- **InSpec (Integration):** Verify actual system state in `test/integration/inspec/` - InSpec files should contain proper inspec.yml and controls directories so that it could be used by other suites more easily.
 - One test file per recipe, use standard Chef testing patterns
 
 ## Trust These Instructions

@@ -7,6 +7,7 @@ The **Percona cookbook** installs and configures Percona MySQL client and/or ser
 ## Key Components
 
 ### Recipes (Primary Interface)
+
 - `percona` (default) - Includes client recipe
 - `percona::client` - Installs Percona MySQL client libraries  
 - `percona::server` - Installs and configures Percona MySQL server
@@ -18,6 +19,7 @@ The **Percona cookbook** installs and configures Percona MySQL client and/or ser
 - `percona::ssl` - Configures SSL certificates
 
 ### Custom Resources
+
 - `percona_mysql_database` - Manages MySQL databases
 - `percona_mysql_user` - Manages MySQL users and grants
 
@@ -29,6 +31,7 @@ The **Percona cookbook** installs and configures Percona MySQL client and/or ser
 ## Configuration Patterns
 
 ### Version Selection
+
 ```ruby
 # Set Percona version in attributes
 node['percona']['version'] = '8.0'  # Default
@@ -36,6 +39,7 @@ node['percona']['version'] = '5.7'  # Legacy
 ```
 
 ### Server Configuration
+
 ```ruby
 # Key server attributes (platform-specific paths)
 node['percona']['server']['socket']               # MySQL socket path
@@ -45,6 +49,7 @@ node['percona']['server']['pidfile']              # PID file location
 ```
 
 ### Database & User Management
+
 ```ruby
 # Using custom resources
 percona_mysql_database 'example_db' do
@@ -64,20 +69,25 @@ end
 ## Testing Structure
 
 ### Test Kitchen Suites
+
 - `client-56` - Tests client installation with Percona 5.6
 - `server-56` - Tests server installation with Percona 5.6  
 - `server-80` - Tests server installation with Percona 8.0
 - `cluster` - Tests XtraDB Cluster setup
 
 ### Test Fixtures
+
 Located in `test/fixtures/cookbooks/test/` - demonstrates proper cookbook usage patterns including:
+
 - Client-only installations
 - Server configurations
 - Cluster setups
 - Database and user management examples
 
 ### Data Bags Required
+
 Test data bags in `test/integration/data_bags/` for:
+
 - MySQL root passwords
 - Application database credentials
 - SSL certificate data
@@ -85,12 +95,14 @@ Test data bags in `test/integration/data_bags/` for:
 ## Platform-Specific Behavior
 
 ### Debian/Ubuntu
+
 - Socket: `/var/run/mysqld/mysqld.sock`
 - PID: `/var/run/mysqld/mysqld.pid`
 - Include dir: `/etc/mysql/conf.d/`
 - Storage engine: `InnoDB` (capitalized)
 
 ### RHEL/CentOS
+
 - Socket: `/var/lib/mysql/mysql.sock`  
 - PID: `/var/lib/mysql/mysqld.pid`
 - Include dir: `` (empty)
@@ -99,23 +111,28 @@ Test data bags in `test/integration/data_bags/` for:
 ## Dependencies
 
 ### Required Cookbooks
+
 - `yum` - Package management for RHEL platforms
 - `yum-epel` - EPEL repository for additional packages
 - `line` - File editing utilities
 
 ### External Dependencies
+
 - Percona APT/YUM repositories (managed by `package_repo` recipe)
 - Internet access for package downloads during convergence
 
 ## Common Issues
 
 ### Repository Setup
+
 Always include `percona::package_repo` before installing packages, or use dependency ordering in recipes.
 
 ### SELinux
+
 Set `node['percona']['selinux_module_url']` if custom SELinux policies are needed for XtraDB Cluster.
 
 ### Version Compatibility
+
 - Percona 8.0 requires different configuration patterns than 5.7
 - Test both versions when making changes to server recipes
 - XtraDB Cluster configuration varies significantly between versions
@@ -123,6 +140,7 @@ Set `node['percona']['selinux_module_url']` if custom SELinux policies are neede
 ## Development Notes
 
 When modifying this cookbook:
+
 1. **Version Support**: Test changes against both 5.7 and 8.0 versions
 2. **Platform Testing**: Verify on Debian, Ubuntu, and CentOS platforms  
 3. **Resource Testing**: Update both recipe and resource tests when changing database/user management

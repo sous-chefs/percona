@@ -27,6 +27,9 @@ jobs:
         run: |
           chef --version
 
+      - name: markdownlint-cli2-action
+        uses: DavidAnson/markdownlint-cli2-action@v20
+
       - name: Install cookbook dependencies
         run: berks install
         env:
@@ -34,9 +37,11 @@ jobs:
 
       - name: Run linting
         run: |
-          cookstyle
+          chef exec cookstyle --display-cop-names --extra-details
           yamllint .
           markdownlint-cli2 '**/*.md'
+        env:
+          CHEF_LICENSE: accept-no-persist
 
       - name: Run unit tests
         run: chef exec rspec

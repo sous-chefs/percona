@@ -3,6 +3,15 @@ name: copilot-setup-steps
 
 "on":
   workflow_call:
+  workflow_dispatch:
+  push:
+    paths:
+      - .github/workflows/copilot-setup-steps.yml
+      - .github/instructions/*
+  pull_request:
+    paths:
+      - .github/workflows/copilot-setup-steps.yml
+      - .github/instructions/*
 
 jobs:
   setup-chef-environment:

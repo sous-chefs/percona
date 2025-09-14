@@ -1,0 +1,37 @@
+---
+name: copilot-setup-steps
+
+on:
+  workflow_call:
+
+jobs:
+  setup-chef-environment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v5
+        
+      - name: Install Chef Workstation
+        uses: actionshub/chef-install@3.0.1
+        
+      - name: Verify Chef installation
+        run: |
+          chef --version
+          berks --version
+          cookstyle --version
+          kitchen --version
+          
+      - name: Install cookbook dependencies
+        run: berks install
+        env:
+          CHEF_LICENSE: accept-no-persist
+          
+      - name: Run linting
+        run: |
+          cookstyle
+          yamllint .
+          
+      - name: Run unit tests
+        run: chef exec rspec
+        env:
+          CHEF_LICENSE: accept-no-persist

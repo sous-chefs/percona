@@ -2,17 +2,17 @@
 
 ## Repository Overview
 
-**Chef cookbook** for Percona MySQL Server, client tools, XtraBackup, Toolkit, and XtraDB Cluster. Representative of Sous Chefs cookbook ecosystem.
+**Chef cookbook** for managing software installation and configuration. Part of the Sous Chefs cookbook ecosystem.
 
-**Key Facts:** Ruby-based, ~800KB, 46 Ruby files, Chef >= 16 required, supports CentOS 7+/Debian 10+/Ubuntu 18.04+
+**Key Facts:** Ruby-based, Chef >= 16 required, supports various OS platforms (check metadata.rb, kitchen.yml and .github/workflows/ci.yml for which platforms to specifically test)
 
 ## Project Structure
 
 **Critical Paths:**
-- `recipes/` - 11 Chef recipes (default, server, client, backup, cluster, etc.)
-- `resources/` - Custom Chef resources (mysql_user, mysql_database)  
-- `spec/` - ChefSpec unit tests (12 files)
-- `test/integration/` - InSpec integration tests
+- `recipes/` - Chef recipes for cookbook functionality (if this is a recipe-driven cookbook)
+- `resources/` - Custom Chef resources with properties and actions (if this is a resource-driven cookbook)
+- `spec/` - ChefSpec unit tests
+- `test/integration/` - InSpec integration tests (tests all platforms supported)
 - `attributes/`, `libraries/`, `templates/` - Configuration, helpers, ERB templates
 - `metadata.rb`, `Berksfile` - Cookbook metadata and dependencies
 
@@ -28,11 +28,11 @@ cookstyle                       # Ruby/Chef linting
 yamllint .                      # YAML linting  
 markdownlint-cli2 '**/*.md'     # Markdown linting
 chef exec rspec                 # Unit tests (ChefSpec)
-kitchen test                    # Integration tests (5-10 min per platform)
+# Integration tests will be done via the ci.yml action. Do not run these. Only check the action logs for issues after CI is done running.
 ```
 
 ### Critical Testing Details
-- **Kitchen Matrix:** Multiple OS platforms × Percona versions (5.7, 8.0)
+- **Kitchen Matrix:** Multiple OS platforms × software versions (check kitchen.yml for specific combinations)
 - **Docker Required:** Integration tests use Dokken driver
 - **CI Environment:** Set `CHEF_LICENSE=accept-no-persist`
 - **Full CI Runtime:** 30+ minutes for complete matrix
@@ -41,23 +41,24 @@ kitchen test                    # Integration tests (5-10 min per platform)
 - **Always run `berks install` first** - most failures are dependency-related
 - **Docker must be running** for kitchen tests
 - **Chef Workstation required** - no workarounds, no alternatives
-- **Test data bags needed** in `test/integration/data_bags/` for convergence
+- **Test data bags needed** (optional for some cookbooks) in `test/integration/data_bags/` for convergence
 
 ## Development Workflow
 
 ### Making Changes
-1. Edit recipes/resources/attributes/templates
+1. Edit recipes/resources/attributes/templates/libraries
 2. Update corresponding ChefSpec tests in `spec/`
-3. Run `cookstyle` (auto-fixes most style issues)
-4. Use `kitchen verify` for incremental testing
-5. **Always update CHANGELOG.md** (required by Dangerfile)
+3. Also update any InSpec tests under test/integration
+4. Ensure cookstyle and rspec passes at least
+5. Also always update all documentation found in README.md and any files under documentation/*
+6. **Always update CHANGELOG.md** (required by Dangerfile)
 
 ### Pull Request Requirements
 - **PR description >10 chars** (Danger enforced)
 - **CHANGELOG.md entry** for all code changes
 - **Version labels** (major/minor/patch) required
 - **All linters must pass** (cookstyle, yamllint, markdownlint)
-- **Test updates** needed for code changes >5 lines
+- **Test updates** needed for code changes >5 lines and parameter changes that affect the code logic
 
 ## Chef Cookbook Patterns
 
@@ -66,7 +67,7 @@ kitchen test                    # Integration tests (5-10 min per platform)
 - Include comprehensive ChefSpec tests for all actions
 - Follow Chef resource DSL patterns
 
-### Recipe Conventions  
+### Recipe Conventions
 - Use `include_recipe` for modularity
 - Handle platforms with `platform_family?` conditionals
 - Use encrypted data bags for secrets (passwords, SSL certs)
@@ -83,7 +84,7 @@ These instructions are validated for Sous Chefs cookbooks. **Do not search for b
 
 **Error Resolution Checklist:**
 1. Verify Chef Workstation installation
-2. Confirm `berks install` completed successfully  
+2. Confirm `berks install` completed successfully
 3. Ensure Docker is running for integration tests
 4. Check for missing test data dependencies
 

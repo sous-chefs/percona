@@ -25,7 +25,7 @@ module Percona
             %w(ps-84-lts)
           end
         else
-          raise "Percona version #{node['percona']['version']} is not supported"
+          raise "Percona version #{node['percona']['version']} is not supported. Supported versions are: 8.0, 8.4"
         end
       end
 

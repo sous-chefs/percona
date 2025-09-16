@@ -16,20 +16,6 @@ describe 'percona::client' do
       it do
         expect(chef_run).to_not install_package 'libperconaserverclient21-dev'
       end
-
-      context 'version 5.7' do
-        override_attributes['percona']['version'] = '5.7'
-        it do
-          expect(chef_run).to install_package 'percona-server-client-5.7'
-        end
-      end
-
-      context 'version 5.6' do
-        override_attributes['percona']['version'] = '5.6'
-        it do
-          expect(chef_run).to install_package 'percona-server-client-5.6'
-        end
-      end
     end
 
     context 'CentOS' do
@@ -41,20 +27,6 @@ describe 'percona::client' do
 
       it do
         expect(chef_run).to_not install_package 'percona-server-devel'
-      end
-
-      context 'version 5.7' do
-        override_attributes['percona']['version'] = '5.7'
-        it do
-          expect(chef_run).to install_package 'Percona-Server-client-57'
-        end
-      end
-
-      context 'version 5.6' do
-        override_attributes['percona']['version'] = '5.6'
-        it do
-          expect(chef_run).to install_package 'Percona-Server-client-56'
-        end
       end
     end
   end

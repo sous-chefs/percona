@@ -8,7 +8,6 @@ node.default['percona']['server']['jemalloc'] = if platform_family?('rhel') && n
                                                   true
                                                 end
 
-include_recipe 'test::_remove_mariadb_libs'
 include_recipe 'test::_remove_mysql_common'
 include_recipe 'percona::server'
 include_recipe 'percona::backup'

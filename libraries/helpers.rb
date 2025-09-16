@@ -10,121 +10,93 @@ module Percona
         end
       end
 
+      def percona_repos
+        case node['percona']['version']
+        when '8.0'
+          if node['percona']['cluster_enabled']
+            %w(pxc-80)
+          else
+            %w(ps-80)
+          end
+        when '8.4'
+          if node['percona']['cluster_enabled']
+            %w(pxc-84-lts)
+          else
+            %w(ps-84-lts)
+          end
+        else
+          raise "Percona version #{node['percona']['version']} is not supported. Supported versions are: 8.0, 8.4"
+        end
+      end
+
       def percona_client_packages
         case node['platform_family']
         when 'debian'
-          if node['percona']['version'].to_i >= 8
-            %w(percona-server-client)
-          else
-            %W(percona-server-client-#{percona_version})
-          end
+          %w(percona-server-client)
         when 'rhel'
-          if node['percona']['version'].to_i >= 8
-            %w(percona-server-client)
-          else
-            %W(Percona-Server-client-#{percona_version})
-          end
+          %w(percona-server-client)
         end
       end
 
       def percona_devel_package
         case node['platform_family']
         when 'rhel'
-          if node['percona']['version'].to_i >= 8
-            'percona-server-devel'
-          else
-            "Percona-Server-devel-#{percona_version}"
-          end
+          'percona-server-devel'
         when 'debian'
-          if node['percona']['version'].to_i >= 8
+          case node['percona']['version']
+          when '8.0'
             'libperconaserverclient21-dev'
-          elsif node['percona']['version'] == '5.7'
-            'libperconaserverclient20-dev'
-          elsif node['percona']['version'] == '5.6'
-            'libperconaserverclient18.1-dev'
+          when '8.4'
+            'libperconaserverclient22-dev'
           end
         end
       end
 
       def percona_server_package
-        if node['percona']['version'].to_i >= 8
-          'percona-server-server'
-        elsif platform_family?('debian')
-          "percona-server-server-#{percona_version}"
-        else
-          "Percona-Server-server-#{percona_version}"
-        end
+        'percona-server-server'
       end
 
       def percona_cluster_client_package
         case node['platform_family']
         when 'debian'
-          if node['percona']['version'].to_i >= 8
-            %w(percona-xtradb-cluster-client)
-          else
-            %W(percona-xtradb-cluster-client-#{percona_version})
-          end
+          %w(percona-xtradb-cluster-client)
         when 'rhel'
-          if node['percona']['version'].to_i >= 8
-            %w(percona-xtradb-cluster-client)
-          else
-            %W(Percona-XtraDB-Cluster-client-#{percona_version})
-          end
+          %w(percona-xtradb-cluster-client)
         end
       end
 
       def percona_cluster_package
-        if node['percona']['version'].to_i >= 8
-          'percona-xtradb-cluster-server'
-        elsif platform_family?('rhel')
-          "Percona-XtraDB-Cluster-#{percona_version}"
-        else
-          "percona-xtradb-cluster-#{percona_version}"
-        end
+        'percona-xtradb-cluster-server'
       end
 
       def percona_backup_package
-        case node['platform_family']
-        when 'debian'
-          case node['platform']
-          when 'debian'
-            node['platform_version'].to_i >= 10 ? 'percona-xtrabackup-80' : 'xtrabackup'
-          when 'ubuntu'
-            node['platform_version'].to_f >= 20.04 ? 'percona-xtrabackup-80' : 'xtrabackup'
-          end
-        when 'rhel'
-          node['platform_version'].to_i >= 8 ? 'percona-xtrabackup-80' : 'percona-xtrabackup'
-        end
+        "percona-xtrabackup-#{node['percona']['version'].tr('.', '')}"
       end
 
       def percona_jemalloc_package
-        case node['platform']
+        case node['platform_family']
         when 'debian'
-          node['platform_version'].to_i >= 10 ? 'libjemalloc2' : 'libjemalloc1'
-        when 'ubuntu'
-          node['platform_version'].to_f >= 20.04 ? 'libjemalloc2' : 'libjemalloc1'
-        when 'centos', 'redhat', 'almalinux', 'rocky'
+          'libjemalloc2'
+        when 'rhel'
           'jemalloc'
         end
       end
 
       def percona_jemalloc_lib
-        case node['platform']
+        case node['platform_family']
         when 'debian'
-          node['platform_version'].to_i >= 10 ? '/usr/lib/x86_64-linux-gnu/libjemalloc.so.2' : '/usr/lib/x86_64-linux-gnu/libjemalloc.so.1'
-        when 'ubuntu'
-          node['platform_version'].to_f >= 20.04 ? '/usr/lib/x86_64-linux-gnu/libjemalloc.so.2' : '/usr/lib/x86_64-linux-gnu/libjemalloc.so.1'
-        when 'centos', 'redhat', 'almalinux', 'rocky'
-          node['platform_version'].to_i >= 8 ? '/usr/lib64/libjemalloc.so.2' : '/usr/lib64/libjemalloc.so.1'
+          '/usr/lib/x86_64-linux-gnu/libjemalloc.so.2'
+        when 'rhel'
+          '/usr/lib64/libjemalloc.so.2'
         end
       end
 
       def percona_default_encoding
-        node['percona']['version'].to_i >= 8 ? 'utf8mb4' : 'utf8'
+        'utf8mb4'
       end
 
       def percona_default_collate
-        node['percona']['version'].to_i >= 8 ? 'utf8mb4_0900_ai_ci' : 'utf8_general_ci'
+        'utf8mb4_0900_ai_ci'
       end
 
       include Chef::Mixin::ShellOut

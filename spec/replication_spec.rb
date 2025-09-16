@@ -39,9 +39,9 @@ describe 'percona::replication' do
       [
         /CREATE USER IF NOT EXISTS 'replication'@'%' IDENTIFIED BY 's3kr1t';/,
         /GRANT REPLICATION SLAVE ON \*\.\* TO 'replication'@'%';/,
-        /MASTER_HOST='master-host'/,
-        /MASTER_USER='replication'/,
-        /MASTER_PASSWORD='s3kr1t'/,
+        /SOURCE_HOST='master-host'/,
+        /SOURCE_USER='replication'/,
+        /SOURCE_PASSWORD='s3kr1t'/,
       ].each do |line|
         expect(chef_run).to render_file(replication_sql).with_content(line)
       end
@@ -59,23 +59,9 @@ describe 'percona::replication' do
         [
           /CREATE USER IF NOT EXISTS 'replication'@'%' IDENTIFIED BY 's3kr1t';/,
           /GRANT REPLICATION SLAVE ON \*\.\* TO 'replication'@'%';/,
-          /MASTER_HOST='master-host'/,
-          /MASTER_USER='replication'/,
-          /MASTER_PASSWORD='s3kr1t'/,
-        ].each do |line|
-          expect(chef_run).to render_file(replication_sql).with_content(line)
-        end
-      end
-    end
-
-    context 'version 5.7' do
-      override_attributes['percona']['version'] = '5.7'
-      it do
-        [
-          /GRANT REPLICATION SLAVE ON \*\.\* TO 'replication'@'%' IDENTIFIED BY 's3kr1t';/,
-          /MASTER_HOST='master-host'/,
-          /MASTER_USER='replication'/,
-          /MASTER_PASSWORD='s3kr1t'/,
+          /SOURCE_HOST='master-host'/,
+          /SOURCE_USER='replication'/,
+          /SOURCE_PASSWORD='s3kr1t'/,
         ].each do |line|
           expect(chef_run).to render_file(replication_sql).with_content(line)
         end
@@ -87,27 +73,12 @@ describe 'percona::replication' do
       it do
         [
           /ALTER USER 'replication'@'%' REQUIRE SSL;/,
-          /MASTER_SSL=1/,
-          %r{MASTER_SSL_CA='/etc/mysql/ssl/cacert.pem'},
-          %r{MASTER_SSL_CERT='/etc/mysql/ssl/server-cert.pem'},
-          %r{MASTER_SSL_KEY='/etc/mysql/ssl/server-key.pem'},
+          /SOURCE_SSL=1/,
+          %r{SOURCE_SSL_CA='/etc/mysql/ssl/cacert.pem'},
+          %r{SOURCE_SSL_CERT='/etc/mysql/ssl/server-cert.pem'},
+          %r{SOURCE_SSL_KEY='/etc/mysql/ssl/server-key.pem'},
         ].each do |line|
           expect(chef_run).to render_file(replication_sql).with_content(line)
-        end
-      end
-
-      context 'version 5.7' do
-        override_attributes['percona']['version'] = '5.7'
-        it do
-          [
-            /GRANT REPLICATION SLAVE ON *.* TO 'replication'@'%' IDENTIFIED BY 's3kr1t' REQUIRE SSL;/,
-            /MASTER_SSL=1/,
-            %r{MASTER_SSL_CA='/etc/mysql/ssl/cacert.pem'},
-            %r{MASTER_SSL_CERT='/etc/mysql/ssl/server-cert.pem'},
-            %r{MASTER_SSL_KEY='/etc/mysql/ssl/server-key.pem'},
-          ].each do |line|
-            expect(chef_run).to render_file(replication_sql).with_content(line)
-          end
         end
       end
 
@@ -115,8 +86,8 @@ describe 'percona::replication' do
         override_attributes['percona']['server']['role'] = %w(replica)
         it do
           [
-            %r{MASTER_SSL_CERT='/etc/mysql/ssl/client-cert.pem'},
-            %r{MASTER_SSL_KEY='/etc/mysql/ssl/client-key.pem'},
+            %r{SOURCE_SSL_CERT='/etc/mysql/ssl/client-cert.pem'},
+            %r{SOURCE_SSL_KEY='/etc/mysql/ssl/client-key.pem'},
           ].each do |line|
             expect(chef_run).to render_file(replication_sql).with_content(line)
           end
@@ -127,8 +98,8 @@ describe 'percona::replication' do
         override_attributes['percona']['server']['role'] = %w(slave)
         it do
           [
-            %r{MASTER_SSL_CERT='/etc/mysql/ssl/client-cert.pem'},
-            %r{MASTER_SSL_KEY='/etc/mysql/ssl/client-key.pem'},
+            %r{SOURCE_SSL_CERT='/etc/mysql/ssl/client-cert.pem'},
+            %r{SOURCE_SSL_KEY='/etc/mysql/ssl/client-key.pem'},
           ].each do |line|
             expect(chef_run).to render_file(replication_sql).with_content(line)
           end

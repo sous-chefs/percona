@@ -32,6 +32,8 @@ end
 passwords = EncryptedPasswords.new(node, percona['encrypted_data_bag'])
 
 if node['percona']['server']['jemalloc']
+  include_recipe 'yum-epel' if platform_family?('rhel')
+
   package percona_jemalloc_package
 end
 
@@ -121,11 +123,7 @@ end
 
 # install db to the data directory
 execute 'setup mysql datadir' do
-  if node['percona']['version'].to_f >= 5.7
-    command "mysqld --defaults-file=#{percona['main_config_file']} --user=#{user} --initialize-insecure"
-  else
-    command "mysql_install_db --defaults-file=#{percona['main_config_file']} --user=#{user}"
-  end
+  command "mysqld --defaults-file=#{percona['main_config_file']} --user=#{user} --initialize-insecure"
   not_if { ::File.exist?("#{datadir}/mysql/user.frm") || ::File.exist?("#{datadir}/mysql.ibd") }
   action :nothing
 end
@@ -172,11 +170,7 @@ unless node['percona']['skip_passwords']
   root_pw = passwords.root_password
 
   execute 'Update MySQL root password' do
-    if node['percona']['version'].to_f < 5.7
-      command "mysqladmin --user=root --password='' password '#{root_pw}'"
-    else
-      command "mysql --user=root --password='' -e \"ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '#{root_pw}';\""
-    end
+    command "mysql --user=root --password='' -e \"ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '#{root_pw}';\""
     only_if "mysqladmin --user=root --password='' version"
     sensitive true
   end

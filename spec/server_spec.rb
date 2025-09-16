@@ -18,20 +18,6 @@ describe 'percona::server' do
     it { expect(chef_run).to include_recipe('percona::access_grants') }
     it { expect(chef_run).to include_recipe('percona::replication') }
     it { expect(chef_run).to install_package('percona-server-server') }
-
-    context 'version 5.7' do
-      override_attributes['percona']['version'] = '5.7'
-      it do
-        expect(chef_run).to install_package 'percona-server-server-5.7'
-      end
-    end
-
-    context 'version 5.6' do
-      override_attributes['percona']['version'] = '5.6'
-      it do
-        expect(chef_run).to install_package 'percona-server-server-5.6'
-      end
-    end
   end
 
   context 'CentOS' do
@@ -66,20 +52,6 @@ describe 'percona::server' do
     it do
       expect(chef_run.replace_or_add('configure LimitNOFILE in systemd.service')).to \
         notify('execute[systemctl daemon-reload]').to(:run).immediately
-    end
-
-    context 'version 5.7' do
-      override_attributes['percona']['version'] = '5.7'
-      it do
-        expect(chef_run).to install_package 'Percona-Server-server-57'
-      end
-    end
-
-    context 'version 5.6' do
-      override_attributes['percona']['version'] = '5.6'
-      it do
-        expect(chef_run).to install_package 'Percona-Server-server-56'
-      end
     end
   end
 

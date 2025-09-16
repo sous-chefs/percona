@@ -8,6 +8,8 @@
 
 default['percona']['version'] = '8.0'
 
+default['percona']['cluster_enabled'] = false
+
 # Always restart percona on configuration changes
 default['percona']['auto_restart'] = true
 
@@ -96,21 +98,16 @@ default['percona']['server']['max_heap_table_size'] = '64M'
 default['percona']['server']['sort_buffer_size'] = '8M'
 default['percona']['server']['join_buffer_size'] = '8M'
 default['percona']['server']['thread_cache_size'] = 16
-default['percona']['server']['back_log'] = -1 # <5.6.6, use 50
+default['percona']['server']['back_log'] = -1
 default['percona']['server']['max_connections'] = 30
 default['percona']['server']['max_connect_errors'] = 9_999_999
 default['percona']['server']['sql_modes'] = []
 default['percona']['server']['table_cache'] = 8172
-default['percona']['server']['table_definition_cache'] = '-1' # <5.6, use 4096
+default['percona']['server']['table_definition_cache'] = '-1'
 default['percona']['server']['group_concat_max_len'] = 4096
 default['percona']['server']['expand_fast_index_creation'] = false
 default['percona']['server']['read_rnd_buffer_size'] = 262_144
 default['percona']['server']['sysdate_is_now'] = false
-
-# Query Cache Configuration
-default['percona']['server']['query_cache_size'] = '64M'
-default['percona']['server']['query_cache_limit'] = '2M'
-default['percona']['server']['query_cache_type'] = '1'
 
 # Logging and Replication
 default['percona']['server']['sync_binlog'] = (node['percona']['server']['role'] == 'cluster' ? 0 : 1)
@@ -131,10 +128,10 @@ default['percona']['server']['binlog_cache_size'] = '1M'
 default['percona']['server']['binlog_format'] = 'ROW' # Alt. MIXED
 default['percona']['server']['binlog_checksum'] = 'CRC32'
 default['percona']['server']['log_bin'] = 1 # enable/disable bin log
-default['percona']['server']['log_bin_basename'] = 'master-bin' # 5.6~> default: datadir + '/' + hostname + '-bin'
+default['percona']['server']['log_bin_basename'] = 'master-bin'
 default['percona']['server']['relay_log'] = 'slave-relay-bin'
 default['percona']['server']['log_slave_updates'] = false
-default['percona']['server']['log_warnings'] = node['percona']['version'].to_i < 8
+default['percona']['server']['log_warnings'] = false
 default['percona']['server']['log_long_format'] = false
 default['percona']['server']['bulk_insert_buffer_size'] = '64M'
 default['percona']['server']['sync_master_info'] = false
@@ -148,20 +145,17 @@ default['percona']['server']['slave_sql_verify_checksum'] = false
 default['percona']['server']['myisam_recover_options'] = 'BACKUP'
 default['percona']['server']['myisam_sort_buffer_size'] = '128M'
 default['percona']['server']['myisam_max_sort_file_size'] = '10G'
-default['percona']['server']['myisam_repair_threads'] = 1
 default['percona']['server']['read_buffer_size'] = '8M'
 
 # InnoDB Specific
 default['percona']['server']['skip_innodb'] = false
-default['percona']['server']['innodb_additional_mem_pool_size'] = '32M'
 default['percona']['server']['innodb_buffer_pool_size'] = '128M'
 default['percona']['server']['innodb_buffer_pool_instances'] = 8
-default['percona']['server']['innodb_buffer_pool_populate'] = 0 # Introduced: MariaDB 5.5 / XtraDB 5.5.28-29.1
+default['percona']['server']['innodb_buffer_pool_populate'] = 0
 default['percona']['server']['innodb_data_file_path'] = 'ibdata1:10M:autoextend'
 default['percona']['server']['innodb_autoextend_increment'] = '128M'
 default['percona']['server']['innodb_open_files'] = 2000
 default['percona']['server']['innodb_file_per_table'] = true
-default['percona']['server']['innodb_file_format'] = 'Antelope'
 default['percona']['server']['innodb_data_home_dir'] = ''
 default['percona']['server']['innodb_thread_concurrency'] = 16
 default['percona']['server']['innodb_flush_log_at_trx_commit'] = 1

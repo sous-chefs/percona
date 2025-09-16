@@ -25,11 +25,15 @@ This cookbook is maintained by the Sous Chefs. The Sous Chefs are a community of
 
 ### Supported Platforms
 
-We provide an expanding set of tests against the following 64-bit platforms which match what upstream supports:
+This cookbook supports the following platforms (64-bit):
 
-- CentOS 7+
-- Debian 10+
-- Ubuntu 18.04+ LTS
+- AlmaLinux 8+
+- Rocky Linux 8+
+- CentOS Stream 9+
+- Debian 12+
+- Ubuntu 22.04+ LTS
+
+**Note:** EOL Percona Server 5.7 has been removed.
 
 ### Cookbooks
 
@@ -38,45 +42,50 @@ We provide an expanding set of tests against the following 64-bit platforms whic
 
 ### Chef
 
-This cookbook requires Chef >= 16.
+Chef >= 16 is required. Chef 17+ is recommended for full resource compatibility.
 
 ## Recipes
 
-- `percona` - The default which includes the client recipe.
-- `percona::package_repo` - Sets up the package repository and installs common packages.
-- `percona::client` - Installs the Percona MySQL client libraries.
-- `percona::server` - Installs and configures the Percona MySQL server daemon.
-- `percona::backup` - Installs and configures the Percona XtraBackup hot backup software.
-- `percona::toolkit` - Installs the Percona Toolkit software
-- `percona::cluster` - Installs the Percona XtraDB Cluster server components
-- `percona::configure_server` - Used internally to manage the server configuration.
-- `percona::replication` - Used internally to grant permissions for replication.
-- `percona::access_grants` - Used internally to grant permissions for recipes.
-- `percona::ssl` - Used internally to setup ssl certificates for server/client.
+- `percona` - Default recipe, includes the client recipe.
+- `percona::package_repo` - Sets up Percona package repositories and installs common packages.
+- `percona::client` - Installs Percona MySQL client libraries.
+- `percona::server` - Installs and configures Percona MySQL server daemon.
+- `percona::backup` - Installs and configures Percona XtraBackup hot backup software.
+- `percona::toolkit` - Installs Percona Toolkit software.
+- `percona::cluster` - Installs Percona XtraDB Cluster server components.
+- `percona::configure_server` - Internal: manages server configuration.
+- `percona::replication` - Internal: grants permissions for replication.
+- `percona::access_grants` - Internal: grants permissions for recipes.
+- `percona::ssl` - Internal: sets up SSL certificates for server/client.
 
 ## Resources
 
-- [`percona_mysql_user`](https://github.com/sous-chefs/percona/blob/master/documentation/resource_percona_mysql_user.md)
-- [`percona_mysql_database`](https://github.com/sous-chefs/percona/blob/master/documentation/resource_percona_mysql_database.md)
+- [`percona_mysql_user`](documentation/resource_percona_mysql_user.md): Manage Percona MySQL users and privileges.
+- [`percona_mysql_database`](documentation/resource_percona_mysql_database.md): Manage Percona MySQL databases and execute SQL queries.
+
+## Resource Documentation
+
+See [documentation/resource_percona_mysql_user.md](documentation/resource_percona_mysql_user.md) and [documentation/resource_percona_mysql_database.md](documentation/resource_percona_mysql_database.md) for full details on custom resources, properties, actions, and usage examples.
 
 ## Usage
 
 This cookbook installs the Percona MySQL components if not present, and pulls updates if they are installed on the
 system.
 
-This cookbook uses inclusion terminology where applicable replacing terms such as ``master/slave`` to ``source/replica``
-which matches the [terminology decided upstream](https://mysqlhighavailability.com/mysql-terminology-updates/). Older
-releases of Percona still use the terms in their configuration so those will remain, however we will be using the newer
-terms with attributes, property and variable names.  Currently both terms should work however the next major release of
-this cookbook will only use the new terminology.
+This cookbook uses inclusive terminology, replacing terms such as `master/slave` with `source/replica` as per [upstream MySQL terminology updates](https://dev.mysql.com/blog-archive/mysql-terminology-updates/). Older Percona releases may still use legacy terms in configuration, but all attributes, properties, and variable names in this cookbook use the new terminology. Future major releases will only support the new terms.
 
 ### Encrypted Passwords
 
-This cookbook requires [Encrypted Data Bags](https://docs.chef.io/secrets/#encrypt-a-data-bag-item). If you forget to use them or do not use a node attribute to overwrite them empty passwords will be used.
+This cookbook requires [Encrypted Data Bags](https://docs.chef.io/secrets/#encrypt-a-data-bag-item) for managing passwords and secrets. If you do not use encrypted data bags or override passwords via node attributes, empty passwords will be used (not recommended).
 
-To use encrypted passwords, you must create an encrypted data bag. This cookbook assumes a data bag named `passwords`, but you can override the name using the `node['percona']['encrypted_data_bag']` attribute.  You can also optionally specify a data bag secret file to be loaded for the secret key using the `node['percona']['encrypted_data_bag_secret_file']` attribute.
+By default, the cookbook expects a data bag named `passwords`. You can override this with `node['percona']['encrypted_data_bag']`. Optionally, specify a data bag secret file with `node['percona']['encrypted_data_bag_secret_file']`.
 
-This cookbook expects a `mysql` item  and a `system` item. Please refer to the official documentation on how to get this setup. It actually uses a MySQL example so it can be mostly copied. Ensure you cover the data bag items as described below.
+Required items:
+
+- `mysql` (for MySQL/Percona passwords)
+- `system` (for system-level secrets)
+
+Refer to Chef documentation for setup details. Example data bag items are provided in the test suite under `test/integration/data_bags/passwords/`.
 
 You also may set expected item names via attributes `node['percona']['encrypted_data_bag_item_mysql']` and `node['percona']['encrypted_data_bag_item_system']`.
 

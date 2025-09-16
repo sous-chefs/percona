@@ -2,6 +2,8 @@
 
 This file is used to list changes made in each version of the percona cookbook.
 
+## Unreleased
+
 ## 4.0.0 - *2025-09-16*
 
 ### Major update

@@ -27,9 +27,9 @@
 
 ### Essential Commands (strict order)
 ```bash
-berks install                    # Install dependencies (always first)
+berks install                   # Install dependencies (always first)
 cookstyle                       # Ruby/Chef linting
-yamllint .                      # YAML linting  
+yamllint .                      # YAML linting
 markdownlint-cli2 '**/*.md'     # Markdown linting
 chef exec rspec                 # Unit tests (ChefSpec)
 # Integration tests will be done via the ci.yml action. Do not run these. Only check the action logs for issues after CI is done running.

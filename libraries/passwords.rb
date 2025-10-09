@@ -24,7 +24,7 @@ class Chef
         # now, let's look for the user password
         password = pwds[user]
       rescue
-        Chef::Log.info("Unable to load password for #{user}, #{item},"\
+        Chef::Log.info("Unable to load password for #{user}, #{item}," \
                        'fall back to non-encrypted password')
       end
       # password will be nil if no encrypted data bag was loaded

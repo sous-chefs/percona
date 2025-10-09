@@ -68,7 +68,7 @@ module Percona
     end
 
     def self.find_ip(node, scope)
-      node['network']['interfaces'].each do |_, attrs|
+      node['network']['interfaces'].each_value do |attrs|
         next unless attrs['addresses']
         attrs['addresses'].each do |addr, data|
           next unless data['family'] == 'inet'
@@ -83,7 +83,7 @@ module Percona
       addr = interfaces[interface]['addresses'].find do |_, attrs|
         attrs['family'] == 'inet'
       end
-      addr && addr[0]
+      addr && addr.first
     end
     module_function :find_interface_ip
   end

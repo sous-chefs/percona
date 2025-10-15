@@ -2,27 +2,22 @@
 
 This file is used to list changes made in each version of the percona cookbook.
 
-## Unreleased
-
 Standardise files with files in sous-chefs/repo-management
 
 ## 4.0.0 - *2025-09-16*
 
 ### Major update
 
-- **Breaking:** Removed support for all end-of-life (EOL) platforms:
+**Breaking:** Removed support for all end-of-life (EOL) platforms:
+
   - Debian 11
   - CentOS 7
-- **Breaking:** Dropped support for EOL Percona Server 5.7. Cookbook now targets Percona Server 8.0+.
-- **Added:** Support for AlmaLinux 8+ and Rocky Linux 8+.
-- **Improved:** Documentation updates:
+**Breaking:** Dropped support for EOL Percona Server 5.7. Cookbook now targets Percona Server 8.0+.
+**Added:** Support for AlmaLinux 8+ and Rocky Linux 8+.
+**Improved:** Documentation updates:
   - README.md now lists current supported platforms, Chef version requirements, and resource documentation links.
   - Resource docs clarify Percona version compatibility and terminology.
   - Usage and encrypted data bag sections improved for clarity.
-
-## 3.4.11 - *2025-09-04*
-
-## 3.4.10 - *2024-12-04*
 
 ## 3.4.9 - *2024-11-18*
 
@@ -38,18 +33,6 @@ Standardise files with files in sous-chefs/repo-management
 
 Standardise files with files in sous-chefs/repo-management
 
-## 3.4.7 - *2024-05-06*
-
-## 3.4.6 - *2024-05-06*
-
-## 3.4.5 - *2023-12-21*
-
-## 3.4.4 - *2023-09-28*
-
-## 3.4.3 - *2023-09-04*
-
-## 3.4.2 - *2023-07-10*
-
 ## 3.4.1 - *2023-06-14*
 
 - Fix adjustment of open files limit within systemd unit
@@ -60,8 +43,6 @@ Standardise files with files in sous-chefs/repo-management
 - Remove duplicate configuration line
 - Avoid duplicating mysqld configuration section in my.cnf
 - Remove the open file limit from the systemd unit since it is already set in my.cnf anyway
-
-## 3.3.1 - *2023-05-17*
 
 ## 3.3.0 - *2023-04-25*
 

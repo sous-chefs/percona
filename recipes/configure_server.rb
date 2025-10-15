@@ -14,7 +14,7 @@ end
 
 # setup SELinux if needed
 unless node['percona']['selinux_module_url'].nil? || node['percona']['selinux_module_url'] == ''
-  semodule_filename = node['percona']['selinux_module_url'].split('/')[-1]
+  semodule_filename = node['percona']['selinux_module_url'].split('/').last
   semodule_filepath = "#{Chef::Config[:file_cache_path]}/#{semodule_filename}"
   remote_file semodule_filepath do
     source node['percona']['selinux_module_url']

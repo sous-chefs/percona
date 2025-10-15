@@ -1,49 +1,24 @@
 ---
-name: copilot-setup-steps
+name: 'Copilot Setup Steps'
 
 "on":
-  workflow_call:
   workflow_dispatch:
   push:
     paths:
       - .github/workflows/copilot-setup-steps.yml
-      - .github/instructions/*
   pull_request:
     paths:
       - .github/workflows/copilot-setup-steps.yml
-      - .github/instructions/*
 
 jobs:
-  setup-chef-environment:
+  copilot-setup-steps:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - name: Check out code
         uses: actions/checkout@v5
-
-      - name: Install Chef Workstation
-        uses: actionshub/chef-install@3.0.1
-
-      - name: Verify Chef installation
-        run: |
-          chef --version
-
-      - name: markdownlint-cli2-action
-        uses: DavidAnson/markdownlint-cli2-action@v20
-
-      - name: Install cookbook dependencies
+      - name: Install Chef
+        uses: actionshub/chef-install@main
+      - name: Install cookbooks
         run: berks install
-        env:
-          CHEF_LICENSE: accept-no-persist
-
-      - name: Run linting
-        run: |
-          chef exec cookstyle --display-cop-names --extra-details
-          yamllint .
-          npx markdownlint-cli2 '**/*.md'
-        env:
-          CHEF_LICENSE: accept-no-persist
-
-      - name: Run unit tests
-        run: chef exec rspec
-        env:
-          CHEF_LICENSE: accept-no-persist

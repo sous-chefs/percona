@@ -4,6 +4,13 @@ This file is used to list changes made in each version of the percona cookbook.
 
 Standardise files with files in sous-chefs/repo-management
 
+## [4.0.2](https://github.com/sous-chefs/percona/compare/v4.0.1...v4.0.2) (2025-10-16)
+
+
+### Bug Fixes
+
+* **ci:** Update workflows to use release pipeline ([#505](https://github.com/sous-chefs/percona/issues/505)) ([37f161a](https://github.com/sous-chefs/percona/commit/37f161ae409983d97b695b274be814b9bec6ee8d))
+
 ## [4.0.1](https://github.com/sous-chefs/percona/compare/4.0.0...v4.0.1) (2025-10-15)
 
 

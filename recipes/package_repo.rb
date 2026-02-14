@@ -113,6 +113,16 @@ when 'rhel'
     sslverify node['percona']['yum']['sslverify']
   end if node['platform_version'].to_i < 10
 
+  if node['platform_version'].to_i >= 10
+    yum_repository "percona-#{percona_xtrabackup_repo}" do
+      description 'Percona Xtrabackup'
+      baseurl "#{node['percona']['yum']['baseurl']}/#{percona_xtrabackup_repo}/yum/release/$releasever/RPMS/$basearch"
+      gpgkey node['percona']['yum']['gpgkey']
+      gpgcheck node['percona']['yum']['gpgcheck']
+      sslverify node['percona']['yum']['sslverify']
+    end
+  end
+
   percona_repos.each do |repo|
     yum_repository "percona-#{repo}" do
       description node['percona']['yum']['description'] + ' - ' + repo

@@ -12,6 +12,10 @@ package pkg do
   action node['percona']['server']['package_action'].to_sym
 end
 
+selinux_fcontext '/tmp/mysql(/.*)?' do
+  secontext 'mysqld_tmp_t'
+end
+
 # install packages
 if platform_family?('rhel')
   execute 'systemctl daemon-reload' do

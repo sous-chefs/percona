@@ -17,7 +17,7 @@ template '/etc/mysql/grants.sql' do
   owner 'root'
   group 'root'
   mode '0600'
-  sensitive true
+  sensitive false
 end
 
 # execute access grants
@@ -29,7 +29,7 @@ if passwords.root_password && !passwords.root_password.empty?
     command "/usr/bin/mysql -p'#{passwords.root_password}' -e '' &> /dev/null > /dev/null &> /dev/null ; if [ $? -eq 0 ] ; then /usr/bin/mysql -p'#{passwords.root_password}' < /etc/mysql/grants.sql ; else /usr/bin/mysql < /etc/mysql/grants.sql ; fi ;"
     action :nothing
     subscribes :run, resources('template[/etc/mysql/grants.sql]'), :immediately
-    sensitive true
+    sensitive false
   end
 else
   # Simpler path... just try running the grants command
@@ -37,6 +37,6 @@ else
     command '/usr/bin/mysql < /etc/mysql/grants.sql'
     action :nothing
     subscribes :run, resources('template[/etc/mysql/grants.sql]'), :immediately
-    sensitive true
+    sensitive false
   end
 end

@@ -1,5 +1,11 @@
 version = input('version')
 type = input('type')
+xtrabackup_pkg =
+      if type == 'cluster'
+        'percona-xtrabackup-24'
+      else
+        "percona-xtrabackup-#{version.tr('.', '')}"
+      end
 
 control 'server' do
   desc 'Ensure server is installed'
@@ -30,13 +36,6 @@ control 'server' do
         end
       end
     end
-
-    xtrabackup_pkg =
-      if type == 'cluster'
-        'percona-xtrabackup-24'
-      else
-        "percona-xtrabackup-#{version.tr('.', '')}"
-      end
 
     describe package xtrabackup_pkg do
       if type == 'cluster'
@@ -74,33 +73,33 @@ control 'server' do
     end
   end
 
-  if os.family == 'rhel'
+  if os.family == 'redhat'
 
     # postfix on RHEL depends on mysql-libs, ensure it still exists when using percona
     describe package 'postfix' do
       it { should be_installed }
     end
 
-    ver = version.tr('.', '')
-    describe package "Percona-Server-devel-#{ver}" do
+    # ver = version.tr('.', '')
+    # describe package 'percona-server-devel' do
+    #  it { should be_installed }
+    #end
+
+    describe package xtrabackup_pkg do
       it { should be_installed }
     end
 
-    describe package 'percona-xtrabackup-80' do
+    describe package 'percona-server-client' do
       it { should be_installed }
     end
 
-    describe package "Percona-Server-client-#{ver}" do
-      it { should be_installed }
-    end
-
-    describe package "Percona-Server-server-#{ver}" do
+    describe package 'percona-server-server' do
       it { should be_installed }
     end
 
     describe package 'jemalloc' do
       it { should be_installed }
-    end
+    end unless os.release.to_i >= 9
 
     describe file '/etc/my.cnf' do
       it { should be_a_file }

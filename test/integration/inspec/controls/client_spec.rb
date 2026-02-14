@@ -97,6 +97,12 @@ control 'client' do
       its('baseurl') { should cmp "https://repo.percona.com/tools/yum/release/#{os_rel}/RPMS/x86_64" }
     end if os_rel < 10
 
+    describe yum.repo "percona-pxb-#{repo_ver}" do
+      it { should exist }
+      it { should be_enabled }
+      its('baseurl') { should cmp "https://repo.percona.com/pxb-#{repo_ver}/yum/release/#{os_rel}/RPMS/x86_64" }
+    end if os_rel >= 10
+
     %w(
       percona-prel-release
       percona-telemetry-release

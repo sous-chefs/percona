@@ -29,6 +29,17 @@ module Percona
         end
       end
 
+      def percona_xtrabackup_repo
+        case node['percona']['version']
+        when '8.0'
+          'pxb-80'
+        when '8.4'
+          'pxb-84-lts'
+        else
+          raise "Percona version #{node['percona']['version']} is not supported. Supported versions are: 8.0, 8.4"
+        end
+      end
+
       def percona_client_packages
         case node['platform_family']
         when 'debian'

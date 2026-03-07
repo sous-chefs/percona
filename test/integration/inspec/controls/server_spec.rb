@@ -83,7 +83,7 @@ control 'server' do
     # ver = version.tr('.', '')
     # describe package 'percona-server-devel' do
     #  it { should be_installed }
-    #end
+    # end
 
     describe package xtrabackup_pkg do
       it { should be_installed }

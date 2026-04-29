@@ -96,7 +96,7 @@ action :create do
       'percona-tools' => ['Percona Tools', 'tools/yum/release/$releasever/RPMS/$basearch'],
     }.each do |repo_name, repo_data|
       yum_repository repo_name do
-        description repo_data[0]
+        description repo_data.first
         baseurl "#{new_resource.yum_baseurl}/#{repo_data[1]}"
         gpgkey new_resource.yum_gpgkey
         gpgcheck new_resource.yum_gpgcheck

@@ -2,15 +2,14 @@
 
 name 'percona'
 
-run_list 'percona::default'
+run_list 'test::default'
 
 cookbook 'percona', path: '.'
-cookbook 'line', git: 'https://github.com/sous-chefs/line.git', branch: 'main'
-cookbook 'test', path: './test/fixtures/cookbooks/test'
+cookbook 'test', path: './test/cookbooks/test'
 cookbook 'yum', git: 'https://github.com/sous-chefs/yum.git', branch: 'main'
-cookbook 'yum-epel', git: 'https://github.com/sous-chefs/yum-epel.git', branch: 'main'
 
 {
+  'default' => 'test::default',
   'client-80' => 'test::client',
   'client-84' => 'test::client',
   'devel-80' => 'test::client',

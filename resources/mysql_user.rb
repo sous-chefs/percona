@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 #
 # Cookbook:: percona
 # Resource:: user
@@ -18,11 +19,10 @@ provides :percona_mysql_user
 unified_mode true
 
 include Percona::Cookbook::Helpers
-include Percona::Cookbook
 
-property :username,      String,                             name_property: true
-property :password,      [String, HashedPassword, NilClass], default: nil, sensitive: true
-property :host,          String,                             default: 'localhost', desired_state: false
+property :username,      String, name_property: true
+property :password,      [String, Percona::Cookbook::HashedPassword, NilClass], default: nil, sensitive: true
+property :host,          String, default: 'localhost', desired_state: false
 property :database_name, String
 property :table,         String
 property :privileges,    Array,                              default: [:all]
@@ -93,7 +93,7 @@ action_class do
     if database_has_password_column
       test_sql = 'SELECT User,Host,Password FROM mysql.user ' \
                        "WHERE User='#{new_resource.username}' AND Host='#{new_resource.host}' "
-      test_sql << if new_resource.password.is_a? HashedPassword
+      test_sql << if new_resource.password.is_a? Percona::Cookbook::HashedPassword
                     "AND Password='#{new_resource.password}'"
                   else
                     "AND Password=PASSWORD('#{new_resource.password}')"
@@ -111,7 +111,7 @@ action_class do
       else # handles mysql_native_password authentication method
         test_sql = 'SELECT User,Host,authentication_string FROM mysql.user ' \
                          "WHERE User='#{new_resource.username}' AND Host='#{new_resource.host}' " # \
-        test_sql << if new_resource.password.is_a? HashedPassword
+        test_sql << if new_resource.password.is_a? Percona::Cookbook::HashedPassword
                       "AND authentication_string='#{new_resource.password}'"
                     elsif new_resource.password != ''
                       # This is the password auth algorithm implmented by PASSWORD() which no longer exists on mysql 8
@@ -128,7 +128,7 @@ action_class do
     converge_by "Update password for user '#{new_resource.username}'@'#{new_resource.host}'" do
       if database_has_password_column
         password_sql = "SET PASSWORD FOR '#{new_resource.username}'@'#{new_resource.host}' = "
-        password_sql << if new_resource.password.is_a? HashedPassword
+        password_sql << if new_resource.password.is_a? Percona::Cookbook::HashedPassword
                           "'#{new_resource.password}'"
                         else
                           " PASSWORD('#{new_resource.password}')"
@@ -137,7 +137,7 @@ action_class do
         # "ALTER USER is now the preferred statement for assigning passwords."
         # http://dev.mysql.com/doc/refman/5.7/en/set-password.html
         password_sql = "ALTER USER '#{new_resource.username}'@'#{new_resource.host}' "
-        password_sql << if new_resource.password.is_a? HashedPassword
+        password_sql << if new_resource.password.is_a? Percona::Cookbook::HashedPassword
                           "IDENTIFIED WITH mysql_native_password AS '#{new_resource.password}'"
                         elsif new_resource.use_native_auth
                           "IDENTIFIED WITH mysql_native_password BY '#{new_resource.password}'"

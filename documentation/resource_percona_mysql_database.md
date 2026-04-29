@@ -4,7 +4,7 @@ Manage Percona MySQL databases and execute SQL queries on them. Works with Perco
 
 Terminology: This resource uses inclusive terms (`source/replica`) matching upstream MySQL. See README for details.
 
-See test suite examples in `test/fixtures/cookbooks/test/recipes/user_database.rb`.
+See test suite examples in `test/cookbooks/test/recipes/user_database.rb`.
 
 ## Actions
 

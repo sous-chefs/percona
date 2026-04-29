@@ -8,9 +8,9 @@ See test suite examples in `test/cookbooks/test/recipes/user_database.rb`.
 
 ## Actions
 
-- create - (default) to create a named database
-- drop - to drop a named database
-- query - to execute a SQL query
+* create - (default) to create a named database
+* drop - to drop a named database
+* query - to execute a SQL query
 
 ## Properties
 

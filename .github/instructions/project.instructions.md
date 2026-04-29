@@ -8,20 +8,20 @@ The **Percona cookbook** installs and configures Percona MySQL client and/or ser
 
 ### Recipes (Primary Interface)
 
-- `percona` (default) - Includes client recipe
-- `percona::client` - Installs Percona MySQL client libraries  
-- `percona::server` - Installs and configures Percona MySQL server
-- `percona::backup` - Installs Percona XtraBackup hot backup software
-- `percona::toolkit` - Installs Percona Toolkit command-line tools
-- `percona::cluster` - Sets up XtraDB Cluster for high availability
-- `percona::package_repo` - Sets up package repository
-- `percona::replication` - Configures MySQL replication
-- `percona::ssl` - Configures SSL certificates
+* `percona` (default) - Includes client recipe
+* `percona::client` - Installs Percona MySQL client libraries  
+* `percona::server` - Installs and configures Percona MySQL server
+* `percona::backup` - Installs Percona XtraBackup hot backup software
+* `percona::toolkit` - Installs Percona Toolkit command-line tools
+* `percona::cluster` - Sets up XtraDB Cluster for high availability
+* `percona::package_repo` - Sets up package repository
+* `percona::replication` - Configures MySQL replication
+* `percona::ssl` - Configures SSL certificates
 
 ### Custom Resources
 
-- `percona_mysql_database` - Manages MySQL databases
-- `percona_mysql_user` - Manages MySQL users and grants
+* `percona_mysql_database` - Manages MySQL databases
+* `percona_mysql_user` - Manages MySQL users and grants
 
 ### Supported Versions & Platforms
 
@@ -70,56 +70,56 @@ end
 
 ### Test Kitchen Suites
 
-- `client-56` - Tests client installation with Percona 5.6
-- `server-56` - Tests server installation with Percona 5.6  
-- `server-80` - Tests server installation with Percona 8.0
-- `cluster` - Tests XtraDB Cluster setup
+* `client-56` - Tests client installation with Percona 5.6
+* `server-56` - Tests server installation with Percona 5.6  
+* `server-80` - Tests server installation with Percona 8.0
+* `cluster` - Tests XtraDB Cluster setup
 
 ### Test Fixtures
 
 Located in `test/fixtures/cookbooks/test/` - demonstrates proper cookbook usage patterns including:
 
-- Client-only installations
-- Server configurations
-- Cluster setups
-- Database and user management examples
+* Client-only installations
+* Server configurations
+* Cluster setups
+* Database and user management examples
 
 ### Data Bags Required
 
 Test data bags in `test/integration/data_bags/` for:
 
-- MySQL root passwords
-- Application database credentials
-- SSL certificate data
+* MySQL root passwords
+* Application database credentials
+* SSL certificate data
 
 ## Platform-Specific Behavior
 
 ### Debian/Ubuntu
 
-- Socket: `/var/run/mysqld/mysqld.sock`
-- PID: `/var/run/mysqld/mysqld.pid`
-- Include dir: `/etc/mysql/conf.d/`
-- Storage engine: `InnoDB` (capitalized)
+* Socket: `/var/run/mysqld/mysqld.sock`
+* PID: `/var/run/mysqld/mysqld.pid`
+* Include dir: `/etc/mysql/conf.d/`
+* Storage engine: `InnoDB` (capitalized)
 
 ### RHEL/CentOS
 
-- Socket: `/var/lib/mysql/mysql.sock`  
-- PID: `/var/lib/mysql/mysqld.pid`
-- Include dir: `` (empty)
-- Storage engine: `innodb` (lowercase)
+* Socket: `/var/lib/mysql/mysql.sock`  
+* PID: `/var/lib/mysql/mysqld.pid`
+* Include dir: `` (empty)
+* Storage engine: `innodb` (lowercase)
 
 ## Dependencies
 
 ### Required Cookbooks
 
-- `yum` - Package management for RHEL platforms
-- `yum-epel` - EPEL repository for additional packages
-- `line` - File editing utilities
+* `yum` - Package management for RHEL platforms
+* `yum-epel` - EPEL repository for additional packages
+* `line` - File editing utilities
 
 ### External Dependencies
 
-- Percona APT/YUM repositories (managed by `package_repo` recipe)
-- Internet access for package downloads during convergence
+* Percona APT/YUM repositories (managed by `package_repo` recipe)
+* Internet access for package downloads during convergence
 
 ## Common Issues
 
@@ -133,9 +133,9 @@ Set `node['percona']['selinux_module_url']` if custom SELinux policies are neede
 
 ### Version Compatibility
 
-- Percona 8.0 requires different configuration patterns than 5.7
-- Test both versions when making changes to server recipes
-- XtraDB Cluster configuration varies significantly between versions
+* Percona 8.0 requires different configuration patterns than 5.7
+* Test both versions when making changes to server recipes
+* XtraDB Cluster configuration varies significantly between versions
 
 ## Development Notes
 

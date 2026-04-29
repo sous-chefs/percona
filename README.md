@@ -13,9 +13,9 @@ MySQL cookbook as much as possible.)
 
 Optionally installs:
 
-- [XtraBackup](https://www.percona.com/software/mysql-database/percona-xtrabackup) hot backup software
-- [Percona Toolkit](https://www.percona.com/software/database-tools/percona-toolkit) advanced command-line tools
-- [XtraDB Cluster](https://www.percona.com/software/mysql-database/percona-xtradb-cluster) high availability and high scalability solution for MySQL.
+* [XtraBackup](https://www.percona.com/software/mysql-database/percona-xtrabackup) hot backup software
+* [Percona Toolkit](https://www.percona.com/software/database-tools/percona-toolkit) advanced command-line tools
+* [XtraDB Cluster](https://www.percona.com/software/mysql-database/percona-xtradb-cluster) high availability and high scalability solution for MySQL.
 
 ## Maintainers
 
@@ -27,17 +27,17 @@ This cookbook is maintained by the Sous Chefs. The Sous Chefs are a community of
 
 This cookbook supports the following platforms (64-bit):
 
-- AlmaLinux 8+
-- Rocky Linux 8+
-- CentOS Stream 9+
-- Debian 12+
-- Ubuntu 22.04+ LTS
+* AlmaLinux 8+
+* Rocky Linux 8+
+* CentOS Stream 9+
+* Debian 12+
+* Ubuntu 22.04+ LTS
 
 **Note:** EOL Percona Server 5.7 has been removed.
 
 ### Cookbooks
 
-- [yum](https://supermarket.chef.io/cookbooks/yum)
+* [yum](https://supermarket.chef.io/cookbooks/yum)
 
 ### Chef
 
@@ -49,18 +49,18 @@ This cookbook now exposes custom resources only. Recipes and node attributes wer
 
 ## Resources
 
-- [`percona_repository`](documentation/resource_percona_repository.md): Manage Percona package repositories.
-- [`percona_client`](documentation/resource_percona_client.md): Install Percona client packages.
-- [`percona_server`](documentation/resource_percona_server.md): Install and configure Percona Server.
-- [`percona_server_config`](documentation/resource_percona_server_config.md): Manage server configuration files and service state.
-- [`percona_backup`](documentation/resource_percona_backup.md): Install Percona XtraBackup and backup grants.
-- [`percona_toolkit`](documentation/resource_percona_toolkit.md): Install Percona Toolkit.
-- [`percona_cluster`](documentation/resource_percona_cluster.md): Install and configure Percona XtraDB Cluster.
-- [`percona_ssl`](documentation/resource_percona_ssl.md): Manage replication SSL files.
-- [`percona_access_grants`](documentation/resource_percona_access_grants.md): Manage grant SQL.
-- [`percona_replication`](documentation/resource_percona_replication.md): Manage replication SQL.
-- [`percona_mysql_user`](documentation/resource_percona_mysql_user.md): Manage Percona MySQL users and privileges.
-- [`percona_mysql_database`](documentation/resource_percona_mysql_database.md): Manage Percona MySQL databases and execute SQL queries.
+* [`percona_repository`](documentation/resource_percona_repository.md): Manage Percona package repositories.
+* [`percona_client`](documentation/resource_percona_client.md): Install Percona client packages.
+* [`percona_server`](documentation/resource_percona_server.md): Install and configure Percona Server.
+* [`percona_server_config`](documentation/resource_percona_server_config.md): Manage server configuration files and service state.
+* [`percona_backup`](documentation/resource_percona_backup.md): Install Percona XtraBackup and backup grants.
+* [`percona_toolkit`](documentation/resource_percona_toolkit.md): Install Percona Toolkit.
+* [`percona_cluster`](documentation/resource_percona_cluster.md): Install and configure Percona XtraDB Cluster.
+* [`percona_ssl`](documentation/resource_percona_ssl.md): Manage replication SSL files.
+* [`percona_access_grants`](documentation/resource_percona_access_grants.md): Manage grant SQL.
+* [`percona_replication`](documentation/resource_percona_replication.md): Manage replication SQL.
+* [`percona_mysql_user`](documentation/resource_percona_mysql_user.md): Manage Percona MySQL users and privileges.
+* [`percona_mysql_database`](documentation/resource_percona_mysql_database.md): Manage Percona MySQL databases and execute SQL queries.
 
 ## Resource Documentation
 
@@ -81,8 +81,8 @@ By default, the cookbook expects a data bag named `passwords`. You can override 
 
 Required items:
 
-- `mysql` (for MySQL/Percona passwords)
-- `system` (for system-level secrets)
+* `mysql` (for MySQL/Percona passwords)
+* `system` (for system-level secrets)
 
 Refer to Chef documentation for setup details. Example data bag items are provided in the test suite under `test/integration/data_bags/passwords/`.
 
@@ -261,27 +261,27 @@ Set `server_config(bind_to: ...)` to dynamically set the bind address. This acce
 
 In no particular order:
 
-- Be the most flexible way to setup a MySQL distribution through Chef
-  - Support for Chef Solo
-  - Support for Chef Server
-- Support the following common database infrastructures:
-  - Single server instance
-  - Traditional Source/Replica replication
-  - Multi-source cluster replication
-- Support the most recent Chef runtime environments
-- Be the easiest way to setup a MySQL distribution through Chef
+* Be the most flexible way to setup a MySQL distribution through Chef
+  * Support for Chef Solo
+  * Support for Chef Server
+* Support the following common database infrastructures:
+  * Single server instance
+  * Traditional Source/Replica replication
+  * Multi-source cluster replication
+* Support the most recent Chef runtime environments
+* Be the easiest way to setup a MySQL distribution through Chef
 
 ## TODO
 
-- Fully support all of the standard Chef-supported distributions
+* Fully support all of the standard Chef-supported distributions
 
 ## Contributing
 
-- Fork it
-- Create your feature branch (`git checkout -b my-new-feature`)
-- Commit your changes (`git commit -am 'Added some feature'`)
-- Push to the branch (`git push origin my-new-feature`)
-- Create new Pull Request
+* Fork it
+* Create your feature branch (`git checkout -b my-new-feature`)
+* Commit your changes (`git commit -am 'Added some feature'`)
+* Push to the branch (`git push origin my-new-feature`)
+* Create new Pull Request
 
 ## Contributors
 
@@ -291,19 +291,19 @@ This project exists thanks to all the people who [contribute.](https://opencolle
 
 Thank you to all our backers!
 
-![https://opencollective.com/sous-chefs#backers](https://opencollective.com/sous-chefs/backers.svg?width=600&avatarHeight=40)
+![<https://opencollective.com/sous-chefs#backers](https://opencollective.com/sous-chefs/backers.svg?width=600&avatarHeight=40>)
 
 ### Sponsors
 
 Support this project by becoming a sponsor. Your logo will show up here with a link to your website.
 
-![https://opencollective.com/sous-chefs/sponsor/0/website](https://opencollective.com/sous-chefs/sponsor/0/avatar.svg?avatarHeight=100)
-![https://opencollective.com/sous-chefs/sponsor/1/website](https://opencollective.com/sous-chefs/sponsor/1/avatar.svg?avatarHeight=100)
-![https://opencollective.com/sous-chefs/sponsor/2/website](https://opencollective.com/sous-chefs/sponsor/2/avatar.svg?avatarHeight=100)
-![https://opencollective.com/sous-chefs/sponsor/3/website](https://opencollective.com/sous-chefs/sponsor/3/avatar.svg?avatarHeight=100)
-![https://opencollective.com/sous-chefs/sponsor/4/website](https://opencollective.com/sous-chefs/sponsor/4/avatar.svg?avatarHeight=100)
-![https://opencollective.com/sous-chefs/sponsor/5/website](https://opencollective.com/sous-chefs/sponsor/5/avatar.svg?avatarHeight=100)
-![https://opencollective.com/sous-chefs/sponsor/6/website](https://opencollective.com/sous-chefs/sponsor/6/avatar.svg?avatarHeight=100)
-![https://opencollective.com/sous-chefs/sponsor/7/website](https://opencollective.com/sous-chefs/sponsor/7/avatar.svg?avatarHeight=100)
-![https://opencollective.com/sous-chefs/sponsor/8/website](https://opencollective.com/sous-chefs/sponsor/8/avatar.svg?avatarHeight=100)
-![https://opencollective.com/sous-chefs/sponsor/9/website](https://opencollective.com/sous-chefs/sponsor/9/avatar.svg?avatarHeight=100)
+![<https://opencollective.com/sous-chefs/sponsor/0/website](https://opencollective.com/sous-chefs/sponsor/0/avatar.svg?avatarHeight=100>)
+![<https://opencollective.com/sous-chefs/sponsor/1/website](https://opencollective.com/sous-chefs/sponsor/1/avatar.svg?avatarHeight=100>)
+![<https://opencollective.com/sous-chefs/sponsor/2/website](https://opencollective.com/sous-chefs/sponsor/2/avatar.svg?avatarHeight=100>)
+![<https://opencollective.com/sous-chefs/sponsor/3/website](https://opencollective.com/sous-chefs/sponsor/3/avatar.svg?avatarHeight=100>)
+![<https://opencollective.com/sous-chefs/sponsor/4/website](https://opencollective.com/sous-chefs/sponsor/4/avatar.svg?avatarHeight=100>)
+![<https://opencollective.com/sous-chefs/sponsor/5/website](https://opencollective.com/sous-chefs/sponsor/5/avatar.svg?avatarHeight=100>)
+![<https://opencollective.com/sous-chefs/sponsor/6/website](https://opencollective.com/sous-chefs/sponsor/6/avatar.svg?avatarHeight=100>)
+![<https://opencollective.com/sous-chefs/sponsor/7/website](https://opencollective.com/sous-chefs/sponsor/7/avatar.svg?avatarHeight=100>)
+![<https://opencollective.com/sous-chefs/sponsor/8/website](https://opencollective.com/sous-chefs/sponsor/8/avatar.svg?avatarHeight=100>)
+![<https://opencollective.com/sous-chefs/sponsor/9/website](https://opencollective.com/sous-chefs/sponsor/9/avatar.svg?avatarHeight=100>)

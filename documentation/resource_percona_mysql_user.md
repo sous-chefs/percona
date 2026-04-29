@@ -8,10 +8,10 @@ See test suite examples in `test/cookbooks/test/recipes/user_database.rb`.
 
 ## Actions
 
-- create - (default) to create a user
-- drop - to drop a user
-- grant - to grant privileges to a user
-- revoke - to revoke privileges from a user
+* create - (default) to create a user
+* drop - to drop a user
+* grant - to grant privileges to a user
+* revoke - to revoke privileges from a user
 
 ## Properties
 

@@ -9,6 +9,7 @@ use '_partial/_config'
 property :package_action, Symbol, default: :install, equal_to: %i(install upgrade remove purge)
 property :configure_repository, [true, false], default: true
 property :configure_grants, [true, false], default: true
+property :grants_path, String, default: '/etc/mysql/backup-grants.sql'
 
 action_class do
   include Percona::Cookbook::Helpers
@@ -34,6 +35,7 @@ action :install do
   end
 
   percona_access_grants 'backup grants' do
+    path new_resource.grants_path
     version new_resource.version
     server_config new_resource.server_config
     backup_config deep_merge(new_resource.backup_config, 'configure' => true)

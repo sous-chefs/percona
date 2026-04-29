@@ -9,6 +9,10 @@ property :install_release_package, [true, false], default: true
 
 action_class do
   include Percona::Cookbook::Helpers
+
+  def dnf_module_available?(module_name)
+    shell_out!("dnf -q module list #{module_name}", returns: [0, 1]).stdout.match?(/^#{Regexp.escape(module_name)}\s/m)
+  end
 end
 
 action :create do
@@ -86,7 +90,7 @@ action :create do
 
     dnf_module 'mysql' do
       action :disable
-      only_if { platform_family?('rhel', 'fedora', 'amazon') && node['platform_version'].to_i >= 8 }
+      only_if { platform_family?('rhel', 'fedora', 'amazon') && node['platform_version'].to_i >= 8 && dnf_module_available?('mysql') }
     end
 
     {

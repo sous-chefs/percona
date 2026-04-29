@@ -49,6 +49,7 @@ action :create do
   end
 
   template new_resource.replication_sql do
+    cookbook 'percona'
     source 'replication.sql.erb'
     variables(replication_password: passwords.replication_password(server['replication']['username'], server['replication']['password']))
     owner 'root'

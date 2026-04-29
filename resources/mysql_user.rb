@@ -19,6 +19,7 @@ provides :percona_mysql_user
 unified_mode true
 
 include Percona::Cookbook::Helpers
+include Percona::Cookbook::HashedPassword::Helper
 
 property :username,      String, name_property: true
 property :password,      [String, Percona::Cookbook::HashedPassword, NilClass], default: nil, sensitive: true
@@ -223,7 +224,7 @@ end
 action :drop do
   return if current_resource.nil?
   converge_by "Dropping user '#{new_resource.username}'@'#{new_resource.host}'" do
-    drop_sql = 'DROP USER'
+    drop_sql = +'DROP USER'
     drop_sql << " '#{new_resource.username}'@'#{new_resource.host}'"
     run_query drop_sql
   end

@@ -21,6 +21,10 @@ action_class do
       use_chef_vault: new_resource.use_chef_vault
     )
   end
+
+  def supports_old_passwords?
+    Gem::Version.new(new_resource.version.to_s) < Gem::Version.new('8.0')
+  end
 end
 
 action :create do
@@ -148,6 +152,7 @@ action :create do
                    end
 
   template new_resource.main_config_file || percona_default_config_file do
+    cookbook 'percona'
     source server['role'].include?('cluster') ? 'my.cnf.cluster.erb' : 'my.cnf.main.erb'
     owner 'root'
     group 'root'
@@ -158,13 +163,14 @@ action :create do
     variables(
       jemalloc_lib: percona_jemalloc_lib,
       wsrep_sst_auth: wsrep_sst_auth,
-      old_passwords: passwords.old_passwords(server['old_passwords'])
+      old_passwords: supports_old_passwords? ? passwords.old_passwords(server['old_passwords']) : nil
     )
     notifies :run, 'execute[setup mysql datadir]', :immediately
     notifies :restart, 'service[mysql]', :immediately if new_resource.auto_restart
   end
 
   template '/root/.my.cnf' do
+    cookbook 'percona'
     variables(root_password: passwords.root_password(server['root_password']))
     owner 'root'
     group 'root'
@@ -182,6 +188,7 @@ action :create do
   end
 
   template '/etc/mysql/debian.cnf' do
+    cookbook 'percona'
     source 'debian.cnf.erb'
     variables(debian_password: passwords.debian_password(server['debian_username'], server['debian_password']))
     owner 'root'

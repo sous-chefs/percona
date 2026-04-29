@@ -46,6 +46,7 @@ action :create do
   end
 
   template new_resource.path do
+    cookbook 'percona'
     source 'grants.sql.erb'
     variables(
       root_password: passwords.root_password(server['root_password']),

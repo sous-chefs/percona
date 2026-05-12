@@ -58,6 +58,7 @@ when 'debian'
     end
   end
 when 'rhel'
+  el_version = node['platform_version'].to_i
   percona_pkg = "#{Chef::Config[:file_cache_path]}/percona-release.rpm"
   remote_file percona_pkg do
     source 'https://repo.percona.com/yum/percona-release-latest.noarch.rpm'
@@ -78,7 +79,7 @@ when 'rhel'
 
   dnf_module 'mysql' do
     action :disable
-    only_if { node['platform_version'].to_i == 8 }
+    only_if { el_version == 8 }
   end
 
   yum_repository 'percona-release' do
@@ -103,7 +104,7 @@ when 'rhel'
     gpgkey node['percona']['yum']['gpgkey']
     gpgcheck node['percona']['yum']['gpgcheck']
     sslverify node['percona']['yum']['sslverify']
-  end if node['platform_version'].to_i < 10
+  end if el_version < 10
 
   yum_repository 'percona-tools' do
     description 'Percona Tools'
@@ -111,11 +112,11 @@ when 'rhel'
     gpgkey node['percona']['yum']['gpgkey']
     gpgcheck node['percona']['yum']['gpgcheck']
     sslverify node['percona']['yum']['sslverify']
-  end if node['platform_version'].to_i < 10
+  end if el_version < 10
 
-  if node['platform_version'].to_i >= 10
+  if el_version >= 10
     yum_repository "percona-#{percona_xtrabackup_repo}" do
-      description 'Percona Xtrabackup'
+      description node['percona']['yum']['description'] + ' - ' + percona_xtrabackup_repo
       baseurl "#{node['percona']['yum']['baseurl']}/#{percona_xtrabackup_repo}/yum/release/$releasever/RPMS/$basearch"
       gpgkey node['percona']['yum']['gpgkey']
       gpgcheck node['percona']['yum']['gpgcheck']

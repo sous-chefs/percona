@@ -9,6 +9,7 @@ include_recipe 'percona::package_repo'
 
 package 'xtrabackup' do
   package_name percona_backup_package
+  options '--setopt=install_weak_deps=False' if platform_family?('rhel')
 end
 
 # access grants

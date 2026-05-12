@@ -121,6 +121,7 @@ when 'rhel'
       gpgkey node['percona']['yum']['gpgkey']
       gpgcheck node['percona']['yum']['gpgcheck']
       sslverify node['percona']['yum']['sslverify']
+      only_if { node['percona']['backup']['configure'] }
     end
   end
 

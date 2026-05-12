@@ -12,5 +12,12 @@ node.default['percona']['server']['jemalloc'] = if platform_family?('rhel') && n
 # Install postfix on RHEL to ensure we don't properly break mysql-libs compatibility
 package 'postfix' if platform_family?('rhel')
 
+# Label the non-default datadir so mysqld can access it under SELinux
+if platform_family?('rhel')
+  selinux_fcontext '/tmp/mysql(/.*)?' do
+    secontext 'mysqld_db_t'
+  end
+end
+
 include_recipe 'test::_remove_mysql_common'
 include_recipe 'percona::cluster'

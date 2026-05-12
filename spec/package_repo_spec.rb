@@ -140,5 +140,34 @@ describe 'percona::package_repo' do
         sslverify: true
       )
     end
+
+    it { is_expected.to_not create_yum_repository('percona-pxb-80') }
+  end
+
+  context 'almalinux 10' do
+    platform 'almalinux', '10'
+
+    it { is_expected.to_not create_yum_repository('percona-pmm2-client') }
+    it { is_expected.to_not create_yum_repository('percona-tools') }
+
+    it do
+      expect(chef_run).to create_yum_repository('percona-pxb-80').with(
+        description: 'Percona Packages - pxb-80',
+        baseurl: 'https://repo.percona.com/pxb-80/yum/release/$releasever/RPMS/$basearch',
+        gpgkey: 'file:///etc/pki/rpm-gpg/PERCONA-PACKAGING-KEY',
+        gpgcheck: true,
+        sslverify: true
+      )
+    end
+
+    context 'with version 8.4' do
+      override_attributes['percona']['version'] = '8.4'
+
+      it do
+        expect(chef_run).to create_yum_repository('percona-pxb-84-lts').with(
+          baseurl: 'https://repo.percona.com/pxb-84-lts/yum/release/$releasever/RPMS/$basearch'
+        )
+      end
+    end
   end
 end

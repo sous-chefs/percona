@@ -6,6 +6,13 @@ xtrabackup_pkg =
   else
     "percona-xtrabackup-#{version.tr('.', '')}"
   end
+repo_ver =
+  case version
+  when '8.0'
+    version.tr('.', '')
+  when '8.4'
+    "#{version.tr('.', '')}-lts"
+  end
 
 control 'server' do
   desc 'Ensure server is installed'
@@ -82,6 +89,14 @@ control 'server' do
 
     describe package xtrabackup_pkg do
       it { should be_installed }
+    end
+
+    if os.release.to_i >= 10 && type != 'cluster'
+      describe yum.repo "percona-pxb-#{repo_ver}" do
+        it { should exist }
+        it { should be_enabled }
+        its('baseurl') { should cmp "https://repo.percona.com/pxb-#{repo_ver}/yum/release/#{os.release.to_i}/RPMS/x86_64" }
+      end
     end
 
     describe package 'percona-server-client' do

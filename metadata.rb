@@ -6,7 +6,7 @@ description       'Installs Percona MySQL client and server'
 source_url        'https://github.com/sous-chefs/percona'
 issues_url        'https://github.com/sous-chefs/percona/issues'
 version           '4.0.2'
-chef_version      '>= 16.0'
+chef_version      '>= 18.0'
 
 depends 'yum'
 depends 'yum-epel'

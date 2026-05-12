@@ -8,6 +8,13 @@ node.default['percona']['server']['jemalloc'] = if platform_family?('rhel') && n
                                                   true
                                                 end
 
+# Label the non-default datadir so mysqld can access it under SELinux
+if platform_family?('rhel')
+  selinux_fcontext '/tmp/mysql(/.*)?' do
+    secontext 'mysqld_db_t'
+  end
+end
+
 include_recipe 'test::_remove_mysql_common'
 include_recipe 'percona::server'
 include_recipe 'percona::backup'

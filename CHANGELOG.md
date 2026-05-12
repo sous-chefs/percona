@@ -4,6 +4,26 @@ This file is used to list changes made in each version of the percona cookbook.
 
 Standardise files with files in sous-chefs/repo-management
 
+## [5.0.0](https://github.com/sous-chefs/percona/compare/v4.0.2...v5.0.0) (2026-05-12)
+
+
+### ⚠ BREAKING CHANGES
+
+* Users still on Chef Infra Client 16.x or 17.x must upgrade before applying this cookbook.
+
+### Features
+
+* require Chef Infra Client 18.0 or newer ([992cef4](https://github.com/sous-chefs/percona/commit/992cef46dc4ce993bbee5f212e9344801cf0f825))
+
+
+### Bug Fixes
+
+* **access_grants:** mark grant resources as sensitive ([79d860c](https://github.com/sous-chefs/percona/commit/79d860c2a0aaab1fea818bda44dd33bff3f3d2a0))
+* **ci:** Update workflows to use release pipeline ([#505](https://github.com/sous-chefs/percona/issues/505)) ([37f161a](https://github.com/sous-chefs/percona/commit/37f161ae409983d97b695b274be814b9bec6ee8d))
+* **package_repo:** only enable xtrabackup repo when backup is configured ([f1c9d1a](https://github.com/sous-chefs/percona/commit/f1c9d1a919823dbf9649a494219f777de1425f82))
+* **rhel:** suppress weak deps and install SELinux tooling on EL10 ([a72d915](https://github.com/sous-chefs/percona/commit/a72d91514d70c8167e3044cd17f2df71e5eac712))
+* Xtrabackup setup for EL10 ([19eab7e](https://github.com/sous-chefs/percona/commit/19eab7e093f65994940ff53f387173f911ea2afe))
+
 ## [4.0.2](https://github.com/sous-chefs/percona/compare/v4.0.1...v4.0.2) (2025-10-16)
 
 

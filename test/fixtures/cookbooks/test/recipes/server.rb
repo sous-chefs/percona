@@ -10,6 +10,8 @@ node.default['percona']['server']['jemalloc'] = if platform_family?('rhel') && n
 
 # Label the non-default datadir so mysqld can access it under SELinux
 if platform_family?('rhel')
+  selinux_install 'percona'
+
   selinux_fcontext '/tmp/mysql(/.*)?' do
     secontext 'mysqld_db_t'
   end

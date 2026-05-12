@@ -23,7 +23,9 @@ end
 include_recipe 'yum-epel' if platform_family?('rhel')
 
 # install packages
-package percona_cluster_package
+package percona_cluster_package do
+  options '--setopt=install_weak_deps=False' if platform_family?('rhel')
+end
 
 unless node['percona']['skip_configure']
   include_recipe 'percona::configure_server'

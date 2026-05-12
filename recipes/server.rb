@@ -10,6 +10,7 @@ pkg = node['percona']['server']['package'].empty? ? percona_server_package : nod
 
 package pkg do
   action node['percona']['server']['package_action'].to_sym
+  options '--setopt=install_weak_deps=False' if platform_family?('rhel')
 end
 
 # install packages

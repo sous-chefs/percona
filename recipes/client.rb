@@ -10,4 +10,5 @@ pkgs << percona_devel_package if node['percona']['client']['install_devel_packag
 
 package pkgs do
   action node['percona']['client']['package_action'].to_sym
+  options '--setopt=install_weak_deps=False' if platform_family?('rhel')
 end

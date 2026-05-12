@@ -35,4 +35,16 @@ describe 'percona::backup' do
       it { expect(chef_run).to install_package('percona-xtrabackup-80') }
     end
   end
+
+  context 'AlmaLinux 10' do
+    platform 'almalinux', '10'
+
+    before do
+      stub_command('dnf module list mysql | grep -q "^mysql.*\\[x\\]"')
+    end
+
+    it { expect(chef_run).to include_recipe('percona::package_repo') }
+    it { expect(chef_run).to install_package('xtrabackup') }
+    it { expect(chef_run).to install_package('percona-xtrabackup-80') }
+  end
 end

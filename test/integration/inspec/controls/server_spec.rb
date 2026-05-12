@@ -1,11 +1,11 @@
 version = input('version')
 type = input('type')
 xtrabackup_pkg =
-      if type == 'cluster'
-        'percona-xtrabackup-24'
-      else
-        "percona-xtrabackup-#{version.tr('.', '')}"
-      end
+  if type == 'cluster'
+    'percona-xtrabackup-24'
+  else
+    "percona-xtrabackup-#{version.tr('.', '')}"
+  end
 
 control 'server' do
   desc 'Ensure server is installed'

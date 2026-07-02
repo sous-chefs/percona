@@ -21,7 +21,7 @@ describe 'percona::cluster' do
   end
 
   it do
-    expect(chef_run).to_not include_recipe 'yum-epel'
+    expect(chef_run).to_not create_yum_epel('default')
   end
 
   describe 'version 8.0' do
@@ -41,7 +41,7 @@ describe 'percona::cluster' do
       platform 'centos'
 
       it do
-        expect(chef_run).to include_recipe 'yum-epel'
+        expect(chef_run).to create_yum_epel('default')
       end
 
       it do

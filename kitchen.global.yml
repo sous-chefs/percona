@@ -1,6 +1,7 @@
 ---
 provisioner:
-  name: chef_infra
+  name: policyfile_zero
+  policyfile: Policyfile.rb
   product_name: chef
   product_version: <%= ENV['CHEF_VERSION'] || 'latest' %>
   channel: stable

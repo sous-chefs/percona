@@ -76,6 +76,8 @@ jobs:
         uses: actions/checkout@v6
       - name: Install Chef
         uses: sous-chefs/.github/.github/actions/install-workstation@8.0.1
+      - name: Install Policyfile
+        run: chef install Policyfile.rb
       # https://github.com/actions/virtual-environments/issues/181#issuecomment-610874237
       - name: Disable apparmor for mysqld
         run: |

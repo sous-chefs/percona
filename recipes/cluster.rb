@@ -20,7 +20,7 @@ end
 
 # This is required for `socat` per:
 # www.percona.com/doc/percona-xtradb-cluster/5.6/installation/yum_repo.html
-include_recipe 'yum-epel' if platform_family?('rhel')
+yum_epel 'default' if platform_family?('rhel')
 
 # install packages
 package percona_cluster_package do

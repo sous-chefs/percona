@@ -32,7 +32,7 @@ end
 passwords = EncryptedPasswords.new(node, percona['encrypted_data_bag'])
 
 if node['percona']['server']['jemalloc']
-  include_recipe 'yum-epel' if platform_family?('rhel')
+  yum_epel 'default' if platform_family?('rhel')
 
   package percona_jemalloc_package
 end

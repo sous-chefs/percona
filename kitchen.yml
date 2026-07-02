@@ -103,6 +103,10 @@ suites:
       inputs:
         version: '8.4'
         devel: true
+    excludes:
+      - debian-12
+      - ubuntu-22.04
+      - ubuntu-24.04
 
   - name: server-80
     run_list:

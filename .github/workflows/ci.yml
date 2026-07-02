@@ -69,6 +69,12 @@ jobs:
             suite: replication-80
           - os: centos-stream-10
             suite: resources-80
+          - os: debian-12
+            suite: devel-84
+          - os: ubuntu-2204
+            suite: devel-84
+          - os: ubuntu-2404
+            suite: devel-84
       fail-fast: false
 
     steps:

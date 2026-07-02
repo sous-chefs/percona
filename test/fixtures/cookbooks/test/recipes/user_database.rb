@@ -3,6 +3,10 @@
 node.default['percona']['skip_passwords'] = true
 node.default['percona']['server']['debian_username'] = 'root'
 node.default['percona']['server']['debian_password'] = ''
+# The resources suite opens many short-lived mysql client sessions while testing
+# user and grant idempotency. Ubuntu 22.04 / Percona 8.0 can otherwise exhaust
+# the cookbook default of 30 connections before the second converge finishes.
+node.default['percona']['server']['max_connections'] = 100
 include_recipe 'test::_remove_mysql_common'
 include_recipe 'percona::server'
 

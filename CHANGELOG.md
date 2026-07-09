@@ -4,6 +4,15 @@ This file is used to list changes made in each version of the percona cookbook.
 
 Standardise files with files in sous-chefs/repo-management
 
+## [5.0.1](https://github.com/sous-chefs/percona/compare/v5.0.0...v5.0.1) (2026-07-09)
+
+
+### Bug Fixes
+
+* exclude unsatisfiable Percona 8.4 devel suites ([1c6aa9a](https://github.com/sous-chefs/percona/commit/1c6aa9a83e97e3454c6f564493688d4482ef060a))
+* migrate to Policyfile ([63cb67a](https://github.com/sous-chefs/percona/commit/63cb67afcfb4b3b498996534d8e16b34ed33c87f))
+* raise resources suite mysql connections ([7d83dc3](https://github.com/sous-chefs/percona/commit/7d83dc337e30ad954b0ee3a660d19adf6d7dc11c))
+
 ## [5.0.0](https://github.com/sous-chefs/percona/compare/v4.0.2...v5.0.0) (2026-05-12)
 
 

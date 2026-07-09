@@ -16,7 +16,7 @@ server_config = {
   },
 }
 
-percona_version = node['percona']['version'] || '8.4'
+percona_version = node['percona'] ? node['percona']['version'] || '8.4' : '8.4'
 
 percona_server 'replication' do
   version percona_version

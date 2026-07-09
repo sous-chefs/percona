@@ -12,9 +12,35 @@ describe 'percona_repository' do
       percona_repository 'default'
     end
 
-    it { is_expected.to create_remote_file(%r{/percona-release.dpkg}) }
+    it { is_expected.to install_package(%w(ca-certificates curl)) }
+    it { is_expected.to run_execute('download percona-release dpkg') }
     it { is_expected.to install_dpkg_package('percona-release') }
     it { is_expected.to add_apt_repository('percona-ps-84-lts') }
+  end
+
+  context 'on ubuntu with Percona 8.0' do
+    platform 'ubuntu', '24.04'
+
+    recipe do
+      percona_repository 'default' do
+        version '8.0'
+      end
+    end
+
+    it { is_expected.to add_apt_repository('percona-ps-80') }
+  end
+
+  context 'on ubuntu with Percona XtraDB Cluster 8.0' do
+    platform 'ubuntu', '24.04'
+
+    recipe do
+      percona_repository 'default' do
+        version '8.0'
+        cluster true
+      end
+    end
+
+    it { is_expected.to add_apt_repository('percona-pxc-80') }
   end
 
   context 'on almalinux' do
@@ -31,6 +57,8 @@ describe 'percona_repository' do
       end
     end
 
+    it { is_expected.to install_package(%w(ca-certificates curl)) }
+    it { is_expected.to run_execute('download percona-release rpm') }
     it { is_expected.to install_package('percona-release') }
     it { is_expected.to create_yum_repository('percona-ps-84-lts') }
     it { is_expected.to disable_dnf_module('mysql') }

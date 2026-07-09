@@ -22,9 +22,11 @@ action :create do
   when 'debian'
     release_package = "#{Chef::Config[:file_cache_path]}/percona-release.dpkg"
 
-    remote_file release_package do
-      source 'https://repo.percona.com/apt/percona-release_latest.generic_all.deb'
-      action :create
+    package %w(ca-certificates curl)
+
+    execute 'download percona-release dpkg' do
+      command "curl --fail --location --show-error --silent --output #{release_package} https://repo.percona.com/apt/percona-release_latest.generic_all.deb"
+      creates release_package
       only_if { new_resource.install_release_package }
     end
 
@@ -67,9 +69,11 @@ action :create do
   when 'rhel', 'fedora', 'amazon'
     release_package = "#{Chef::Config[:file_cache_path]}/percona-release.rpm"
 
-    remote_file release_package do
-      source 'https://repo.percona.com/yum/percona-release-latest.noarch.rpm'
-      action :create
+    package %w(ca-certificates curl)
+
+    execute 'download percona-release rpm' do
+      command "curl --fail --location --show-error --silent --output #{release_package} https://repo.percona.com/yum/percona-release-latest.noarch.rpm"
+      creates release_package
       only_if { new_resource.install_release_package }
     end
 

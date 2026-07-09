@@ -9,7 +9,7 @@ server_config = {
   jemalloc: !(platform_family?('rhel') && node['platform_version'] >= '9'),
 }
 
-percona_version = node['percona']['version'] || '8.4'
+percona_version = node['percona'] ? node['percona']['version'] || '8.4' : '8.4'
 
 percona_cluster 'default' do
   version percona_version

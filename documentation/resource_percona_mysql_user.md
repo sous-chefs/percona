@@ -4,14 +4,14 @@ Manage Percona MySQL users and grant them privileges on database objects. Works 
 
 Terminology: This resource uses inclusive terms (`source/replica`) matching upstream MySQL. See README for details.
 
-See test suite examples in `test/fixtures/cookbooks/test/recipes/user_database.rb`.
+See test suite examples in `test/cookbooks/test/recipes/user_database.rb`.
 
 ## Actions
 
-- create - (default) to create a user
-- drop - to drop a user
-- grant - to grant privileges to a user
-- revoke - to revoke privileges from a user
+* create - (default) to create a user
+* drop - to drop a user
+* grant - to grant privileges to a user
+* revoke - to revoke privileges from a user
 
 ## Properties
 

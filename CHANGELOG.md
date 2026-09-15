@@ -286,4 +286,4 @@ Standardise files with files in sous-chefs/repo-management
 
 * Many changes
 
-[0.16.1]: https://github.com/sous-chefs/percona/compare/v0.16.0...v0.16.1
+[0.16.1]: <https://github.com/sous-chefs/percona/compare/v0.16.0...v0.16.1>

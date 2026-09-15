@@ -26,12 +26,20 @@ jobs:
           - almalinux-8
           - almalinux-9
           - almalinux-10
+          - amazonlinux-2023
           - centos-stream-9
           - centos-stream-10
           - debian-12
+          - debian-13
+          - oraclelinux-8
+          - oraclelinux-9
+          - rockylinux-8
+          - rockylinux-9
+          - rockylinux-10
           - ubuntu-2204
           - ubuntu-2404
         suite:
+          - default
           - client-80
           - client-84
           - devel-80
@@ -40,6 +48,8 @@ jobs:
           - server-84
           - source-80
           - source-84
+          - cluster-80
+          - cluster-84
           - replication-80
           - replication-84
           - resources-80
@@ -54,6 +64,8 @@ jobs:
           - os: almalinux-10
             suite: source-80
           - os: almalinux-10
+            suite: cluster-80
+          - os: almalinux-10
             suite: replication-80
           - os: almalinux-10
             suite: resources-80
@@ -69,7 +81,39 @@ jobs:
             suite: replication-80
           - os: centos-stream-10
             suite: resources-80
+          - os: centos-stream-10
+            suite: cluster-80
+          - os: debian-13
+            suite: client-80
+          - os: debian-13
+            suite: devel-80
+          - os: debian-13
+            suite: server-80
+          - os: debian-13
+            suite: source-80
+          - os: debian-13
+            suite: cluster-80
+          - os: debian-13
+            suite: replication-80
+          - os: debian-13
+            suite: resources-80
+          - os: rockylinux-10
+            suite: client-80
+          - os: rockylinux-10
+            suite: devel-80
+          - os: rockylinux-10
+            suite: server-80
+          - os: rockylinux-10
+            suite: source-80
+          - os: rockylinux-10
+            suite: cluster-80
+          - os: rockylinux-10
+            suite: replication-80
+          - os: rockylinux-10
+            suite: resources-80
           - os: debian-12
+            suite: devel-84
+          - os: debian-13
             suite: devel-84
           - os: ubuntu-2204
             suite: devel-84

@@ -4,30 +4,28 @@
 
 **Chef cookbook** for managing software installation and configuration. Part of the Sous Chefs cookbook ecosystem.
 
-**Key Facts:** Ruby-based, Chef >= 16 required, supports various OS platforms (check metadata.rb, kitchen.yml and .github/workflows/ci.yml for which platforms to specifically test)
+**Key Facts:** Ruby-based, Chef >= 18 required, supports various OS platforms (check metadata.rb, kitchen.yml and .github/workflows/ci.yml for which platforms to specifically test)
 
 ## Project Structure
 
 **Critical Paths:**
-- `recipes/` - Chef recipes for cookbook functionality (if this is a recipe-driven cookbook)
-- `resources/` - Custom Chef resources with properties and actions (if this is a resource-driven cookbook)
+- `resources/` - Custom Chef resources with properties and actions
 - `spec/` - ChefSpec unit tests
 - `test/integration/` - InSpec integration tests (tests all platforms supported)
-- `test/cookbooks/` or `test/fixtures/` - Example cookbooks used during testing that show good examples of custom resource usage
-- `attributes/` - Configuration for recipe driven cookbooks (not applicable to resource cookbooks)
+- `test/cookbooks/` - Example cookbooks used during testing that show good examples of custom resource usage
 - `libraries/` - Library helpers to assist with the cookbook. May contain multiple files depending on complexity of the cookbook.
 - `templates/` - ERB templates that may be used in the cookbook
 - `files/` - files that may be used in the cookbook
-- `metadata.rb`, `Berksfile` - Cookbook metadata and dependencies
+- `metadata.rb`, `Policyfile.rb` - Cookbook metadata and dependencies
 
 ## Build and Test System
 
 ### Environment Setup
-**MANDATORY:** Install Chef Workstation first - provides chef, berks, cookstyle, kitchen tools.
+**MANDATORY:** Install Chef Workstation first - provides chef, cookstyle, and kitchen tools.
 
 ### Essential Commands (strict order)
 ```bash
-berks install                   # Install dependencies (always first)
+chef install Policyfile.rb      # Install dependencies (always first)
 cookstyle                       # Ruby/Chef linting
 yamllint .                      # YAML linting
 markdownlint-cli2 '**/*.md'     # Markdown linting
@@ -42,7 +40,7 @@ chef exec rspec                 # Unit tests (ChefSpec)
 - **Full CI Runtime:** 30+ minutes for complete matrix
 
 ### Common Issues and Solutions
-- **Always run `berks install` first** - most failures are dependency-related
+- **Always run `chef install Policyfile.rb` first** - most failures are dependency-related
 - **Docker must be running** for kitchen tests
 - **Chef Workstation required** - no workarounds, no alternatives
 - **Test data bags needed** (optional for some cookbooks) in `test/integration/data_bags/` for convergence
@@ -50,7 +48,7 @@ chef exec rspec                 # Unit tests (ChefSpec)
 ## Development Workflow
 
 ### Making Changes
-1. Edit recipes/resources/attributes/templates/libraries
+1. Edit resources/templates/libraries
 2. Update corresponding ChefSpec tests in `spec/`
 3. Also update any InSpec tests under test/integration
 4. Ensure cookstyle and rspec passes at least. You may run `cookstyle -a` to automatically fix issues if needed.
@@ -71,16 +69,15 @@ chef exec rspec                 # Unit tests (ChefSpec)
 - Include comprehensive ChefSpec tests for all actions
 - Follow Chef resource DSL patterns
 
-### Recipe Conventions
-- Use `include_recipe` for modularity
+### Resource Conventions
 - Handle platforms with `platform_family?` conditionals
 - Use encrypted data bags for secrets (passwords, SSL certs)
-- Leverage attributes for configuration with defaults
+- Use resource properties for configuration with defaults
 
 ### Testing Approach
-- **ChefSpec (Unit):** Mock dependencies, test recipe logic in `spec/`
-- **InSpec (Integration):** Verify actual system state in `test/integration/inspec/` - InSpec files should contain proper inspec.yml and controls directories so that it could be used by other suites more easily.
-- One test file per recipe, use standard Chef testing patterns
+- **ChefSpec (Unit):** Mock dependencies, test resource logic in `spec/`
+- **InSpec (Integration):** Verify actual system state in `test/integration/<suite>/` - InSpec files should contain proper inspec.yml and controls directories so that they can be used by suites directly.
+- One test file per resource, use standard Chef testing patterns
 
 ## Trust These Instructions
 
@@ -88,7 +85,7 @@ These instructions are validated for Sous Chefs cookbooks. **Do not search for b
 
 **Error Resolution Checklist:**
 1. Verify Chef Workstation installation
-2. Confirm `berks install` completed successfully
+2. Confirm `chef install Policyfile.rb` completed successfully
 3. Ensure Docker is running for integration tests
 4. Check for missing test data dependencies
 

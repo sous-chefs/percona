@@ -13,9 +13,9 @@ MySQL cookbook as much as possible.)
 
 Optionally installs:
 
-- [XtraBackup](https://www.percona.com/software/mysql-database/percona-xtrabackup) hot backup software
-- [Percona Toolkit](https://www.percona.com/software/database-tools/percona-toolkit) advanced command-line tools
-- [XtraDB Cluster](https://www.percona.com/software/mysql-database/percona-xtradb-cluster) high availability and high scalability solution for MySQL.
+* [XtraBackup](https://www.percona.com/software/mysql-database/percona-xtrabackup) hot backup software
+* [Percona Toolkit](https://www.percona.com/software/database-tools/percona-toolkit) advanced command-line tools
+* [XtraDB Cluster](https://www.percona.com/software/mysql-database/percona-xtradb-cluster) high availability and high scalability solution for MySQL.
 
 ## Maintainers
 
@@ -27,45 +27,44 @@ This cookbook is maintained by the Sous Chefs. The Sous Chefs are a community of
 
 This cookbook supports the following platforms (64-bit):
 
-- AlmaLinux 8+
-- Rocky Linux 8+
-- CentOS Stream 9+
-- Debian 12+
-- Ubuntu 22.04+ LTS
+* AlmaLinux 8+
+* Rocky Linux 8+
+* CentOS Stream 9+
+* Debian 12+
+* Ubuntu 22.04+ LTS
 
 **Note:** EOL Percona Server 5.7 has been removed.
 
 ### Cookbooks
 
-- [yum-epel](https://supermarket.chef.io/cookbooks/yum-epel)
-- [line](https://supermarket.chef.io/cookbooks/line)
+* [yum](https://supermarket.chef.io/cookbooks/yum)
 
 ### Chef
 
 Chef >= 16 is required. Chef 17+ is recommended for full resource compatibility.
 
-## Recipes
+## Migration
 
-- `percona` - Default recipe, includes the client recipe.
-- `percona::package_repo` - Sets up Percona package repositories and installs common packages.
-- `percona::client` - Installs Percona MySQL client libraries.
-- `percona::server` - Installs and configures Percona MySQL server daemon.
-- `percona::backup` - Installs and configures Percona XtraBackup hot backup software.
-- `percona::toolkit` - Installs Percona Toolkit software.
-- `percona::cluster` - Installs Percona XtraDB Cluster server components.
-- `percona::configure_server` - Internal: manages server configuration.
-- `percona::replication` - Internal: grants permissions for replication.
-- `percona::access_grants` - Internal: grants permissions for recipes.
-- `percona::ssl` - Internal: sets up SSL certificates for server/client.
+This cookbook now exposes custom resources only. Recipes and node attributes were removed in the breaking custom resource migration. See [migration.md](migration.md) for replacement examples.
 
 ## Resources
 
-- [`percona_mysql_user`](documentation/resource_percona_mysql_user.md): Manage Percona MySQL users and privileges.
-- [`percona_mysql_database`](documentation/resource_percona_mysql_database.md): Manage Percona MySQL databases and execute SQL queries.
+* [`percona_repository`](documentation/resource_percona_repository.md): Manage Percona package repositories.
+* [`percona_client`](documentation/resource_percona_client.md): Install Percona client packages.
+* [`percona_server`](documentation/resource_percona_server.md): Install and configure Percona Server.
+* [`percona_server_config`](documentation/resource_percona_server_config.md): Manage server configuration files and service state.
+* [`percona_backup`](documentation/resource_percona_backup.md): Install Percona XtraBackup and backup grants.
+* [`percona_toolkit`](documentation/resource_percona_toolkit.md): Install Percona Toolkit.
+* [`percona_cluster`](documentation/resource_percona_cluster.md): Install and configure Percona XtraDB Cluster.
+* [`percona_ssl`](documentation/resource_percona_ssl.md): Manage replication SSL files.
+* [`percona_access_grants`](documentation/resource_percona_access_grants.md): Manage grant SQL.
+* [`percona_replication`](documentation/resource_percona_replication.md): Manage replication SQL.
+* [`percona_mysql_user`](documentation/resource_percona_mysql_user.md): Manage Percona MySQL users and privileges.
+* [`percona_mysql_database`](documentation/resource_percona_mysql_database.md): Manage Percona MySQL databases and execute SQL queries.
 
 ## Resource Documentation
 
-See [documentation/resource_percona_mysql_user.md](documentation/resource_percona_mysql_user.md) and [documentation/resource_percona_mysql_database.md](documentation/resource_percona_mysql_database.md) for full details on custom resources, properties, actions, and usage examples.
+See the files in [documentation/](documentation/) for full details on custom resources, properties, actions, and usage examples.
 
 ## Usage
 
@@ -78,24 +77,24 @@ This cookbook uses inclusive terminology, replacing terms such as `master/slave`
 
 This cookbook requires [Encrypted Data Bags](https://docs.chef.io/secrets/#encrypt-a-data-bag-item) for managing passwords and secrets. If you do not use encrypted data bags or override passwords via node attributes, empty passwords will be used (not recommended).
 
-By default, the cookbook expects a data bag named `passwords`. You can override this with `node['percona']['encrypted_data_bag']`. Optionally, specify a data bag secret file with `node['percona']['encrypted_data_bag_secret_file']`.
+By default, the cookbook expects a data bag named `passwords`. You can override this with the `encrypted_data_bag` property. Optionally, specify a data bag secret file with `encrypted_data_bag_secret_file`.
 
 Required items:
 
-- `mysql` (for MySQL/Percona passwords)
-- `system` (for system-level secrets)
+* `mysql` (for MySQL/Percona passwords)
+* `system` (for system-level secrets)
 
 Refer to Chef documentation for setup details. Example data bag items are provided in the test suite under `test/integration/data_bags/passwords/`.
 
-You also may set expected item names via attributes `node['percona']['encrypted_data_bag_item_mysql']` and `node['percona']['encrypted_data_bag_item_system']`.
+You also may set expected item names via `encrypted_data_bag_item_mysql` and `encrypted_data_bag_item_system`.
 
 ### Skip passwords
 
-Set the `['percona']['skip_passwords']` attribute to skip setting up passwords. Removes the need for the encrypted data bag if using chef-solo. Is useful for setting up development and ci environments where you just want to use the root user with no password. If you are doing this you may want to set `['percona']['server']['debian_username']` to be `"root"` also.
+Set the `skip_passwords` property to skip setting up passwords. This removes the need for the encrypted data bag if using chef-solo. It is useful for development and CI environments where you just want to use the root user with no password. If you do this, set `server_config(debian_username: 'root')` also.
 
 ### Skip Configure
 
-Set the `['percona']['skip_configure']` attribute to skip having the server recipe include the configure\_server recipe directly after install. This is mostly useful in a wrapper cookbook sort of context. Once skipped, you can then perform any pre-config actions your wrapper needs to, such as dropping a custom configuration file or init script or cleaning up incorrectly sized innodb logfiles. You can then include configure\_server where necessary.
+Set `configure_server false` on `percona_server` to skip server configuration directly after install. This is mostly useful in a wrapper cookbook context. You can then perform pre-configuration actions and call `percona_server_config` where necessary.
 
 #### mysql item
 
@@ -103,9 +102,9 @@ The mysql item should contain entries for root, backup, and replication. If no v
 
 #### system item
 
-The "system" item should contain an entry for the debian system user as specified in the `node['percona']['server']['debian_username']` attribute. If no such entry is found, the cookbook will fall back to the default non-encrypted password.
+The "system" item should contain an entry for the Debian system user specified in `server_config[:debian_username]`. If no such entry is found, the cookbook falls back to the resource property password.
 
-Example: "passwords" data bag - this example assumes that `node['percona']['server']['debian_username'] = spud`
+Example: "passwords" data bag - this example assumes that `server_config(debian_username: 'spud')` is used.
 
 ```javascript
 {
@@ -126,12 +125,12 @@ Above shows the encrypted password in the data bag. Check out the `encrypted_dat
 
 ### Install client development package
 
-To install the package including header files needed to compile software using the client library (`percona-server-devel` on Centos and `libperconaserverclient-dev` on Debian), set `node['percona']['client']['install_devel_package']` to `true`. This will add those packages to the list to be installed when running the `percona::client` recipe. This attribute is disabled by default.
+To install the package including header files needed to compile software using the client library (`percona-server-devel` on RHEL-family systems, `libperconaserverclient21-dev` for Percona 8.0 on Debian/Ubuntu, and `libperconaserverclient22-dev` for Percona 8.4 on Debian/Ubuntu), set `install_devel_package true` on `percona_client`. This property is disabled by default.
 
 ### Replication over SSL
 
-To enable SSL based replication, you will need to flip the attribute `node['percona']['server']['replication']['ssl_enabled']` to `true` and add a new data\_bag item
-to the percona encrypted data\_bag (see`node['percona']['encrypted_data_bag']` attribute) with the id `ssl_replication` ( see `node['percona']['encrypted_data_bag_item_ssl_replication']` attribute) that contains this data:
+To enable SSL based replication, set `server_config(replication: { ssl_enabled: true })` and add a data bag item
+to the Percona encrypted data bag with the id `ssl_replication` that contains this data:
 
 ```javascript
 {
@@ -193,9 +192,15 @@ Chef::Log.info "Using Percona XtraDB cluster address of: #{cluster_address}"
 node.override['percona']['cluster']['wsrep_cluster_address'] = cluster_address
 node.override['percona']['cluster']['wsrep_node_name'] = node['hostname']
 
-include_recipe 'percona::cluster'
-include_recipe 'percona::backup'
-include_recipe 'percona::toolkit'
+percona_cluster 'default' do
+  cluster_config(
+    wsrep_cluster_address: cluster_address,
+    wsrep_node_name: node['hostname']
+  )
+end
+
+percona_backup 'default'
+percona_toolkit 'default'
 ```
 
 Example percona role roles/percona.rb:
@@ -225,12 +230,18 @@ Now you need to bring three servers up one at a time with the percona role appli
 
 ## Explicit my.cnf templating
 
-In some situations it is preferable to explicitly define the attributes needed in a `my.cnf` file. This is enabled by adding categories to the `node['percona']['conf']` attributes. All keys found in the `node['percona']['conf']` map will represent categories in the `my.cnf` file. Each category contains a map of attributes that will be written to the `my.cnf` file for that category. See the example for more details.
+In some situations it is preferable to explicitly define the settings needed in a `my.cnf` file. This is enabled by passing categories through the `extra_config` property. All keys found in the `extra_config` map represent categories in the `my.cnf` file.
 
 ### Example
 
 ```ruby
-node['percona']['conf']['mysqld']['slow_query_log_file'] = "/var/lib/mysql/data/mysql-slow.log"
+percona_server 'default' do
+  extra_config(
+    mysqld: {
+      slow_query_log_file: '/var/lib/mysql/data/mysql-slow.log'
+    }
+  )
+end
 ```
 
 This configuration would write the `mysqld` category to the `my.cnf` file and have an attribute `slow_query_log_file` whose value would be `/var/lib/mysql/data/mysql-slow.log`.
@@ -244,33 +255,33 @@ slow_query_log_file = /var/lib/mysql/data/mysql-slow.log
 
 ## Dynamically setting the bind address
 
-There's a special attribute `node['percona']['server']['bind_to']` that allows you to dynamically set the bind address. This attribute accepts the values `"public_ip"`, `"private_ip"`, `"loopback"`, or and interface name like `"eth0"`. Based on this, the recipe will find a corresponding ipv4 address, and override the `node['percona']['server']['bind_address']` attribute.
+Set `server_config(bind_to: ...)` to dynamically set the bind address. This accepts `"public_ip"`, `"private_ip"`, `"loopback"`, or an interface name like `"eth0"`.
 
 ## Goals
 
 In no particular order:
 
-- Be the most flexible way to setup a MySQL distribution through Chef
-  - Support for Chef Solo
-  - Support for Chef Server
-- Support the following common database infrastructures:
-  - Single server instance
-  - Traditional Source/Replica replication
-  - Multi-source cluster replication
-- Support the most recent Chef runtime environments
-- Be the easiest way to setup a MySQL distribution through Chef
+* Be the most flexible way to setup a MySQL distribution through Chef
+  * Support for Chef Solo
+  * Support for Chef Server
+* Support the following common database infrastructures:
+  * Single server instance
+  * Traditional Source/Replica replication
+  * Multi-source cluster replication
+* Support the most recent Chef runtime environments
+* Be the easiest way to setup a MySQL distribution through Chef
 
 ## TODO
 
-- Fully support all of the standard Chef-supported distributions
+* Fully support all of the standard Chef-supported distributions
 
 ## Contributing
 
-- Fork it
-- Create your feature branch (`git checkout -b my-new-feature`)
-- Commit your changes (`git commit -am 'Added some feature'`)
-- Push to the branch (`git push origin my-new-feature`)
-- Create new Pull Request
+* Fork it
+* Create your feature branch (`git checkout -b my-new-feature`)
+* Commit your changes (`git commit -am 'Added some feature'`)
+* Push to the branch (`git push origin my-new-feature`)
+* Create new Pull Request
 
 ## Contributors
 
@@ -280,19 +291,19 @@ This project exists thanks to all the people who [contribute.](https://opencolle
 
 Thank you to all our backers!
 
-![https://opencollective.com/sous-chefs#backers](https://opencollective.com/sous-chefs/backers.svg?width=600&avatarHeight=40)
+![<https://opencollective.com/sous-chefs#backers](https://opencollective.com/sous-chefs/backers.svg?width=600&avatarHeight=40>)
 
 ### Sponsors
 
 Support this project by becoming a sponsor. Your logo will show up here with a link to your website.
 
-![https://opencollective.com/sous-chefs/sponsor/0/website](https://opencollective.com/sous-chefs/sponsor/0/avatar.svg?avatarHeight=100)
-![https://opencollective.com/sous-chefs/sponsor/1/website](https://opencollective.com/sous-chefs/sponsor/1/avatar.svg?avatarHeight=100)
-![https://opencollective.com/sous-chefs/sponsor/2/website](https://opencollective.com/sous-chefs/sponsor/2/avatar.svg?avatarHeight=100)
-![https://opencollective.com/sous-chefs/sponsor/3/website](https://opencollective.com/sous-chefs/sponsor/3/avatar.svg?avatarHeight=100)
-![https://opencollective.com/sous-chefs/sponsor/4/website](https://opencollective.com/sous-chefs/sponsor/4/avatar.svg?avatarHeight=100)
-![https://opencollective.com/sous-chefs/sponsor/5/website](https://opencollective.com/sous-chefs/sponsor/5/avatar.svg?avatarHeight=100)
-![https://opencollective.com/sous-chefs/sponsor/6/website](https://opencollective.com/sous-chefs/sponsor/6/avatar.svg?avatarHeight=100)
-![https://opencollective.com/sous-chefs/sponsor/7/website](https://opencollective.com/sous-chefs/sponsor/7/avatar.svg?avatarHeight=100)
-![https://opencollective.com/sous-chefs/sponsor/8/website](https://opencollective.com/sous-chefs/sponsor/8/avatar.svg?avatarHeight=100)
-![https://opencollective.com/sous-chefs/sponsor/9/website](https://opencollective.com/sous-chefs/sponsor/9/avatar.svg?avatarHeight=100)
+![<https://opencollective.com/sous-chefs/sponsor/0/website](https://opencollective.com/sous-chefs/sponsor/0/avatar.svg?avatarHeight=100>)
+![<https://opencollective.com/sous-chefs/sponsor/1/website](https://opencollective.com/sous-chefs/sponsor/1/avatar.svg?avatarHeight=100>)
+![<https://opencollective.com/sous-chefs/sponsor/2/website](https://opencollective.com/sous-chefs/sponsor/2/avatar.svg?avatarHeight=100>)
+![<https://opencollective.com/sous-chefs/sponsor/3/website](https://opencollective.com/sous-chefs/sponsor/3/avatar.svg?avatarHeight=100>)
+![<https://opencollective.com/sous-chefs/sponsor/4/website](https://opencollective.com/sous-chefs/sponsor/4/avatar.svg?avatarHeight=100>)
+![<https://opencollective.com/sous-chefs/sponsor/5/website](https://opencollective.com/sous-chefs/sponsor/5/avatar.svg?avatarHeight=100>)
+![<https://opencollective.com/sous-chefs/sponsor/6/website](https://opencollective.com/sous-chefs/sponsor/6/avatar.svg?avatarHeight=100>)
+![<https://opencollective.com/sous-chefs/sponsor/7/website](https://opencollective.com/sous-chefs/sponsor/7/avatar.svg?avatarHeight=100>)
+![<https://opencollective.com/sous-chefs/sponsor/8/website](https://opencollective.com/sous-chefs/sponsor/8/avatar.svg?avatarHeight=100>)
+![<https://opencollective.com/sous-chefs/sponsor/9/website](https://opencollective.com/sous-chefs/sponsor/9/avatar.svg?avatarHeight=100>)

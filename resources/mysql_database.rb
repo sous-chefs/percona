@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 #
 # Cookbook:: percona
 # Resource:: database
@@ -18,7 +19,6 @@ provides :percona_mysql_database
 unified_mode true
 
 include Percona::Cookbook::Helpers
-include Percona::Cookbook
 
 property :database_name, String,         name_property: true
 property :host,          [String, nil],  default: 'localhost', desired_state: false

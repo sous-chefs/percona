@@ -1,0 +1,4 @@
+---
+name: percona-default
+title: Percona default integration tests
+version: 0.1.0

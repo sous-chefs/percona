@@ -4,6 +4,17 @@ This file is used to list changes made in each version of the percona cookbook.
 
 Standardise files with files in sous-chefs/repo-management
 
+## [6.0.0](https://github.com/sous-chefs/percona/compare/v5.0.1...v6.0.0) (2026-11-26)
+
+
+### ⚠ BREAKING CHANGES
+
+* migrate percona to custom resources
+
+### Features
+
+* migrate percona to custom resources ([b47ba22](https://github.com/sous-chefs/percona/commit/b47ba229f188510dbc736833bc30ab63cc6728d2))
+
 ## [5.0.1](https://github.com/sous-chefs/percona/compare/v5.0.0...v5.0.1) (2026-07-09)
 
 

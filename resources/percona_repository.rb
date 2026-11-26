@@ -68,12 +68,22 @@ action :create do
     end
   when 'rhel', 'fedora', 'amazon'
     release_package = "#{Chef::Config[:file_cache_path]}/percona-release.rpm"
+    platform_major = node['platform_version'].to_i
+    pmm2_unavailable = (platform_family?('rhel') && platform_major >= 10) || (platform_family?('amazon') && platform_major == 2023)
 
-    package %w(ca-certificates curl)
+    if pmm2_unavailable
+      %w(percona-pmm2-client percona-pmm2-client-release).each do |repo|
+        yum_repository repo do
+          action :remove
+        end
+      end
+    end
 
-    execute 'download percona-release rpm' do
-      command "curl --fail --location --show-error --silent --output #{release_package} https://repo.percona.com/yum/percona-release-latest.noarch.rpm"
-      creates release_package
+    package 'ca-certificates'
+
+    remote_file release_package do
+      source 'https://repo.percona.com/yum/percona-release-latest.noarch.rpm'
+      action :create_if_missing
       only_if { new_resource.install_release_package }
     end
 
@@ -103,6 +113,8 @@ action :create do
       'percona-pmm2-client' => ['Percona Monitoring and Management Client', 'pmm2-client/yum/release/$releasever/RPMS/$basearch'],
       'percona-tools' => ['Percona Tools', 'tools/yum/release/$releasever/RPMS/$basearch'],
     }.each do |repo_name, repo_data|
+      next if pmm2_unavailable && repo_name == 'percona-pmm2-client'
+
       yum_repository repo_name do
         description repo_data.first
         baseurl "#{new_resource.yum_baseurl}/#{repo_data[1]}"

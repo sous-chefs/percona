@@ -57,11 +57,24 @@ describe 'percona_repository' do
       end
     end
 
-    it { is_expected.to install_package(%w(ca-certificates curl)) }
-    it { is_expected.to run_execute('download percona-release rpm') }
+    it { is_expected.to install_package('ca-certificates') }
+    it { is_expected.to create_remote_file_if_missing("#{Chef::Config[:file_cache_path]}/percona-release.rpm") }
     it { is_expected.to install_package('percona-release') }
     it { is_expected.to create_yum_repository('percona-ps-84-lts') }
     it { is_expected.to disable_dnf_module('mysql') }
+  end
+
+  context 'on AlmaLinux 10' do
+    platform 'almalinux', '10'
+    recipe { percona_repository 'default' }
+
+    stubs_for_provider('percona_repository[default]') do |provider|
+      allow(provider).to receive(:dnf_module_available?).with('mysql').and_return(false)
+    end
+
+    it { is_expected.to remove_yum_repository('percona-pmm2-client') }
+    it { is_expected.not_to create_yum_repository('percona-pmm2-client') }
+    it { is_expected.to create_yum_repository('percona-ps-84-lts') }
   end
 
   context 'on almalinux when the mysql dnf module is unavailable' do

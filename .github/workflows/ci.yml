@@ -139,14 +139,12 @@ jobs:
         uses: sous-chefs/.github/.github/actions/install-workstation@9.0.1
       - name: Install Policyfile
         run: chef install Policyfile.rb
-      # https://github.com/actions/virtual-environments/issues/181#issuecomment-610874237
-      - name: Unload the runner's MySQL AppArmor profile if present
+      - name: Isolate Dokken from the runner's MySQL AppArmor profile
         run: |
-          set -x
-          sudo apt-get -y remove mysql-server --purge
-          sudo apt-get -y install apparmor-profiles
-          if [ -f /etc/apparmor.d/usr.sbin.mysqld ]; then
-            sudo apparmor_parser -R /etc/apparmor.d/usr.sbin.mysqld
+          profiles=/sys/kernel/security/apparmor/profiles
+          if sudo test -r "$profiles" && sudo grep -q '^/usr/sbin/mysqld (' "$profiles"; then
+            # The host profile can remain loaded even when its source file is absent.
+            printf '%s\n' '/usr/sbin/mysqld { }' | sudo apparmor_parser --remove
           fi
       - name: Dokken
         uses: actionshub/test-kitchen@3.0.0

@@ -72,8 +72,10 @@ action :create do
     end
   when 'rhel', 'fedora', 'amazon'
     release_package = "#{Chef::Config[:file_cache_path]}/percona-release.rpm"
-    platform_major = node['platform_version'].to_i
-    pmm2_unavailable = rhel10_or_later? || (platform_family?('amazon') && platform_major == 2023)
+    amazon_linux_2023 = platform_family?('amazon') && node['platform_version'].to_i == 2023
+    # Amazon Linux DNF expands $releasever to the dated AMI version.
+    release_path = amazon_linux_2023 ? '2023' : '$releasever'
+    pmm2_unavailable = rhel10_or_later? || amazon_linux_2023
 
     if pmm2_unavailable
       %w(percona-pmm2-client percona-pmm2-client-release).each do |repo|
@@ -112,10 +114,10 @@ action :create do
     end
 
     {
-      'percona-release' => ['Percona Release', 'prel/yum/release/$releasever/RPMS/noarch'],
-      'percona-telemetry' => ['Percona Telemetry', 'telemetry/yum/release/$releasever/RPMS/$basearch'],
-      'percona-pmm2-client' => ['Percona Monitoring and Management Client', 'pmm2-client/yum/release/$releasever/RPMS/$basearch'],
-      'percona-tools' => ['Percona Tools', 'tools/yum/release/$releasever/RPMS/$basearch'],
+      'percona-release' => ['Percona Release', "prel/yum/release/#{release_path}/RPMS/noarch"],
+      'percona-telemetry' => ['Percona Telemetry', "telemetry/yum/release/#{release_path}/RPMS/$basearch"],
+      'percona-pmm2-client' => ['Percona Monitoring and Management Client', "pmm2-client/yum/release/#{release_path}/RPMS/$basearch"],
+      'percona-tools' => ['Percona Tools', "tools/yum/release/#{release_path}/RPMS/$basearch"],
     }.each do |repo_name, repo_data|
       next if pmm2_unavailable && repo_name == 'percona-pmm2-client'
 
@@ -132,7 +134,7 @@ action :create do
     percona_repo_names(version: new_resource.version, cluster: new_resource.cluster).each do |repo|
       yum_repository "percona-#{repo}" do
         description "#{new_resource.yum_description} - #{repo}"
-        baseurl "#{new_resource.yum_baseurl}/#{repo}/yum/release/$releasever/RPMS/$basearch"
+        baseurl "#{new_resource.yum_baseurl}/#{repo}/yum/release/#{release_path}/RPMS/$basearch"
         gpgkey new_resource.yum_gpgkey
         gpgcheck new_resource.yum_gpgcheck
         sslverify new_resource.yum_sslverify

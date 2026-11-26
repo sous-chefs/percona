@@ -33,6 +33,11 @@ control 'server' do
       it { should be_a_file }
       its('content') { should match /LimitNOFILE=16384/ }
     end
+
+    describe command('systemctl show --property=LimitNOFILE --value mysqld.service') do
+      its('exit_status') { should eq 0 }
+      its('stdout') { should match(/^16384$/) }
+    end
   end
 
   describe file '/root/.my.cnf' do

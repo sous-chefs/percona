@@ -18,6 +18,13 @@ property :systemd_open_files_limit, [Integer, nil], default: nil
 
 action_class do
   include Percona::Cookbook::Helpers
+
+  def reload_systemd_on_limit_change
+    execute 'reload systemd for Percona limits' do
+      command %w(systemctl daemon-reload)
+      action :nothing
+    end
+  end
 end
 
 action :install do
@@ -50,14 +57,23 @@ action :install do
     action new_resource.package_action
   end
 
-  systemd_unit 'mysqld.service.d/limits.conf' do
-    content(
-      'Service' => {
-        'LimitNOFILE' => (new_resource.systemd_open_files_limit || effective_server_config['open_files_limit']).to_s,
-      }
-    )
-    action :create
-    only_if { platform_family?('rhel', 'fedora', 'amazon') }
+  if platform_family?('rhel', 'fedora', 'amazon')
+    reload_systemd_on_limit_change
+
+    directory '/etc/systemd/system/mysqld.service.d' do
+      owner 'root'
+      group 'root'
+      mode '0755'
+    end
+
+    open_files_limit = new_resource.systemd_open_files_limit || effective_server_config['open_files_limit']
+    file '/etc/systemd/system/mysqld.service.d/limits.conf' do
+      content "[Service]\nLimitNOFILE=#{open_files_limit}\n"
+      owner 'root'
+      group 'root'
+      mode '0644'
+      notifies :run, 'execute[reload systemd for Percona limits]', :immediately
+    end
   end
 
   percona_server_config 'percona' do
@@ -112,9 +128,13 @@ action :install do
 end
 
 action :remove do
-  systemd_unit 'mysqld.service.d/limits.conf' do
-    action :delete
-    only_if { platform_family?('rhel', 'fedora', 'amazon') }
+  if platform_family?('rhel', 'fedora', 'amazon')
+    reload_systemd_on_limit_change
+
+    file '/etc/systemd/system/mysqld.service.d/limits.conf' do
+      action :delete
+      notifies :run, 'execute[reload systemd for Percona limits]', :immediately
+    end
   end
 
   package 'percona server package' do

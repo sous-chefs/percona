@@ -26,7 +26,7 @@ control 'client' do
     describe yum.repo "percona-ps-#{repo_ver}" do
       it { should exist }
       it { should be_enabled }
-      its('baseurl') { should cmp "https://repo.percona.com/ps-#{repo_ver}/yum/release/#{os_rel}/RPMS/x86_64" }
+      its('baseurl') { should cmp "https://repo.percona.com/ps-#{repo_ver}/yum/release/#{os_rel}/RPMS/#{os.arch}" }
     end
   end
 

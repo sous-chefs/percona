@@ -279,13 +279,11 @@ module Percona
           'wsrep_cluster_address' => '',
           'wsrep_slave_threads' => 2,
           'wsrep_cluster_name' => '',
-          'wsrep_sst_method' => 'rsync',
+          'wsrep_sst_method' => 'xtrabackup-v2',
           'wsrep_node_name' => '',
           'wsrep_notify_cmd' => '',
-          'wsrep_sst_auth' => '',
           'wsrep_sst_receive_interface' => nil,
           'wsrep_sst_receive_port' => '4444',
-          'innodb_locks_unsafe_for_binlog' => 1,
           'innodb_autoinc_lock_mode' => 2,
         }
       end

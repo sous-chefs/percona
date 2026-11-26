@@ -14,5 +14,5 @@ describe 'percona_cluster' do
 
   it { is_expected.to install_package('percona cluster package').with(package_name: 'percona-xtradb-cluster-server') }
   it { is_expected.to install_percona_client('percona cluster') }
-  it { is_expected.to create_percona_server_config('percona cluster') }
+  it { is_expected.to create_percona_server_config('percona cluster').with(cluster_config: hash_including('wsrep_sst_method' => 'xtrabackup-v2')) }
 end

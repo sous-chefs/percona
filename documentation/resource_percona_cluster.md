@@ -13,6 +13,8 @@ Installs Percona XtraDB Cluster and renders cluster-aware server configuration.
 * `server_config` - Server configuration hash.
 * `backup_config` - Backup user settings.
 
+Percona XtraDB Cluster defaults to `xtrabackup-v2` for state snapshot transfers. Current PXC versions manage the transfer account internally. Update existing wrappers that still pass the retired `rsync` method or the removed `wsrep_sst_auth` and `innodb_locks_unsafe_for_binlog` settings.
+
 ## Example
 
 ```ruby

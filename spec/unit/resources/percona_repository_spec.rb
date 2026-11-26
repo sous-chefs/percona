@@ -64,6 +64,14 @@ describe 'percona_repository' do
     it { is_expected.to disable_dnf_module('mysql') }
   end
 
+  context 'with the dedicated XtraBackup repository on Ubuntu' do
+    platform 'ubuntu', '24.04'
+
+    recipe { percona_repository('default') { include_backup true } }
+
+    it { is_expected.to add_apt_repository('percona-pxb-84-lts').with(uri: 'https://repo.percona.com/pxb-84-lts/apt') }
+  end
+
   context 'on Amazon Linux 2023' do
     platform 'amazon', '2023'
     recipe { percona_repository('default') { version '8.0' } }
@@ -75,6 +83,18 @@ describe 'percona_repository' do
     it { is_expected.to create_yum_repository('percona-release').with(baseurl: 'https://repo.percona.com/prel/yum/release/2023/RPMS/noarch') }
     it { is_expected.to create_yum_repository('percona-ps-80').with(baseurl: 'https://repo.percona.com/ps-80/yum/release/2023/RPMS/$basearch') }
     it { is_expected.not_to create_yum_repository('percona-pmm2-client') }
+    it { is_expected.not_to create_yum_repository('percona-pxb-80') }
+
+    context 'with the dedicated XtraBackup repository' do
+      recipe do
+        percona_repository 'default' do
+          version '8.0'
+          include_backup true
+        end
+      end
+
+      it { is_expected.to create_yum_repository('percona-pxb-80').with(baseurl: 'https://repo.percona.com/pxb-80/yum/release/2023/RPMS/$basearch') }
+    end
   end
 
   context 'on AlmaLinux 10' do

@@ -6,9 +6,16 @@ unified_mode true
 use '_partial/_repository'
 
 property :install_release_package, [true, false], default: true
+property :include_backup, [true, false], default: false
 
 action_class do
   include Percona::Cookbook::Helpers
+
+  def repositories
+    names = percona_repo_names(version: new_resource.version, cluster: new_resource.cluster)
+    names << (new_resource.version == '8.0' ? 'pxb-80' : 'pxb-84-lts') if new_resource.include_backup
+    names
+  end
 
   def dnf_module_available?(module_name)
     shell_out!("dnf -q module list #{module_name}", returns: [0, 1]).stdout.match?(/^#{Regexp.escape(module_name)}\s/m)
@@ -59,7 +66,7 @@ action :create do
       end
     end
 
-    percona_repo_names(version: new_resource.version, cluster: new_resource.cluster).each do |repo|
+    repositories.each do |repo|
       apt_repository "percona-#{repo}" do
         uri "#{new_resource.apt_uri}/#{repo}/apt"
         components ['main']
@@ -125,7 +132,7 @@ action :create do
       end
     end
 
-    percona_repo_names(version: new_resource.version, cluster: new_resource.cluster).each do |repo|
+    repositories.each do |repo|
       yum_repository "percona-#{repo}" do
         description "#{new_resource.yum_description} - #{repo}"
         baseurl "#{new_resource.yum_baseurl}/#{repo}/yum/release/#{release_path}/RPMS/$basearch"
@@ -146,20 +153,20 @@ action :delete do
       percona-telemetry
       percona-pmm2-client
       percona-tools
-    ).concat(percona_repo_names(version: new_resource.version, cluster: new_resource.cluster).map { |repo| "percona-#{repo}" }).each do |repo|
+    ).concat(repositories.map { |repo| "percona-#{repo}" }).each do |repo|
       apt_repository repo do
         action :remove
       end
     end
   when 'rhel', 'fedora', 'amazon'
-    repositories = %w(
+    rpm_repositories = %w(
       percona-release
       percona-telemetry
       percona-pmm2-client
       percona-tools
     )
-    repositories << 'percona-pt' if rhel10_or_later? || amazon_linux_2023?
-    repositories.concat(percona_repo_names(version: new_resource.version, cluster: new_resource.cluster).map { |repo| "percona-#{repo}" }).each do |repo|
+    rpm_repositories << 'percona-pt' if rhel10_or_later? || amazon_linux_2023?
+    rpm_repositories.concat(repositories.map { |repo| "percona-#{repo}" }).each do |repo|
       yum_repository repo do
         action :remove
       end

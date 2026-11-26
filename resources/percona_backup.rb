@@ -18,6 +18,7 @@ end
 action :install do
   percona_repository 'percona' do
     version new_resource.version
+    include_backup true
     apt_key new_resource.apt_key
     apt_uri new_resource.apt_uri
     yum_description new_resource.yum_description

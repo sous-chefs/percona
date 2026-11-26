@@ -43,8 +43,6 @@ action :create do
   )
   apply_legacy_template_config(config)
   server = config['server']
-  backup = config['backup']
-  cluster = config['cluster']
   mysqld = config['conf']['mysqld'] || {}
   passwords = password_helper
 
@@ -145,12 +143,6 @@ action :create do
     only_if { server['replication']['ssl_enabled'] }
   end
 
-  wsrep_sst_auth = if cluster && server['role'].include?('cluster') && cluster['wsrep_sst_auth'].empty?
-                     "#{backup['username']}:#{passwords.backup_password(backup['username'], backup['password'])}"
-                   else
-                     cluster['wsrep_sst_auth'].to_s
-                   end
-
   template new_resource.main_config_file || percona_default_config_file do
     cookbook 'percona'
     source server['role'].include?('cluster') ? 'my.cnf.cluster.erb' : 'my.cnf.main.erb'
@@ -162,7 +154,6 @@ action :create do
     force_unlink true
     variables(
       jemalloc_lib: percona_jemalloc_lib,
-      wsrep_sst_auth: wsrep_sst_auth,
       old_passwords: supports_old_passwords? ? passwords.old_passwords(server['old_passwords']) : nil
     )
     notifies :run, 'execute[setup mysql datadir]', :immediately

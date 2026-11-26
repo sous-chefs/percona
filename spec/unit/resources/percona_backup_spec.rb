@@ -14,6 +14,7 @@ describe 'percona_backup' do
       end
     end
 
+    it { is_expected.to create_percona_repository('percona').with(include_backup: true) }
     it { is_expected.to install_package('xtrabackup').with(package_name: 'percona-xtrabackup-84') }
   end
 

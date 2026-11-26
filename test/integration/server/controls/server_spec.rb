@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
+cluster = input('type', value: 'server') == 'cluster'
+
 control 'server' do
   desc 'Ensure Percona server is installed and configured.'
   impact 1.0
 
-  describe package 'percona-server-server' do
+  describe package(cluster ? 'percona-xtradb-cluster-server' : 'percona-server-server') do
     it { should be_installed }
   end
 
@@ -29,14 +31,16 @@ control 'server' do
       its('mode') { should cmp '0644' }
     end
 
-    describe file '/etc/systemd/system/mysqld.service.d/limits.conf' do
-      it { should be_a_file }
-      its('content') { should match /LimitNOFILE=16384/ }
-    end
+    unless cluster
+      describe file '/etc/systemd/system/mysqld.service.d/limits.conf' do
+        it { should be_a_file }
+        its('content') { should match /LimitNOFILE=16384/ }
+      end
 
-    describe command('systemctl show --property=LimitNOFILE --value mysqld.service') do
-      its('exit_status') { should eq 0 }
-      its('stdout') { should match(/^16384$/) }
+      describe command('systemctl show --property=LimitNOFILE --value mysqld.service') do
+        its('exit_status') { should eq 0 }
+        its('stdout') { should match(/^16384$/) }
+      end
     end
   end
 
@@ -63,6 +67,13 @@ control 'server' do
   describe service 'mysql' do
     it { should be_enabled }
     it { should be_running }
+  end
+
+  if cluster
+    describe command(%q(mysql --batch --skip-column-names -e "SHOW GLOBAL STATUS LIKE 'wsrep_ready'")) do
+      its('exit_status') { should eq 0 }
+      its('stdout') { should match(/^wsrep_ready\s+ON$/) }
+    end
   end
 
   describe port 3306 do

@@ -24,6 +24,13 @@ jobs:
   integration:
     needs: lint-unit
     runs-on: ubuntu-latest
+    env:
+      # Finish Git maintenance before Chef copies dependency clones.
+      GIT_CONFIG_COUNT: '2'
+      GIT_CONFIG_KEY_0: maintenance.autoDetach
+      GIT_CONFIG_VALUE_0: 'false'
+      GIT_CONFIG_KEY_1: gc.autoDetach
+      GIT_CONFIG_VALUE_1: 'false'
     strategy:
       matrix:
         os:
@@ -133,12 +140,14 @@ jobs:
       - name: Install Policyfile
         run: chef install Policyfile.rb
       # https://github.com/actions/virtual-environments/issues/181#issuecomment-610874237
-      - name: Disable apparmor for mysqld
+      - name: Unload the runner's MySQL AppArmor profile if present
         run: |
           set -x
           sudo apt-get -y remove mysql-server --purge
           sudo apt-get -y install apparmor-profiles
-          sudo apparmor_parser -R /etc/apparmor.d/usr.sbin.mysqld
+          if [ -f /etc/apparmor.d/usr.sbin.mysqld ]; then
+            sudo apparmor_parser -R /etc/apparmor.d/usr.sbin.mysqld
+          fi
       - name: Dokken
         uses: actionshub/test-kitchen@3.0.0
         env:

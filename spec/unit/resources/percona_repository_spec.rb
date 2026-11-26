@@ -18,6 +18,16 @@ describe 'percona_repository' do
     it { is_expected.to add_apt_repository('percona-ps-84-lts') }
   end
 
+  context 'on Debian 13' do
+    platform 'debian', '13'
+
+    recipe { percona_repository 'default' }
+
+    it { is_expected.to remove_apt_repository('percona-pmm2-client') }
+    it { is_expected.not_to add_apt_repository('percona-pmm2-client') }
+    it { is_expected.to add_apt_repository('percona-ps-84-lts') }
+  end
+
   context 'on ubuntu with Percona 8.0' do
     platform 'ubuntu', '24.04'
 

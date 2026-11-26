@@ -6,7 +6,7 @@ server_config = {
   datadir: '/tmp/mysql',
   debian_password: '0kb)F?Zj',
   root_password: '7tCk(V5I',
-  jemalloc: !(platform_family?('rhel') && node['platform_version'].to_i >= 9),
+  jemalloc: !platform_family?('rhel'),
   role: %w(source),
   replication: {
     host: 'source-host',

@@ -6,7 +6,7 @@ server_config = {
   datadir: '/tmp/mysql',
   debian_password: '0kb)F?Zj',
   root_password: '7tCk(V5I',
-  jemalloc: !(platform_family?('rhel') && node['platform_version'].to_i >= 9),
+  jemalloc: !platform_family?('rhel'),
 }
 
 percona_version = node['percona'] ? node['percona']['version'] || '8.4' : '8.4'
@@ -14,6 +14,7 @@ percona_version = node['percona'] ? node['percona']['version'] || '8.4' : '8.4'
 percona_cluster 'default' do
   version percona_version
   server_config server_config
+  bootstrap platform_family?('debian')
   # This kitchen instance is an isolated single-node cluster.
   cluster_config(wsrep_cluster_address: 'gcomm://', wsrep_cluster_name: 'kitchen')
   backup_config(password: 'I}=sJ2bS')

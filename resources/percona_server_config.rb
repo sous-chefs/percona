@@ -6,6 +6,7 @@ unified_mode true
 use '_partial/_config'
 
 property :cluster, [true, false], default: false
+property :bootstrap, [true, false], default: false
 property :selinux_module_url, String, default: ''
 
 action_class do
@@ -25,9 +26,19 @@ action_class do
   def supports_old_passwords?
     Gem::Version.new(new_resource.version.to_s) < Gem::Version.new('8.0')
   end
+
+  def bootstrap_service?(data_dir)
+    return false unless new_resource.bootstrap && new_resource.auto_restart
+    return false if shell_out('systemctl is-active --quiet mysql.service').exitstatus.zero?
+
+    shell_out('systemctl is-active --quiet mysql@bootstrap.service').exitstatus.zero? ||
+      !::File.file?(::File.join(data_dir, 'grastate.dat'))
+  end
 end
 
 action :create do
+  raise ArgumentError, 'bootstrap requires Percona XtraDB Cluster' if new_resource.bootstrap && !new_resource.cluster
+
   config = merged_percona_config(
     {
       'server' => new_resource.server_config,
@@ -121,9 +132,12 @@ action :create do
     not_if { mysqld.fetch('slow_query_logdir', server['slow_query_logdir']) == mysqld.fetch('logdir', server['logdir']) }
   end
 
-  service 'mysql' do
+  bootstrap = bootstrap_service?(mysqld.fetch('datadir', server['datadir']))
+  mysql_service = bootstrap ? 'mysql@bootstrap' : 'mysql'
+  service mysql_service do
     supports restart: true
-    action server['enable'] ? :enable : :disable
+    action :nothing
+    action(server['enable'] ? :enable : :disable) unless bootstrap
   end
 
   execute 'setup mysql datadir' do
@@ -157,7 +171,14 @@ action :create do
       old_passwords: supports_old_passwords? ? passwords.old_passwords(server['old_passwords']) : nil
     )
     notifies :run, 'execute[setup mysql datadir]', :immediately
-    notifies :restart, 'service[mysql]', :immediately if new_resource.auto_restart
+    notifies :restart, "service[#{mysql_service}]", :immediately if new_resource.auto_restart
+  end
+
+  if bootstrap
+    service 'start initial Percona cluster' do
+      service_name mysql_service
+      action :start
+    end
   end
 
   template '/root/.my.cnf' do
@@ -186,7 +207,7 @@ action :create do
     group 'root'
     mode '0640'
     sensitive true
-    notifies :restart, 'service[mysql]', :immediately if new_resource.auto_restart
+    notifies :restart, "service[#{mysql_service}]", :immediately if new_resource.auto_restart
     only_if { platform_family?('debian') }
   end
 end

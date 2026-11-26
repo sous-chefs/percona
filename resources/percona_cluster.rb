@@ -10,6 +10,7 @@ property :packages, Array, default: []
 property :package_action, Symbol, default: :install, equal_to: %i(install upgrade remove purge)
 property :configure_repository, [true, false], default: true
 property :configure_server, [true, false], default: true
+property :bootstrap, [true, false], default: false
 property :configure_grants, [true, false], default: true
 
 action_class do
@@ -54,6 +55,7 @@ action :install do
   percona_server_config 'percona cluster' do
     version new_resource.version
     cluster true
+    bootstrap new_resource.bootstrap
     server_config deep_merge(effective_server_config, 'role' => Array(effective_server_config['role']) | ['cluster'])
     backup_config new_resource.backup_config
     cluster_config effective_cluster_config

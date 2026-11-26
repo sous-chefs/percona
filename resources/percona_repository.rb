@@ -27,6 +27,15 @@ action :create do
 
   case node['platform_family']
   when 'debian'
+    pmm2_unavailable = platform?('debian') && node['platform_version'].to_i >= 13
+    if pmm2_unavailable
+      %w(percona-pmm2-client percona-pmm2-client-release).each do |repo|
+        apt_repository repo do
+          action :remove
+        end
+      end
+    end
+
     release_package = "#{Chef::Config[:file_cache_path]}/percona-release.dpkg"
 
     package %w(ca-certificates curl)
@@ -59,6 +68,8 @@ action :create do
       'percona-pmm2-client' => 'pmm2-client',
       'percona-tools' => 'tools',
     }.each do |repo_name, repo_path|
+      next if pmm2_unavailable && repo_name == 'percona-pmm2-client'
+
       apt_repository repo_name do
         uri "#{new_resource.apt_uri}/#{repo_path}/apt"
         components ['main']

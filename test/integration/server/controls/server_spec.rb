@@ -64,9 +64,15 @@ control 'server' do
     its('group') { should cmp 'mysql' }
   end
 
-  describe service 'mysql' do
-    it { should be_enabled }
-    it { should be_running }
+  if cluster && os.family == 'debian'
+    describe service 'mysql@bootstrap' do
+      it { should be_running }
+    end
+  else
+    describe service 'mysql' do
+      it { should be_enabled }
+      it { should be_running }
+    end
   end
 
   if cluster

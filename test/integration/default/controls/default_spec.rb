@@ -11,7 +11,9 @@ control 'client' do
   impact 1.0
 
   if os.family == 'debian'
-    %W(prel telemetry pmm2-client tools ps-#{repo_ver}).each do |repo|
+    repositories = %W(prel telemetry tools ps-#{repo_ver})
+    repositories << 'pmm2-client' unless os.name == 'debian' && os.release.to_i >= 13
+    repositories.each do |repo|
       describe apt "https://repo.percona.com/#{repo}/apt" do
         it { should exist }
         it { should be_enabled }

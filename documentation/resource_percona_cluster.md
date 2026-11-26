@@ -12,6 +12,7 @@ Installs Percona XtraDB Cluster and renders cluster-aware server configuration.
 * `cluster_config` - Hash of wsrep settings.
 * `server_config` - Server configuration hash.
 * `backup_config` - Backup user settings.
+* `bootstrap` - Use the package's `mysql@bootstrap` service to start the initial node. Default: `false`. Set it temporarily on the first node with `auto_restart true`. The cookbook leaves it disabled at boot and does not bootstrap an existing, stopped cluster. After other nodes join, clear the option, stop the bootstrap unit, and switch the first node to the normal MySQL service.
 
 Percona XtraDB Cluster defaults to `xtrabackup-v2` for state snapshot transfers. Current PXC versions manage the transfer account internally. Update existing wrappers that still pass the retired `rsync` method or the removed `wsrep_sst_auth` and `innodb_locks_unsafe_for_binlog` settings.
 

@@ -1,0 +1,4 @@
+---
+name: percona-resources
+title: Percona SQL resource integration tests
+version: 0.1.0

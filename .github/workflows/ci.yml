@@ -24,18 +24,33 @@ jobs:
   integration:
     needs: lint-unit
     runs-on: ubuntu-latest
+    env:
+      # Finish Git maintenance before Chef copies dependency clones.
+      GIT_CONFIG_COUNT: '2'
+      GIT_CONFIG_KEY_0: maintenance.autoDetach
+      GIT_CONFIG_VALUE_0: 'false'
+      GIT_CONFIG_KEY_1: gc.autoDetach
+      GIT_CONFIG_VALUE_1: 'false'
     strategy:
       matrix:
         os:
           - almalinux-8
           - almalinux-9
           - almalinux-10
+          - amazonlinux-2023
           - centos-stream-9
           - centos-stream-10
           - debian-12
+          - debian-13
+          - oraclelinux-8
+          - oraclelinux-9
+          - rockylinux-8
+          - rockylinux-9
+          - rockylinux-10
           - ubuntu-2204
           - ubuntu-2404
         suite:
+          - default
           - client-80
           - client-84
           - devel-80
@@ -44,6 +59,8 @@ jobs:
           - server-84
           - source-80
           - source-84
+          - cluster-80
+          - cluster-84
           - replication-80
           - replication-84
           - resources-80
@@ -58,6 +75,8 @@ jobs:
           - os: almalinux-10
             suite: source-80
           - os: almalinux-10
+            suite: cluster-80
+          - os: almalinux-10
             suite: replication-80
           - os: almalinux-10
             suite: resources-80
@@ -73,7 +92,39 @@ jobs:
             suite: replication-80
           - os: centos-stream-10
             suite: resources-80
+          - os: centos-stream-10
+            suite: cluster-80
+          - os: debian-13
+            suite: client-80
+          - os: debian-13
+            suite: devel-80
+          - os: debian-13
+            suite: server-80
+          - os: debian-13
+            suite: source-80
+          - os: debian-13
+            suite: cluster-80
+          - os: debian-13
+            suite: replication-80
+          - os: debian-13
+            suite: resources-80
+          - os: rockylinux-10
+            suite: client-80
+          - os: rockylinux-10
+            suite: devel-80
+          - os: rockylinux-10
+            suite: server-80
+          - os: rockylinux-10
+            suite: source-80
+          - os: rockylinux-10
+            suite: cluster-80
+          - os: rockylinux-10
+            suite: replication-80
+          - os: rockylinux-10
+            suite: resources-80
           - os: debian-12
+            suite: devel-84
+          - os: debian-13
             suite: devel-84
           - os: ubuntu-2204
             suite: devel-84
@@ -88,13 +139,13 @@ jobs:
         uses: sous-chefs/.github/.github/actions/install-workstation@9.0.1
       - name: Install Policyfile
         run: chef install Policyfile.rb
-      # https://github.com/actions/virtual-environments/issues/181#issuecomment-610874237
-      - name: Disable apparmor for mysqld
+      - name: Isolate Dokken from the runner's MySQL AppArmor profile
         run: |
-          set -x
-          sudo apt-get -y remove mysql-server --purge
-          sudo apt-get -y install apparmor-profiles
-          sudo apparmor_parser -R /etc/apparmor.d/usr.sbin.mysqld
+          profiles=/sys/kernel/security/apparmor/profiles
+          if sudo test -r "$profiles" && sudo grep -q '^/usr/sbin/mysqld (' "$profiles"; then
+            # The host profile can remain loaded even when its source file is absent.
+            printf '%s\n' '/usr/sbin/mysqld { }' | sudo apparmor_parser --remove
+          fi
       - name: Dokken
         uses: actionshub/test-kitchen@3.0.0
         env:

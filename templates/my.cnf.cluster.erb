@@ -91,10 +91,6 @@ wsrep_sst_method               = <%= node["percona"]["cluster"]["wsrep_sst_metho
 wsrep_node_name                = <%= node["percona"]["cluster"]["wsrep_node_name"] %>
 wsrep_notify_cmd               = <%= node["percona"]["cluster"]["wsrep_notify_cmd"] %>
 wsrep_sst_receive_address      = <%= node["percona"]["cluster"]["wsrep_sst_receive_address"] %>
-<%  unless @wsrep_sst_auth.empty? -%>
-wsrep_sst_auth                 = "<%= @wsrep_sst_auth %>"
-<% end -%>
-innodb_locks_unsafe_for_binlog = <%= node["percona"]["cluster"]["innodb_locks_unsafe_for_binlog"] %>
 innodb_autoinc_lock_mode       = <%= node["percona"]["cluster"]["innodb_autoinc_lock_mode"] %>
 
 <% if @old_passwords -%>
@@ -442,7 +438,9 @@ skip-innodb
 # This config file assumes a main memory of at least 8G
 innodb_buffer_pool_size       = <%= node["percona"]["server"]["innodb_buffer_pool_size"] %>
 innodb_buffer_pool_instances  = <%= node["percona"]["server"]["innodb_buffer_pool_instances"] %>
+<% if node["percona"]["version"] == '8.4' -%>
 innodb_buffer_pool_populate   = <%= node["percona"]["server"]["innodb_buffer_pool_populate"] %>
+<% end -%>
 
 # InnoDB stores data in one or more data files forming the tablespace.
 # If you have a single logical drive for your data, a single

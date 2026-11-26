@@ -75,6 +75,7 @@ describe 'percona_repository' do
     it { is_expected.to remove_yum_repository('percona-pmm2-client') }
     it { is_expected.not_to create_yum_repository('percona-pmm2-client') }
     it { is_expected.to create_yum_repository('percona-ps-84-lts') }
+    it { is_expected.not_to create_yum_repository('percona-pt') }
   end
 
   context 'on almalinux when the mysql dnf module is unavailable' do

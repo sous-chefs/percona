@@ -22,6 +22,16 @@ action :install do
     only_if { new_resource.configure_repository }
   end
 
+  if platform_family?('rhel') && node['platform_version'].to_i >= 10 && new_resource.configure_repository
+    yum_repository 'percona-pt' do
+      description 'Percona Toolkit'
+      baseurl "#{new_resource.yum_baseurl}/pt/yum/release/$releasever/RPMS/$basearch"
+      gpgkey new_resource.yum_gpgkey
+      gpgcheck new_resource.yum_gpgcheck
+      sslverify new_resource.yum_sslverify
+    end
+  end
+
   package 'percona-toolkit' do
     action new_resource.package_action
   end

@@ -5,7 +5,7 @@ license           'Apache-2.0'
 description       'Provides custom resources for Percona Server, XtraBackup, Toolkit, and XtraDB Cluster'
 source_url        'https://github.com/sous-chefs/percona'
 issues_url        'https://github.com/sous-chefs/percona/issues'
-version           '5.0.1'
+version           '6.0.0'
 chef_version      '>= 18.0'
 
 depends 'yum'

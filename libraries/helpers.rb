@@ -14,6 +14,19 @@ module Percona
         version
       end
 
+      def amazon_linux_2023?
+        platform_family?('amazon') && node['platform_version'].to_i == 2023
+      end
+
+      def rhel10_or_later?
+        platform_family?('rhel') && node['platform_version'].to_i >= 10
+      end
+
+      def percona_rpm_release_path
+        # Amazon Linux DNF expands $releasever to the dated AMI version.
+        amazon_linux_2023? ? '2023' : '$releasever'
+      end
+
       def percona_repo_names(options = {})
         version = options.fetch(:version, new_resource.version)
         cluster = options.fetch(:cluster, false)

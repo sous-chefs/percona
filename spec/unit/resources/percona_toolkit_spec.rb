@@ -24,4 +24,10 @@ describe 'percona_toolkit' do
       it { is_expected.to install_package('percona-toolkit') }
     end
   end
+
+  context 'on Amazon Linux 2023' do
+    platform 'amazon', '2023'
+
+    it { is_expected.to create_yum_repository('percona-pt').with(baseurl: 'https://repo.percona.com/pt/yum/release/2023/RPMS/$basearch') }
+  end
 end

@@ -13,10 +13,6 @@ action_class do
   def dnf_module_available?(module_name)
     shell_out!("dnf -q module list #{module_name}", returns: [0, 1]).stdout.match?(/^#{Regexp.escape(module_name)}\s/m)
   end
-
-  def rhel10_or_later?
-    platform_family?('rhel') && node['platform_version'].to_i >= 10
-  end
 end
 
 action :create do
@@ -72,10 +68,8 @@ action :create do
     end
   when 'rhel', 'fedora', 'amazon'
     release_package = "#{Chef::Config[:file_cache_path]}/percona-release.rpm"
-    amazon_linux_2023 = platform_family?('amazon') && node['platform_version'].to_i == 2023
-    # Amazon Linux DNF expands $releasever to the dated AMI version.
-    release_path = amazon_linux_2023 ? '2023' : '$releasever'
-    pmm2_unavailable = rhel10_or_later? || amazon_linux_2023
+    release_path = percona_rpm_release_path
+    pmm2_unavailable = rhel10_or_later? || amazon_linux_2023?
 
     if pmm2_unavailable
       %w(percona-pmm2-client percona-pmm2-client-release).each do |repo|
@@ -164,7 +158,7 @@ action :delete do
       percona-pmm2-client
       percona-tools
     )
-    repositories << 'percona-pt' if rhel10_or_later?
+    repositories << 'percona-pt' if rhel10_or_later? || amazon_linux_2023?
     repositories.concat(percona_repo_names(version: new_resource.version, cluster: new_resource.cluster).map { |repo| "percona-#{repo}" }).each do |repo|
       yum_repository repo do
         action :remove

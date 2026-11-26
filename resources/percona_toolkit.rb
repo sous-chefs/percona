@@ -8,6 +8,10 @@ use '_partial/_repository'
 property :package_action, Symbol, default: :install, equal_to: %i(install upgrade remove purge)
 property :configure_repository, [true, false], default: true
 
+action_class do
+  include Percona::Cookbook::Helpers
+end
+
 action :install do
   percona_repository 'percona' do
     version new_resource.version
@@ -22,10 +26,10 @@ action :install do
     only_if { new_resource.configure_repository }
   end
 
-  if platform_family?('rhel') && node['platform_version'].to_i >= 10 && new_resource.configure_repository
+  if new_resource.configure_repository && (rhel10_or_later? || amazon_linux_2023?)
     yum_repository 'percona-pt' do
       description 'Percona Toolkit'
-      baseurl "#{new_resource.yum_baseurl}/pt/yum/release/$releasever/RPMS/$basearch"
+      baseurl "#{new_resource.yum_baseurl}/pt/yum/release/#{percona_rpm_release_path}/RPMS/$basearch"
       gpgkey new_resource.yum_gpgkey
       gpgcheck new_resource.yum_gpgcheck
       sslverify new_resource.yum_sslverify
